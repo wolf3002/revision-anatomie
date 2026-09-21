@@ -197,6 +197,46 @@ def test_planche_avec_slide_hors_plage_est_signalee():
     assert any("p1" in e and "300" in e for e in erreurs)
 
 
+def test_pastille_middle_dont_le_libelle_deborde_est_signalee():
+    # viewBox de hauteur 100 ; pastille middle a y=90 -> libelle a 90+24=114, hors cadre.
+    cours = cours_minimal(
+        planches=[
+            {
+                "id": "p1",
+                "titre": "T",
+                "vb": "0 0 100 100",
+                "dessin": "<g><circle cx='5' cy='5' r='2'/></g>",
+                "pastilles": [
+                    {"n": 1, "x": 50, "y": 90, "t": "A", "ancre": "middle"}
+                ],
+            }
+        ]
+    )
+    erreurs = valider_cours(cours)
+    assert any("p1" in e and "decale" in e for e in erreurs)
+    # message distinct de celui de la pastille hors cadre (defaut deja teste ailleurs)
+    assert not any("hors du cadre" in e for e in erreurs)
+
+
+def test_pastille_middle_avec_marge_suffisante_est_acceptee():
+    # viewBox de hauteur 100 ; pastille middle a y=70 -> libelle a 70+24=94, dans le cadre.
+    cours = cours_minimal(
+        planches=[
+            {
+                "id": "p1",
+                "titre": "T",
+                "vb": "0 0 100 100",
+                "dessin": "<g><circle cx='5' cy='5' r='2'/></g>",
+                "pastilles": [
+                    {"n": 1, "x": 50, "y": 70, "t": "A", "ancre": "middle"}
+                ],
+                "slide": 9,
+            }
+        ]
+    )
+    assert valider_cours(cours) == []
+
+
 def test_pastille_avec_ancre_invalide_est_signalee():
     cours = cours_minimal(
         planches=[

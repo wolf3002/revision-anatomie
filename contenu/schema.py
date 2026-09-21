@@ -9,9 +9,11 @@ CHAMPS_CARTE = ("id", "q", "r")
 CHAMPS_QUIZ = ("id", "q", "choix", "bonne", "expl")
 CHAMPS_MUSCLE = ("nom", "origine", "terminaison", "actions")
 
-# Ancres reconnues par le rendu du site (fonction DECALAGE_LIBELLE cote front) :
-# start/end decalent le libelle a cote de la pastille, middle le pose en dessous.
-ANCRES_VALIDES = {"start", "end", "middle"}
+# Decalage du libelle par rapport a sa pastille, selon l'ancrage.
+# 'middle' pose le texte SOUS la pastille : le decaler horizontalement le ferait
+# passer par-dessus, le texte etant centre sur son point d'ancrage.
+DECALAGE_LIBELLE = {"start": (14, 4), "end": (-14, 4), "middle": (0, 24)}
+ANCRES_VALIDES = set(DECALAGE_LIBELLE)
 
 
 def valider_cours(cours):
@@ -123,11 +125,20 @@ def valider_planche(planche, bornes=None):
             erreurs.append(
                 f"planche {identifiant} : pastille {pastille.get('n')} sans libelle"
             )
-        if pastille.get("ancre") not in ANCRES_VALIDES:
+        ancre = pastille.get("ancre")
+        if ancre not in ANCRES_VALIDES:
             erreurs.append(
                 f"planche {identifiant} : pastille {pastille.get('n')} a une ancre "
-                f"invalide ({pastille.get('ancre')!r}) ; attendu start, end ou middle"
+                f"invalide ({ancre!r}) ; attendu start, end ou middle"
             )
+        else:
+            dx, dy = DECALAGE_LIBELLE[ancre]
+            lx, ly = pastille.get("x", -1) + dx, pastille.get("y", -1) + dy
+            if not 0 <= lx <= largeur or not 0 <= ly <= hauteur:
+                erreurs.append(
+                    f"planche {identifiant} : pastille {pastille.get('n')} a un "
+                    "libelle qui sort du cadre une fois decale selon son ancre"
+                )
         if "indice" in pastille and not (pastille.get("indice") or "").strip():
             erreurs.append(
                 f"planche {identifiant} : pastille {pastille.get('n')} a un indice vide"

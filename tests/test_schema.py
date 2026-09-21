@@ -197,6 +197,47 @@ def test_planche_avec_slide_hors_plage_est_signalee():
     assert any("p1" in e and "300" in e for e in erreurs)
 
 
+def test_pastille_avec_ancre_invalide_est_signalee():
+    cours = cours_minimal(
+        planches=[
+            {
+                "id": "p1",
+                "titre": "T",
+                "vb": "0 0 100 100",
+                "dessin": "<g><circle cx='5' cy='5' r='2'/></g>",
+                "pastilles": [
+                    {"n": 1, "x": 10, "y": 10, "t": "A", "ancre": "centre"}
+                ],
+            }
+        ]
+    )
+    assert any("p1" in e and "ancre" in e for e in valider_cours(cours))
+
+
+def test_pastille_avec_indice_vide_est_signalee():
+    cours = cours_minimal(
+        planches=[
+            {
+                "id": "p1",
+                "titre": "T",
+                "vb": "0 0 100 100",
+                "dessin": "<g><circle cx='5' cy='5' r='2'/></g>",
+                "pastilles": [
+                    {
+                        "n": 1,
+                        "x": 10,
+                        "y": 10,
+                        "t": "A",
+                        "ancre": "start",
+                        "indice": "   ",
+                    }
+                ],
+            }
+        ]
+    )
+    assert any("p1" in e and "indice" in e for e in valider_cours(cours))
+
+
 def test_valider_planche_seule_sans_bornes_accepte_absence_de_slide():
     from contenu.schema import valider_planche
 

@@ -9,6 +9,10 @@ CHAMPS_CARTE = ("id", "q", "r")
 CHAMPS_QUIZ = ("id", "q", "choix", "bonne", "expl")
 CHAMPS_MUSCLE = ("nom", "origine", "terminaison", "actions")
 
+# Ancres reconnues par le rendu du site (fonction DECALAGE_LIBELLE cote front) :
+# start/end decalent le libelle a cote de la pastille, middle le pose en dessous.
+ANCRES_VALIDES = {"start", "end", "middle"}
+
 
 def valider_cours(cours):
     erreurs = []
@@ -118,6 +122,15 @@ def valider_planche(planche, bornes=None):
         if not (pastille.get("t") or "").strip():
             erreurs.append(
                 f"planche {identifiant} : pastille {pastille.get('n')} sans libelle"
+            )
+        if pastille.get("ancre") not in ANCRES_VALIDES:
+            erreurs.append(
+                f"planche {identifiant} : pastille {pastille.get('n')} a une ancre "
+                f"invalide ({pastille.get('ancre')!r}) ; attendu start, end ou middle"
+            )
+        if "indice" in pastille and not (pastille.get("indice") or "").strip():
+            erreurs.append(
+                f"planche {identifiant} : pastille {pastille.get('n')} a un indice vide"
             )
     numeros = sorted(p.get("n") for p in pastilles)
     if numeros and numeros != list(range(1, len(numeros) + 1)):

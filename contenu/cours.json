@@ -93,60 +93,66 @@
           ]
         }
       ],
-"planches": [
+      "planches": [
         {
           "id": "plans-anatomiques",
           "titre": "Les trois plans anatomiques",
-          "vb": "0 0 720 320",
+          "vb": "0 0 720 360",
           "dessin": "<defs><marker id='fleche' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0 0 L10 5 L0 10 Z' fill='currentColor'/></marker></defs><g class='corps' fill='none' stroke='currentColor' stroke-width='2'><circle cx='120' cy='40' r='20'/><path d='M120 60 L120 160'/><path d='M120 78 L82 122 M120 78 L158 122'/><path d='M120 160 L90 248 M120 160 L150 248'/></g><g class='plan plan--frontal' fill='none' stroke='currentColor'><path d='M75 15 L165 15 L165 255 L75 255 Z' stroke-dasharray='5 4' stroke-width='1.5'/><path d='M158 122 Q186 96 180 74' stroke-width='2' marker-end='url(#fleche)'/></g><g class='corps' fill='none' stroke='currentColor' stroke-width='2'><circle cx='360' cy='40' r='18'/><path d='M360 58 L360 150'/><path d='M360 80 L388 118'/><path d='M360 150 L372 205 L345 232'/></g><g class='plan plan--sagittal' fill='none' stroke='currentColor'><path d='M335 15 L402 15 L402 255 L335 255 Z' stroke-dasharray='5 4' stroke-width='1.5'/><path d='M380 197 Q398 215 374 233' stroke-width='2' marker-end='url(#fleche)'/></g><g class='corps' fill='none' stroke='currentColor' stroke-width='2'><circle cx='600' cy='40' r='20'/><path d='M600 60 L600 160'/><path d='M600 78 L562 122 M600 78 L638 122'/><path d='M600 160 L570 248 M600 160 L630 248'/></g><g class='plan plan--transversal' fill='none' stroke='currentColor'><ellipse cx='600' cy='112' rx='55' ry='16' stroke-dasharray='5 4' stroke-width='1.5'/><path d='M640 106 A44 15 0 0 1 560 106' stroke-width='2' marker-end='url(#fleche)'/></g>",
           "pastilles": [
             {
               "n": 1,
               "x": 120,
-              "y": 272,
+              "y": 268,
               "t": "Plan frontal",
               "ancre": "middle",
-              "plan": "frontal"
+              "plan": "frontal",
+              "indice": "nom du plan"
             },
             {
               "n": 2,
               "x": 120,
-              "y": 294,
+              "y": 308,
               "t": "Abduction, adduction",
               "ancre": "middle",
-              "plan": "frontal"
+              "plan": "frontal",
+              "indice": "mouvements de ce plan"
             },
             {
               "n": 3,
               "x": 360,
-              "y": 272,
+              "y": 268,
               "t": "Plan sagittal",
               "ancre": "middle",
-              "plan": "sagittal"
+              "plan": "sagittal",
+              "indice": "nom du plan"
             },
             {
               "n": 4,
               "x": 360,
-              "y": 294,
+              "y": 308,
               "t": "Flexion, extension",
               "ancre": "middle",
-              "plan": "sagittal"
+              "plan": "sagittal",
+              "indice": "mouvements de ce plan"
             },
             {
               "n": 5,
               "x": 600,
-              "y": 272,
+              "y": 268,
               "t": "Plan transversal",
               "ancre": "middle",
-              "plan": "transversal"
+              "plan": "transversal",
+              "indice": "nom du plan"
             },
             {
               "n": 6,
               "x": 600,
-              "y": 294,
+              "y": 308,
               "t": "Rotation, pronation, supination",
               "ancre": "middle",
-              "plan": "transversal"
+              "plan": "transversal",
+              "indice": "mouvements de ce plan"
             }
           ],
           "slide": 15

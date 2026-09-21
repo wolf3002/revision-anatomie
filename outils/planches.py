@@ -93,11 +93,19 @@ def _panel_transversal(cx):
     return corps + plan
 
 
+# Correction ronde 2 : le rendu du site decale un libelle "middle" de (0, +24) --
+# il est pose SOUS la pastille, pas centre dessus (formule DECALAGE_LIBELLE du front).
+# Les deux pastilles empilees sous chaque panneau doivent donc laisser 24 px plus la
+# hauteur du texte entre elles, et le viewBox doit laisser cette place sous la seconde.
+# D'ou une hauteur de viewBox agrandie (320 -> 360) et des pastilles remontees.
+_Y_NOM = 268
+_Y_MOUVEMENTS = 308
+
 PLANCHES = {
     "plans-anatomiques": {
         "id": "plans-anatomiques",
         "titre": "Les trois plans anatomiques",
-        "vb": "0 0 720 320",
+        "vb": "0 0 720 360",
         "dessin": (
             _DEFS_FLECHE
             + _panel_frontal(_PANEL_CX["frontal"])
@@ -108,50 +116,56 @@ PLANCHES = {
             {
                 "n": 1,
                 "x": _PANEL_CX["frontal"],
-                "y": 272,
+                "y": _Y_NOM,
                 "t": "Plan frontal",
                 "ancre": "middle",
                 "plan": "frontal",
+                "indice": "nom du plan",
             },
             {
                 "n": 2,
                 "x": _PANEL_CX["frontal"],
-                "y": 294,
+                "y": _Y_MOUVEMENTS,
                 "t": "Abduction, adduction",
                 "ancre": "middle",
                 "plan": "frontal",
+                "indice": "mouvements de ce plan",
             },
             {
                 "n": 3,
                 "x": _PANEL_CX["sagittal"],
-                "y": 272,
+                "y": _Y_NOM,
                 "t": "Plan sagittal",
                 "ancre": "middle",
                 "plan": "sagittal",
+                "indice": "nom du plan",
             },
             {
                 "n": 4,
                 "x": _PANEL_CX["sagittal"],
-                "y": 294,
+                "y": _Y_MOUVEMENTS,
                 "t": "Flexion, extension",
                 "ancre": "middle",
                 "plan": "sagittal",
+                "indice": "mouvements de ce plan",
             },
             {
                 "n": 5,
                 "x": _PANEL_CX["transversal"],
-                "y": 272,
+                "y": _Y_NOM,
                 "t": "Plan transversal",
                 "ancre": "middle",
                 "plan": "transversal",
+                "indice": "nom du plan",
             },
             {
                 "n": 6,
                 "x": _PANEL_CX["transversal"],
-                "y": 294,
+                "y": _Y_MOUVEMENTS,
                 "t": "Rotation, pronation, supination",
                 "ancre": "middle",
                 "plan": "transversal",
+                "indice": "mouvements de ce plan",
             },
         ],
     },

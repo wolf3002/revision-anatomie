@@ -163,3 +163,48 @@ def test_mention_hors_cours_autorise_une_slide_absente():
         ]
     )
     assert valider_cours(cours) == []
+
+
+def test_planche_sans_slide_est_signalee():
+    cours = cours_minimal(
+        planches=[
+            {
+                "id": "p1",
+                "titre": "T",
+                "vb": "0 0 100 100",
+                "dessin": "<g><circle cx='5' cy='5' r='2'/></g>",
+                "pastilles": [{"n": 1, "x": 10, "y": 10, "t": "A", "ancre": "start"}],
+            }
+        ]
+    )
+    assert any("p1" in e and "slide" in e for e in valider_cours(cours))
+
+
+def test_planche_avec_slide_hors_plage_est_signalee():
+    cours = cours_minimal(
+        planches=[
+            {
+                "id": "p1",
+                "titre": "T",
+                "vb": "0 0 100 100",
+                "dessin": "<g><circle cx='5' cy='5' r='2'/></g>",
+                "pastilles": [{"n": 1, "x": 10, "y": 10, "t": "A", "ancre": "start"}],
+                "slide": 300,
+            }
+        ]
+    )
+    erreurs = valider_cours(cours)
+    assert any("p1" in e and "300" in e for e in erreurs)
+
+
+def test_valider_planche_seule_sans_bornes_accepte_absence_de_slide():
+    from contenu.schema import valider_planche
+
+    planche = {
+        "id": "p1",
+        "titre": "T",
+        "vb": "0 0 100 100",
+        "dessin": "<g><circle cx='5' cy='5' r='2'/></g>",
+        "pastilles": [{"n": 1, "x": 10, "y": 10, "t": "A", "ancre": "start"}],
+    }
+    assert valider_planche(planche) == []

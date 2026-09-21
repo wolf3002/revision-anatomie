@@ -38,7 +38,7 @@ def _valider_chapitre(chapitre, vus):
     for piege in chapitre.get("pieges", []):
         erreurs += _valider_slide(piege, bornes, piege.get("titre", "piege"))
     for planche in chapitre.get("planches", []):
-        erreurs += valider_planche(planche)
+        erreurs += valider_planche(planche, bornes)
     return erreurs
 
 
@@ -92,7 +92,7 @@ def _valider_muscle(muscle, bornes):
     return erreurs
 
 
-def valider_planche(planche):
+def valider_planche(planche, bornes=None):
     erreurs = []
     identifiant = planche.get("id", "<sans id>")
     if "<text" in (planche.get("dessin") or ""):
@@ -124,4 +124,6 @@ def valider_planche(planche):
         erreurs.append(
             f"planche {identifiant} : numerotation des pastilles non contigue"
         )
+    if bornes is not None:
+        erreurs += _valider_slide(planche, bornes, f"planche {identifiant}")
     return erreurs

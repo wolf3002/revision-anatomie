@@ -51,9 +51,9 @@ def test_les_notions_cles_du_chapitre_sont_couvertes():
         "circumduction",
         "proximal",
         "distal",
-        "medial",
-        "lateral",
-        "cranial",
+        "médial",
+        "latéral",
+        "crânial",
         "caudal",
     ):
         assert notion in texte, f"notion absente du chapitre 1 : {notion}"

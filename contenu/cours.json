@@ -1,0 +1,463 @@
+{
+  "meta": {
+    "cours": "UC1 — Anatomie",
+    "auteur": "ADJ Robichon",
+    "source": "ANATOMIE _230831_213333.pdf",
+    "slides": 328
+  },
+  "chapitres": [
+    {
+      "num": 1,
+      "titre": "Terminologie anatomique",
+      "slides": [7, 45],
+      "sections": [
+        {
+          "titre": "La position anatomique",
+          "slide": 9,
+          "points": [
+            "Définition de convention internationale : « Corps humain, vivant, debout, les membres supérieurs allongés le long du corps, la paume des mains tournée en avant, le regard droit et horizontal. »",
+            "Toutes les descriptions anatomiques se réfèrent à cette position."
+          ]
+        },
+        {
+          "titre": "L'axe du corps",
+          "slide": 11,
+          "points": [
+            "Verticale partant d'un point situé au sommet du crâne (vertex).",
+            "Elle passe par le centre de gravité du corps, situé dans le pelvis (bassin osseux)."
+          ]
+        },
+        {
+          "titre": "L'axe de la main et l'axe du pied",
+          "slide": 13,
+          "points": [
+            "Axe de la main : axe longitudinal passant par le 3e doigt.",
+            "Axe du pied : axe longitudinal passant par le 2e orteil."
+          ]
+        },
+        {
+          "titre": "Les trois plans anatomiques",
+          "slide": 15,
+          "points": [
+            "Trois plans se coupent sur la silhouette : le plan frontal, le plan sagittal et le plan transversal.",
+            "Trois axes leur répondent sur la figure : l'axe vertical, l'axe sagittal et l'axe transversal."
+          ]
+        },
+        {
+          "titre": "Le plan frontal",
+          "slide": 17,
+          "points": [
+            "Plan dans lequel se font les mouvements visibles de face.",
+            "Il divise le corps en 2 faces : une antérieure (ventrale) et une postérieure (dorsale).",
+            "Mouvements observés : abduction et adduction ; inclinaison latérale, droite ou gauche.",
+            "L'abduction écarte un membre de l'axe du corps, l'adduction l'en rapproche.",
+            "L'inclinaison latérale concerne la tête et le tronc."
+          ]
+        },
+        {
+          "titre": "Le plan sagittal",
+          "slide": 22,
+          "points": [
+            "Plan dans lequel se font les mouvements visibles de profil.",
+            "Il divise le corps en 2 parties : droite et gauche.",
+            "Quand le plan sagittal est situé sur la ligne médiane et que les parties sont symétriques et égales, on parle de plan (sagittal) médian.",
+            "Mouvements observés : flexion / extension, antépulsion / rétropulsion, antéversion / rétroversion, flexion dorsale / flexion plantaire.",
+            "Trois articulations portent ces mouvements nommés : scapulo-humérale, coxo-fémorale, talo-crurale."
+          ]
+        },
+        {
+          "titre": "Le plan transversal",
+          "slide": 30,
+          "points": [
+            "Plan dans lequel les mouvements sont visibles d'en haut ou d'en bas.",
+            "Il divise le corps en 2 parties : une inférieure et une supérieure.",
+            "Mouvements observés : rotation (droite / gauche, ou latérale / médiale) ; pronation et supination.",
+            "Pronation et supination ne désignent que des mouvements du radius autour de l'ulna."
+          ]
+        },
+        {
+          "titre": "Un mouvement particulier : la circumduction",
+          "slide": 35,
+          "points": [
+            "Mouvement au cours duquel le membre décrit un cône dans l'espace.",
+            "Exemple : circumduction du bras.",
+            "Le cours la présente à part, après les trois plans, et ne la range dans aucun d'eux."
+          ]
+        },
+        {
+          "titre": "Termes de localisation",
+          "slide": 37,
+          "points": [
+            "Cinq couples : crânial et caudal ; proximal et distal ; médial et latéral ; superficiel et profond ; antérieur et postérieur.",
+            "Chaque couple a son propre repère : l'extrémité du tronc, le tronc, le plan médian, la surface du corps, l'avant et l'arrière."
+          ]
+        }
+      ],
+      "planches": [],
+      "cartes": [
+        {
+          "id": "c1-01",
+          "q": "Énonce la définition conventionnelle de la position anatomique.",
+          "r": "Corps humain, vivant, debout, les membres supérieurs allongés le long du corps, la paume des mains tournée en avant, le regard droit et horizontal. Toutes les descriptions anatomiques se réfèrent à cette position.",
+          "slide": 9
+        },
+        {
+          "id": "c1-02",
+          "q": "Par quels points passe l'axe du corps ?",
+          "r": "C'est la verticale partant d'un point situé au sommet du crâne (vertex) et passant par le centre de gravité du corps, situé dans le pelvis (bassin osseux).",
+          "slide": 11
+        },
+        {
+          "id": "c1-03",
+          "q": "Quel doigt porte l'axe de la main ? Quel orteil porte l'axe du pied ?",
+          "r": "L'axe de la main est l'axe longitudinal passant par le 3e doigt. L'axe du pied est l'axe longitudinal passant par le 2e orteil.",
+          "slide": 13
+        },
+        {
+          "id": "c1-04",
+          "q": "Le plan frontal : quels mouvements y sont visibles, et en quoi divise-t-il le corps ?",
+          "r": "C'est le plan des mouvements visibles de face. Il divise le corps en 2 faces : une antérieure (ventrale) et une postérieure (dorsale).",
+          "slide": 17,
+          "plan": "frontal"
+        },
+        {
+          "id": "c1-05",
+          "q": "Cite les mouvements observés dans le plan frontal.",
+          "r": "Abduction et adduction ; inclinaison latérale, droite ou gauche.",
+          "slide": 18,
+          "plan": "frontal"
+        },
+        {
+          "id": "c1-06",
+          "q": "Abduction ou adduction : lequel écarte le membre de l'axe du corps ?",
+          "r": "L'abduction écarte un membre de l'axe du corps (exemple : abduction d'épaule). L'adduction rapproche un membre de l'axe du corps (exemple : adduction de hanche).",
+          "slide": 19,
+          "plan": "frontal"
+        },
+        {
+          "id": "c1-07",
+          "q": "L'inclinaison latérale concerne quelles parties du corps, et comment la nomme-t-on ?",
+          "r": "Elle concerne les mouvements de la tête et du tronc, dans le plan frontal. On parle d'inclinaison latérale gauche ou droite (exemple : inclinaison latérale droite du tronc).",
+          "slide": 20,
+          "plan": "frontal"
+        },
+        {
+          "id": "c1-08",
+          "q": "Le plan sagittal : quels mouvements y sont visibles, en quoi divise-t-il le corps, et quand parle-t-on de plan médian ?",
+          "r": "C'est le plan des mouvements visibles de profil. Il divise le corps en 2 parties, droite et gauche. Quand il est situé sur la ligne médiane et que les parties sont symétriques et égales, on parle de plan (sagittal) médian.",
+          "slide": 22,
+          "plan": "sagittal"
+        },
+        {
+          "id": "c1-09",
+          "q": "Cite les quatre couples de mouvements observés dans le plan sagittal.",
+          "r": "Flexion / extension ; antépulsion / rétropulsion ; antéversion / rétroversion ; flexion dorsale / flexion plantaire.",
+          "slide": 23,
+          "plan": "sagittal"
+        },
+        {
+          "id": "c1-10",
+          "q": "Définis la flexion en termes d'angle articulaire.",
+          "r": "Mouvement de repli qui diminue l'angle de l'articulation et rapproche deux segments osseux l'un de l'autre (exemples : flexion du poignet, flexion de hanche).",
+          "slide": 24,
+          "plan": "sagittal"
+        },
+        {
+          "id": "c1-11",
+          "q": "Définis l'extension en termes d'angle articulaire.",
+          "r": "C'est le mouvement inverse de la flexion : il augmente l'angle de l'articulation et éloigne deux segments osseux l'un de l'autre (exemple : extension de la hanche).",
+          "slide": 25,
+          "plan": "sagittal"
+        },
+        {
+          "id": "c1-12",
+          "q": "Antépulsion et rétropulsion : de quelle articulation s'agit-il, et que font-elles ?",
+          "r": "L'articulation scapulo-humérale. L'antépulsion est une ouverture bras-tronc, la rétropulsion une fermeture bras-tronc.",
+          "slide": 26,
+          "plan": "sagittal"
+        },
+        {
+          "id": "c1-13",
+          "q": "Antéversion et rétroversion : quelle articulation, et quel effet sur le dos ?",
+          "r": "L'articulation coxo-fémorale. L'antéversion amène le bassin vers l'avant (« dos creux »), la rétroversion amène le bassin vers l'arrière (« dos plat »).",
+          "slide": 27,
+          "plan": "sagittal"
+        },
+        {
+          "id": "c1-14",
+          "q": "Flexion dorsale et flexion plantaire : quelle articulation, et à quel mouvement chacune correspond-elle ?",
+          "r": "L'articulation talo-crurale. La flexion dorsale est l'action d'effectuer une flexion du pied ; la flexion plantaire est l'action d'effectuer une extension du pied.",
+          "slide": 28,
+          "plan": "sagittal"
+        },
+        {
+          "id": "c1-15",
+          "q": "Le plan transversal : d'où les mouvements y sont-ils visibles, et en quoi divise-t-il le corps ?",
+          "r": "Les mouvements y sont visibles d'en haut ou d'en bas. Il divise le corps en 2 parties : une inférieure et une supérieure.",
+          "slide": 30,
+          "plan": "transversal"
+        },
+        {
+          "id": "c1-16",
+          "q": "Cite les mouvements observés dans le plan transversal.",
+          "r": "La rotation (droite / gauche, ou latérale / médiale) ; la pronation et la supination.",
+          "slide": 31,
+          "plan": "transversal"
+        },
+        {
+          "id": "c1-17",
+          "q": "Définis la rotation, puis dis quel vocabulaire s'applique à la tête et au tronc, et lequel s'applique aux membres.",
+          "r": "La rotation est le mouvement d'un segment sur un axe. Pour la tête et le tronc : rotation droite ou gauche. Pour les membres : rotation latérale (externe) ou médiale (interne).",
+          "slide": 32,
+          "plan": "transversal"
+        },
+        {
+          "id": "c1-18",
+          "q": "Pronation et supination : définis-les, et dis où se trouve le radius dans chaque cas.",
+          "r": "Pronation : rotation médiale de l'avant-bras, le radius croise l'ulna. Supination : rotation latérale de l'avant-bras, le radius est parallèle à l'ulna.",
+          "slide": 33,
+          "plan": "transversal"
+        },
+        {
+          "id": "c1-19",
+          "q": "Quels os la pronation et la supination mettent-elles en jeu ?",
+          "r": "Elles ne désignent que des mouvements du radius autour de l'ulna.",
+          "slide": 34,
+          "plan": "transversal"
+        },
+        {
+          "id": "c1-20",
+          "q": "Qu'est-ce que la circumduction ?",
+          "r": "Le mouvement au cours duquel le membre décrit un cône dans l'espace (exemple : circumduction du bras). Le cours la présente comme un mouvement particulier, à part des trois plans.",
+          "slide": 35
+        },
+        {
+          "id": "c1-21",
+          "q": "Crânial et caudal : quelle région du corps concernent-ils, et que signifient-ils ?",
+          "r": "Ces termes concernent essentiellement le tronc. Une partie est crâniale lorsqu'elle est plus proche de l'extrémité supérieure du tronc, caudale lorsqu'elle est plus proche de l'extrémité inférieure. On utilise également supérieur et inférieur. Exemple sur le sternum : le manubrium est crânial, le processus xyphoïde est caudal.",
+          "slide": 38
+        },
+        {
+          "id": "c1-22",
+          "q": "Proximal et distal : quelle région du corps concernent-ils, et quel est le repère ?",
+          "r": "Ces termes concernent essentiellement les membres, et le repère est le tronc : une partie est proximale lorsqu'elle est plus proche du tronc, distale lorsqu'elle en est plus distante. Exemple sur l'humérus : épiphyse proximale et épiphyse distale.",
+          "slide": 39
+        },
+        {
+          "id": "c1-23",
+          "q": "Médial et latéral : quel est le repère, et quels sont leurs synonymes ?",
+          "r": "Le repère est le plan médian. Un élément est médial (interne) lorsqu'il est situé plus près du plan médian, latéral (externe) lorsqu'il en est plus loin. Exemple à la jambe : le tibia est l'os médial, la fibula l'os latéral.",
+          "slide": 40
+        },
+        {
+          "id": "c1-24",
+          "q": "Superficiel et profond : que signifient-ils ?",
+          "r": "Un élément est superficiel lorsqu'il est plus proche de la surface externe du corps, profond lorsqu'il est situé vers l'intérieur du corps. Exemple : la peau est superficielle, le muscle est profond.",
+          "slide": 41
+        },
+        {
+          "id": "c1-25",
+          "q": "Antérieur / postérieur, ventral / dorsal, palmaire, plantaire : à quoi chaque terme s'applique-t-il ?",
+          "r": "Antérieur (ventral) : situé en avant. Postérieur (dorsal) : situé en arrière. Antérieur et postérieur sont plus spécifiques pour la tête et les membres, ventral et dorsal pour le tronc. Pour la main, palmaire signifie antérieur, le dos de la main étant la face postérieure. Pour le pied, on utilise les termes plantaire et dorsal.",
+          "slide": 42
+        }
+      ],
+      "quiz": [
+        {
+          "id": "q1-01",
+          "q": "Dans quel plan s'effectue une inclinaison latérale du tronc ?",
+          "choix": [
+            "Le plan sagittal",
+            "Le plan frontal",
+            "Le plan transversal"
+          ],
+          "bonne": 1,
+          "expl": "L'inclinaison latérale concerne la tête et le tronc, dans le plan frontal : c'est un mouvement visible de face. Le plan sagittal tente parce que c'est lui qui sépare la droite de la gauche — mais séparer droite et gauche n'est pas porter les mouvements qui vont vers la droite ou vers la gauche : le sagittal porte ce qui se voit de profil (flexion, extension). Le plan transversal porte lui aussi un mouvement du tronc vers la droite ou vers la gauche, mais c'est la rotation, pas l'inclinaison.",
+          "slide": 20,
+          "plan": "frontal"
+        },
+        {
+          "id": "q1-02",
+          "q": "Dans la position anatomique, comment sont placés les membres supérieurs et les mains ?",
+          "choix": [
+            "Allongés le long du corps, la paume tournée vers la cuisse",
+            "En abduction d'épaule à 90°, la paume tournée en avant",
+            "Allongés le long du corps, la paume tournée en avant",
+            "Allongés le long du corps, la paume tournée en arrière"
+          ],
+          "bonne": 2,
+          "expl": "La convention impose la paume tournée en avant. « Paume vers la cuisse » est la posture debout spontanée, celle qu'on se représente dès qu'on cesse de réciter la définition ; « paume en arrière » en est la version poussée d'un cran. Les bras écartés relèvent de l'homme de Vitruve, pas de la position anatomique. L'erreur n'est pas cosmétique : le cours précise que toutes les descriptions se réfèrent à cette position, donc une main mal orientée fausse ensuite tout ce qui est dit d'antérieur, de postérieur, de médial et de latéral.",
+          "slide": 9
+        },
+        {
+          "id": "q1-03",
+          "q": "À quelle condition un plan sagittal est-il un plan médian ?",
+          "choix": [
+            "Dès qu'il sépare une partie droite d'une partie gauche",
+            "Quand il sépare une partie supérieure d'une partie inférieure",
+            "Quand il sépare une face antérieure d'une face postérieure",
+            "Quand il est situé sur la ligne médiane et que les deux parties sont symétriques et égales"
+          ],
+          "bonne": 3,
+          "expl": "Le cours réserve « médian » à un cas particulier : sur la ligne médiane, avec deux parties symétriques et égales. La première option décrit n'importe quel plan sagittal — et c'est exactement la confusion visée : tout plan sagittal sépare une droite d'une gauche, sans que les deux moitiés soient égales. Les deux autres options ne sont pas des inventions : ce sont les divisions des plans voisins, supérieure / inférieure pour le transversal, antérieure / postérieure pour le frontal.",
+          "slide": 22,
+          "plan": "sagittal"
+        },
+        {
+          "id": "q1-04",
+          "q": "Par rapport à quel repère le cours définit-il l'abduction et l'adduction ?",
+          "choix": [
+            "Par rapport à l'axe du corps",
+            "Par rapport au plan médian",
+            "Par rapport au tronc",
+            "Par rapport à l'axe de la main ou du pied"
+          ],
+          "bonne": 0,
+          "expl": "Le cours écrit : mouvement qui écarte (abduction) ou rapproche (adduction) un membre de l'axe du corps. Les trois autres repères figurent bien dans ce chapitre, mais servent à autre chose : le plan médian définit médial et latéral (slide 40), le tronc définit proximal et distal (slide 39), et l'axe de la main (3e doigt) ou du pied (2e orteil) est un repère longitudinal défini pour lui-même (slide 13). Savoir lequel s'applique est ce qui sépare une définition récitée d'une définition comprise.",
+          "slide": 19,
+          "plan": "frontal"
+        },
+        {
+          "id": "q1-05",
+          "q": "Le bassin part vers l'avant, le dos se creuse. De quel mouvement s'agit-il, et à quelle articulation ?",
+          "choix": [
+            "Une antépulsion, à l'articulation scapulo-humérale",
+            "Une antéversion, à l'articulation coxo-fémorale",
+            "Une rétroversion, à l'articulation coxo-fémorale",
+            "Une antéversion, à l'articulation talo-crurale"
+          ],
+          "bonne": 1,
+          "expl": "C'est l'antéversion, à la coxo-fémorale : le cours associe explicitement « dos creux » à ce mouvement. L'antépulsion n'en est pas un synonyme malgré la ressemblance des mots : elle se situe à la scapulo-humérale et ouvre l'angle bras-tronc — la proposition est vraie en elle-même, elle ne parle simplement pas du bassin. La rétroversion est le mouvement antagoniste à la bonne articulation : elle amène le bassin vers l'arrière, « dos plat ». La talo-crurale est la cheville, et elle ne porte que la flexion dorsale et la flexion plantaire.",
+          "slide": 27,
+          "plan": "sagittal"
+        },
+        {
+          "id": "q1-06",
+          "q": "Des deux mouvements de la talo-crurale décrits par le cours, lequel correspond à une extension du pied ?",
+          "choix": [
+            "La flexion dorsale",
+            "Aucun des deux : ce sont deux flexions, l'une vers le dos du pied, l'autre vers la plante",
+            "La flexion plantaire",
+            "Les deux : au pied, « flexion » désigne un sens de mouvement et non une fermeture d'angle"
+          ],
+          "bonne": 2,
+          "expl": "Le cours est littéral : la flexion plantaire est l'action d'effectuer une extension du pied, la flexion dorsale l'action d'effectuer une flexion. Le piège tient au nom, qui contient le mot flexion alors que le mouvement ouvre l'angle. « Aucun des deux » est la lecture naïve des deux intitulés, précisément celle que la slide contredit ; « les deux » est la tentative de sauver cette lecture en redéfinissant le mot flexion, ce que le cours ne fait pas ; « la flexion dorsale » est la simple inversion du couple.",
+          "slide": 28,
+          "plan": "sagittal"
+        },
+        {
+          "id": "q1-07",
+          "q": "Un patient tourne la tête vers la droite. Quel terme le cours impose-t-il ?",
+          "choix": [
+            "Rotation latérale",
+            "Inclinaison latérale droite",
+            "Rotation médiale",
+            "Rotation droite"
+          ],
+          "bonne": 3,
+          "expl": "Le cours réserve rotation droite et rotation gauche à la tête et au tronc, rotation latérale (externe) et médiale (interne) aux membres. « Rotation latérale » et « rotation médiale » sont donc du vocabulaire juste appliqué à la mauvaise région du corps — et non des termes faux. « Inclinaison latérale droite » est l'autre façon de porter la tête vers la droite, mais elle la penche sur le côté dans le plan frontal, alors que la rotation la fait pivoter sur son axe dans le plan transversal.",
+          "slide": 32,
+          "plan": "transversal"
+        },
+        {
+          "id": "q1-08",
+          "q": "Pendant une supination, quelle est la position du radius ?",
+          "choix": [
+            "Parallèle à l'ulna",
+            "Croisé sur l'ulna",
+            "Immobile : c'est l'ulna qui tourne autour de lui"
+          ],
+          "bonne": 0,
+          "expl": "En supination — rotation latérale de l'avant-bras — le radius est parallèle à l'ulna. Le radius croisé sur l'ulna décrit la pronation : l'erreur consiste à inverser le couple, ce qui est la faute la plus fréquente sur cette slide. La troisième option est plus retorse, car elle garde la bonne image du croisement mais attribue le mouvement au mauvais os ; le cours consacre une slide entière à l'écarter (slide 34) : pronation et supination ne désignent que des mouvements du radius autour de l'ulna.",
+          "slide": 33,
+          "plan": "transversal"
+        },
+        {
+          "id": "q1-09",
+          "q": "L'épiphyse de l'humérus la plus proche de l'épaule est dite…",
+          "choix": [
+            "Crâniale",
+            "Proximale",
+            "Supérieure",
+            "Distale"
+          ],
+          "bonne": 1,
+          "expl": "Proximale : sur un membre, le repère est le tronc, et proximal désigne ce qui en est le plus proche. « Crâniale » et « supérieure » disent bien l'idée « vers le haut » — le cours les donne d'ailleurs comme équivalents l'un de l'autre — mais ce couple concerne essentiellement le tronc, pas les membres. « Distale » est l'antonyme exact : c'est l'épiphyse du côté du coude. Le partage à retenir : crânial et caudal pour le tronc, proximal et distal pour les membres.",
+          "slide": 39
+        },
+        {
+          "id": "q1-10",
+          "q": "Dans la jambe, le tibia est l'os médial et la fibula l'os latéral. Sur quel critère ?",
+          "choix": [
+            "Le tibia est plus près du tronc que la fibula",
+            "Le tibia est plus près de la surface du corps que la fibula",
+            "Le tibia est plus près du plan médian que la fibula",
+            "Le tibia est plus près de l'axe du pied que la fibula"
+          ],
+          "bonne": 2,
+          "expl": "Médial et latéral se mesurent par rapport au plan médian, et par rapport à rien d'autre. Les trois autres critères sont ceux des autres couples du chapitre, appliqués au mauvais endroit : la distance au tronc définit proximal et distal, la distance à la surface définit superficiel et profond, et l'axe du pied (2e orteil) est un repère longitudinal du pied. Tibia et fibula étant côte à côte sur la même portion de membre, seule leur position par rapport au plan médian peut les départager.",
+          "slide": 40
+        },
+        {
+          "id": "q1-11",
+          "q": "Pour qualifier la face avant du sternum, quel terme le cours privilégie-t-il ?",
+          "choix": [
+            "Ventral",
+            "Antérieur",
+            "Palmaire",
+            "Crânial"
+          ],
+          "bonne": 0,
+          "expl": "Le sternum appartient au tronc, et le cours précise que ventral et dorsal sont plus spécifiques pour le tronc, antérieur et postérieur pour la tête et les membres. « Antérieur » n'est donc pas faux sur le fond — le cours donne antérieur et ventral comme équivalents — mais c'est le terme moins spécifique ici, et la slide suivante tranche en légendant « sternum : os ventral du thorax ». « Palmaire » est bien un synonyme d'antérieur, mais réservé à la main. « Crânial » concerne lui aussi le tronc, mais sur l'autre axe : haut et bas, pas avant et arrière.",
+          "slide": 42
+        },
+        {
+          "id": "q1-12",
+          "q": "Comment le cours situe-t-il la circumduction par rapport aux trois plans ?",
+          "choix": [
+            "Dans le plan transversal, avec la rotation",
+            "Dans le plan frontal, avec l'abduction et l'adduction",
+            "Il ne la range dans aucun des trois : il la présente à part, comme mouvement particulier",
+            "Dans le plan sagittal, avec la flexion et l'extension"
+          ],
+          "bonne": 2,
+          "expl": "Le cours ouvre une rubrique distincte, « mouvement particulier », pour la circumduction : le membre y décrit un cône dans l'espace. Le plan transversal est le distracteur le plus tentant, parce qu'un cône se trace en tournant et qu'on pense aussitôt à la rotation — mais la rotation est définie comme le mouvement d'un segment sur un axe, pas comme la description d'un cône. Les deux autres plans tentent pour la raison inverse : chacun porte une paire de mouvements du membre, et on cherche spontanément à y caser celui-ci ; le cours, lui, le laisse hors des trois plans.",
+          "slide": 35
+        }
+      ],
+      "muscles": [],
+      "pieges": [
+        {
+          "titre": "Le plan sagittal ne coupe pas toujours au milieu",
+          "texte": "Un plan sagittal sépare une partie droite d'une partie gauche, sans qu'elles soient forcément égales. Ce n'est que lorsqu'il passe par la ligne médiane, avec deux parties symétriques, qu'on parle de plan sagittal médian.",
+          "slide": 22
+        },
+        {
+          "titre": "Flexion plantaire est une extension",
+          "texte": "La flexion plantaire du pied correspond anatomiquement à une extension. Le mot « flexion » dans son nom désigne le mouvement vers la plante, pas la fermeture d'un angle.",
+          "slide": 28
+        },
+        {
+          "titre": "Rotation droite/gauche contre latérale/médiale",
+          "texte": "Pour la tête et le tronc, on dit rotation droite ou gauche. Pour les membres, on dit rotation latérale (externe) ou médiale (interne). Employer l'un pour l'autre est une faute de vocabulaire, pas une approximation.",
+          "slide": 32
+        },
+        {
+          "titre": "Antépulsion n'est pas antéversion",
+          "texte": "Quatre mots se ressemblent, et deux articulations seulement les portent. Antépulsion et rétropulsion se situent à la scapulo-humérale : elles ouvrent ou ferment l'angle bras-tronc. Antéversion et rétroversion se situent à la coxo-fémorale : elles amènent le bassin vers l'avant (« dos creux ») ou vers l'arrière (« dos plat »). Le préfixe anté- ou rétro- ne dit rien de l'articulation : seule la racine tranche, -pulsion pour l'épaule, -version pour le bassin.",
+          "slide": 26
+        },
+        {
+          "titre": "Crânial et proximal ne s'emploient pas sur la même région",
+          "texte": "Les deux couples disent « vers le haut » et « vers le bas », mais pas sur la même région du corps. Crânial et caudal concernent essentiellement le tronc, et se repèrent sur ses extrémités. Proximal et distal concernent essentiellement les membres, et se repèrent par rapport au tronc. On ne dit donc pas qu'une épiphyse d'humérus est crâniale, ni qu'un manubrium est proximal. Note le mot « essentiellement » employé par le cours : il laisse la porte ouverte à des exceptions qu'il ne nomme pas, donc à l'examen tiens-t'en au partage tronc / membres.",
+          "slide": 39
+        },
+        {
+          "titre": "Le support n'accentue pas ces termes de la même façon partout",
+          "texte": "Slides 31 et 33, le cours écrit « LATERALE » et « MEDIALE » sans accent ; slide 40, il écrit « MÉDIAL et LATÉRAL » ; slide 38, « CRÂNIAL et CAUDAL ». La graphie à retenir pour une copie est celle des slides 38 et 40 : médial, latéral, crânial, caudal — crânial prend un accent circonflexe, caudal n'en prend aucun. Les formes nues medial et lateral relevées ailleurs dans le support sont des coquilles et non des variantes admises ; n'écris pas non plus cranial sans son circonflexe.",
+          "slide": 40
+        }
+      ]
+    }
+  ]
+}

@@ -1021,6 +1021,27 @@ body {
   }
 }
 
+/* Correction ronde de controle (outils/verifier_mobile.py) : a 320px, 4 boutons
+ * a parts egales laissent 68px a chacun, et le libelle "Retourner" (le plus
+ * large des quatre en Saira Condensed) en demandait 79 -- tronque de 12px.
+ * Le rappel de raccourci ne sert a rien sans clavier physique sur un
+ * telephone : le retirer sous cette largeur, et reduire legerement la
+ * typographie de la barre, suffit a faire rentrer "Retourner" sans jamais
+ * abreger un libelle ni descendre sous la cible tactile de 44px (min-height
+ * inchangee ; mesure : hauteur reelle toujours 44px, largeur du libelle
+ * desormais egale a la largeur disponible, ecart 0). */
+@media (max-width: 359px) {
+  .touche {
+    display: none;
+  }
+
+  .action {
+    font-size: var(--t-xs);
+    letter-spacing: 0.02em;
+    padding-inline: 0.375rem;
+  }
+}
+
 /* --- 5.11 Renvoi de slide ----------------------------------------------- */
 
 .src {

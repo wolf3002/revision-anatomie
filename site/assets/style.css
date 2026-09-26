@@ -1001,6 +1001,27 @@ body {
   color: var(--papier);
 }
 
+/* Action discrete (Suivant, dans la seance du jour) : l'inverse d'une action
+ * dominante. Sur un outil fonde sur le rappel actif, le geste le plus facile
+ * ne doit jamais etre celui qui n'evalue rien -- "Suivant" doit se lire
+ * comme un lien secondaire, jamais rivaliser avec un verdict (Rate/Difficile/
+ * Su), une reponse de quiz ou une verification de planche. Cible tactile
+ * (min-height 44px) et alignement herites de .action, inchanges. */
+.action--discrete {
+  background: none;
+  border-color: transparent;
+  color: var(--encre-doux);
+  text-decoration: underline;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.action--discrete:hover,
+.action--discrete:focus-visible {
+  color: var(--encre);
+}
+
 /* Rappel du raccourci clavier, en caracteres techniques. */
 .touche {
   color: var(--encre-doux);

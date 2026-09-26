@@ -257,6 +257,9 @@ export function demarrer(document, support) {
 
       enregistrerVerdict(`${planche.id}#${champ.dataset.pastilleN}`, correct ? 'su' : 'rate');
     }
+    // Marqueur reutilise par la seance du jour pour distinguer une planche
+    // reellement verifiee d'une planche seulement affichee puis passee.
+    planche.dataset.verifie = 'oui';
   }
 
   function etatModePlanches() {
@@ -302,6 +305,7 @@ export function demarrer(document, support) {
   function actualiserProgression() {
     if (!coursDonnees) return;
     const etat = stockage.lire();
+    const titresParChapitre = new Map(coursDonnees.chapitres.map((c) => [c.num, c.titre]));
     const parChapitre = new Map();
     for (const item of itemsDuCours(coursDonnees)) {
       if (!parChapitre.has(item.chapitre)) parChapitre.set(item.chapitre, []);
@@ -322,9 +326,17 @@ export function demarrer(document, support) {
       const anneau = li.querySelector('.anneau');
       const valeur = li.querySelector('.anneau__valeur');
       const part = touche ? Math.round((su / items.length) * 100) : 0;
+      const etatTexte = touche ? `${part} % su` : 'jamais ouvert';
       li.dataset.etat = touche ? 'touche' : 'vide';
-      if (anneau) anneau.style.setProperty('--part', String(part));
-      if (valeur) valeur.textContent = touche ? `${part} % su` : 'jamais ouvert';
+      if (anneau) {
+        anneau.style.setProperty('--part', String(part));
+        // Sans cette ligne, un lecteur d'ecran annoncait toujours "jamais
+        // ouvert" (valeur figee au build) meme apres des verdicts reels --
+        // l'anneau mentait silencieusement a qui ne voit pas son remplissage.
+        const titre = titresParChapitre.get(numero) || '';
+        anneau.setAttribute('aria-label', `Chapitre ${numero}, ${titre} : ${etatTexte}`);
+      }
+      if (valeur) valeur.textContent = etatTexte;
     }
   }
 
@@ -374,11 +386,42 @@ export function demarrer(document, support) {
     let file = [];
     let position = 0;
     let planchesAffichees = new Set();
+    // L'item et son element actuellement affiches -- necessaires pour savoir,
+    // au moment de passer au suivant, si CET item a reellement ete evalue
+    // (voir itemEvalue) avant de le comptabiliser.
+    let itemCourant = null;
+    let elementCourant = null;
+    let nbRevises = 0;
+    let nbPasses = 0;
     // Verrou anti-double-declenchement : afficherEtapeCourante() est
     // asynchrone (fetch de la page de chapitre) ; deux clics rapprochés sur
     // Suivant sans lui laisseraient deux appels se chevaucher et corrompre
     // position/file (constate par pilotage -- "Suivant" clique en rafale).
     let enTransition = false;
+
+    // Un item est "revise" s'il porte la trace laissee par une vraie
+    // evaluation -- pas seulement affiche. Cartes et quiz marquent deja le
+    // DOM (dernierVerdict, repondue) pour leurs propres besoins ; verifierPlanche
+    // pose desormais le meme genre de marqueur pour une planche.
+    function itemEvalue(item, element) {
+      if (!item || !element) return false;
+      if (item.type === 'carte') return Boolean(element.dataset.dernierVerdict);
+      if (item.type === 'quiz') return element.dataset.repondue === 'oui';
+      if (item.type === 'pastille') return element.dataset.verifie === 'oui';
+      return false;
+    }
+
+    // Comptabilise l'item actuellement affiche (revise ou passe) puis oublie
+    // sa reference -- idempotent : sans item courant, ne fait rien. Appelee
+    // une seule fois par item reellement montre, que la seance continue ou
+    // s'arrete ici.
+    function comptabiliserEtapeCourante() {
+      if (!itemCourant || !elementCourant) return;
+      if (itemEvalue(itemCourant, elementCourant)) nbRevises += 1;
+      else nbPasses += 1;
+      itemCourant = null;
+      elementCourant = null;
+    }
 
     function viderZoneSeance() {
       if (voletCartesSeance) { voletCartesSeance.hidden = true; voletCartesSeance.innerHTML = ''; }
@@ -388,17 +431,33 @@ export function demarrer(document, support) {
       carteActive = null;
     }
 
-    function terminerSeance(message) {
+    // Le bilan dit ce qui a reellement ete fait, pas ce qui a ete affiche :
+    // un item juste "passe" au clic de Suivant, sans verdict ni reponse, ne
+    // compte pas comme revise -- sinon le compteur flatte au lieu d'informer.
+    function bilanSeance() {
+      const revises = `${nbRevises} item(s) révisé(s)`;
+      return nbPasses ? `${revises}, ${nbPasses} passé(s).` : `${revises}.`;
+    }
+
+    function terminerSeance(motif) {
+      comptabiliserEtapeCourante();
+      const bilan = bilanSeance();
       viderZoneSeance();
       if (zoneSeance) zoneSeance.hidden = true;
-      if (messageSeance) messageSeance.textContent = message;
+      if (messageSeance) {
+        messageSeance.textContent = motif === 'interrompue'
+          ? `Séance interrompue — ${bilan}`
+          : `Séance terminée — ${bilan}`;
+      }
       file = [];
       position = 0;
+      nbRevises = 0;
+      nbPasses = 0;
     }
 
     async function afficherEtapeCourante() {
       if (position >= file.length) {
-        terminerSeance(`Séance terminée — ${file.length} item(s) révisé(s).`);
+        terminerSeance('fin');
         return;
       }
       viderZoneSeance();
@@ -406,7 +465,8 @@ export function demarrer(document, support) {
 
       // Deux items "pastille" de la meme planche affichent la meme planche :
       // verifier la premiere occurrence verifie deja toutes ses pastilles, la
-      // seconde n'apporterait rien de plus a revoir.
+      // seconde n'apporterait rien de plus a revoir. Jamais affichee, elle
+      // n'entre dans aucun des deux compteurs.
       if (item.type === 'pastille') {
         const plancheId = item.id.split('#')[0];
         if (planchesAffichees.has(plancheId)) {
@@ -421,7 +481,7 @@ export function demarrer(document, support) {
       const element = await elementPourItem(item);
       if (!element) {
         // Page de chapitre introuvable ou id absent : on saute l'etape sans
-        // bloquer le reste de la seance.
+        // bloquer le reste de la seance ; jamais affichee, non comptabilisee.
         position += 1;
         await afficherEtapeCourante();
         return;
@@ -451,6 +511,9 @@ export function demarrer(document, support) {
         if (liste) liste.hidden = false;
         if (bouton) bouton.hidden = false;
       }
+
+      itemCourant = item;
+      elementCourant = element;
     }
 
     boutonSuivant?.addEventListener('click', async () => {
@@ -459,6 +522,10 @@ export function demarrer(document, support) {
       // moment ou #seance-zone a disparu, ne doit pas rejouer la fin.
       if (enTransition || !file.length) return;
       enTransition = true;
+      // Comptabilise l'item qu'on quitte AVANT de passer au suivant : lui
+      // seul sait s'il a ete evalue (verdict, reponse, verification) ou
+      // seulement affiche.
+      comptabiliserEtapeCourante();
       position += 1;
       try {
         await afficherEtapeCourante();
@@ -468,7 +535,7 @@ export function demarrer(document, support) {
     });
     boutonQuitter?.addEventListener('click', () => {
       enTransition = false;
-      terminerSeance('Séance interrompue.');
+      terminerSeance('interrompue');
     });
 
     async function demarrerSeance() {
@@ -511,6 +578,10 @@ export function demarrer(document, support) {
         file = composee;
         position = 0;
         planchesAffichees = new Set();
+        itemCourant = null;
+        elementCourant = null;
+        nbRevises = 0;
+        nbPasses = 0;
         if (bandeauConsolidation) bandeauConsolidation.hidden = !consolidation;
         if (zoneSeance) zoneSeance.hidden = false;
         await afficherEtapeCourante();

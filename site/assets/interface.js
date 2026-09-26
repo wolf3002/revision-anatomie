@@ -13,9 +13,17 @@
  * du contenu neuf que pour des controles purement interactifs qui n'ont pas
  * de sens sans JavaScript (champs de saisie du mode muet, bouton de
  * verification) -- jamais pour du texte de cours, de carte ou de question.
+ *
+ * Exception assumee : la seance du jour (accueil). Sa composition depend du
+ * localStorage, donc ne peut pas etre figee au moment du build. Elle ne
+ * redefinit pour autant aucun gabarit de carte/question/planche -- elle CLONE
+ * l'element deja rendu par outils/construire.py dans la page du chapitre
+ * concerne (chapitre-N.html, recuperee par fetch) et le rejoue avec les memes
+ * fonctions que ci-dessous. Un item de seance est donc, litteralement, le
+ * meme DOM que dans sa page de chapitre -- pas une imitation.
  */
 
-import { intervalleDeBase } from './planificateur.js';
+import { intervalleDeBase, composerSeance } from './planificateur.js';
 import { creerStockage } from './stockage.js';
 import { appliquerAutoEvaluation, corrigerQuestion, verifierPastille, itemsDuCours } from './exercices.js';
 
@@ -42,16 +50,20 @@ export function demarrer(document, support) {
   const stockage = creerStockage(support);
 
   // Donnees brutes du cours (bonne reponse de quiz, forme canonique d'un
-  // item neuf). Chargees de facon asynchrone et non bloquante : le reste de
-  // l'interface doit rester utilisable meme si cette requete echoue (reseau
-  // absent, page ouverte en file://).
+  // item neuf, liste des chapitres pour la seance et la progression).
+  // Chargees de facon asynchrone et non bloquante : le reste de l'interface
+  // doit rester utilisable meme si cette requete echoue (reseau absent, page
+  // ouverte en file://).
+  let coursDonnees = null;
   let coursItemsParDefaut = new Map();
   let coursQuiz = new Map();
-  chargerCours((cours) => {
+  const coursPret = chargerCours((cours) => {
+    coursDonnees = cours;
     for (const item of itemsDuCours(cours)) coursItemsParDefaut.set(item.id, item);
     for (const chapitre of cours.chapitres) {
       for (const q of chapitre.quiz || []) coursQuiz.set(q.id, q);
     }
+    actualiserProgression();
   });
 
   let carteActive = null;
@@ -65,6 +77,7 @@ export function demarrer(document, support) {
     const itemExistant = etat.items[id] || itemParDefaut(id);
     const itemMisAJour = appliquerAutoEvaluation(itemExistant, verdict, aujourdHuiISO());
     stockage.ecrireItem(id, itemMisAJour);
+    actualiserProgression();
     return itemMisAJour;
   }
 
@@ -281,6 +294,248 @@ export function demarrer(document, support) {
     }
   }
 
+  // --- Progression (accueil) --------------------------------------------------
+
+  // Un chapitre jamais ouvert doit se voir vide, pas gris-neutre (spec §4.1) :
+  // data-etat="vide" (pose par defaut au build) distingue "aucun item touche"
+  // de "items touches, 0 % su", que le seul pourcentage confondrait.
+  function actualiserProgression() {
+    if (!coursDonnees) return;
+    const etat = stockage.lire();
+    const parChapitre = new Map();
+    for (const item of itemsDuCours(coursDonnees)) {
+      if (!parChapitre.has(item.chapitre)) parChapitre.set(item.chapitre, []);
+      parChapitre.get(item.chapitre).push(item);
+    }
+    for (const [numero, items] of parChapitre) {
+      const li = document.querySelector(`.progression li[data-chapitre="${numero}"]`);
+      if (!li || !items.length) continue;
+      let touche = false;
+      let su = 0;
+      for (const item of items) {
+        const enregistre = etat.items[item.id];
+        if (enregistre) {
+          touche = true;
+          if (enregistre.statut === 'su') su += 1;
+        }
+      }
+      const anneau = li.querySelector('.anneau');
+      const valeur = li.querySelector('.anneau__valeur');
+      const part = touche ? Math.round((su / items.length) * 100) : 0;
+      li.dataset.etat = touche ? 'touche' : 'vide';
+      if (anneau) anneau.style.setProperty('--part', String(part));
+      if (valeur) valeur.textContent = touche ? `${part} % su` : 'jamais ouvert';
+    }
+  }
+
+  // --- Seance du jour (accueil) ------------------------------------------------
+
+  const boutonSeance = document.getElementById('seance');
+  if (boutonSeance) {
+    const zoneSeance = document.getElementById('seance-zone');
+    const messageSeance = document.getElementById('seance-message');
+    const compteSeance = document.getElementById('seance-compte');
+    const bandeauConsolidation = document.getElementById('seance-consolidation');
+    const voletCartesSeance = zoneSeance?.querySelector('.volet[data-volet="cartes"]');
+    const voletQuizSeance = zoneSeance?.querySelector('.volet[data-volet="quiz"]');
+    const zonePlancheSeance = document.getElementById('seance-planche');
+    const boutonSuivant = document.getElementById('seance-suivant');
+    const boutonQuitter = document.getElementById('seance-quitter');
+
+    // Une page de chapitre par numero, recuperee une seule fois et reutilisee
+    // pour toute la seance -- c'est elle qui porte le vrai rendu d'une carte,
+    // d'une question ou d'une planche (voir l'exception documentee en tete
+    // de fichier).
+    const pagesChapitre = new Map();
+    function chargerPageChapitre(numero) {
+      if (!pagesChapitre.has(numero)) {
+        pagesChapitre.set(
+          numero,
+          fetch(`chapitre-${numero}.html`)
+            .then((reponse) => (reponse.ok ? reponse.text() : null))
+            .then((texte) => (texte ? new DOMParser().parseFromString(texte, 'text/html') : null))
+            .catch(() => null),
+        );
+      }
+      return pagesChapitre.get(numero);
+    }
+
+    async function elementPourItem(item) {
+      const page = await chargerPageChapitre(item.chapitre);
+      if (!page) return null;
+      // Un item "pastille" designe une legende individuelle, mais la seule
+      // unite affichable et verifiable est la planche entiere (verifierPlanche
+      // corrige toutes ses pastilles a la fois, comme en page de chapitre).
+      const idSource = item.type === 'pastille' ? item.id.split('#')[0] : item.id;
+      const source = page.getElementById(idSource);
+      return source ? document.importNode(source, true) : null;
+    }
+
+    // composerSeance (tache 6, non modifiee) entrelace par item.chapitre.
+    // Avec un seul chapitre charge, ce tourniquet degenererait en une simple
+    // file (25 cartes d'affilee, aucun quiz ni planche) : le mecanisme
+    // n'entrelace QUE les chapitres, jamais les formats a l'interieur d'un
+    // meme chapitre -- verifie par pilotage reel. On lui fait donc croire
+    // que chaque paire (chapitre, format) est un chapitre a part : le meme
+    // tourniquet entrelace alors aussi les formats, sans modifier
+    // planificateur.js.
+    function composerSeanceMixte(items, options) {
+      const cles = items.map((item) => ({ ...item, chapitre: `${item.chapitre}:${item.type}`, __item: item }));
+      return composerSeance(cles, options).map((item) => item.__item);
+    }
+
+    let file = [];
+    let position = 0;
+    let planchesAffichees = new Set();
+    // Verrou anti-double-declenchement : afficherEtapeCourante() est
+    // asynchrone (fetch de la page de chapitre) ; deux clics rapprochés sur
+    // Suivant sans lui laisseraient deux appels se chevaucher et corrompre
+    // position/file (constate par pilotage -- "Suivant" clique en rafale).
+    let enTransition = false;
+
+    function viderZoneSeance() {
+      if (voletCartesSeance) { voletCartesSeance.hidden = true; voletCartesSeance.innerHTML = ''; }
+      if (voletQuizSeance) { voletQuizSeance.hidden = true; voletQuizSeance.innerHTML = ''; }
+      if (zonePlancheSeance) { zonePlancheSeance.hidden = true; zonePlancheSeance.innerHTML = ''; }
+      if (barreCarte) barreCarte.hidden = true;
+      carteActive = null;
+    }
+
+    function terminerSeance(message) {
+      viderZoneSeance();
+      if (zoneSeance) zoneSeance.hidden = true;
+      if (messageSeance) messageSeance.textContent = message;
+      file = [];
+      position = 0;
+    }
+
+    async function afficherEtapeCourante() {
+      if (position >= file.length) {
+        terminerSeance(`Séance terminée — ${file.length} item(s) révisé(s).`);
+        return;
+      }
+      viderZoneSeance();
+      const item = file[position];
+
+      // Deux items "pastille" de la meme planche affichent la meme planche :
+      // verifier la premiere occurrence verifie deja toutes ses pastilles, la
+      // seconde n'apporterait rien de plus a revoir.
+      if (item.type === 'pastille') {
+        const plancheId = item.id.split('#')[0];
+        if (planchesAffichees.has(plancheId)) {
+          position += 1;
+          await afficherEtapeCourante();
+          return;
+        }
+        planchesAffichees.add(plancheId);
+      }
+
+      if (compteSeance) compteSeance.textContent = `${position + 1} / ${file.length}`;
+      const element = await elementPourItem(item);
+      if (!element) {
+        // Page de chapitre introuvable ou id absent : on saute l'etape sans
+        // bloquer le reste de la seance.
+        position += 1;
+        await afficherEtapeCourante();
+        return;
+      }
+
+      if (item.type === 'carte' && voletCartesSeance) {
+        voletCartesSeance.hidden = false;
+        voletCartesSeance.appendChild(element);
+        element.tabIndex = 0;
+        element.addEventListener('click', () => activerCarte(element));
+        element.addEventListener('focus', () => { carteActive = element; });
+        // Selectionne la carte SANS la reveler (equivalent du tabulateur en
+        // page de chapitre) : reveler exige un geste explicite (clic ou
+        // Espace), sinon la reponse s'affiche avant toute tentative de rappel.
+        carteActive = element;
+        element.focus();
+      } else if (item.type === 'quiz' && voletQuizSeance) {
+        voletQuizSeance.hidden = false;
+        voletQuizSeance.appendChild(element);
+      } else if (item.type === 'pastille' && zonePlancheSeance) {
+        zonePlancheSeance.hidden = false;
+        zonePlancheSeance.appendChild(element);
+        element.dataset.mode = 'muet';
+        construireLegende(element);
+        const liste = element.querySelector('.legendes');
+        const bouton = element.querySelector(':scope > button.action');
+        if (liste) liste.hidden = false;
+        if (bouton) bouton.hidden = false;
+      }
+    }
+
+    boutonSuivant?.addEventListener('click', async () => {
+      // !file.length : la seance est deja terminee (file videe par
+      // terminerSeance) -- un clic en trop, encore en file d'attente au
+      // moment ou #seance-zone a disparu, ne doit pas rejouer la fin.
+      if (enTransition || !file.length) return;
+      enTransition = true;
+      position += 1;
+      try {
+        await afficherEtapeCourante();
+      } finally {
+        enTransition = false;
+      }
+    });
+    boutonQuitter?.addEventListener('click', () => {
+      enTransition = false;
+      terminerSeance('Séance interrompue.');
+    });
+
+    async function demarrerSeance() {
+      if (enTransition) return;
+      enTransition = true;
+      try {
+        if (messageSeance) messageSeance.textContent = '';
+        if (!coursDonnees) {
+          if (messageSeance) messageSeance.textContent = 'Chargement du contenu…';
+          await coursPret;
+        }
+        if (!coursDonnees) {
+          if (messageSeance) messageSeance.textContent = 'Contenu indisponible pour le moment.';
+          return;
+        }
+
+        // Fusion stockage + items par defaut : un item inconnu du stockage
+        // demarre a "jamais", donc du immediatement (spec §4.3/§4.4).
+        const etat = stockage.lire();
+        const items = itemsDuCours(coursDonnees).map((item) => etat.items[item.id] || item);
+        const aujourdhui = aujourdHuiISO();
+        const joursAvantExamen = etat.dateExamen ? joursEntre(aujourdhui, etat.dateExamen) : NaN;
+        const intervalle = intervalleDeBase(joursAvantExamen);
+
+        let composee = composerSeanceMixte(items, { intervalle, aujourdHui: aujourdhui, taille: 25 });
+        let consolidation = false;
+        if (!composee.length) {
+          // Rien de du : consolidation sur les items les plus fragiles. Meme
+          // composerSeance (fragiles d'abord, puis entrelacement des chapitres
+          // et des formats), juste avec une echeance forcee tres loin pour que
+          // tout soit "du".
+          consolidation = true;
+          composee = composerSeanceMixte(items, { intervalle, aujourdHui: '9999-12-31', taille: 25 });
+        }
+        if (!composee.length) {
+          if (messageSeance) messageSeance.textContent = 'Rien à réviser pour le moment.';
+          return;
+        }
+
+        file = composee;
+        position = 0;
+        planchesAffichees = new Set();
+        if (bandeauConsolidation) bandeauConsolidation.hidden = !consolidation;
+        if (zoneSeance) zoneSeance.hidden = false;
+        await afficherEtapeCourante();
+        zoneSeance?.scrollIntoView({ block: 'start' });
+      } finally {
+        enTransition = false;
+      }
+    }
+
+    boutonSeance.addEventListener('click', () => { demarrerSeance(); });
+  }
+
   // --- Reglages : theme, date d'examen, export / import -----------------------
 
   const etatInitial = stockage.lire();
@@ -353,6 +608,15 @@ export function demarrer(document, support) {
     lecteur.readAsText(fichier);
   });
 
+  document.querySelector('[data-action="reinitialiser"]')?.addEventListener('click', () => {
+    const confirme = window.confirm(
+      'Réinitialiser toute la progression ? Cette action est irréversible.',
+    );
+    if (!confirme) return;
+    stockage.reinitialiser();
+    window.location.reload();
+  });
+
   // --- Raccourcis clavier ------------------------------------------------------
 
   document.addEventListener('keydown', (evenement) => {
@@ -396,7 +660,7 @@ export function demarrer(document, support) {
 // navigateur suffit. Asynchrone et tolerant a l'echec -- reseau absent, page
 // ouverte en file:// -- pour ne jamais bloquer le reste de l'interface.
 function chargerCours(surSucces) {
-  fetch('assets/cours.json')
+  return fetch('assets/cours.json')
     .then((reponse) => (reponse.ok ? reponse.json() : null))
     .then((cours) => {
       if (cours) surSucces(cours);

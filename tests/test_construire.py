@@ -85,3 +85,22 @@ def test_le_contenu_du_cours_est_present_sans_javascript():
 
 def test_une_copie_du_contenu_est_publiee_pour_le_client():
     assert (RACINE / "site" / "assets" / "cours.json").exists()
+
+
+def test_l_accueil_est_ecrit():
+    assert (RACINE / "site" / "index.html").exists()
+
+
+def test_l_accueil_propose_la_seance_du_jour():
+    accueil = (RACINE / "site" / "index.html").read_text(encoding="utf-8")
+    assert 'id="seance"' in accueil
+
+
+def test_l_accueil_liste_les_chapitres_disponibles():
+    accueil = (RACINE / "site" / "index.html").read_text(encoding="utf-8")
+    assert "chapitre-1.html" in accueil
+
+
+def test_l_accueil_demande_la_date_d_examen():
+    accueil = (RACINE / "site" / "index.html").read_text(encoding="utf-8")
+    assert 'type="date"' in accueil

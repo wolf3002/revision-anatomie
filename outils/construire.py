@@ -34,12 +34,24 @@ def construire(racine: Path) -> list[Path]:
     cours = json.loads((racine / "contenu" / "cours.json").read_text(encoding="utf-8"))
     base = (racine / "gabarits" / "base.html").read_text(encoding="utf-8")
     gabarit = (racine / "gabarits" / "chapitre.html").read_text(encoding="utf-8")
+    gabarit_accueil = (racine / "gabarits" / "accueil.html").read_text(encoding="utf-8")
 
     sortie = racine / "site"
     (sortie / "assets").mkdir(parents=True, exist_ok=True)
     shutil.copyfile(racine / "contenu" / "cours.json", sortie / "assets" / "cours.json")
 
     ecrits = []
+
+    corps_accueil = _rendre_accueil(gabarit_accueil, cours)
+    page_accueil = (
+        base.replace("{{titre}}", html.escape(cours["meta"]["cours"]))
+        .replace("{{racine}}", "")
+        .replace("{{corps}}", corps_accueil)
+    )
+    chemin_accueil = sortie / "index.html"
+    chemin_accueil.write_text(page_accueil, encoding="utf-8")
+    ecrits.append(chemin_accueil)
+
     for chapitre in cours["chapitres"]:
         corps = _rendre_chapitre(gabarit, chapitre)
         page = (
@@ -54,6 +66,50 @@ def construire(racine: Path) -> list[Path]:
         chemin.write_text(page, encoding="utf-8")
         ecrits.append(chemin)
     return ecrits
+
+
+def _rendre_accueil(gabarit, cours):
+    chapitres = cours["chapitres"]
+    progression = "".join(_rendre_anneau(c) for c in chapitres)
+    liste = "".join(_rendre_lien_chapitre(c) for c in chapitres)
+    return (
+        gabarit.replace("{{cours}}", html.escape(cours["meta"]["cours"]))
+        .replace("{{progression}}", progression)
+        .replace("{{chapitres}}", liste)
+    )
+
+
+def _rendre_anneau(chapitre):
+    # Valeurs par defaut cote build : "jamais ouvert" (part=0, dashed). La
+    # vraie proportion depend du localStorage -- interface.js la recalcule au
+    # chargement et a chaque verdict, en ciblant ce <li> par data-chapitre.
+    num = chapitre["num"]
+    titre = html.escape(chapitre["titre"])
+    return (
+        f'<li data-chapitre="{num}" data-etat="vide">'
+        '<svg class="anneau" style="--part: 0" viewBox="0 0 48 48" role="img" '
+        f'aria-label="Chapitre {num}, {titre} : jamais ouvert">'
+        '<circle class="anneau__fond" cx="24" cy="24" r="20" pathLength="100"/>'
+        '<circle class="anneau__part" cx="24" cy="24" r="20" pathLength="100"/>'
+        "</svg>"
+        f'<span class="progression__titre">Ch. {num}</span>'
+        '<span class="anneau__valeur mono">jamais ouvert</span>'
+        "</li>"
+    )
+
+
+def _rendre_lien_chapitre(chapitre):
+    num = chapitre["num"]
+    titre = html.escape(chapitre["titre"])
+    debut, fin = chapitre["slides"]
+    return (
+        "<li>"
+        f'<a class="chapitre-lien" href="chapitre-{num}.html">'
+        f'<span class="chapitre-lien__num mono">{num}</span>'
+        f'<span class="chapitre-lien__titre">{titre}</span>'
+        f'<span class="chapitre-lien__slides mono">slides {debut}–{fin}</span>'
+        "</a></li>"
+    )
 
 
 def _onglets_actifs(chapitre):

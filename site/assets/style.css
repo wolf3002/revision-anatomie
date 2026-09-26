@@ -600,6 +600,18 @@ body {
 
 /* --- 5.6 Planche SVG --------------------------------------------------- */
 
+/* Conteneur de plusieurs planches autonomes (chapitre 1 : les trois plans
+ * anatomiques + les termes de localisation, quatre planches distinctes depuis
+ * leur eclatement pour le mobile). Elles s'alignent cote a cote quand la
+ * largeur le permet, et s'empilent en une seule colonne sur telephone. Sans
+ * ce conteneur, plusieurs planches independantes s'empilent aussi sur grand
+ * ecran et on perd la comparaison entre les trois plans. */
+.planches {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: var(--pas-3);
+}
+
 .planche {
   display: grid;
   gap: var(--pas-2);
@@ -720,36 +732,31 @@ body {
   font-size: var(--t-xs);
 }
 
-/* Sous 720 px, une planche de 720 unites rendue pleine largeur tombe a une
- * echelle de 0,43 : ses etiquettes, posees a 15 unites par la tache 3,
- * feraient 6 px a l'ecran. On fixe donc la HAUTEUR rendue — les viewBox des
- * planches ont des hauteurs voisines, l'echelle du texte reste donc a peu pres
- * constante d'une planche a l'autre — et on laisse la largeur suivre le
- * rapport du viewBox. Ce qui depasse se fait defiler horizontalement ; le
- * titre et les champs de legende restent, eux, ancres a gauche. */
-@media (max-width: 719px) {
-  .planche {
-    display: block;
-    overflow-x: auto;
-  }
-
-  .planche > * + * {
-    margin-block-start: var(--pas-2);
-  }
-
-  .planche figcaption,
-  .planche .legendes {
-    position: sticky;
-    inset-inline-start: 0;
-  }
-
-  .planche svg {
-    width: auto;
-    max-width: none;
-    height: 18rem;
-    margin-inline: auto;
-  }
-}
+/* Correction tache 5 (retrait du defilement horizontal) : cette regle datait
+ * de l'unique planche a viewBox 720 unites de large, ou une largeur pleine
+ * page tombait a une echelle de 0,43 et rendait les etiquettes illisibles
+ * (6 px a l'ecran) -- d'ou un defilement horizontal force, avec la HAUTEUR
+ * fixee et le titre ancre a gauche pendant le defilement.
+ *
+ * Depuis l'eclatement en quatre planches autonomes (tache 3, ronde 4), les
+ * viewBox font 240 ou 320 unites de large : tres proches de la largeur de
+ * contenu disponible sur telephone une fois les paddings de .page et de
+ * .planche deduits (~240 px a 320 px de viewport). La regle par defaut
+ * (§5.6, `.planche svg { width: 100%; height: auto }`) suffit donc seule :
+ * l'echelle reste voisine de 1 pour les trois planches de plan (240/240) et
+ * autour de 0,75 pour « termes de localisation » (240/320) -- lisible, et
+ * jamais en debordement puisque la largeur suit exactement le conteneur.
+ *
+ * Conserver l'ancienne regle (hauteur fixe + overflow-x: auto) aurait ete
+ * non seulement inutile mais dangereux ici : a 320 px de large, une planche
+ * a viewBox 320 forcee a 18rem de haut rend a ~271 px, alors que le
+ * conteneur n'offre que ~240 px -- un vrai debordement de ~31 px, que
+ * overflow-x: auto aurait absorbe en le rendant defilant au lieu de le
+ * signaler (outils/verifier_mobile.py exclut explicitement de son controle
+ * tout ce qui vit sous un ancetre defilant). Verifie : sans cette regle,
+ * `verifier_mobile.py site/chapitre-1.html` ne signale aucun debordement de
+ * planche aux huit largeurs de reference. Si une future planche depasse
+ * malgre tout, elle doit rester signalee, pas glisser sous le tapis. */
 
 /* --- 5.7 Le cours ------------------------------------------------------ */
 

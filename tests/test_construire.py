@@ -34,6 +34,47 @@ def test_chaque_renvoi_de_slide_est_affiche():
     assert "slide 9" in PAGE
 
 
+def test_une_entree_hors_cours_est_visiblement_marquee():
+    # Aucune entree du chapitre 1 ne porte hors_cours=True : sans ce test batard,
+    # la disparition de la branche dans _src() passerait inapercue.
+    from outils.construire import _rendre_volet
+
+    chapitre_factice = {
+        "cartes": [
+            {
+                "id": "hc-01",
+                "q": "Question hors cours",
+                "r": "Reponse",
+                "hors_cours": True,
+            }
+        ]
+    }
+    assert "[hors cours]" in _rendre_volet("cartes", chapitre_factice)
+
+
+def test_la_table_des_muscles_est_structuree():
+    # Code mort pour le chapitre 1 (muscles=[]) : les chapitres 5 a 7 en dependent.
+    from outils.construire import _rendre_volet
+
+    chapitre_factice = {
+        "muscles": [
+            {
+                "nom": "Muscle factice",
+                "origine": ["Origine factice"],
+                "terminaison": ["Terminaison factice"],
+                "actions": ["Action factice"],
+            }
+        ]
+    }
+    rendu = _rendre_volet("muscles", chapitre_factice)
+    assert '<table class="muscles">' in rendu
+    assert "<caption>" in rendu
+    assert "<thead>" in rendu and "<tbody>" in rendu
+    for colonne in ("Muscle", "Origine", "Terminaison", "Action"):
+        assert colonne in rendu
+    assert "Muscle factice" in rendu
+
+
 def test_l_onglet_muscles_est_absent_quand_il_n_y_a_pas_de_muscle():
     assert 'data-onglet="muscles"' not in PAGE
 

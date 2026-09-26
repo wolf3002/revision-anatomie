@@ -44,7 +44,8 @@ def construire(racine: Path) -> list[Path]:
         corps = _rendre_chapitre(gabarit, chapitre)
         page = (
             base.replace(
-                "{{titre}}", f"Chapitre {chapitre['num']} — {chapitre['titre']}"
+                "{{titre}}",
+                f"Chapitre {chapitre['num']} — {html.escape(chapitre['titre'])}",
             )
             .replace("{{racine}}", "")
             .replace("{{corps}}", corps)
@@ -124,12 +125,28 @@ def _rendre_volet(cle, chapitre):
             + "</div>"
         )
     if cle == "muscles":
-        return "".join(
+        # style.css (§5.8) attend une <table class="muscles"> complete : caption +
+        # thead nommant les 4 colonnes + tbody -- sans eux, la bascule en fiches sous
+        # 720px (.muscles tr / .muscles td::before) ne s'applique jamais, et les <tr>
+        # nus rendus hors de tout <table> sont du HTML invalide.
+        lignes = "".join(
             f"<tr><th>{html.escape(m['nom'])}</th>"
             f"<td>{html.escape(' ; '.join(m['origine']))}</td>"
             f"<td>{html.escape(' ; '.join(m['terminaison']))}</td>"
             f"<td>{html.escape(' ; '.join(m['actions']))}</td></tr>"
             for m in chapitre["muscles"]
+        )
+        return (
+            '<table class="muscles">'
+            "<caption>Table musculaire</caption>"
+            "<thead><tr>"
+            '<th scope="col">Muscle</th>'
+            '<th scope="col">Origine</th>'
+            '<th scope="col">Terminaison</th>'
+            '<th scope="col">Action</th>'
+            "</tr></thead>"
+            f"<tbody>{lignes}</tbody>"
+            "</table>"
         )
     return ""
 
@@ -140,7 +157,8 @@ def _rendre_planche(planche):
         dx, dy = DECALAGE_LIBELLE[p["ancre"]]
         indice = f' data-indice="{html.escape(p["indice"])}"' if p.get("indice") else ""
         pastilles += (
-            f'<g class="pastille" data-n="{p["n"]}" data-plan="{p.get("plan", "")}"{indice}>'
+            f'<g class="pastille" data-n="{p["n"]}" '
+            f'data-plan="{html.escape(p.get("plan", ""))}"{indice}>'
             f'<circle cx="{p["x"]}" cy="{p["y"]}" r="9"/>'
             f'<text class="pastille__n" x="{p["x"]}" y="{p["y"] + 4}" '
             f'text-anchor="middle">{p["n"]}</text>'

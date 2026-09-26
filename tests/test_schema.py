@@ -206,9 +206,7 @@ def test_pastille_middle_dont_le_libelle_deborde_est_signalee():
                 "titre": "T",
                 "vb": "0 0 100 100",
                 "dessin": "<g><circle cx='5' cy='5' r='2'/></g>",
-                "pastilles": [
-                    {"n": 1, "x": 50, "y": 90, "t": "A", "ancre": "middle"}
-                ],
+                "pastilles": [{"n": 1, "x": 50, "y": 90, "t": "A", "ancre": "middle"}],
             }
         ]
     )
@@ -227,9 +225,7 @@ def test_pastille_middle_avec_marge_suffisante_est_acceptee():
                 "titre": "T",
                 "vb": "0 0 100 100",
                 "dessin": "<g><circle cx='5' cy='5' r='2'/></g>",
-                "pastilles": [
-                    {"n": 1, "x": 50, "y": 70, "t": "A", "ancre": "middle"}
-                ],
+                "pastilles": [{"n": 1, "x": 50, "y": 70, "t": "A", "ancre": "middle"}],
                 "slide": 9,
             }
         ]
@@ -245,9 +241,7 @@ def test_pastille_avec_ancre_invalide_est_signalee():
                 "titre": "T",
                 "vb": "0 0 100 100",
                 "dessin": "<g><circle cx='5' cy='5' r='2'/></g>",
-                "pastilles": [
-                    {"n": 1, "x": 10, "y": 10, "t": "A", "ancre": "centre"}
-                ],
+                "pastilles": [{"n": 1, "x": 10, "y": 10, "t": "A", "ancre": "centre"}],
             }
         ]
     )
@@ -276,6 +270,56 @@ def test_pastille_avec_indice_vide_est_signalee():
         ]
     )
     assert any("p1" in e and "indice" in e for e in valider_cours(cours))
+
+
+def test_pastille_avec_plan_invalide_est_signalee():
+    cours = cours_minimal(
+        planches=[
+            {
+                "id": "p1",
+                "titre": "T",
+                "vb": "0 0 100 100",
+                "dessin": "<g><circle cx='5' cy='5' r='2'/></g>",
+                "pastilles": [
+                    {
+                        "n": 1,
+                        "x": 10,
+                        "y": 10,
+                        "t": "A",
+                        "ancre": "start",
+                        "plan": "transverse",
+                    }
+                ],
+            }
+        ]
+    )
+    assert any("p1" in e and "plan" in e for e in valider_cours(cours))
+
+
+def test_pastille_sans_plan_ou_avec_plan_valide_est_acceptee():
+    cours = cours_minimal(
+        planches=[
+            {
+                "id": "p1",
+                "titre": "T",
+                "vb": "0 0 100 100",
+                "dessin": "<g><circle cx='5' cy='5' r='2'/></g>",
+                "pastilles": [
+                    {"n": 1, "x": 10, "y": 10, "t": "A", "ancre": "start"},
+                    {
+                        "n": 2,
+                        "x": 20,
+                        "y": 20,
+                        "t": "B",
+                        "ancre": "start",
+                        "plan": "sagittal",
+                    },
+                ],
+                "slide": 9,
+            }
+        ]
+    )
+    assert valider_cours(cours) == []
 
 
 def test_valider_planche_seule_sans_bornes_accepte_absence_de_slide():

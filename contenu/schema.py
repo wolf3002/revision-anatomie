@@ -15,6 +15,11 @@ CHAMPS_MUSCLE = ("nom", "origine", "terminaison", "actions")
 DECALAGE_LIBELLE = {"start": (14, 4), "end": (-14, 4), "middle": (0, 24)}
 ANCRES_VALIDES = set(DECALAGE_LIBELLE)
 
+# Les trois seules teintes du site (regle CSS section 1) ; une pastille sans
+# plan (chaine vide, ex. termes-localisation) reste valide -- elle ne porte
+# simplement aucune teinte.
+PLANS_VALIDES = {"", "frontal", "sagittal", "transversal"}
+
 
 def valider_cours(cours):
     erreurs = []
@@ -124,6 +129,12 @@ def valider_planche(planche, bornes=None):
         if not (pastille.get("t") or "").strip():
             erreurs.append(
                 f"planche {identifiant} : pastille {pastille.get('n')} sans libelle"
+            )
+        plan = pastille.get("plan", "")
+        if plan not in PLANS_VALIDES:
+            erreurs.append(
+                f"planche {identifiant} : pastille {pastille.get('n')} a un plan "
+                f"invalide ({plan!r}) ; attendu frontal, sagittal, transversal ou vide"
             )
         ancre = pastille.get("ancre")
         if ancre not in ANCRES_VALIDES:

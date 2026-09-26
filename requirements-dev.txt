@@ -1,0 +1,12 @@
+# Dependances de developpement -- pas partie du site publie.
+#
+# playwright : pilote google-chrome pour outils/verifier_mobile.py (controle
+# de mise en page mobile). Installation :
+#
+#   pip install -r requirements-dev.txt
+#   python3 -m playwright install chrome
+#
+# La seconde commande n'est necessaire que si aucun google-chrome systeme
+# n'est trouve par channel="chrome" -- sur ce poste, google-chrome est deja
+# installe et Playwright le pilote directement.
+playwright==1.59.0

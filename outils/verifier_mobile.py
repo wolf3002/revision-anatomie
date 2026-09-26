@@ -21,6 +21,18 @@ titre du document puis le reparser depuis un --dump-dom.
 Le navigateur est lance une seule fois par processus (module-level, ferme a la
 sortie via atexit) : lancer Chrome a chaque appel de verifier_page() est ce qui
 rendrait la suite de tests lente.
+
+Dependance : Playwright n'est pas dans la bibliotheque standard. Installation :
+
+    pip install -r requirements-dev.txt
+    python3 -m playwright install chrome   # au cas ou channel="chrome" ne
+                                            # trouve pas de google-chrome systeme
+
+Sur cette machine, google-chrome est deja installe et Playwright le pilote
+directement (channel="chrome") : la seconde commande n'est pas necessaire ici,
+mais le reste sans elle sur une machine qui n'a pas Chrome. Si le paquet
+'playwright' est absent, verifier_page() leve un RuntimeError explicite -- pas
+une trace d'import.
 """
 
 from __future__ import annotations
@@ -30,7 +42,12 @@ import sys
 from pathlib import Path
 from typing import Sequence
 
-from playwright.sync_api import sync_playwright
+try:
+    from playwright.sync_api import sync_playwright
+except ImportError as _erreur_import_playwright:
+    sync_playwright = None
+else:
+    _erreur_import_playwright = None
 
 LARGEURS = (320, 360, 390, 414, 768, 1024, 1280, 1920)
 
@@ -38,14 +55,20 @@ _HAUTEUR_VIEWPORT = 900
 _LARGEUR_CIBLE_TACTILE_MAX = 768
 _CIBLE_TACTILE_MIN_PX = 44
 
-# Script execute DANS la page (Playwright). Renvoie une liste de dicts
-# {type, selecteur, detail} -- le prefixe "[Nxxpx] fichier" est ajoute cote
-# Python, qui ignore tout ce qui se passe dans la page.
+# Script execute DANS la page (Playwright), appele avec un seul argument
+# {cibleMin, largeurMax} -- CES DEUX SEUILS N'ONT PAS D'AUTRE DEFINITION : ils
+# viennent des parametres de verifier_page(), jamais recodes en dur ici, pour
+# qu'une seule source existe (piege releve en revue : les anciennes constantes
+# _CIBLE_TACTILE_MIN_PX / _LARGEUR_CIBLE_TACTILE_MAX etaient mortes, le seuil
+# reel etait ecrit en dur plus bas dans cette chaine). Renvoie une liste de
+# dicts {type, selecteur, detail} -- le prefixe "[Nxxpx] fichier" est ajoute
+# cote Python, qui ignore tout ce qui se passe dans la page.
 _SCRIPT_ANALYSE = r"""
-() => {
+(config) => {
   const TOLERANCE = 1;          // arrondi sous-pixel
   const SEUIL_TRONCATURE = 4;   // "nettement" : au-dela du bruit d'arrondi
-  const CIBLE_MIN = 44;
+  const CIBLE_MIN = config.cibleMin;
+  const LARGEUR_MAX_CIBLE = config.largeurMax;
 
   function identifiant(el) {
     if (el.id) return '#' + el.id;
@@ -143,8 +166,8 @@ _SCRIPT_ANALYSE = r"""
   }
 
   // 4. Cible tactile trop petite -- exigence d'ergonomie du projet, sous
-  // 768 px de large seulement.
-  if (window.innerWidth < 768) {
+  // LARGEUR_MAX_CIBLE de large seulement.
+  if (window.innerWidth < LARGEUR_MAX_CIBLE) {
     const cibles = document.querySelectorAll('button, a[href]');
     for (const el of cibles) {
       const cs = getComputedStyle(el);
@@ -172,6 +195,13 @@ _navigateur = None
 def _obtenir_navigateur():
     global _playwright, _navigateur
     if _navigateur is None:
+        if sync_playwright is None:
+            raise RuntimeError(
+                "Playwright n'est pas installe. Installer avec :\n"
+                "  pip install -r requirements-dev.txt\n"
+                "  python3 -m playwright install chrome\n"
+                f"(erreur d'import d'origine : {_erreur_import_playwright})"
+            ) from _erreur_import_playwright
         _playwright = sync_playwright().start()
         _navigateur = _playwright.chromium.launch(channel="chrome", headless=True)
         atexit.register(_fermer_navigateur)
@@ -198,8 +228,20 @@ def _bloquer_reseau(page):
     page.route("http://**", lambda route: route.abort())
 
 
-def verifier_page(chemin_html: Path, largeurs: Sequence[int] = LARGEURS) -> list[str]:
-    """Renvoie la liste des defauts constates. Liste vide = la page est saine."""
+def verifier_page(
+    chemin_html: Path,
+    largeurs: Sequence[int] = LARGEURS,
+    *,
+    cible_tactile_min_px: int = _CIBLE_TACTILE_MIN_PX,
+    largeur_cible_tactile_max: int = _LARGEUR_CIBLE_TACTILE_MAX,
+) -> list[str]:
+    """Renvoie la liste des defauts constates. Liste vide = la page est saine.
+
+    cible_tactile_min_px et largeur_cible_tactile_max pilotent le controle
+    n°4 (cible tactile) : hauteur minimale exigee, et largeur de viewport
+    au-dela de laquelle le controle ne s'applique plus (le desktop n'a pas de
+    contrainte de pouce).
+    """
     chemin_html = Path(chemin_html)
     if not chemin_html.exists():
         return [f"{chemin_html} : fichier introuvable"]
@@ -207,6 +249,7 @@ def verifier_page(chemin_html: Path, largeurs: Sequence[int] = LARGEURS) -> list
     chemin_html = chemin_html.resolve()
     url = chemin_html.as_uri()
     navigateur = _obtenir_navigateur()
+    config = {"cibleMin": cible_tactile_min_px, "largeurMax": largeur_cible_tactile_max}
     defauts: list[str] = []
 
     for largeur in largeurs:
@@ -216,7 +259,7 @@ def verifier_page(chemin_html: Path, largeurs: Sequence[int] = LARGEURS) -> list
         try:
             _bloquer_reseau(page)
             page.goto(url, wait_until="load")
-            bruts = page.evaluate(_SCRIPT_ANALYSE)
+            bruts = page.evaluate(_SCRIPT_ANALYSE, config)
         finally:
             page.close()
 
@@ -235,8 +278,12 @@ if __name__ == "__main__":
         raise SystemExit(2)
 
     tous_defauts: list[str] = []
-    for chemin in chemins:
-        tous_defauts += verifier_page(Path(chemin))
+    try:
+        for chemin in chemins:
+            tous_defauts += verifier_page(Path(chemin))
+    except RuntimeError as erreur:
+        print(erreur, file=sys.stderr)
+        raise SystemExit(1) from erreur
 
     if tous_defauts:
         for defaut in tous_defauts:

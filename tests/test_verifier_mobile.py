@@ -6,6 +6,7 @@ import pytest
 RACINE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RACINE))
 
+import outils.verifier_mobile as verifier_mobile
 from outils.verifier_mobile import LARGEURS, verifier_page
 
 _RESET = "<style>*{margin:0;box-sizing:border-box}body{font-family:sans-serif}</style>"
@@ -98,6 +99,60 @@ def test_bouton_trop_petit_est_signale_sous_768px_seulement(tmp_path):
     assert any("44px" in d for d in defauts_320)
     assert defauts_768 == []
     assert defauts_1024 == []
+
+
+def test_le_seuil_de_hauteur_de_cible_tactile_est_reellement_utilise(tmp_path):
+    # Piege releve en revue : _CIBLE_TACTILE_MIN_PX existait mais n'etait
+    # jamais lue, le seuil reel etait recopie en dur dans le script JS. Ce
+    # test prouve que changer le parametre Python change bien le resultat.
+    corps = """
+    <main>
+      <button style="height:30px;padding:0;line-height:30px;
+      font-size:12px;">OK</button>
+    </main>
+    """
+    page = _ecrire(tmp_path, "page_bouton_30px.html", corps)
+
+    defauts_defaut = verifier_page(page, largeurs=(320,))
+    defauts_seuil_abaisse = verifier_page(
+        page, largeurs=(320,), cible_tactile_min_px=20
+    )
+
+    assert any("44px" in d for d in defauts_defaut)
+    assert defauts_seuil_abaisse == []
+
+
+def test_le_seuil_de_largeur_max_de_cible_tactile_est_reellement_utilise(tmp_path):
+    # Meme piege pour _LARGEUR_CIBLE_TACTILE_MAX : a 800px (>= 768, hors zone
+    # par defaut) le bouton de 30px n'est pas signale ; l'etendre a 1024px
+    # doit le faire rentrer dans la zone controlee et le signaler.
+    corps = """
+    <main>
+      <button style="height:30px;padding:0;line-height:30px;
+      font-size:12px;">OK</button>
+    </main>
+    """
+    page = _ecrire(tmp_path, "page_bouton_30px_800.html", corps)
+
+    defauts_defaut = verifier_page(page, largeurs=(800,))
+    defauts_seuil_etendu = verifier_page(
+        page, largeurs=(800,), largeur_cible_tactile_max=1024
+    )
+
+    assert defauts_defaut == []
+    assert any("44px" in d for d in defauts_seuil_etendu)
+
+
+def test_message_clair_si_playwright_est_absent(tmp_path, monkeypatch):
+    # Un import casse doit produire un message qui dit quoi installer, pas
+    # une trace d'import brute ; simule l'absence du paquet sans le
+    # desinstaller.
+    page = _ecrire(tmp_path, "page.html", "<p>ok</p>")
+    monkeypatch.setattr(verifier_mobile, "sync_playwright", None)
+    monkeypatch.setattr(verifier_mobile, "_navigateur", None)
+
+    with pytest.raises(RuntimeError, match="playwright"):
+        verifier_page(page)
 
 
 @pytest.mark.slow

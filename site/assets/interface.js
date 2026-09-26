@@ -371,19 +371,6 @@ export function demarrer(document, support) {
       return source ? document.importNode(source, true) : null;
     }
 
-    // composerSeance (tache 6, non modifiee) entrelace par item.chapitre.
-    // Avec un seul chapitre charge, ce tourniquet degenererait en une simple
-    // file (25 cartes d'affilee, aucun quiz ni planche) : le mecanisme
-    // n'entrelace QUE les chapitres, jamais les formats a l'interieur d'un
-    // meme chapitre -- verifie par pilotage reel. On lui fait donc croire
-    // que chaque paire (chapitre, format) est un chapitre a part : le meme
-    // tourniquet entrelace alors aussi les formats, sans modifier
-    // planificateur.js.
-    function composerSeanceMixte(items, options) {
-      const cles = items.map((item) => ({ ...item, chapitre: `${item.chapitre}:${item.type}`, __item: item }));
-      return composerSeance(cles, options).map((item) => item.__item);
-    }
-
     let file = [];
     let position = 0;
     let planchesAffichees = new Set();
@@ -506,7 +493,7 @@ export function demarrer(document, support) {
         const joursAvantExamen = etat.dateExamen ? joursEntre(aujourdhui, etat.dateExamen) : NaN;
         const intervalle = intervalleDeBase(joursAvantExamen);
 
-        let composee = composerSeanceMixte(items, { intervalle, aujourdHui: aujourdhui, taille: 25 });
+        let composee = composerSeance(items, { intervalle, aujourdHui: aujourdhui, taille: 25 });
         let consolidation = false;
         if (!composee.length) {
           // Rien de du : consolidation sur les items les plus fragiles. Meme
@@ -514,7 +501,7 @@ export function demarrer(document, support) {
           // et des formats), juste avec une echeance forcee tres loin pour que
           // tout soit "du".
           consolidation = true;
-          composee = composerSeanceMixte(items, { intervalle, aujourdHui: '9999-12-31', taille: 25 });
+          composee = composerSeance(items, { intervalle, aujourdHui: '9999-12-31', taille: 25 });
         }
         if (!composee.length) {
           if (messageSeance) messageSeance.textContent = 'Rien à réviser pour le moment.';

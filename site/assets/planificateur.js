@@ -43,16 +43,24 @@ export function composerSeance(items, { intervalle, aujourdHui, taille = 25 }) {
   const fragiles = dus.filter((item) => item.echecs >= 2);
   const reste = dus.filter((item) => item.echecs < 2);
 
-  const parChapitre = new Map();
+  // Regroupe par (chapitre, format) et non par le seul chapitre : un chapitre
+  // entier de cartes avant le premier quiz produirait le meme bloc monotone
+  // qu'un chapitre entier avant le suivant (§3.6 -- reviser un bloc d'affilee
+  // gonfle la maitrise ressentie et l'effondre a l'examen). Avec un seul
+  // chapitre charge, regrouper par chapitre seul degenererait meme en file
+  // plate, sans aucun entrelacement : verifie par un test discriminant.
+  const parGroupe = new Map();
   for (const item of reste) {
-    if (!parChapitre.has(item.chapitre)) parChapitre.set(item.chapitre, []);
-    parChapitre.get(item.chapitre).push(item);
+    const cle = `${item.chapitre}:${item.type}`;
+    if (!parGroupe.has(cle)) parGroupe.set(cle, []);
+    parGroupe.get(cle).push(item);
   }
 
-  // Tourniquet entre chapitres : deux items consecutifs ne partagent pas
-  // le meme chapitre tant qu'un autre chapitre a encore des items en attente.
+  // Tourniquet entre chapitres ET formats : deux items consecutifs ne
+  // partagent ni le meme chapitre ni le meme format tant qu'un autre groupe a
+  // encore des items en attente.
   const entrelaces = [];
-  const files = [...parChapitre.values()];
+  const files = [...parGroupe.values()];
   while (files.some((file) => file.length)) {
     for (const file of files) {
       if (file.length) entrelaces.push(file.shift());

@@ -79,3 +79,20 @@ test('la séance ne retient que les items dus', () => {
     { intervalle: 4, aujourdHui: '2026-09-19', taille: 10 });
   assert.deepEqual(seance.map((i) => i.id), ['a']);
 });
+
+test('la séance entrelace aussi les formats à l\'intérieur d\'un même chapitre', () => {
+  // Un seul chapitre, mais trois formats : sans entrelacement par format, le
+  // tourniquet degenere en une seule file (bloc de cartes, puis bloc de quiz,
+  // puis bloc de pastilles) faute d'un second chapitre pour alterner avec.
+  const items = [
+    item('c1', 1, 'jamais', null, 'carte'),
+    item('c2', 1, 'jamais', null, 'carte'),
+    item('q1', 1, 'jamais', null, 'quiz'),
+    item('q2', 1, 'jamais', null, 'quiz'),
+    item('p1', 1, 'jamais', null, 'pastille'),
+    item('p2', 1, 'jamais', null, 'pastille'),
+  ];
+  const seance = composerSeance(items, { intervalle: 4, aujourdHui: '2026-09-18', taille: 6 });
+  const types = seance.map((i) => i.type);
+  assert.deepEqual(types, ['carte', 'quiz', 'pastille', 'carte', 'quiz', 'pastille']);
+});

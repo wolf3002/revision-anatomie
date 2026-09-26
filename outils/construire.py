@@ -72,8 +72,19 @@ def _rendre_accueil(gabarit, cours):
     chapitres = cours["chapitres"]
     progression = "".join(_rendre_anneau(c) for c in chapitres)
     liste = "".join(_rendre_lien_chapitre(c) for c in chapitres)
+    # Le titre annonce le compte REEL de chapitres publies dans cours.json,
+    # jamais "les sept" en dur : tant que les chapitres 2 a 7 ne sont pas
+    # ecrits (et leurs bornes de slides verifiees dans le PDF -- cf. l'audit
+    # du chapitre 1, qui a corrige [7,45] en [7,43]), un titre qui promettrait
+    # sept entrees pour une seule affichee se lirait comme un bug.
+    titre_chapitres = (
+        "Chapitre disponible"
+        if len(chapitres) == 1
+        else f"Les {len(chapitres)} chapitres disponibles"
+    )
     return (
         gabarit.replace("{{cours}}", html.escape(cours["meta"]["cours"]))
+        .replace("{{titre_chapitres}}", titre_chapitres)
         .replace("{{progression}}", progression)
         .replace("{{chapitres}}", liste)
     )

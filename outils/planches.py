@@ -23,17 +23,22 @@ _DEFS_FLECHE = (
     "<path d='M0 0 L10 5 L0 10 Z' fill='currentColor'/></marker></defs>"
 )
 
-# plans-anatomiques (ronde de correction 1) : une seule vue de face avec trois traits
-# tiretés superposés se lisait comme "trois lignes identiques" et faisait chevaucher les
-# libellés. Refait en trois panneaux côte à côte, un par plan, chacun avec l'orientation
-# où ce plan se voit vraiment de face :
+# Les trois plans (ronde de correction 1, puis éclatés en planches séparées en ronde de
+# correction 4) : une seule vue de face avec trois traits tiretés superposés se lisait
+# comme "trois lignes identiques" et faisait chevaucher les libellés. Puis un unique
+# viewBox large (720 px, trois panneaux côte à côte) débordait sur mobile — trois
+# panneaux ne peuvent pas tenir à la fois lisibles et dans un écran de 320-390 px.
+# Chaque plan est donc sa propre planche autonome (vb ~240x360, une seule silhouette),
+# chacune avec l'orientation où son plan se voit vraiment de face :
 #   - frontal   : silhouette de face, le plan en surface verticale traversant le corps,
 #                 flèche d'abduction du bras (mouvement caractéristique du plan frontal).
 #   - sagittal  : silhouette DE PROFIL (le plan est alors dans le plan de la page),
 #                 flèche de flexion du genou.
 #   - transversal : silhouette de face, le plan en ellipse horizontale (la perspective
 #                 suggère mieux l'horizontale qu'un simple segment), flèche de rotation.
-_PANEL_CX = {"frontal": 120, "sagittal": 360, "transversal": 600}
+# Les tracés eux-mêmes sont inchangés (validés en ronde 1) : seul cx change, puisque
+# chaque planche recentre sa silhouette dans son propre viewBox de 240 px de large.
+_CX = 120
 
 
 def _panel_frontal(cx):
@@ -102,20 +107,15 @@ _Y_NOM = 268
 _Y_MOUVEMENTS = 308
 
 PLANCHES = {
-    "plans-anatomiques": {
-        "id": "plans-anatomiques",
-        "titre": "Les trois plans anatomiques",
-        "vb": "0 0 720 360",
-        "dessin": (
-            _DEFS_FLECHE
-            + _panel_frontal(_PANEL_CX["frontal"])
-            + _panel_sagittal(_PANEL_CX["sagittal"])
-            + _panel_transversal(_PANEL_CX["transversal"])
-        ),
+    "plan-frontal": {
+        "id": "plan-frontal",
+        "titre": "Le plan frontal",
+        "vb": "0 0 240 360",
+        "dessin": _DEFS_FLECHE + _panel_frontal(_CX),
         "pastilles": [
             {
                 "n": 1,
-                "x": _PANEL_CX["frontal"],
+                "x": _CX,
                 "y": _Y_NOM,
                 "t": "Plan frontal",
                 "ancre": "middle",
@@ -124,16 +124,24 @@ PLANCHES = {
             },
             {
                 "n": 2,
-                "x": _PANEL_CX["frontal"],
+                "x": _CX,
                 "y": _Y_MOUVEMENTS,
                 "t": "Abduction, adduction",
                 "ancre": "middle",
                 "plan": "frontal",
                 "indice": "mouvements de ce plan",
             },
+        ],
+    },
+    "plan-sagittal": {
+        "id": "plan-sagittal",
+        "titre": "Le plan sagittal",
+        "vb": "0 0 240 360",
+        "dessin": _DEFS_FLECHE + _panel_sagittal(_CX),
+        "pastilles": [
             {
-                "n": 3,
-                "x": _PANEL_CX["sagittal"],
+                "n": 1,
+                "x": _CX,
                 "y": _Y_NOM,
                 "t": "Plan sagittal",
                 "ancre": "middle",
@@ -141,17 +149,25 @@ PLANCHES = {
                 "indice": "nom du plan",
             },
             {
-                "n": 4,
-                "x": _PANEL_CX["sagittal"],
+                "n": 2,
+                "x": _CX,
                 "y": _Y_MOUVEMENTS,
                 "t": "Flexion, extension",
                 "ancre": "middle",
                 "plan": "sagittal",
                 "indice": "mouvements de ce plan",
             },
+        ],
+    },
+    "plan-transversal": {
+        "id": "plan-transversal",
+        "titre": "Le plan transversal",
+        "vb": "0 0 240 360",
+        "dessin": _DEFS_FLECHE + _panel_transversal(_CX),
+        "pastilles": [
             {
-                "n": 5,
-                "x": _PANEL_CX["transversal"],
+                "n": 1,
+                "x": _CX,
                 "y": _Y_NOM,
                 "t": "Plan transversal",
                 "ancre": "middle",
@@ -159,8 +175,8 @@ PLANCHES = {
                 "indice": "nom du plan",
             },
             {
-                "n": 6,
-                "x": _PANEL_CX["transversal"],
+                "n": 2,
+                "x": _CX,
                 "y": _Y_MOUVEMENTS,
                 "t": "Rotation, pronation, supination",
                 "ancre": "middle",

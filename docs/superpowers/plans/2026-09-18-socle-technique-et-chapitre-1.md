@@ -11,12 +11,27 @@
 ## Global Constraints
 
 - **Source unique de vérité :** `ANATOMIE _230831_213333.pdf`. Aucune notion extérieure au cours sans marquage `[hors cours]` visible.
-- **Traçabilité :** toute carte, question, pastille et piège porte un numéro de slide, situé dans la plage du chapitre.
+- **Traçabilité :** toute carte, question, planche, table musculaire et piège porte un numéro de slide, situé dans la plage du chapitre. Une pastille hérite du numéro de sa planche — on ne lui en demande pas un à elle.
 - **Chapitre 1 = slides 7 à 45.**
 - **Palette (thème clair) :** papier `#EDEFF2`, carte `#FFFFFF`, encre `#101A22`, encre douce `#4A5A66`, trait `#C9D2D9`, frontal `#C1553A`, sagittal `#1F6F78`, transversal `#B0821F`.
 - **Palette (thème sombre) :** papier `#0E1418`, carte `#161F25`, encre `#E6EDF2`, encre douce `#97A7B2`, trait `#2A3841`, frontal `#E07A5F`, sagittal `#3FA3AD`, transversal `#DCA83A`.
 - **Typographie :** Saira Condensed (titres de planche) · Public Sans (corps) · IBM Plex Mono (étiquettes, numéros de slide). Pile de repli système obligatoire pour chacune.
 - **Contraste :** ≥ 4,5:1 pour le texte, ≥ 3:1 pour les traits porteurs de sens, sur les deux thèmes.
+- **Le site s'adapte à tous les écrans, et c'est vérifié, pas supposé.** La cible principale est un
+  téléphone, mais aucune largeur ne doit casser. Contrainte : **aucun débordement horizontal de la page**
+  entre 320 et 1920 px, et tout contenu intrinsèquement large (planche, tableau de muscles, bloc de code)
+  défile dans son propre conteneur, jamais en poussant la page.
+
+  Une planche trop large ne se met pas à l'échelle jusqu'à devenir illisible : elle **se décompose en
+  planches autonomes**, que la grille empile en une colonne sur téléphone et aligne côte à côte sur grand
+  écran. Chaque planche doit rester lisible seule.
+
+  Vérifié automatiquement par `outils/verifier_mobile.py`, qui rend chaque page dans Chrome sans interface
+  aux largeurs **320, 360, 390, 414, 768, 1024, 1280 et 1920 px** et échoue si
+  `document.documentElement.scrollWidth > window.innerWidth` à l'une d'elles, ou si un élément dépasse du
+  cadre de son parent. Le contrôle fait partie de la recette, il ne se juge pas à l'œil.
+- **Ancrage des libelles de pastille :** `ancre` vaut `start`, `end` ou `middle`, et rien d'autre. Le validateur refuse toute autre valeur. La table `DECALAGE_LIBELLE = {"start": (14, 4), "end": (-14, 4), "middle": (0, 24)}` est definie dans `contenu/schema.py` et importee par `outils/construire.py` : une seule definition, pour que ce qui est valide soit exactement ce qui est rendu. Le validateur s'en sert pour refuser un libelle dont le point d'ancrage decale sort du `viewBox`.
+- **Indice de saisie :** une pastille peut porter un champ optionnel `indice` (ex. `"nom du plan"`, `"mouvements"`), affiche en texte d'invite du champ en mode muet. Sans lui, une pastille muette ne dit pas ce qu'elle attend.
 - **La couleur ne code jamais seule :** tout mouvement teinté porte aussi son libellé de plan en toutes lettres.
 - **Aucune requête réseau après le chargement initial**, hors les fontes Google chargées dans `<head>`.
 - **Le contenu du cours reste lisible sans JavaScript :** les onglets sont des sections présentes dans le DOM, révélées par JS, jamais injectées par lui.
@@ -61,7 +76,7 @@
 
 **Interfaces:**
 - Consumes: rien.
-- Produces: `valider_cours(cours: dict) -> list[str]` et `valider_planche(planche: dict) -> list[str]` (publique : les tests de la tâche 3 l'appellent directement) — renvoie la liste des messages d'erreur, liste vide si le contenu est conforme. Utilisée par les tâches 2, 3 et 5.
+- Produces: `valider_cours(cours: dict) -> list[str]` et `valider_planche(planche: dict, bornes: list[int] | None = None) -> list[str]` (publique : les tests de la tâche 3 l'appellent directement, sans `bornes`, pour ne valider que la géométrie ; `valider_cours` la rappelle avec les bornes du chapitre pour contrôler en plus le numéro de slide) — renvoie la liste des messages d'erreur, liste vide si le contenu est conforme. Utilisée par les tâches 2, 3 et 5.
 
 - [ ] **Step 1: Initialiser le dépôt**
 
@@ -957,6 +972,11 @@ import json
 import shutil
 from pathlib import Path
 
+# La table de decalage vit dans contenu/schema.py, pas ici : le validateur s'en sert
+# pour verifier qu'un libelle decale ne sort pas du viewBox. Une seule definition,
+# donc aucune derive possible entre ce qui est valide et ce qui est rendu.
+from contenu.schema import DECALAGE_LIBELLE
+
 ONGLETS = (
     ("planche", "Planche", "planches"),
     ("cartes", "Cartes", "cartes"),
@@ -1046,7 +1066,12 @@ def _rendre_volet(cle, chapitre):
             for s in chapitre["sections"]
         )
     if cle == "planche":
-        return "".join(_rendre_planche(p) for p in chapitre["planches"])
+        # Conteneur en grille : les planches s'alignent cote a cote quand la place le
+        # permet et s'empilent sur telephone. Sans lui, trois planches autonomes
+        # s'empilent aussi sur grand ecran et on perd la comparaison des trois plans.
+        return ('<div class="planches">'
+                + "".join(_rendre_planche(p) for p in chapitre["planches"])
+                + "</div>")
     if cle == "muscles":
         return "".join(
             f'<tr><th>{html.escape(m["nom"])}</th>'
@@ -1059,15 +1084,18 @@ def _rendre_volet(cle, chapitre):
 
 
 def _rendre_planche(planche):
-    pastilles = "".join(
-        f'<g class="pastille" data-n="{p["n"]}" data-plan="{p.get("plan", "")}">'
-        f'<circle cx="{p["x"]}" cy="{p["y"]}" r="9"/>'
-        f'<text class="pastille__n" x="{p["x"]}" y="{p["y"] + 4}" '
-        f'text-anchor="middle">{p["n"]}</text>'
-        f'<text class="pastille__t" x="{p["x"] + (14 if p["ancre"] == "start" else -14)}" '
-        f'y="{p["y"] + 4}" text-anchor="{p["ancre"]}">{html.escape(p["t"])}</text></g>'
-        for p in planche["pastilles"]
-    )
+    pastilles = ""
+    for p in planche["pastilles"]:
+        dx, dy = DECALAGE_LIBELLE[p["ancre"]]
+        indice = f' data-indice="{html.escape(p["indice"])}"' if p.get("indice") else ""
+        pastilles += (
+            f'<g class="pastille" data-n="{p["n"]}" data-plan="{p.get("plan", "")}"{indice}>'
+            f'<circle cx="{p["x"]}" cy="{p["y"]}" r="9"/>'
+            f'<text class="pastille__n" x="{p["x"]}" y="{p["y"] + 4}" '
+            f'text-anchor="middle">{p["n"]}</text>'
+            f'<text class="pastille__t" x="{p["x"] + dx}" y="{p["y"] + dy}" '
+            f'text-anchor="{p["ancre"]}">{html.escape(p["t"])}</text></g>'
+        )
     return (
         f'<figure class="planche" id="{html.escape(planche["id"])}" data-mode="legende">'
         f'<figcaption>{html.escape(planche["titre"])} {_src(planche)}</figcaption>'

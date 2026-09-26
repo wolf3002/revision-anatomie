@@ -10,4 +10,45 @@
   <div class="volets">
     {{volets}}
   </div>
+
+  <button type="button" class="action" data-action="mode-planches" aria-pressed="false" hidden>
+    Planches <span class="mode-planches__etat mono">légendé</span> <span class="touche">M</span>
+  </button>
+
+  <button type="button" class="action" data-action="reglages-bascule"
+    aria-expanded="false" aria-controls="reglages-panneau" hidden>
+    Réglages
+  </button>
+  <section id="reglages-panneau" class="reglages" aria-label="Réglages" hidden>
+    <div class="reglages__bloc">
+      <span class="reglages__label">Thème</span>
+      <div class="reglages__groupe" role="group" aria-label="Thème">
+        <button type="button" class="action" data-theme-choix="auto" aria-pressed="false">Auto</button>
+        <button type="button" class="action" data-theme-choix="clair" aria-pressed="false">Clair</button>
+        <button type="button" class="action" data-theme-choix="sombre" aria-pressed="false">Sombre</button>
+      </div>
+    </div>
+    <div class="reglages__bloc">
+      <label for="reglages-date-examen">Date d&#x27;examen</label>
+      <input type="date" id="reglages-date-examen" class="champ">
+      <span id="reglages-intervalle" class="mono"></span>
+    </div>
+    <div class="reglages__bloc">
+      <button type="button" class="action" data-action="exporter">Exporter la progression</button>
+    </div>
+    <div class="reglages__bloc">
+      <label for="reglages-import">Importer une progression (JSON)</label>
+      <input type="file" id="reglages-import" class="champ" accept="application/json">
+      <p id="reglages-statut" class="mono" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <div class="actions" id="actions-carte" hidden>
+    <button type="button" class="action action--majeure" data-action="retourner">
+      Retourner <span class="touche">Espace</span>
+    </button>
+    <button type="button" class="action" data-verdict="rate">Raté <span class="touche">1</span></button>
+    <button type="button" class="action" data-verdict="difficile">Difficile <span class="touche">2</span></button>
+    <button type="button" class="action" data-verdict="su">Su <span class="touche">3</span></button>
+  </div>
 </div>

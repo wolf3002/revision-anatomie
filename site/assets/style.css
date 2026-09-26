@@ -1067,6 +1067,70 @@ body {
   border-radius: var(--rayon);
 }
 
+/* --- 5.12 Reglages et verification muette ------------------------------ */
+
+/* Champ generique (date d'examen, import de fichier) : meme cible tactile et
+ * meme cadre que les champs de legende du mode muet (§5.6), pour une seule
+ * famille de champs dans tout le site. */
+.champ {
+  min-height: 44px;
+  width: 100%;
+  padding: var(--pas) var(--pas-2);
+  font-size: var(--t-m);
+  background: var(--papier);
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+}
+
+/* Correction d'une pastille muette : meme grammaire visuelle que le quiz
+ * (§5.5) -- trait et graisse, jamais une teinte. */
+.legendes input[data-verdict="bon"] {
+  border-color: var(--encre);
+  border-width: 2px;
+  font-weight: 700;
+}
+
+.legendes input[data-verdict="mauvais"] {
+  border-style: dashed;
+  color: var(--encre-doux);
+}
+
+.reglages {
+  display: grid;
+  gap: var(--pas-3);
+  max-width: var(--mesure);
+  padding: var(--pas-3);
+  background: var(--carte);
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+}
+
+.reglages__bloc {
+  display: grid;
+  gap: var(--pas);
+}
+
+.reglages__label {
+  font-family: var(--police-mono);
+  font-size: var(--t-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--encre-doux);
+}
+
+.reglages__groupe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pas);
+}
+
+/* Position choisie dans le groupe theme (auto/clair/sombre) : signalee comme
+ * partout ailleurs par le trait et la graisse, jamais par une teinte. */
+[data-theme-choix][aria-pressed="true"] {
+  border-width: 2px;
+  font-weight: 700;
+}
+
 /* ========================================================================
  * 6. FOCUS
  * ===================================================================== */
@@ -1117,7 +1181,10 @@ body {
   /* Les plans ne sont plus distingues par la teinte : ils le restent par leur
    * libelle, present sur chaque element teinte. */
   .actions,
-  .onglets {
+  .onglets,
+  .reglages,
+  [data-action="mode-planches"],
+  [data-action="reglages-bascule"] {
     display: none;
   }
 

@@ -81,11 +81,35 @@ _SCRIPT_ANALYSE = r"""
     return sel;
   }
 
-  function aAncetreDefilant(el) {
-    let n = el.parentElement;
+  // Remonte de el.parentElement vers la racine, en s'arretant au PLUS PROCHE
+  // ancetre defilant (overflow-x: auto|scroll) -- pas au premier trouve
+  // n'importe ou plus haut. A chaque niveau, verifie que le MEME bord
+  // (celui qui deborde reellement pour l'element controle -- passe en
+  // 'bord', une coordonnee de page fixe, et 'cote') deborde ENCORE de cet
+  // ancetre-la. Si un ancetre non defilant contient deja ce bord, la chaine
+  // est rompue avant tout defilement : ce n'est pas le meme phenomene, donc
+  // pas exclu, meme si un conteneur defilant existe plus haut. Si on
+  // atteint un ancetre defilant alors que le bord le deborde encore, c'est
+  // bien lui qui absorbe ce debordement precis : exclu.
+  //
+  // Correction (revue independante) : l'ancienne version renvoyait vrai
+  // des qu'UN SEUL ancetre, aussi lointain soit-il, portait overflow-x
+  // auto/scroll -- un element mal positionne (ex. badge en position:
+  // absolute qui sort de son parent direct) echappait alors a tout
+  // controle du seul fait de vivre quelque part sous un tableau qui
+  // defile, a n'importe quelle profondeur.
+  function debordementAbsorbeParDefilement(elementControle, bord, cote) {
+    let n = elementControle.parentElement;
     while (n) {
       const cs = getComputedStyle(n);
-      if (cs.overflowX === 'auto' || cs.overflowX === 'scroll') return true;
+      const rn = n.getBoundingClientRect();
+      const encoreDebordant = cote === 'right'
+        ? bord > rn.right + TOLERANCE
+        : bord < rn.left - TOLERANCE;
+      if (cs.overflowX === 'auto' || cs.overflowX === 'scroll') {
+        return encoreDebordant;
+      }
+      if (!encoreDebordant) return false;
       n = n.parentElement;
     }
     return false;
@@ -126,23 +150,27 @@ _SCRIPT_ANALYSE = r"""
     // visuel de reference : on l'exclut plutot que de produire un faux
     // positif (ex. barre d'actions ancree en bas d'ecran).
     const ancreAuViewport = cs.position === 'fixed' || cs.position === 'sticky';
-    if (!ancreAuViewport && el.parentElement && !aAncetreDefilant(el)) {
+    if (!ancreAuViewport && el.parentElement) {
       const parent = el.parentElement;
       const rp = parent.getBoundingClientRect();
       if (rect.right > rp.right + TOLERANCE) {
-        defauts.push({
-          type: 'element_hors_cadre',
-          selecteur: identifiant(el),
-          detail: `depasse le cadre de son parent (${identifiant(parent)}) `
-            + `de ${(rect.right - rp.right).toFixed(0)}px a droite`,
-        });
+        if (!debordementAbsorbeParDefilement(el, rect.right, 'right')) {
+          defauts.push({
+            type: 'element_hors_cadre',
+            selecteur: identifiant(el),
+            detail: `depasse le cadre de son parent (${identifiant(parent)}) `
+              + `de ${(rect.right - rp.right).toFixed(0)}px a droite`,
+          });
+        }
       } else if (rect.left < rp.left - TOLERANCE) {
-        defauts.push({
-          type: 'element_hors_cadre',
-          selecteur: identifiant(el),
-          detail: `depasse le cadre de son parent (${identifiant(parent)}) `
-            + `de ${(rp.left - rect.left).toFixed(0)}px a gauche`,
-        });
+        if (!debordementAbsorbeParDefilement(el, rect.left, 'left')) {
+          defauts.push({
+            type: 'element_hors_cadre',
+            selecteur: identifiant(el),
+            detail: `depasse le cadre de son parent (${identifiant(parent)}) `
+              + `de ${(rp.left - rect.left).toFixed(0)}px a gauche`,
+          });
+        }
       }
     }
 
@@ -152,15 +180,23 @@ _SCRIPT_ANALYSE = r"""
     const aDuTexteDirect = Array.from(el.childNodes).some(
       (n) => n.nodeType === Node.TEXT_NODE && n.textContent.trim().length > 0
     );
-    if (aDuTexteDirect && !aAncetreDefilant(el)) {
+    if (aDuTexteDirect) {
       const ecart = el.scrollWidth - el.clientWidth;
       if (ecart > SEUIL_TRONCATURE) {
-        defauts.push({
-          type: 'texte_tronque',
-          selecteur: identifiant(el),
-          detail: `scrollWidth=${el.scrollWidth}px > clientWidth=${el.clientWidth}px `
-            + `(ecart ${ecart}px)`,
-        });
+        // Bord virtuel : la ou s'etend visuellement le contenu qui ne
+        // rentre pas (hypothese texte de gauche a droite -- site en
+        // francais). Meme logique d'absorption que le controle 2 : ce
+        // bord doit encore deborder au niveau du plus proche ancetre
+        // defilant pour que ce soit lui qui l'explique.
+        const bordVirtuel = rect.right + ecart;
+        if (!debordementAbsorbeParDefilement(el, bordVirtuel, 'right')) {
+          defauts.push({
+            type: 'texte_tronque',
+            selecteur: identifiant(el),
+            detail: `scrollWidth=${el.scrollWidth}px > clientWidth=${el.clientWidth}px `
+              + `(ecart ${ecart}px)`,
+          });
+        }
       }
     }
   }

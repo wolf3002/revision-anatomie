@@ -82,6 +82,32 @@ def test_tableau_dans_conteneur_defilant_ne_produit_aucun_defaut(tmp_path):
     assert verifier_page(page) == []
 
 
+def test_element_casse_sous_un_conteneur_defilant_reste_signale(tmp_path):
+    # Contre-exemple du cas sain ci-dessus : un conteneur defilant existe
+    # bien dans la page, mais DEUX niveaux plus bas, un badge en position
+    # absolute sort de son propre parent immediat (non defilant, lui). Ce
+    # parent n'a rien a voir avec le defilement de .scroller -- le badge
+    # doit rester signale. Revue independante : l'ancienne version
+    # excluait tout element vivant sous N'IMPORTE QUEL ancetre defilant, a
+    # n'importe quelle profondeur, donc aurait laisse passer ce badge.
+    corps = """
+    <div class="scroller" style="overflow-x:auto;width:100%;">
+      <div class="niveau-a" style="width:100%;">
+        <div class="carte" style="position:relative;width:100px;height:40px;
+        margin:20px;background:#eee;">
+          <span class="badge" style="position:absolute;left:70px;top:0;
+          width:50px;height:20px;background:red;color:#fff;">NEW</span>
+        </div>
+      </div>
+    </div>
+    """
+    page = _ecrire(tmp_path, "page_badge_casse_sous_scroller.html", corps)
+
+    defauts = verifier_page(page, largeurs=(320,))
+
+    assert any("badge" in d and "cadre" in d for d in defauts), defauts
+
+
 def test_bouton_trop_petit_est_signale_sous_768px_seulement(tmp_path):
     corps = """
     <main>

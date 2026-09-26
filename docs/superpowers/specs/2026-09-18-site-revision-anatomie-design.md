@@ -357,8 +357,10 @@ revision-anatomie/
 connaît que le rendu HTML. `fiches.py` et `pdf.py` ne servent que l'impression. Aucun des quatre ne
 contient de contenu de cours : tout vit dans `cours.json`.
 
-**Côté client**, `app.js` se découpe en quatre modules indépendants dans un seul fichier :
-`stockage` (localStorage, import/export), `planificateur` (§4.3, fonctions pures et testables),
+**Côté client**, quatre modules ES séparés (`planificateur.js`, `stockage.js`, `exercices.js`,
+`interface.js`) pour la testabilité : les fonctions pures du planificateur deviennent testables
+sous Node sans navigateur, et chaque fichier reste court. Responsabilités :
+`planificateur` (calcul des échéances, §4.3, fonctions pures), `stockage` (localStorage, import/export),
 `exercices` (cartes, quiz, planches muettes, tables musculaires), `interface` (onglets, thème,
 raccourcis). Le planificateur ne touche pas au DOM ; l'interface ne calcule pas d'échéance.
 

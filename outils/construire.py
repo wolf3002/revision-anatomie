@@ -24,6 +24,12 @@ ONGLETS = (
     ("planche", "Planche", "planches"),
     ("cartes", "Cartes", "cartes"),
     ("quiz", "Quiz", "quiz"),
+    # Piege = mise en garde, pas un exercice : place apres le quiz (on vient
+    # de se tester) et avant les volets de reference (Muscles, Le cours).
+    # Contrairement a une carte ou une explication de quiz, son contenu est
+    # affiche d'emblee, jamais masque -- lire un piege avant de se tromper a
+    # un sens, le "cacher" derriere une tentative n'en aurait aucun.
+    ("pieges", "Pièges", "pieges"),
     ("muscles", "Muscles", "muscles"),
     ("cours", "Le cours", "sections"),
 )
@@ -195,9 +201,12 @@ def _rendre_volet(cle, chapitre):
         # style.css (§5.8) attend une <table class="muscles"> complete : caption +
         # thead nommant les 4 colonnes + tbody -- sans eux, la bascule en fiches sous
         # 720px (.muscles tr / .muscles td::before) ne s'applique jamais, et les <tr>
-        # nus rendus hors de tout <table> sont du HTML invalide.
+        # nus rendus hors de tout <table> sont du HTML invalide. Le renvoi de slide
+        # vit dans ce <th> du nom, pas dans une 4e colonne : la bascule mobile mappe
+        # .muscles td:nth-of-type(1/2/3) sur les trois <td> ci-dessous, une colonne
+        # de plus la casserait.
         lignes = "".join(
-            f"<tr><th>{html.escape(m['nom'])}</th>"
+            f"<tr><th>{html.escape(m['nom'])} {_src(m)}</th>"
             f"<td>{html.escape(' ; '.join(m['origine']))}</td>"
             f"<td>{html.escape(' ; '.join(m['terminaison']))}</td>"
             f"<td>{html.escape(' ; '.join(m['actions']))}</td></tr>"
@@ -214,6 +223,15 @@ def _rendre_volet(cle, chapitre):
             "</tr></thead>"
             f"<tbody>{lignes}</tbody>"
             "</table>"
+        )
+    if cle == "pieges":
+        return "".join(
+            '<article class="piege">'
+            '<span class="piege__etiquette">Piège</span>'
+            f'<p class="piege__titre">{html.escape(p["titre"])}</p>'
+            f'<p>{html.escape(p["texte"])}</p>'
+            f"{_src(p)}</article>"
+            for p in chapitre["pieges"]
         )
     return ""
 

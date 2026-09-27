@@ -1163,3 +1163,134 @@ PLANCHES["sarcomere-stries-z"] = {
     "dessin": _DESSIN_SARCOMERE,
     "pastilles": _PASTILLES_SARCOMERE,
 }
+
+
+# --- Chapitre 5 : le tronc (rachis, thorax, myologie du tronc) ---------
+PLANCHES['rachis-courbures-regions'] = {
+    "id": "rachis-courbures-regions",
+    "titre": "Les 4 courbures du rachis, de haut en bas",
+    "vb": "0 0 280 560",
+    "dessin": "<g fill='none' stroke='currentColor'><circle cx='140' cy='18' r='7' stroke-width='2'/><path d='M140,25 C180,55 180,120 140,150 C100,180 100,245 140,275 C180,305 180,370 140,400 C100,430 100,495 122,525 L127,543' stroke-width='5' stroke-linecap='round'/><path d='M40,150 L235,150 M40,275 L235,275 M40,400 L235,400' stroke-width='1' stroke-dasharray='4 4'/></g>",
+    "pastilles": [
+        {
+            "n": 1,
+            "x": 172,
+            "y": 90,
+            "t": "Lordose cervicale",
+            "ancre": "middle",
+            "indice": "1re bosse, convexité antérieure"
+        },
+        {
+            "n": 2,
+            "x": 108,
+            "y": 215,
+            "t": "Cyphose dorsale",
+            "ancre": "middle",
+            "indice": "2e bosse, convexité postérieure"
+        },
+        {
+            "n": 3,
+            "x": 172,
+            "y": 340,
+            "t": "Lordose lombaire",
+            "ancre": "middle",
+            "indice": "3e bosse, convexité antérieure"
+        },
+        {
+            "n": 4,
+            "x": 108,
+            "y": 465,
+            "t": "Courbure sacro-coccygienne",
+            "ancre": "middle",
+            "indice": "4e bosse ; sacrum et coccyx soudés"
+        }
+    ]
+}
+PLANCHES['vertebre-vue-superieure'] = {
+    "id": "vertebre-vue-superieure",
+    "titre": "La vertèbre type, vue de dessus",
+    "vb": "0 0 320 330",
+    "dessin": "<g fill='none' stroke='currentColor' stroke-width='2.4' stroke-linecap='round'><circle cx='160' cy='55' r='38'/><path d='M135,88 L110,145'/><path d='M185,88 L210,145'/><path d='M110,145 Q120,190 160,220'/><path d='M210,145 Q200,190 160,220'/><path d='M160,220 L160,270'/><path d='M112,142 L35,175'/><path d='M208,142 L285,175'/></g><circle cx='160' cy='180' r='32' fill='none' stroke='currentColor' stroke-width='1.2' stroke-dasharray='3 3'/>",
+    "pastilles": [
+        {
+            "n": 1,
+            "x": 160,
+            "y": 55,
+            "t": "Corps vertébral",
+            "ancre": "middle",
+            "indice": "partie antérieure, cylindrique"
+        },
+        {
+            "n": 2,
+            "x": 130,
+            "y": 100,
+            "t": "Pédicule",
+            "ancre": "end",
+            "indice": "×2 ; passage des nerfs rachidiens"
+        },
+        {
+            "n": 3,
+            "x": 35,
+            "y": 175,
+            "t": "Processus transverse",
+            "ancre": "start",
+            "indice": "×2, latéral"
+        },
+        {
+            "n": 4,
+            "x": 160,
+            "y": 200,
+            "t": "Canal rachidien",
+            "ancre": "middle",
+            "indice": "passage de la moelle épinière"
+        },
+        {
+            "n": 5,
+            "x": 160,
+            "y": 270,
+            "t": "Processus épineux",
+            "ancre": "middle",
+            "indice": "×1, médian postérieur"
+        }
+    ]
+}
+PLANCHES['fibres-abdominales-orientation'] = {
+    "id": "fibres-abdominales-orientation",
+    "titre": "Orientation des fibres des 4 muscles abdominaux",
+    "vb": "0 0 300 700",
+    "dessin": "<g fill='none' stroke='currentColor' stroke-width='2'><rect x='30' y='20' width='240' height='100' rx='6'/><path d='M45,35 L255,35'/><path d='M45,52 L255,52'/><path d='M45,69 L255,69'/><path d='M45,86 L255,86'/><path d='M45,103 L255,103'/></g><g fill='none' stroke='currentColor' stroke-width='2'><rect x='30' y='190' width='240' height='100' rx='6'/><path d='M150,290 L60,190'/><path d='M150,290 L90,190'/><path d='M150,290 L120,190'/><path d='M150,290 L150,190'/><path d='M150,290 L180,190'/><path d='M150,290 L210,190'/><path d='M150,290 L240,190'/></g><g fill='none' stroke='currentColor' stroke-width='2'><rect x='30' y='360' width='240' height='100' rx='6'/><path d='M70,360 L30,460'/><path d='M105,360 L65,460'/><path d='M140,360 L100,460'/><path d='M175,360 L135,460'/><path d='M210,360 L170,460'/><path d='M245,360 L205,460'/></g><g fill='none' stroke='currentColor' stroke-width='2'><rect x='30' y='530' width='240' height='100' rx='6'/><path d='M80,540 L80,620'/><path d='M100,540 L100,620'/><path d='M120,540 L120,620'/><path d='M180,540 L180,620'/><path d='M200,540 L200,620'/><path d='M220,540 L220,620'/><path d='M75,560 L125,560 M175,560 L225,560'/><path d='M75,590 L125,590 M175,590 L225,590'/><path d='M150,528 L150,632' stroke-dasharray='3 3'/></g>",
+    "pastilles": [
+        {
+            "n": 1,
+            "x": 150,
+            "y": 138,
+            "t": "Transverse de l'abdomen",
+            "ancre": "middle",
+            "indice": "le plus profond ; fibres transversales"
+        },
+        {
+            "n": 2,
+            "x": 150,
+            "y": 308,
+            "t": "Oblique interne",
+            "ancre": "middle",
+            "indice": "sous l'oblique externe ; fibres en éventail vers le haut"
+        },
+        {
+            "n": 3,
+            "x": 150,
+            "y": 478,
+            "t": "Oblique externe",
+            "ancre": "middle",
+            "indice": "le plus superficiel ; fibres obliques vers le bas"
+        },
+        {
+            "n": 4,
+            "x": 150,
+            "y": 648,
+            "t": "Droit de l'abdomen",
+            "ancre": "middle",
+            "indice": "de part et d'autre de la ligne blanche ; fibres verticales"
+        }
+    ]
+}

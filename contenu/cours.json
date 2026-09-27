@@ -2472,6 +2472,786 @@
         }
       ],
       "muscles": []
+    },
+    {
+      "num": 5,
+      "titre": "Le tronc",
+      "slides": [
+        136,
+        189
+      ],
+      "sections": [
+        {
+          "titre": "Organisation générale du rachis : colonne mobile et colonne fixe",
+          "slide": 139,
+          "points": [
+            "Le rachis est le support de la boîte crânienne et s'étend jusqu'au coccyx.",
+            "Colonne vertébrale MOBILE (24 vertèbres) : 7 cervicales (C1 à C7 ; C1 = Atlas, C2 = Axis), 12 thoraciques (T1 à T12), 5 lombaires (L1 à L5).",
+            "Colonne vertébrale FIXE : le sacrum (5 vertèbres sacrées soudées) et le coccyx (4 vertèbres coccygiennes soudées)."
+          ]
+        },
+        {
+          "titre": "Rôle et croissance du rachis",
+          "slide": 140,
+          "points": [
+            "Le rachis est le pilier du corps, à la fois mobile et rigide ; de nombreux muscles s'y insèrent pour des fonctions posturales et motrices.",
+            "La colonne vertébrale fait partie du squelette axial, sur lequel se fixe le squelette appendiculaire.",
+            "Le volume des vertèbres augmente progressivement de la région cervicale à la région lombaire, en raison de l'augmentation des contraintes."
+          ]
+        },
+        {
+          "titre": "Les 4 courbures du rachis",
+          "slide": 142,
+          "points": [
+            "Le rachis est rectiligne dans le plan frontal.",
+            "Dans le plan sagittal, il présente 4 courbures qui s'enchaînent de haut en bas : lordose cervicale, cyphose dorsale, lordose lombaire, courbure sacro-coccygienne."
+          ]
+        },
+        {
+          "titre": "Déformations pathologiques du rachis",
+          "slide": 143,
+          "points": [
+            "Dans le plan frontal : la scoliose est une déformation latérale du rachis, en C ou en S.",
+            "Dans le plan sagittal : la cypho-lordose associe une augmentation de la cyphose dorsale et de la lordose lombaire ; on parle aussi d'hypercyphose ou d'hyperlordose isolées."
+          ]
+        },
+        {
+          "titre": "La vertèbre : corps et arc postérieur",
+          "slide": 145,
+          "points": [
+            "Une vertèbre est formée de 2 parties principales : le corps vertébral (partie antérieure) et l'arc postérieur (partie postérieure).",
+            "Le canal rachidien, délimité par ces deux parties, est le passage de la moelle épinière."
+          ]
+        },
+        {
+          "titre": "Le corps vertébral",
+          "slide": 146,
+          "points": [
+            "De forme cylindrique, il présente deux faces (supérieure et inférieure) appelées plateaux vertébraux, recouverts de cartilage hyalin (amphiarthrose).",
+            "Ces plateaux vertébraux s'articulent entre eux par l'intermédiaire des disques intervertébraux (DIV)."
+          ]
+        },
+        {
+          "titre": "L'arc postérieur et ses processus",
+          "slide": 147,
+          "points": [
+            "L'arc postérieur comprend : 2 pédicules (passage des nerfs rachidiens), 4 processus (apophyses) articulaires (qui s'articulent avec les processus articulaires des vertèbres sus- et sous-jacentes), 2 processus transverses, 2 lames et 1 processus épineux."
+          ]
+        },
+        {
+          "titre": "Ligaments vertébraux : système antérieur",
+          "slide": 148,
+          "points": [
+            "Les vertèbres sont maintenues entre elles par des ligaments vertébraux communs.",
+            "Le ligament longitudinal antérieur commence au niveau de l'os occipital et de l'atlas (C1) ; il descend le long des faces antérieures des corps vertébraux jusqu'au sacrum.",
+            "Le ligament longitudinal postérieur débute au niveau de l'axis (C2) ; il descend le long des faces postérieures des corps vertébraux et se termine au niveau du sacrum."
+          ]
+        },
+        {
+          "titre": "Ligaments vertébraux : système postérieur",
+          "slide": 149,
+          "points": [
+            "Sur l'arc postérieur : le ligament jaune (entre 2 lames), le ligament inter-épineux (entre 2 processus épineux), le ligament supra-épineux (qui rejoint le sommet de tous les processus épineux), le ligament inter-transverse (entre 2 processus transverses) et le ligament capsulaire (entre 2 processus articulaires)."
+          ]
+        },
+        {
+          "titre": "Composition du disque intervertébral",
+          "slide": 151,
+          "points": [
+            "Une partie périphérique dure, l'anneau fibreux, composée de lamelles concentriques de fibrocartilage.",
+            "Une partie centrale molle, le nucleus pulposus (noyau pulpeux) : une zone hydratée formée de liquide gélatineux."
+          ]
+        },
+        {
+          "titre": "Épaisseur et nombre des disques intervertébraux",
+          "slide": 152,
+          "points": [
+            "L'épaisseur des DIV augmente à mesure que l'on descend le long du rachis : environ 3 mm au niveau cervical, 5 mm au niveau dorsal, 9 mm au niveau lombaire.",
+            "La colonne vertébrale comporte 23 DIV (il n'y en a pas entre l'occiput et l'atlas)."
+          ]
+        },
+        {
+          "titre": "Fonctions et contraintes du disque intervertébral",
+          "slide": 153,
+          "points": [
+            "Le DIV a un rôle articulaire (mobilité) et un rôle d'amortisseur de pression.",
+            "En statique ou en mouvement, le DIV est en permanence soumis à des contraintes de pression : les pincements et les cisaillements le traumatisent."
+          ]
+        },
+        {
+          "titre": "Le mécanisme de la hernie discale",
+          "slide": 154,
+          "points": [
+            "Le DIV est un amortisseur fibro-hydraulique qui ne fonctionne parfaitement que s'il est étanche ; de mauvaises conditions mécaniques (mauvais placement du dos) le font vieillir prématurément.",
+            "Des contraintes répétées et inappropriées engendrent progressivement une rupture de l'anneau fibreux, puis un glissement du liquide contenu dans le noyau : c'est la hernie discale.",
+            "Ce glissement génère une compression des éléments nerveux contenus dans le canal rachidien, d'où des douleurs invalidantes."
+          ]
+        },
+        {
+          "titre": "Les mouvements du rachis",
+          "slide": 156,
+          "points": [
+            "Le rachis permet l'inclinaison latérale, la rotation, la flexion et l'extension."
+          ]
+        },
+        {
+          "titre": "Les côtes : vraies côtes et côtes flottantes",
+          "slide": 161,
+          "points": [
+            "La cage thoracique se compose de 12 paires de côtes, qui partent toutes des bords latéraux des corps vertébraux.",
+            "Les 10 premières paires s'unissent au sternum par l'intermédiaire des cartilages costaux : ce sont les vraies côtes.",
+            "Les paires 11 et 12 se terminent avant d'arriver au sternum : ce sont les côtes flottantes."
+          ]
+        },
+        {
+          "titre": "Le sternum",
+          "slide": 164,
+          "points": [
+            "Os plat, situé à la face antérieure du thorax.",
+            "Il comprend 3 parties : le manubrium, le corps, le processus xiphoïde."
+          ]
+        },
+        {
+          "titre": "Rôles des muscles du tronc",
+          "slide": 168,
+          "points": [
+            "Les muscles du tronc ont à la fois un rôle moteur et un rôle stabilisateur du rachis.",
+            "Les muscles dorsaux sont extenseurs, et les muscles ventraux sont fléchisseurs : s'ils se contractent en synergie, leurs actions s'annulent en renforçant considérablement la rigidité rachidienne."
+          ]
+        },
+        {
+          "titre": "Les muscles profonds du dos",
+          "slide": 171,
+          "points": [
+            "Le dentelé postérieur (supérieur et inférieur), les splénius (de la tête et du cou), les érecteurs du rachis (iliocostal, longissimus, épineux), les transverso-épineux (semi-épineux, multifides, rotateurs du rachis), les interépineux et intertransversaires, les élévateurs des côtes."
+          ]
+        },
+        {
+          "titre": "Actions des muscles profonds du dos",
+          "slide": 173,
+          "points": [
+            "Par leur tonus, les muscles profonds du dos assurent l'équilibre de la tête et du tronc pendant la station érigée et la marche.",
+            "Contraction bilatérale : extension de la colonne vertébrale (et de la tête). Contraction unilatérale : inclinaison latérale et rotation du rachis (et de la tête).",
+            "Les élévateurs des côtes sont inspirateurs."
+          ]
+        },
+        {
+          "titre": "Les muscles superficiels du dos",
+          "slide": 175,
+          "points": [
+            "Trapèze, grand dorsal, élévateur de la scapula, petit rhomboïde, grand rhomboïde.",
+            "Détaillés dans le cours du membre supérieur : le cours du tronc se contente ici de les nommer, sans donner leur origine ni leur terminaison."
+          ]
+        },
+        {
+          "titre": "Le carré des lombes",
+          "slide": 179,
+          "points": [
+            "Origine : la dernière côte.",
+            "Terminaison : la crête iliaque et les processus transverses de L1 à L5.",
+            "Action : inclinateur du tronc."
+          ]
+        },
+        {
+          "titre": "L'ilio-psoas",
+          "slide": 180,
+          "points": [
+            "Composé de 2 faisceaux : le grand psoas (muscle latéral du tronc) et l'iliaque (muscle de la hanche).",
+            "Origine (grand psoas) : processus transverses de L1 à L5, corps vertébraux de T12 à L5. Terminaison : le petit trochanter du fémur.",
+            "Il est fléchisseur de la cuisse."
+          ]
+        },
+        {
+          "titre": "Repères de la paroi abdominale",
+          "slide": 184,
+          "points": [
+            "La ligne blanche relie le processus xiphoïde du sternum au pubis ; les intersections tendineuses segmentent le droit de l'abdomen.",
+            "Le ligament inguinal est formé par le bord inférieur libre de l'aponévrose de l'oblique externe."
+          ]
+        },
+        {
+          "titre": "Le transverse de l'abdomen",
+          "slide": 185,
+          "points": [
+            "Muscle le plus profond de la paroi abdominale.",
+            "Origine : face profonde des côtes 7 à 12, processus transverses de L1 à L5, crête iliaque. Terminaison : par une aponévrose jusqu'à la ligne blanche (du processus xiphoïde du sternum jusqu'au pubis).",
+            "Orientation des fibres : transversale (horizontale). Action : expirateur (permet de rentrer le ventre)."
+          ]
+        },
+        {
+          "titre": "L'oblique interne (petit oblique)",
+          "slide": 186,
+          "points": [
+            "Origine : crête iliaque, aponévrose lombale. Terminaison : côtes 9 à 12, et par une aponévrose jusqu'à la ligne blanche.",
+            "Orientation des fibres : en éventail vers le haut.",
+            "Action : rotateur et inclinateur du tronc, du côté contracté."
+          ]
+        },
+        {
+          "titre": "L'oblique externe (grand oblique)",
+          "slide": 187,
+          "points": [
+            "Origine : côtes 6 à 12. Terminaison : crête iliaque, et par une aponévrose jusqu'à la ligne blanche.",
+            "Orientation des fibres : oblique vers le bas.",
+            "Contraction bilatérale : flexion du tronc. Contraction unilatérale : rotateur du tronc, du côté opposé à la contraction."
+          ]
+        },
+        {
+          "titre": "Le droit de l'abdomen (grand droit)",
+          "slide": 188,
+          "points": [
+            "S'étend verticalement de part et d'autre de la ligne blanche.",
+            "Origine : côtes 5 à 7, processus xiphoïde. Terminaison : le pubis.",
+            "Orientation des fibres : verticale vers le bas. Action : fléchisseur du tronc."
+          ]
+        }
+      ],
+      "cartes": [
+        {
+          "id": "c5-01",
+          "q": "Combien de vertèbres composent la colonne vertébrale MOBILE, comment se répartissent-elles, et quels noms particuliers portent C1 et C2 ?",
+          "r": "24 vertèbres : 7 cervicales (C1 à C7), 12 thoraciques (T1 à T12), 5 lombaires (L1 à L5) ; C1 est l'Atlas, C2 est l'Axis.",
+          "slide": 139
+        },
+        {
+          "id": "c5-02",
+          "q": "Qu'est-ce que la colonne vertébrale FIXE, et de combien de vertèbres soudées se compose-t-elle ?",
+          "r": "Le sacrum (5 vertèbres sacrées soudées) et le coccyx (4 vertèbres coccygiennes soudées).",
+          "slide": 139
+        },
+        {
+          "id": "c5-03",
+          "q": "À quel ensemble squelettique le rachis appartient-il, et comment son volume évolue-t-il le long de la colonne ?",
+          "r": "Il fait partie du squelette axial, sur lequel se fixe le squelette appendiculaire ; le volume des vertèbres augmente progressivement de la région cervicale à la région lombaire, avec l'augmentation des contraintes.",
+          "slide": 140
+        },
+        {
+          "id": "c5-04",
+          "q": "Dans quel plan le rachis est-il rectiligne, et quelles sont ses 4 courbures dans le plan sagittal, de haut en bas ?",
+          "r": "Rectiligne dans le plan frontal. Dans le plan sagittal, de haut en bas : lordose cervicale, cyphose dorsale, lordose lombaire, courbure sacro-coccygienne.",
+          "slide": 142
+        },
+        {
+          "id": "c5-05",
+          "q": "Qu'est-ce qu'une scoliose ?",
+          "r": "Une déformation latérale du rachis, en C ou en S, observée dans le plan frontal.",
+          "slide": 143,
+          "plan": "frontal"
+        },
+        {
+          "id": "c5-06",
+          "q": "Que désigne une cypho-lordose ?",
+          "r": "Une augmentation associée de la cyphose dorsale et de la lordose lombaire, dans le plan sagittal.",
+          "slide": 143,
+          "plan": "sagittal"
+        },
+        {
+          "id": "c5-07",
+          "q": "Quelles sont les 2 parties principales d'une vertèbre, et qu'est-ce qu'elles délimitent ensemble ?",
+          "r": "Le corps vertébral (partie antérieure) et l'arc postérieur (partie postérieure) ; ensemble, ils délimitent le canal rachidien, passage de la moelle épinière.",
+          "slide": 145
+        },
+        {
+          "id": "c5-08",
+          "q": "Comment s'appellent les 2 faces du corps vertébral, et par quoi sont-elles recouvertes ?",
+          "r": "Les plateaux vertébraux, recouverts de cartilage hyalin (amphiarthrose) ; ils s'articulent entre eux par l'intermédiaire des disques intervertébraux.",
+          "slide": 146
+        },
+        {
+          "id": "c5-09",
+          "q": "Quels 5 éléments composent l'arc postérieur d'une vertèbre ?",
+          "r": "2 pédicules, 4 processus articulaires, 2 processus transverses, 2 lames, 1 processus épineux.",
+          "slide": 147
+        },
+        {
+          "id": "c5-10",
+          "q": "Où commencent et se terminent les ligaments longitudinaux antérieur et postérieur de la colonne ?",
+          "r": "Le ligament longitudinal antérieur va de l'occiput / l'atlas (C1) jusqu'au sacrum ; le ligament longitudinal postérieur va de l'axis (C2) jusqu'au sacrum.",
+          "slide": 148
+        },
+        {
+          "id": "c5-11",
+          "q": "Quelles sont les 2 parties du disque intervertébral, et leur consistance respective ?",
+          "r": "L'anneau fibreux : dur, périphérique, fait de lamelles concentriques de fibrocartilage. Le nucleus pulposus (noyau pulpeux) : mou, central, liquide gélatineux hydraté.",
+          "slide": 151
+        },
+        {
+          "id": "c5-12",
+          "q": "Combien de disques intervertébraux compte la colonne vertébrale, et à quel niveau n'y en a-t-il pas ?",
+          "r": "23 disques intervertébraux ; il n'y en a pas entre l'occiput et l'atlas.",
+          "slide": 152
+        },
+        {
+          "id": "c5-13",
+          "q": "Par quel mécanisme se forme une hernie discale, à partir de quel rôle normal du disque intervertébral ?",
+          "r": "Le DIV amortit les pressions ; des contraintes répétées et inappropriées rompent progressivement son anneau fibreux, ce qui provoque un glissement du liquide du noyau — ce glissement comprime les éléments nerveux du canal rachidien.",
+          "slide": 154
+        },
+        {
+          "id": "c5-14",
+          "q": "Quels sont les 4 mouvements possibles du rachis ?",
+          "r": "L'inclinaison latérale, la rotation, la flexion et l'extension.",
+          "slide": 156
+        },
+        {
+          "id": "c5-15",
+          "q": "Que distingue-t-on entre les côtes 1 à 10 et les côtes 11 et 12 ?",
+          "r": "Les côtes 1 à 10 (vraies côtes) s'unissent au sternum par l'intermédiaire des cartilages costaux ; les côtes 11 et 12 (côtes flottantes) se terminent avant d'atteindre le sternum.",
+          "slide": 161
+        },
+        {
+          "id": "c5-16",
+          "q": "Quelles sont les 3 parties du sternum ?",
+          "r": "Le manubrium, le corps, le processus xiphoïde.",
+          "slide": 164
+        },
+        {
+          "id": "c5-17",
+          "q": "Que se passe-t-il quand les muscles dorsaux et les muscles ventraux du tronc se contractent en synergie ?",
+          "r": "Leurs actions opposées (extension côté dorsal, flexion côté ventral) s'annulent, ce qui renforce considérablement la rigidité du rachis.",
+          "slide": 168
+        },
+        {
+          "id": "c5-18",
+          "q": "Nommez les 6 groupes de muscles profonds du dos.",
+          "r": "Le dentelé postérieur, les splénius, les érecteurs du rachis, les transverso-épineux, les interépineux et intertransversaires, les élévateurs des côtes.",
+          "slide": 171
+        },
+        {
+          "id": "c5-19",
+          "q": "Quelle action produit une contraction bilatérale des muscles profonds du dos, et quelle action produit une contraction unilatérale ?",
+          "r": "Bilatérale : extension de la colonne vertébrale (et de la tête). Unilatérale : inclinaison latérale et rotation du rachis (et de la tête).",
+          "slide": 173
+        },
+        {
+          "id": "c5-20",
+          "q": "Quels 2 faisceaux composent l'ilio-psoas, et lequel des deux est un muscle du tronc ?",
+          "r": "Le grand psoas (muscle latéral du tronc) et l'iliaque (muscle de la hanche) ; seul le grand psoas est un muscle du tronc, l'iliaque est un muscle de la hanche.",
+          "slide": 180
+        },
+        {
+          "id": "c5-21",
+          "q": "Pourquoi le transverse de l'abdomen est-il qualifié de muscle 'le plus profond' de la paroi abdominale, et quelle est l'orientation de ses fibres ?",
+          "r": "C'est la couche musculaire la plus interne de la paroi abdominale ; ses fibres sont orientées transversalement (horizontalement).",
+          "slide": 185
+        },
+        {
+          "id": "c5-22",
+          "q": "Pourquoi une contraction unilatérale de l'oblique interne tourne le tronc du côté contracté, alors que l'oblique externe le tourne du côté opposé ?",
+          "r": "Leurs fibres ont des orientations opposées : en éventail vers le haut pour l'oblique interne, oblique vers le bas pour l'oblique externe — cette différence d'orientation inverse le sens de rotation produit par chaque muscle.",
+          "slide": 187
+        },
+        {
+          "id": "c5-23",
+          "q": "Quelle est l'orientation des fibres du droit de l'abdomen, et quelle est son action ?",
+          "r": "Verticale, vers le bas ; il est fléchisseur du tronc.",
+          "slide": 188
+        }
+      ],
+      "quiz": [
+        {
+          "id": "q5-01",
+          "q": "Combien de vertèbres composent la colonne vertébrale MOBILE ?",
+          "choix": [
+            "19",
+            "22",
+            "24",
+            "29"
+          ],
+          "bonne": 2,
+          "expl": "24 vertèbres mobiles : 7 cervicales + 12 thoraciques + 5 lombaires. Le sacrum (5) et le coccyx (4) sont soudés : ils forment la colonne FIXE, pas la colonne mobile.",
+          "slide": 139
+        },
+        {
+          "id": "q5-02",
+          "q": "C1 et C2 portent des noms particuliers. Dans quel ordre ?",
+          "choix": [
+            "Atlas puis Axis",
+            "Axis puis Atlas",
+            "Atlas puis Odontoïde",
+            "Axis puis Sacrum"
+          ],
+          "bonne": 0,
+          "expl": "C1 est l'Atlas (qui porte le crâne), C2 est l'Axis (autour duquel l'Atlas pivote). 'Odontoïde' et 'Sacrum' ne sont pas des noms de vertèbres cervicales.",
+          "slide": 139
+        },
+        {
+          "id": "q5-03",
+          "q": "Quelle courbure occupe la région thoracique (dorsale) du rachis ?",
+          "choix": [
+            "Cyphose dorsale",
+            "Lordose dorsale",
+            "Scoliose dorsale",
+            "Courbure sacro-coccygienne"
+          ],
+          "bonne": 0,
+          "expl": "La région dorsale porte une cyphose (convexité postérieure). Les lordoses sont cervicale et lombaire ; la scoliose est une déformation pathologique, pas une courbure normale ; la courbure sacro-coccygienne est plus bas.",
+          "slide": 142,
+          "plan": "sagittal"
+        },
+        {
+          "id": "q5-04",
+          "q": "Dans le plan frontal, une déviation latérale du rachis en C ou en S s'appelle...",
+          "choix": [
+            "une scoliose",
+            "une cypho-lordose",
+            "une hyperlordose",
+            "une hypercyphose"
+          ],
+          "bonne": 0,
+          "expl": "La scoliose est la déformation du plan frontal. La cypho-lordose, l'hyperlordose et l'hypercyphose sont des déformations du plan SAGITTAL.",
+          "slide": 143,
+          "plan": "frontal"
+        },
+        {
+          "id": "q5-05",
+          "q": "Combien de processus (apophyses) articulaires compte l'arc postérieur d'une vertèbre ?",
+          "choix": [
+            "2",
+            "4",
+            "6",
+            "1"
+          ],
+          "bonne": 1,
+          "expl": "4 processus articulaires (2 supérieurs, 2 inférieurs), qui s'articulent avec les vertèbres sus- et sous-jacentes. Il y a 2 pédicules et 1 seul processus épineux : ne pas confondre les comptes.",
+          "slide": 147
+        },
+        {
+          "id": "q5-06",
+          "q": "Quel ligament relie deux lames vertébrales consécutives ?",
+          "choix": [
+            "le ligament jaune",
+            "le ligament inter-épineux",
+            "le ligament supra-épineux",
+            "le ligament inter-transverse"
+          ],
+          "bonne": 0,
+          "expl": "Le ligament jaune relie 2 lames. L'inter-épineux relie 2 processus épineux, le supra-épineux rejoint le sommet de tous les processus épineux, l'inter-transverse relie 2 processus transverses.",
+          "slide": 149
+        },
+        {
+          "id": "q5-07",
+          "q": "Quelle est la partie centrale et molle du disque intervertébral ?",
+          "choix": [
+            "le nucleus pulposus (noyau pulpeux)",
+            "l'anneau fibreux",
+            "le plateau vertébral",
+            "le ligament capsulaire"
+          ],
+          "bonne": 0,
+          "expl": "Le nucleus pulposus est la zone hydratée centrale. L'anneau fibreux est la partie périphérique et DURE ; le plateau vertébral appartient au corps vertébral ; le ligament capsulaire relie des processus articulaires.",
+          "slide": 151
+        },
+        {
+          "id": "q5-08",
+          "q": "Entre quels deux niveaux ne trouve-t-on PAS de disque intervertébral ?",
+          "choix": [
+            "l'occiput et l'atlas",
+            "l'atlas et l'axis",
+            "L5 et le sacrum",
+            "T12 et L1"
+          ],
+          "bonne": 0,
+          "expl": "Sur les 24 interlignes du rachis mobile, seul celui entre l'occiput et l'atlas (C1) n'a pas de DIV — d'où les 23 DIV comptés par le cours.",
+          "slide": 152
+        },
+        {
+          "id": "q5-09",
+          "q": "Quelles côtes sont dites 'flottantes' ?",
+          "choix": [
+            "les côtes 11 et 12",
+            "les côtes 1 et 2",
+            "les côtes 8 à 10",
+            "les côtes 6 et 7"
+          ],
+          "bonne": 0,
+          "expl": "Les côtes 11 et 12 se terminent avant d'atteindre le sternum : ce sont les côtes flottantes. Les côtes 1 à 10 sont les vraies côtes, unies au sternum par un cartilage costal.",
+          "slide": 161
+        },
+        {
+          "id": "q5-10",
+          "q": "Quelle est l'orientation des fibres du transverse de l'abdomen ?",
+          "choix": [
+            "transversale (horizontale)",
+            "verticale",
+            "oblique vers le bas",
+            "en éventail vers le haut"
+          ],
+          "bonne": 0,
+          "expl": "Le transverse doit son nom à ses fibres transversales (horizontales). Verticale = droit de l'abdomen ; oblique vers le bas = oblique externe ; éventail vers le haut = oblique interne.",
+          "slide": 185
+        },
+        {
+          "id": "q5-11",
+          "q": "Une contraction UNILATÉRALE de l'oblique INTERNE fait tourner le tronc...",
+          "choix": [
+            "du côté contracté",
+            "du côté opposé à la contraction",
+            "il n'y a pas de rotation, seulement une inclinaison",
+            "dans les deux sens à la fois"
+          ],
+          "bonne": 0,
+          "expl": "L'oblique interne (fibres en éventail vers le haut) tourne le tronc du côté CONTRACTÉ. C'est l'oblique externe qui tourne du côté opposé : les deux muscles ont des effets de rotation opposés.",
+          "slide": 186
+        },
+        {
+          "id": "q5-12",
+          "q": "Une contraction UNILATÉRALE de l'oblique EXTERNE fait tourner le tronc...",
+          "choix": [
+            "du côté opposé à la contraction",
+            "du côté contracté",
+            "il n'y a pas de rotation possible",
+            "uniquement en extension"
+          ],
+          "bonne": 0,
+          "expl": "L'oblique externe (fibres obliques vers le bas) tourne le tronc du côté OPPOSÉ à la contraction — l'inverse de l'oblique interne. En bilatéral, il fléchit le tronc.",
+          "slide": 187
+        }
+      ],
+      "muscles": [
+        {
+          "nom": "Carré des lombes",
+          "origine": [
+            "dernière côte"
+          ],
+          "terminaison": [
+            "crête iliaque",
+            "processus transverses de L1 à L5"
+          ],
+          "actions": [
+            "inclinateur du tronc"
+          ],
+          "slide": 179
+        },
+        {
+          "nom": "Ilio-psoas",
+          "origine": [
+            "processus transverses de L1 à L5",
+            "corps vertébraux de T12 à L5"
+          ],
+          "terminaison": [
+            "petit trochanter du fémur"
+          ],
+          "actions": [
+            "fléchisseur de la cuisse"
+          ],
+          "slide": 180
+        },
+        {
+          "nom": "Transverse de l'abdomen",
+          "origine": [
+            "face profonde des côtes 7 à 12",
+            "processus transverses de L1 à L5",
+            "crête iliaque"
+          ],
+          "terminaison": [
+            "ligne blanche, par une aponévrose (du processus xiphoïde au pubis)"
+          ],
+          "actions": [
+            "expirateur (rentre le ventre)"
+          ],
+          "slide": 185
+        },
+        {
+          "nom": "Oblique interne",
+          "origine": [
+            "crête iliaque",
+            "aponévrose lombale"
+          ],
+          "terminaison": [
+            "côtes 9 à 12",
+            "ligne blanche, par une aponévrose"
+          ],
+          "actions": [
+            "rotateur et inclinateur du tronc, du côté contracté"
+          ],
+          "slide": 186
+        },
+        {
+          "nom": "Oblique externe",
+          "origine": [
+            "côtes 6 à 12"
+          ],
+          "terminaison": [
+            "crête iliaque",
+            "ligne blanche, par une aponévrose"
+          ],
+          "actions": [
+            "flexion du tronc (contraction bilatérale)",
+            "rotateur du tronc, du côté opposé à la contraction (contraction unilatérale)"
+          ],
+          "slide": 187
+        },
+        {
+          "nom": "Droit de l'abdomen",
+          "origine": [
+            "côtes 5 à 7",
+            "processus xiphoïde"
+          ],
+          "terminaison": [
+            "pubis"
+          ],
+          "actions": [
+            "fléchisseur du tronc"
+          ],
+          "slide": 188
+        }
+      ],
+      "pieges": [
+        {
+          "titre": "L'oblique interne tourne du côté contracté, l'oblique externe du côté opposé",
+          "texte": "Les deux muscles obliques ont des actions de rotation OPPOSÉES en contraction unilatérale, à cause de l'orientation opposée de leurs fibres. L'oblique INTERNE (fibres en éventail vers le haut) fait tourner le tronc du côté CONTRACTÉ. L'oblique EXTERNE (fibres obliques vers le bas) le fait tourner du côté OPPOSÉ à la contraction. C'est la confusion la plus fréquente sur ce chapitre : vérifier systématiquement lequel des deux muscles est en jeu avant de répondre.",
+          "slide": 187
+        },
+        {
+          "titre": "L'ilio-psoas n'est pas un muscle unique",
+          "texte": "Le cours présente l'ilio-psoas comme composé de 2 faisceaux aux origines différentes : le grand psoas (muscle latéral du TRONC, origine vertébrale : processus transverses L1-L5 et corps vertébraux T12-L5) et l'iliaque (muscle de la HANCHE, dont l'origine iliaque n'est pas détaillée sur cette diapositive). L'origine, la terminaison et l'action données par le cours (petit trochanter du fémur, fléchisseur de la cuisse) concernent spécifiquement le grand psoas, pas le faisceau iliaque.",
+          "slide": 180
+        },
+        {
+          "titre": "Ce cours ne distingue que 2 catégories de côtes, pas 3",
+          "texte": "Contrairement à une classification plus détaillée (vraies / fausses / flottantes) parfois enseignée ailleurs, ce cours ne retient que 2 catégories : les vraies côtes (côtes 1 à 10, unies au sternum par l'intermédiaire des cartilages costaux) et les côtes flottantes (côtes 11 et 12, qui ne rejoignent pas le sternum). Ne pas ajouter de catégorie intermédiaire absente de ce cours.",
+          "slide": 161
+        },
+        {
+          "titre": "Il n'y a pas de disque intervertébral à chaque interligne",
+          "texte": "La colonne vertébrale compte 23 disques intervertébraux, pas un à chaque interligne du rachis mobile : il n'y en a PAS entre l'occiput et l'atlas (C1), le seul niveau qui en soit dépourvu.",
+          "slide": 152
+        }
+      ],
+      "planches": [
+        {
+          "id": "rachis-courbures-regions",
+          "titre": "Les 4 courbures du rachis, de haut en bas",
+          "vb": "0 0 280 560",
+          "dessin": "<g fill='none' stroke='currentColor'><circle cx='140' cy='18' r='7' stroke-width='2'/><path d='M140,25 C180,55 180,120 140,150 C100,180 100,245 140,275 C180,305 180,370 140,400 C100,430 100,495 122,525 L127,543' stroke-width='5' stroke-linecap='round'/><path d='M40,150 L235,150 M40,275 L235,275 M40,400 L235,400' stroke-width='1' stroke-dasharray='4 4'/></g>",
+          "pastilles": [
+            {
+              "n": 1,
+              "x": 172,
+              "y": 90,
+              "t": "Lordose cervicale",
+              "ancre": "middle",
+              "indice": "1re bosse, convexité antérieure"
+            },
+            {
+              "n": 2,
+              "x": 108,
+              "y": 215,
+              "t": "Cyphose dorsale",
+              "ancre": "middle",
+              "indice": "2e bosse, convexité postérieure"
+            },
+            {
+              "n": 3,
+              "x": 172,
+              "y": 340,
+              "t": "Lordose lombaire",
+              "ancre": "middle",
+              "indice": "3e bosse, convexité antérieure"
+            },
+            {
+              "n": 4,
+              "x": 108,
+              "y": 465,
+              "t": "Courbure sacro-coccygienne",
+              "ancre": "middle",
+              "indice": "4e bosse ; sacrum et coccyx soudés"
+            }
+          ],
+          "slide": 142
+        },
+        {
+          "id": "vertebre-vue-superieure",
+          "titre": "La vertèbre type, vue de dessus",
+          "vb": "0 0 320 330",
+          "dessin": "<g fill='none' stroke='currentColor' stroke-width='2.4' stroke-linecap='round'><circle cx='160' cy='55' r='38'/><path d='M135,88 L110,145'/><path d='M185,88 L210,145'/><path d='M110,145 Q120,190 160,220'/><path d='M210,145 Q200,190 160,220'/><path d='M160,220 L160,270'/><path d='M112,142 L35,175'/><path d='M208,142 L285,175'/></g><circle cx='160' cy='180' r='32' fill='none' stroke='currentColor' stroke-width='1.2' stroke-dasharray='3 3'/>",
+          "pastilles": [
+            {
+              "n": 1,
+              "x": 160,
+              "y": 55,
+              "t": "Corps vertébral",
+              "ancre": "middle",
+              "indice": "partie antérieure, cylindrique"
+            },
+            {
+              "n": 2,
+              "x": 130,
+              "y": 100,
+              "t": "Pédicule",
+              "ancre": "end",
+              "indice": "×2 ; passage des nerfs rachidiens"
+            },
+            {
+              "n": 3,
+              "x": 35,
+              "y": 175,
+              "t": "Processus transverse",
+              "ancre": "start",
+              "indice": "×2, latéral"
+            },
+            {
+              "n": 4,
+              "x": 160,
+              "y": 200,
+              "t": "Canal rachidien",
+              "ancre": "middle",
+              "indice": "passage de la moelle épinière"
+            },
+            {
+              "n": 5,
+              "x": 160,
+              "y": 270,
+              "t": "Processus épineux",
+              "ancre": "middle",
+              "indice": "×1, médian postérieur"
+            }
+          ],
+          "slide": 147
+        },
+        {
+          "id": "fibres-abdominales-orientation",
+          "titre": "Orientation des fibres des 4 muscles abdominaux",
+          "vb": "0 0 300 700",
+          "dessin": "<g fill='none' stroke='currentColor' stroke-width='2'><rect x='30' y='20' width='240' height='100' rx='6'/><path d='M45,35 L255,35'/><path d='M45,52 L255,52'/><path d='M45,69 L255,69'/><path d='M45,86 L255,86'/><path d='M45,103 L255,103'/></g><g fill='none' stroke='currentColor' stroke-width='2'><rect x='30' y='190' width='240' height='100' rx='6'/><path d='M150,290 L60,190'/><path d='M150,290 L90,190'/><path d='M150,290 L120,190'/><path d='M150,290 L150,190'/><path d='M150,290 L180,190'/><path d='M150,290 L210,190'/><path d='M150,290 L240,190'/></g><g fill='none' stroke='currentColor' stroke-width='2'><rect x='30' y='360' width='240' height='100' rx='6'/><path d='M70,360 L30,460'/><path d='M105,360 L65,460'/><path d='M140,360 L100,460'/><path d='M175,360 L135,460'/><path d='M210,360 L170,460'/><path d='M245,360 L205,460'/></g><g fill='none' stroke='currentColor' stroke-width='2'><rect x='30' y='530' width='240' height='100' rx='6'/><path d='M80,540 L80,620'/><path d='M100,540 L100,620'/><path d='M120,540 L120,620'/><path d='M180,540 L180,620'/><path d='M200,540 L200,620'/><path d='M220,540 L220,620'/><path d='M75,560 L125,560 M175,560 L225,560'/><path d='M75,590 L125,590 M175,590 L225,590'/><path d='M150,528 L150,632' stroke-dasharray='3 3'/></g>",
+          "pastilles": [
+            {
+              "n": 1,
+              "x": 150,
+              "y": 138,
+              "t": "Transverse de l'abdomen",
+              "ancre": "middle",
+              "indice": "le plus profond ; fibres transversales"
+            },
+            {
+              "n": 2,
+              "x": 150,
+              "y": 308,
+              "t": "Oblique interne",
+              "ancre": "middle",
+              "indice": "sous l'oblique externe ; fibres en éventail vers le haut"
+            },
+            {
+              "n": 3,
+              "x": 150,
+              "y": 478,
+              "t": "Oblique externe",
+              "ancre": "middle",
+              "indice": "le plus superficiel ; fibres obliques vers le bas"
+            },
+            {
+              "n": 4,
+              "x": 150,
+              "y": 648,
+              "t": "Droit de l'abdomen",
+              "ancre": "middle",
+              "indice": "de part et d'autre de la ligne blanche ; fibres verticales"
+            }
+          ],
+          "slide": 185
+        }
+      ]
     }
   ]
 }

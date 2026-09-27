@@ -962,3 +962,204 @@ PLANCHES["articulation-synoviale-coupe"] = {
     "dessin": _DESSIN_ARTICULATION_SYNOVIALE,
     "pastilles": _PASTILLES_ARTICULATION_SYNOVIALE,
 }
+
+# --- Chapitre 4 : les enveloppes du muscle, en coupe (slide 117) --------
+#
+# Slide 117 ("A- STRUCTURE MACROSCOPIQUE") donne le texte (epimysium /
+# perimysium / endomysium / sarcolemme) ; la photo qui l'accompagne (meme
+# slide, rendue en PNG et lue) confirme l'emboitement : muscle entier, coupe
+# ouverte sur un faisceau de fibres, coupe ouverte sur une fibre (sarcoplasme
+# + sarcolemme + myofibrille + noyau).
+#
+# Ce chapitre est le plus conceptuel du cours : presque rien a situer dans
+# l'espace, beaucoup a definir avec precision -- l'emboitement de structure
+# est la seule notion assez spatiale pour un schema. Choix de forme : une
+# bullseye (cercles concentriques centres en un seul point), pas une coupe
+# "photo-realiste" -- ce qui compte pour le mode muet n'est PAS que chaque
+# cercle "ressemble" a son enveloppe (impossible : ce sont 4 emboitements du
+# meme genre de chose, a des echelles differentes), mais que les 4 niveaux
+# soient GEOMETRIQUEMENT distincts, pas seulement numerotes. D'ou 4 rayons
+# nettement etages ET 4 grammaires de trait differentes (epais continu /
+# tirets larges / tirets fins / fin continu) : la profondeur ET le style de
+# trait portent l'information, independamment du numero de pastille.
+#
+# Endomysium et sarcolemme sont volontairement les deux plus proches (44 et
+# 36, un ecart de 8 seulement) : le texte du cours les presente lui-meme
+# comme "colles" (l'endomysium "elle-meme recouverte par une deuxieme
+# membrane, le sarcolemme") -- cet ecart resserre visuellement traduit le
+# piege le plus attendu (enveloppe conjonctive de la fibre contre membrane
+# propre de la fibre), sans les rendre indiscernables (trait continu contre
+# tirets fins).
+#
+# Semis de points au centre (r<32, sous le cercle du sarcolemme) : matiere
+# de la fibre elle-meme (sarcoplasme/myofibrilles), pour que le coeur de la
+# bullseye ne se lise pas comme un simple disque vide -- coordonnees fixes
+# (pas de generateur aleatoire), sur le meme principe que le semis de
+# l'os spongieux (chapitre 2, os-long-coupe).
+#
+# 4 pastilles seulement (les enveloppes) : la fibre/myofibrille/sarcomere
+# emboitees a l'interieur sont une notion distincte, portee par la planche
+# suivante (sarcomere-stries-z), pas par celle-ci.
+_CX_ENV, _CY_ENV = 150, 140
+
+_POINTS_SARCOPLASME = (
+    "<circle cx='138' cy='128' r='1.6'/><circle cx='150' cy='122' r='1.6'/>"
+    "<circle cx='162' cy='128' r='1.6'/><circle cx='144' cy='140' r='1.6'/>"
+    "<circle cx='156' cy='140' r='1.6'/><circle cx='168' cy='138' r='1.6'/>"
+    "<circle cx='132' cy='148' r='1.6'/><circle cx='150' cy='152' r='1.6'/>"
+    "<circle cx='168' cy='150' r='1.6'/><circle cx='140' cy='162' r='1.6'/>"
+    "<circle cx='158' cy='164' r='1.6'/><circle cx='126' cy='138' r='1.6'/>"
+    "<circle cx='174' cy='144' r='1.6'/><circle cx='146' cy='116' r='1.6'/>"
+)
+
+_DESSIN_ENVELOPPES_MUSCLE = (
+    f"<circle cx='{_CX_ENV}' cy='{_CY_ENV}' r='115' fill='none' "
+    "stroke='currentColor' stroke-width='3'/>"
+    f"<circle cx='{_CX_ENV}' cy='{_CY_ENV}' r='78' fill='none' "
+    "stroke='currentColor' stroke-width='2' stroke-dasharray='8 5'/>"
+    f"<circle cx='{_CX_ENV}' cy='{_CY_ENV}' r='44' fill='none' "
+    "stroke='currentColor' stroke-width='1.4' stroke-dasharray='3 3'/>"
+    f"<circle cx='{_CX_ENV}' cy='{_CY_ENV}' r='36' fill='none' "
+    "stroke='currentColor' stroke-width='1.6'/>"
+    f"<g fill='currentColor' stroke='none'>{_POINTS_SARCOPLASME}</g>"
+)
+
+_PASTILLES_ENVELOPPES_MUSCLE = [
+    {
+        "n": 1,
+        "x": 231,
+        "y": 59,
+        "t": "Épimysium",
+        "ancre": "start",
+        "indice": "gaine externe, autour du muscle entier",
+    },
+    {
+        "n": 2,
+        "x": 205,
+        "y": 195,
+        "t": "Périmysium",
+        "ancre": "start",
+        "indice": "autour d'un faisceau musculaire",
+    },
+    {
+        "n": 3,
+        "x": 119,
+        "y": 171,
+        "t": "Endomysium",
+        "ancre": "end",
+        "indice": "autour d'une fibre musculaire",
+    },
+    {
+        "n": 4,
+        "x": 125,
+        "y": 115,
+        "t": "Sarcolemme",
+        "ancre": "end",
+        "indice": "deuxième membrane, propre à la fibre",
+    },
+]
+
+PLANCHES["enveloppes-muscle-coupe"] = {
+    "id": "enveloppes-muscle-coupe",
+    "titre": "Les enveloppes du muscle, en coupe",
+    "vb": "0 0 320 280",
+    "dessin": _DESSIN_ENVELOPPES_MUSCLE,
+    "pastilles": _PASTILLES_ENVELOPPES_MUSCLE,
+}
+
+# --- Chapitre 4 : le sarcomere, entre deux stries Z (slides 119-120) ----
+#
+# Texte (slide 119) : la myofibrille est composee de sarcomeres, delimites
+# par des stries Z ; la contraction s'y deroule via 2 myofilaments, la
+# myosine (filament epais) et l'actine (filament fin). Le schema-image de
+# la slide 120 (rendu en PNG et lu) confirme la disposition : dans un
+# sarcomere, l'actine part de CHAQUE strie Z vers le centre, la myosine
+# occupe la portion centrale, les deux filaments se chevauchant.
+#
+# 4 rangees paralleles (l'aspect "faisceau de myofilaments" de la
+# myofibrille) plutot qu'une seule ligne : une seule rangee se serait lue
+# comme "une fibre", pas comme l'empilement reel. Chaque rangee suit le
+# meme schema fin-epais-fin (epaisseur de trait 1.6 puis 7 puis 1.6) : le
+# contraste d'EPAISSEUR est le seul signal necessaire pour distinguer
+# myosine et actine en mode muet, sans avoir besoin de texture ou de
+# couleur (le trace n'utilise que currentColor, regle CSS section 1).
+#
+# Reperes courts (deux traits verticaux de 14 unites) dans les BLANCS entre
+# deux rangees : sans eux, le libelle d'une pastille posee directement sur
+# une rangee chevaucherait le trace de cette meme rangee (verifie par rendu
+# reel -- rsvg-convert -- avant correction ; une premiere version sans repere
+# faisait passer "Myosine (épais)" en travers de la rangee qu'elle designe).
+_Z_GAUCHE, _Z_DROITE = 25, 275
+_Z_HAUT, _Z_BAS = 45, 155
+_RANGEES_SARCOMERE = (65, 90, 115, 140)
+
+_rangees_svg = []
+for _y in _RANGEES_SARCOMERE:
+    _rangees_svg.append(
+        f"<path d='M{_Z_GAUCHE},{_y} L140,{_y}' stroke-width='1.6'/>"
+        f"<path d='M110,{_y} L190,{_y}' stroke-width='7'/>"
+        f"<path d='M160,{_y} L{_Z_DROITE},{_y}' stroke-width='1.6'/>"
+    )
+_RANGEES_SARCOMERE_SVG = "".join(_rangees_svg)
+
+_DESSIN_SARCOMERE = (
+    "<g fill='none' stroke='currentColor' stroke-linecap='round'>"
+    f"{_RANGEES_SARCOMERE_SVG}</g>"
+    f"<path d='M{_Z_GAUCHE},{_Z_HAUT} L{_Z_GAUCHE},{_Z_BAS}' "
+    "stroke='currentColor' stroke-width='5' fill='none'/>"
+    f"<path d='M{_Z_DROITE},{_Z_HAUT} L{_Z_DROITE},{_Z_BAS}' "
+    "stroke='currentColor' stroke-width='5' fill='none'/>"
+    # Accolade du sarcomere (deux petites chutes verticales + un trait
+    # horizontal), au-dessus des deux stries Z.
+    f"<path d='M{_Z_GAUCHE},35 L{_Z_GAUCHE},45 M{_Z_GAUCHE},35 L{_Z_DROITE},35 "
+    f"M{_Z_DROITE},35 L{_Z_DROITE},45' stroke='currentColor' stroke-width='1.2' "
+    "fill='none'/>"
+    # Reperes courts, dans les blancs entre deux rangees (cf. note ci-dessus).
+    "<g stroke='currentColor' stroke-width='1.2' fill='none'>"
+    "<path d='M70,66 L70,80'/>"
+    "<path d='M150,91 L150,102'/>"
+    "</g>"
+)
+
+_PASTILLES_SARCOMERE = [
+    {
+        "n": 1,
+        "x": 150,
+        "y": 35,
+        "t": "Sarcomère",
+        "ancre": "start",
+        "indice": "segment de myofibrille entre deux stries Z",
+    },
+    {
+        "n": 2,
+        "x": _Z_GAUCHE,
+        "y": 50,
+        "t": "Strie Z",
+        "ancre": "start",
+        "indice": "ligne qui délimite chaque sarcomère",
+    },
+    {
+        "n": 3,
+        "x": 150,
+        "y": 102,
+        "t": "Myosine (épais)",
+        "ancre": "end",
+        "indice": "au centre du sarcomère",
+    },
+    {
+        "n": 4,
+        "x": 70,
+        "y": 80,
+        "t": "Actine (filament fin)",
+        "ancre": "start",
+        "indice": "part de chaque strie Z vers le centre",
+    },
+]
+
+PLANCHES["sarcomere-stries-z"] = {
+    "id": "sarcomere-stries-z",
+    "titre": "Le sarcomère, entre deux stries Z",
+    "vb": "0 0 300 180",
+    "dessin": _DESSIN_SARCOMERE,
+    "pastilles": _PASTILLES_SARCOMERE,
+}

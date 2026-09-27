@@ -27,6 +27,19 @@ import { intervalleDeBase, composerSeance } from './planificateur.js';
 import { creerStockage } from './stockage.js';
 import { appliquerAutoEvaluation, corrigerQuestion, verifierPastille, itemsDuCours } from './exercices.js';
 
+// Types que la seance du jour sait effectivement rendre et evaluer (voir
+// elementPourItem, itemEvalue et le branchement dans afficherEtapeCourante,
+// plus bas). Defaut Critical corrige ici (revue du plan chapitres-2-a-7,
+// tache 1bis) : exercices.itemsDuCours exposait deja les items de muscle --
+// donc le planificateur leur calculait une echeance et les anneaux de
+// progression les comptaient -- mais aucune branche de la seance ne savait
+// les afficher : tires en seance, ils disparaissaient sans un mot, alors que
+// le compteur affirmait le contraire. Exporte (module sans DOM au chargement,
+// importable par node --test) pour que tests/interface.test.js verifie
+// mecaniquement que tout type produit par itemsDuCours figure ici -- pas
+// seulement pour les muscles, pour tout futur type.
+export const TYPES_RENDUS_EN_SEANCE = ['carte', 'quiz', 'pastille', 'muscle'];
+
 const JOUR_MS = 86400000;
 
 function aujourdHuiISO() {
@@ -383,21 +396,32 @@ export function demarrer(document, support) {
     actualiserBoutonModeMuscles(table, boutonMode);
   }
 
+  // Construit les champs, force le mode par defaut et pose le bouton
+  // Verifier -- partage entre la page de chapitre (une table, toutes ses
+  // lignes) et la seance du jour (une table clonee, une seule ligne : voir
+  // elementPourItem plus bas). Une seule definition : la seance affiche
+  // litteralement le meme mecanisme que l'onglet Muscles, jamais une
+  // seconde grammaire pour la meme table.
+  function activerPresentationMuscles(table) {
+    construireChampsMuscles(table);
+    table.dataset.mode = 'champs';
+
+    const boutonVerifier = document.createElement('button');
+    boutonVerifier.type = 'button';
+    boutonVerifier.className = 'action';
+    boutonVerifier.textContent = 'Vérifier';
+    boutonVerifier.addEventListener('click', () => verifierMuscles(table));
+    table.after(boutonVerifier);
+    return boutonVerifier;
+  }
+
   const tablesMuscles = Array.from(document.querySelectorAll('.muscles'));
   if (tablesMuscles.length) {
     // Une seule table par page de chapitre (l'onglet Muscles n'apparait que
     // si le chapitre en a) : la boucle documente qu'aucune limite n'est
     // supposee, sans en tirer de complexite supplementaire.
     for (const table of tablesMuscles) {
-      construireChampsMuscles(table);
-      table.dataset.mode = 'champs';
-
-      const boutonVerifier = document.createElement('button');
-      boutonVerifier.type = 'button';
-      boutonVerifier.className = 'action';
-      boutonVerifier.textContent = 'Vérifier';
-      boutonVerifier.addEventListener('click', () => verifierMuscles(table));
-      table.after(boutonVerifier);
+      const boutonVerifier = activerPresentationMuscles(table);
 
       const boutonMode = document.querySelector('[data-action="mode-muscles"]');
       actualiserBoutonModeMuscles(table, boutonMode);
@@ -462,6 +486,7 @@ export function demarrer(document, support) {
     const voletCartesSeance = zoneSeance?.querySelector('.volet[data-volet="cartes"]');
     const voletQuizSeance = zoneSeance?.querySelector('.volet[data-volet="quiz"]');
     const zonePlancheSeance = document.getElementById('seance-planche');
+    const zoneMuscleSeance = document.getElementById('seance-muscle');
     const boutonSuivant = document.getElementById('seance-suivant');
     const boutonQuitter = document.getElementById('seance-quitter');
 
@@ -486,6 +511,26 @@ export function demarrer(document, support) {
     async function elementPourItem(item) {
       const page = await chargerPageChapitre(item.chapitre);
       if (!page) return null;
+
+      // Un item "muscle" designe une ligne (data-id, pas un id DOM -- un nom
+      // de muscle contient des espaces). A la difference d'une pastille, sa
+      // granularite d'affichage est LA LIGNE, pas toute la table (avis du
+      // relecteur, tache 1bis) : on clone la table entiere pour garder sa
+      // presentation exacte (caption, thead, structure a trois <td>), puis on
+      // retire toutes les lignes sauf la sienne -- jamais une seconde
+      // grammaire pour la meme table.
+      if (item.type === 'muscle') {
+        const ligneSource = Array.from(page.querySelectorAll('tr[data-id]'))
+          .find((tr) => tr.dataset.id === item.id);
+        const tableSource = ligneSource?.closest('table.muscles');
+        if (!tableSource) return null;
+        const clone = document.importNode(tableSource, true);
+        for (const tr of clone.querySelectorAll('tbody tr')) {
+          if (tr.dataset.id !== item.id) tr.remove();
+        }
+        return clone;
+      }
+
       // Un item "pastille" designe une legende individuelle, mais la seule
       // unite affichable et verifiable est la planche entiere (verifierPlanche
       // corrige toutes ses pastilles a la fois, comme en page de chapitre).
@@ -519,6 +564,13 @@ export function demarrer(document, support) {
       if (item.type === 'carte') return Boolean(element.dataset.dernierVerdict);
       if (item.type === 'quiz') return element.dataset.repondue === 'oui';
       if (item.type === 'pastille') return element.dataset.verifie === 'oui';
+      // element est ici la table clonee a une seule ligne (voir
+      // elementPourItem) : verifierMuscles pose dataset.verifie='oui' sur
+      // cette ligne, comme verifierPlanche le fait pour une pastille.
+      // querySelector('tr') seul aurait cible le <tr> du thead (Muscle /
+      // Origine / Terminaison / Action, sans data-verifie) plutot que la
+      // ligne de donnees -- piege releve par pilotage reel avant ce correctif.
+      if (item.type === 'muscle') return element.querySelector('tbody tr')?.dataset.verifie === 'oui';
       return false;
     }
 
@@ -538,6 +590,7 @@ export function demarrer(document, support) {
       if (voletCartesSeance) { voletCartesSeance.hidden = true; voletCartesSeance.innerHTML = ''; }
       if (voletQuizSeance) { voletQuizSeance.hidden = true; voletQuizSeance.innerHTML = ''; }
       if (zonePlancheSeance) { zonePlancheSeance.hidden = true; zonePlancheSeance.innerHTML = ''; }
+      if (zoneMuscleSeance) { zoneMuscleSeance.hidden = true; zoneMuscleSeance.innerHTML = ''; }
       if (barreCarte) barreCarte.hidden = true;
       carteActive = null;
     }
@@ -621,6 +674,15 @@ export function demarrer(document, support) {
         const bouton = element.querySelector(':scope > button.action');
         if (liste) liste.hidden = false;
         if (bouton) bouton.hidden = false;
+      } else if (item.type === 'muscle' && zoneMuscleSeance) {
+        // element est la table clonee a une seule ligne (elementPourItem) :
+        // meme presentation, memes champs, meme verification que l'onglet
+        // Muscles de la page de chapitre -- activerPresentationMuscles est
+        // la MEME fonction que celle qui equipe la table complete, juste
+        // appliquee ici a un clone d'une seule ligne.
+        zoneMuscleSeance.hidden = false;
+        zoneMuscleSeance.appendChild(element);
+        activerPresentationMuscles(element);
       }
 
       itemCourant = item;

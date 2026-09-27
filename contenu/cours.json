@@ -4325,6 +4325,1139 @@
           "slide": 251
         }
       ]
+    },
+    {
+      "num": 7,
+      "titre": "Le membre inférieur",
+      "slides": [
+        268,
+        328
+      ],
+      "sections": [
+        {
+          "titre": "Le squelette du membre inférieur : 4 segments",
+          "slide": 270,
+          "points": [
+            "Le squelette du membre inférieur comprend 4 segments : la ceinture pelvienne, la cuisse, la jambe et le pied."
+          ]
+        },
+        {
+          "titre": "Vue d'ensemble : segments, os et articulations",
+          "slide": 271,
+          "points": [
+            "Ceinture pelvienne : sacrum + os coxal ; articulation sacro-iliaque et articulation coxo-fémorale (hanche).",
+            "Cuisse : fémur. Jambe : tibia (médial) + fibula (latérale) ; articulation fémoro-patellaire et articulation tibio-fémorale (genou) entre les deux.",
+            "Pied : articulation talo-crurale (cheville). La cuisse, la jambe et le pied forment ensemble la « partie libre du membre inférieur »."
+          ]
+        },
+        {
+          "titre": "A. La ceinture pelvienne",
+          "slide": 273,
+          "points": [
+            "Elle est constituée par 2 os coxaux + le sacrum et le coccyx.",
+            "Également appelée bassin ou pelvis."
+          ]
+        },
+        {
+          "titre": "Les 4 articulations de la ceinture pelvienne",
+          "slide": 275,
+          "points": [
+            "La symphyse pubienne.",
+            "2 articulations sacro-iliaques (une de chaque côté).",
+            "L'articulation sacro-coccygienne."
+          ]
+        },
+        {
+          "titre": "L'os coxal : 3 parties",
+          "slide": 277,
+          "points": [
+            "C'est l'os de la hanche, composé de 3 parties : l'ilium (partie supérieure), l'ischium (partie postéro-inférieure), le pubis (partie antéro-inférieure).",
+            "Os plat qui s'articule médialement avec le sacrum (articulation sacro-iliaque) et latéralement avec le fémur, au niveau de la tête fémorale (articulation coxo-fémorale)."
+          ]
+        },
+        {
+          "titre": "L'os coxal : ancienne et nouvelle nomenclature",
+          "slide": 278,
+          "points": [
+            "Nomenclature actuelle : ilium, ischium, pubis.",
+            "Ancienne nomenclature : ilion, ischion, pubis — seul le nom du pubis est resté identique."
+          ]
+        },
+        {
+          "titre": "L'os coxal : repères",
+          "slide": 279,
+          "points": [
+            "Vue antérieure : crête iliaque, fosse iliaque, épine iliaque antéro-supérieure, épine iliaque antéro-inférieure, pubis.",
+            "Vue latérale : acétabulum, foramen obturé, épine ischiatique, tubérosité ischiatique."
+          ]
+        },
+        {
+          "titre": "B. La cuisse : un seul os, le fémur",
+          "slide": 282,
+          "points": [
+            "Os long qui s'articule en haut avec l'os coxal, au niveau de l'acétabulum, pour former l'articulation coxo-fémorale.",
+            "En bas avec le tibia, au niveau du plateau tibial, pour former l'articulation tibio-fémorale ; et avec la patella (rotule) pour former l'articulation fémoro-patellaire."
+          ]
+        },
+        {
+          "titre": "Le fémur : repères",
+          "slide": 284,
+          "points": [
+            "Extrémité proximale : tête fémorale, grand trochanter, petit trochanter.",
+            "Extrémité distale : épicondyle médial, condyle médial, condyle latéral, surface patellaire."
+          ]
+        },
+        {
+          "titre": "C. La jambe : 2 os",
+          "slide": 288,
+          "points": [
+            "Le tibia, os médial de la jambe : s'articule en haut avec le fémur (condyles fémoraux → tibio-fémorale), en bas avec le talus (→ talo-crurale médiale), latéralement avec la fibula (→ tibio-fibulaires proximale et distale).",
+            "La fibula, os latéral de la jambe : s'articule en haut et médialement avec le tibia (→ tibio-fibulaire proximale), en bas avec le talus (→ talo-crurale latérale), en bas et médialement avec le tibia (→ tibio-fibulaire distale)."
+          ]
+        },
+        {
+          "titre": "Le tibia et la fibula : repères",
+          "slide": 289,
+          "points": [
+            "Tibia : condyles médial et latéral, plateau tibial, tubérosité du tibia, malléole médiale (tibiale).",
+            "Fibula : tête de la fibula, malléole latérale (fibulaire)."
+          ]
+        },
+        {
+          "titre": "La patella",
+          "slide": 290,
+          "points": [
+            "Os court, situé en avant de la base du fémur, sur le trajet du tendon du quadriceps.",
+            "Elle s'articule avec le fémur pour former l'articulation fémoro-patellaire."
+          ]
+        },
+        {
+          "titre": "Le genou (articulation tibio-fémorale)",
+          "slide": 291,
+          "points": [
+            "Ligament patellaire à l'avant ; ligament croisé antérieur (LCA) et ligament croisé postérieur (LCP) au centre de l'articulation.",
+            "Ménisque médial et ménisque latéral, sur le plateau tibial."
+          ]
+        },
+        {
+          "titre": "D. Le pied : 26 os en 3 groupes",
+          "slide": 294,
+          "points": [
+            "Le tarse (7 os, dont le talus/astragale et le calcaneus).",
+            "Le métatarse (5 métatarsiens).",
+            "Les phalanges du pied (3 par orteil, sauf le gros orteil qui n'en a que 2)."
+          ]
+        },
+        {
+          "titre": "L'articulation de la cheville",
+          "slide": 295,
+          "points": [
+            "L'articulation talo-crurale unit le tibia et la fibula au talus.",
+            "Elle joue un rôle primordial dans la marche ; c'est l'articulation la plus sujette aux entorses."
+          ]
+        },
+        {
+          "titre": "II-A. Muscles de la ceinture pelvienne",
+          "slide": 298,
+          "points": [
+            "Muscles principaux : ilio-psoas (iliaque), grand/moyen/petit glutéal, tenseur du fascia lata.",
+            "Muscles profonds, rotateurs latéraux de la cuisse : piriforme, obturateur interne et externe, jumeau supérieur et inférieur, carré fémoral."
+          ]
+        },
+        {
+          "titre": "L'ilio-psoas",
+          "slide": 299,
+          "points": [
+            "Composé de 2 muscles : le grand psoas (muscle latéral du tronc) et l'iliaque (muscle de la hanche).",
+            "Origine : face antérieure de l'os coxal (fosse iliaque). Terminaison : petit trochanter du fémur.",
+            "Il est fléchisseur de la cuisse."
+          ]
+        },
+        {
+          "titre": "Le petit glutéal",
+          "slide": 300,
+          "points": [
+            "Origine : face externe de l'ilium. Terminaison : grand trochanter du fémur.",
+            "Abducteur et rotateur médial de la cuisse."
+          ]
+        },
+        {
+          "titre": "Le moyen glutéal",
+          "slide": 301,
+          "points": [
+            "Origine : face externe de l'ilium. Terminaison : grand trochanter du fémur.",
+            "Abducteur de la cuisse et stabilisateur du bassin."
+          ]
+        },
+        {
+          "titre": "Le grand glutéal",
+          "slide": 302,
+          "points": [
+            "Origine : face externe de l'ilium, crête iliaque, crête sacrale. Terminaison : face postérieure du fémur.",
+            "Extenseur et rotateur latéral de la cuisse. Stabilisateur du bassin."
+          ]
+        },
+        {
+          "titre": "Le tenseur du fascia lata",
+          "slide": 303,
+          "points": [
+            "Origine : épine iliaque antéro-supérieure. Terminaison : tractus ilio-tibial (qui se termine sur le plateau tibial latéral).",
+            "Abducteur, rotateur médial et fléchisseur de la cuisse ; extenseur de la jambe."
+          ]
+        },
+        {
+          "titre": "Muscles de la cuisse : 3 groupes",
+          "slide": 306,
+          "points": [
+            "Groupe antérieur : extenseur du genou.",
+            "Groupe médial : adducteur de la cuisse.",
+            "Groupe postérieur : fléchisseur du genou."
+          ]
+        },
+        {
+          "titre": "Groupe antérieur : 2 muscles",
+          "slide": 308,
+          "points": [
+            "Sartorius.",
+            "Quadriceps (fémoral)."
+          ]
+        },
+        {
+          "titre": "Le sartorius (couturier)",
+          "slide": 309,
+          "points": [
+            "Origine : épine iliaque antéro-supérieure. Terminaison : patte d'oie.",
+            "Fléchisseur de la cuisse et de la jambe ; rotateur latéral et abducteur de la cuisse."
+          ]
+        },
+        {
+          "titre": "Le quadriceps fémoral : 4 chefs",
+          "slide": 310,
+          "points": [
+            "4 chefs/faisceaux : le droit fémoral, le vaste latéral, le vaste intermédiaire, le vaste médial.",
+            "Le tendon du droit fémoral passe par-dessus la patella pour rejoindre le ligament patellaire."
+          ]
+        },
+        {
+          "titre": "Le quadriceps fémoral : origines, terminaison commune, actions",
+          "slide": 311,
+          "points": [
+            "Droit fémoral : origine épine iliaque antéro-inférieure. Vaste médial : bord médial du fémur. Vaste latéral : bord latéral du fémur. Vaste intermédiaire : face antérieure du fémur.",
+            "Terminaison commune des 4 chefs : tendon commun de la patella, puis tubérosité tibiale (ligament patellaire).",
+            "Tous les 4 sont extenseurs du genou ; le droit fémoral est en plus fléchisseur de la cuisse."
+          ]
+        },
+        {
+          "titre": "Groupe médial : 5 muscles",
+          "slide": 312,
+          "points": [
+            "Pectiné.",
+            "Court, long et grand adducteur.",
+            "Gracile."
+          ]
+        },
+        {
+          "titre": "Le court adducteur",
+          "slide": 313,
+          "points": [
+            "Origine : pubis. Terminaison : ligne âpre du fémur.",
+            "Adducteur de la cuisse."
+          ]
+        },
+        {
+          "titre": "Le long adducteur",
+          "slide": 314,
+          "points": [
+            "Origine : pubis. Terminaison : ligne âpre du fémur.",
+            "Adducteur, fléchisseur et rotateur médial de la cuisse."
+          ]
+        },
+        {
+          "titre": "Le grand adducteur",
+          "slide": 315,
+          "points": [
+            "3 faisceaux. Origines : pubis, tubérosité ischiatique. Terminaisons : ligne âpre du fémur, épicondyle médial du fémur.",
+            "Adducteur de la cuisse."
+          ]
+        },
+        {
+          "titre": "Le gracile",
+          "slide": 316,
+          "points": [
+            "Origine : pubis. Terminaison : patte d'oie.",
+            "Fléchisseur et rotateur médial de la jambe ; adducteur de la cuisse."
+          ]
+        },
+        {
+          "titre": "Groupe postérieur : les ischio-jambiers",
+          "slide": 318,
+          "points": [
+            "3 muscles : biceps fémoral, semi-tendineux, semi-membraneux.",
+            "Ils forment les ischio-jambiers."
+          ]
+        },
+        {
+          "titre": "Le biceps fémoral",
+          "slide": 319,
+          "points": [
+            "2 faisceaux. Origines : chef long, tubérosité ischiatique ; chef court, ligne âpre du fémur. Terminaison : tête de la fibula.",
+            "Fléchisseur de la jambe ; extenseur de la cuisse (chef long)."
+          ]
+        },
+        {
+          "titre": "Le semi-tendineux et le semi-membraneux",
+          "slide": 320,
+          "points": [
+            "Origine (les 2) : tubérosité ischiatique.",
+            "Terminaison : semi-tendineux → patte d'oie ; semi-membraneux → plateau tibial.",
+            "Fléchisseurs de la jambe ; extenseurs de la cuisse."
+          ]
+        },
+        {
+          "titre": "Muscles de la jambe : groupe antérieur",
+          "slide": 324,
+          "points": [
+            "Tibial antérieur.",
+            "Long extenseur de l'hallux.",
+            "Court, long et troisième fibulaire.",
+            "Long extenseur des orteils."
+          ]
+        },
+        {
+          "titre": "Le tibial antérieur",
+          "slide": 325,
+          "points": [
+            "Origine : bord latéral du tibia. Terminaison : bord médial du gros orteil.",
+            "Fléchisseur dorsal du pied."
+          ]
+        },
+        {
+          "titre": "Muscles de la jambe : groupe postérieur",
+          "slide": 326,
+          "points": [
+            "Groupe superficiel : triceps sural, plantaire.",
+            "Groupe profond : poplité, tibial postérieur, long fléchisseur des orteils, long fléchisseur de l'hallux."
+          ]
+        },
+        {
+          "titre": "Le triceps sural",
+          "slide": 327,
+          "points": [
+            "Composé du gastrocnémien et du soléaire (et du plantaire)."
+          ]
+        },
+        {
+          "titre": "Gastrocnémien et soléaire",
+          "slide": 328,
+          "points": [
+            "Gastrocnémien : 2 chefs (médial + latéral). Origine : condyles médial et latéral du fémur. Terminaison : calcanéus (tendon calcanéen).",
+            "Soléaire : origine, épiphyses proximales du tibia et de la fibula. Terminaison : calcanéus (tendon calcanéen).",
+            "Gastrocnémien : fléchisseur de la jambe et fléchisseur plantaire du pied. Soléaire : fléchisseur plantaire du pied seulement."
+          ]
+        }
+      ],
+      "cartes": [
+        {
+          "id": "c7-01",
+          "q": "Quels sont les 4 segments du squelette du membre inférieur ?",
+          "r": "La ceinture pelvienne, la cuisse, la jambe et le pied.",
+          "slide": 270
+        },
+        {
+          "id": "c7-02",
+          "q": "Pour chaque segment du membre inférieur, quel(s) os le compose(nt) et quelles articulations apparaissent ?",
+          "r": "Ceinture pelvienne : sacrum + os coxal ; articulations sacro-iliaque et coxo-fémorale (hanche). Cuisse : fémur ; articulations fémoro-patellaire et tibio-fémorale (genou). Jambe : tibia + fibula ; articulation talo-crurale (cheville). Pied : partie distale, en aval de la cheville.",
+          "slide": 271
+        },
+        {
+          "id": "c7-03",
+          "q": "Comment est constituée la ceinture pelvienne, et quelles sont ses 4 articulations ?",
+          "r": "Elle est constituée de 2 os coxaux + le sacrum + le coccyx (autres noms : bassin, pelvis). Ses 4 articulations : la symphyse pubienne, les 2 sacro-iliaques (une par côté), et la sacro-coccygienne.",
+          "slide": 273
+        },
+        {
+          "id": "c7-04",
+          "q": "L'os coxal est composé de 3 parties : lesquelles, et avec quels 2 os s'articule-t-il ?",
+          "r": "Ilium (partie supérieure), ischium (partie postéro-inférieure), pubis (partie antéro-inférieure). Il s'articule médialement avec le sacrum (articulation sacro-iliaque) et latéralement avec le fémur, au niveau de la tête fémorale (articulation coxo-fémorale).",
+          "slide": 277
+        },
+        {
+          "id": "c7-05",
+          "q": "Quels sont les noms actuels des 3 parties de l'os coxal, et quels étaient leurs noms dans l'ancienne nomenclature ?",
+          "r": "Ilium, ischium et pubis (nomenclature actuelle) correspondent à ilion, ischion et pubis dans l'ancienne nomenclature — seul le nom du pubis n'a pas changé.",
+          "slide": 278
+        },
+        {
+          "id": "c7-06",
+          "q": "Sur l'os coxal, où se trouvent la crête iliaque, la fosse iliaque, l'acétabulum et le foramen obturé ?",
+          "r": "La crête iliaque borde le sommet de l'ilium, la fosse iliaque en occupe la face interne. L'acétabulum et le foramen obturé sont à la jonction des 3 parties (l'acétabulum reçoit la tête fémorale).",
+          "slide": 279
+        },
+        {
+          "id": "c7-07",
+          "q": "Avec quels os le fémur s'articule-t-il, et quels repères porte-t-il à ses 2 extrémités ?",
+          "r": "Il s'articule en haut avec l'os coxal (acétabulum → coxo-fémorale), en bas avec le tibia (plateau tibial → tibio-fémorale) et avec la patella (→ fémoro-patellaire). Extrémité proximale : tête fémorale, grand trochanter, petit trochanter. Extrémité distale : épicondyle médial, condyle médial, condyle latéral, surface patellaire.",
+          "slide": 282
+        },
+        {
+          "id": "c7-08",
+          "q": "Le tibia et la fibula : lequel est médial, lequel est latéral, avec quels os s'articulent-ils, et quels repères portent-ils ?",
+          "r": "Le tibia est MÉDIAL (plateau tibial, tubérosité du tibia, malléole médiale) ; il s'articule avec le fémur (tibio-fémorale), le talus (talo-crurale médiale) et la fibula (tibio-fibulaire proximale et distale). La fibula est LATÉRALE (tête de la fibula, malléole latérale) ; elle s'articule avec le tibia (tibio-fibulaire proximale et distale) et le talus (talo-crurale latérale).",
+          "slide": 288
+        },
+        {
+          "id": "c7-09",
+          "q": "Où est située la patella, et quelle articulation forme-t-elle ?",
+          "r": "Os court, situé en avant de la base du fémur, sur le trajet du tendon du quadriceps. Elle s'articule avec le fémur pour former l'articulation fémoro-patellaire.",
+          "slide": 290
+        },
+        {
+          "id": "c7-10",
+          "q": "Le genou (articulation tibio-fémorale) comporte quels ligaments et quels ménisques ?",
+          "r": "Ligament croisé antérieur (LCA) et ligament croisé postérieur (LCP) ; ménisque médial et ménisque latéral, sur le plateau tibial. Le ligament patellaire y arrive côté antérieur.",
+          "slide": 291
+        },
+        {
+          "id": "c7-11",
+          "q": "Combien d'os compte le pied, comment se répartissent-ils, et quelle particularité présente l'articulation de la cheville ?",
+          "r": "26 os en 3 groupes : le tarse (7 os, dont le talus et le calcanéus), le métatarse (5 métatarsiens), les phalanges (3 par orteil sauf le gros orteil qui n'en a que 2). La cheville (articulation talo-crurale) unit le tibia et la fibula au talus : c'est l'articulation la plus sujette aux entorses.",
+          "slide": 294
+        },
+        {
+          "id": "c7-12",
+          "q": "Quels sont les muscles principaux et les muscles profonds de la ceinture pelvienne ?",
+          "r": "Principaux : ilio-psoas, petit/moyen/grand glutéal, tenseur du fascia lata. Profonds, rotateurs latéraux de la cuisse : piriforme, obturateur interne et externe, jumeau supérieur et inférieur, carré fémoral.",
+          "slide": 298
+        },
+        {
+          "id": "c7-13",
+          "q": "L'ilio-psoas est composé de 2 muscles : lesquels, et quelle est son action ?",
+          "r": "Le grand psoas (muscle latéral du tronc) et l'iliaque (muscle de la hanche). Origine : face antérieure de l'os coxal (fosse iliaque). Terminaison : petit trochanter du fémur. Il est fléchisseur de la cuisse.",
+          "slide": 299
+        },
+        {
+          "id": "c7-14",
+          "q": "Petit glutéal et moyen glutéal partagent origine et terminaison : quelle est la différence de leurs actions ?",
+          "r": "Les 2 s'originent sur la face externe de l'ilium et se terminent sur le grand trochanter du fémur. Le petit glutéal est abducteur ET rotateur médial de la cuisse ; le moyen glutéal est abducteur de la cuisse et stabilisateur du bassin (pas rotateur).",
+          "slide": 300
+        },
+        {
+          "id": "c7-15",
+          "q": "Quelles sont l'origine, la terminaison et l'action du grand glutéal ?",
+          "r": "Origine : face externe de l'ilium, crête iliaque, crête sacrale. Terminaison : face postérieure du fémur. Actions : extenseur et rotateur latéral de la cuisse, stabilisateur du bassin.",
+          "slide": 302
+        },
+        {
+          "id": "c7-16",
+          "q": "Sur quelle structure se termine le tenseur du fascia lata, et quelles sont ses actions ?",
+          "r": "Il se termine sur le tractus ilio-tibial, qui rejoint le plateau tibial latéral. Actions : abducteur, rotateur médial et fléchisseur de la cuisse ; extenseur de la jambe.",
+          "slide": 303
+        },
+        {
+          "id": "c7-17",
+          "q": "Quels sont les 3 groupes de muscles de la cuisse, et l'action caractéristique de chacun ?",
+          "r": "Groupe antérieur : extenseur du genou. Groupe médial : adducteur de la cuisse. Groupe postérieur : fléchisseur du genou.",
+          "slide": 306
+        },
+        {
+          "id": "c7-18",
+          "q": "Quelles sont l'origine, la terminaison et les actions du sartorius ?",
+          "r": "Origine : épine iliaque antéro-supérieure. Terminaison : patte d'oie. Actions : fléchisseur de la cuisse et de la jambe, rotateur latéral et abducteur de la cuisse.",
+          "slide": 309,
+          "plan": "transversal"
+        },
+        {
+          "id": "c7-19",
+          "q": "Le quadriceps fémoral a 4 chefs : lesquels, et par quelle structure se termine-t-il ?",
+          "r": "Droit fémoral, vaste latéral, vaste intermédiaire, vaste médial. Le tendon du droit fémoral passe par-dessus la patella pour rejoindre le ligament patellaire : c'est la terminaison commune des 4 chefs.",
+          "slide": 310,
+          "plan": "sagittal"
+        },
+        {
+          "id": "c7-20",
+          "q": "Pourquoi le droit fémoral est-il le seul chef du quadriceps à être aussi fléchisseur de la cuisse ?",
+          "r": "Parce qu'il est le seul des 4 chefs à s'originer au-delà du fémur, sur l'épine iliaque antéro-inférieure (os coxal) : il franchit donc l'articulation coxo-fémorale (la hanche). Les 3 vastes s'originent directement sur le fémur (bord médial, bord latéral, face antérieure) : ils ne franchissent que le genou, et ne sont donc extenseurs du genou que.",
+          "slide": 311,
+          "plan": "sagittal"
+        },
+        {
+          "id": "c7-21",
+          "q": "Quels sont les 5 muscles du groupe médial (adducteurs) de la cuisse, et qu'est-ce qui distingue le long adducteur des 2 autres adducteurs ?",
+          "r": "Pectiné, court adducteur, long adducteur, grand adducteur, gracile. Le court et le grand adducteur ne sont qu'adducteurs de la cuisse ; le long adducteur est en plus fléchisseur et rotateur médial de la cuisse.",
+          "slide": 312,
+          "plan": "frontal"
+        },
+        {
+          "id": "c7-22",
+          "q": "Les 3 ischio-jambiers partagent origine et actions : quelle est la terminaison propre à chacun, et quelle nuance porte le biceps fémoral ?",
+          "r": "Tous les 3 s'originent (au moins en partie) sur la tubérosité ischiatique et sont fléchisseurs de la jambe, extenseurs de la cuisse. Terminaisons différentes : biceps fémoral → tête de la fibula ; semi-tendineux → patte d'oie ; semi-membraneux → plateau tibial. Nuance : seul le chef long du biceps fémoral (origine tubérosité ischiatique) est extenseur de la cuisse — son chef court s'origine sur la ligne âpre du fémur et ne franchit donc pas la hanche.",
+          "slide": 320
+        },
+        {
+          "id": "c7-23",
+          "q": "Quels 3 muscles convergent à la patte d'oie, et en quoi cette convergence est-elle remarquable ?",
+          "r": "Le sartorius (groupe antérieur), le gracile (groupe médial, adducteurs) et le semi-tendineux (groupe postérieur, ischio-jambiers) : 3 muscles de 3 groupes différents, d'origines et de fonctions différentes, qui se terminent tous au même endroit, sur le bord médial du tibia.",
+          "slide": 320
+        },
+        {
+          "id": "c7-24",
+          "q": "Quels muscles composent le groupe antérieur de la jambe, et quelles sont l'origine, la terminaison et l'action du tibial antérieur ?",
+          "r": "Tibial antérieur, long extenseur de l'hallux, court/long/troisième fibulaire, long extenseur des orteils. Le tibial antérieur : origine bord latéral du tibia, terminaison bord médial du gros orteil, action fléchisseur dorsal du pied.",
+          "slide": 324
+        },
+        {
+          "id": "c7-25",
+          "q": "Le triceps sural est composé de quels muscles, et pourquoi seul l'un d'eux est aussi fléchisseur de la jambe ?",
+          "r": "Du gastrocnémien et du soléaire (et du plantaire). Le gastrocnémien s'origine sur les condyles médial et latéral du FÉMUR : il franchit le genou, donc il est fléchisseur de la jambe ET fléchisseur plantaire du pied. Le soléaire s'origine sur le tibia et la fibula : il ne franchit que la cheville, donc seulement fléchisseur plantaire du pied. Les deux se terminent ensemble sur le calcanéus par le tendon calcanéen.",
+          "slide": 327
+        }
+      ],
+      "quiz": [
+        {
+          "id": "q7-01",
+          "q": "Parmi les 4 chefs du quadriceps, lequel est aussi fléchisseur de la cuisse, en plus d'être extenseur du genou ?",
+          "choix": [
+            "le droit fémoral",
+            "le vaste latéral",
+            "le vaste médial",
+            "le vaste intermédiaire"
+          ],
+          "bonne": 0,
+          "expl": "Seul le droit fémoral s'origine sur l'os coxal (épine iliaque antéro-inférieure) : il franchit la hanche, donc il la fléchit aussi. Les 3 vastes s'originent directement sur le fémur et n'agissent que sur le genou.",
+          "slide": 311,
+          "plan": "sagittal"
+        },
+        {
+          "id": "q7-02",
+          "q": "Quelle est la terminaison du biceps fémoral, différente de celle du semi-tendineux et du semi-membraneux ?",
+          "choix": [
+            "la tête de la fibula",
+            "la patte d'oie",
+            "le plateau tibial",
+            "le calcanéus"
+          ],
+          "bonne": 0,
+          "expl": "Le biceps fémoral se termine sur la tête de la fibula (côté latéral) ; le semi-tendineux à la patte d'oie, le semi-membraneux sur le plateau tibial (tous deux médiaux).",
+          "slide": 320
+        },
+        {
+          "id": "q7-03",
+          "q": "Parmi les ischio-jambiers, quel est le seul qui se termine à la patte d'oie ?",
+          "choix": [
+            "le semi-tendineux",
+            "le semi-membraneux",
+            "le biceps fémoral",
+            "aucun : ils se terminent tous à la tête de la fibula"
+          ],
+          "bonne": 0,
+          "expl": "Semi-tendineux → patte d'oie. Semi-membraneux → plateau tibial. Biceps fémoral → tête de la fibula. Trois terminaisons différentes pour une même origine et les mêmes actions.",
+          "slide": 320
+        },
+        {
+          "id": "q7-04",
+          "q": "La patte d'oie est le point de terminaison commun de 3 muscles. Lesquels ?",
+          "choix": [
+            "sartorius, gracile, semi-tendineux",
+            "sartorius, gracile, semi-membraneux",
+            "sartorius, long adducteur, semi-tendineux",
+            "gracile, semi-tendineux, biceps fémoral"
+          ],
+          "bonne": 0,
+          "expl": "Sartorius (groupe antérieur), gracile (groupe médial) et semi-tendineux (groupe postérieur) convergent tous à la patte d'oie — trois groupes différents, un seul point d'arrivée. Le semi-membraneux (souvent confondu) se termine plus profondément sur le plateau tibial.",
+          "slide": 320
+        },
+        {
+          "id": "q7-05",
+          "q": "Pourquoi le gastrocnémien est-il fléchisseur de la jambe, alors que le soléaire ne l'est pas ?",
+          "choix": [
+            "il s'origine sur le fémur et franchit donc le genou",
+            "il s'origine sur le tibia et la fibula",
+            "il se termine plus haut que le soléaire",
+            "il a 2 chefs alors que le soléaire n'en a qu'un"
+          ],
+          "bonne": 0,
+          "expl": "Le gastrocnémien s'origine sur les condyles médial et latéral du fémur : il franchit le genou, donc il le fléchit. Le soléaire s'origine sur le tibia et la fibula, sous le genou : il ne peut agir que sur la cheville.",
+          "slide": 328
+        },
+        {
+          "id": "q7-06",
+          "q": "La ceinture pelvienne compte 4 articulations. Lesquelles ?",
+          "choix": [
+            "symphyse pubienne + 2 sacro-iliaques + sacro-coccygienne",
+            "symphyse pubienne + 2 sacro-iliaques + coxo-fémorale",
+            "2 sacro-iliaques + 2 coxo-fémorales",
+            "symphyse pubienne + sacro-coccygienne + coxo-fémorale"
+          ],
+          "bonne": 0,
+          "expl": "La symphyse pubienne (1), les 2 articulations sacro-iliaques (2), et la sacro-coccygienne (1) = 4. La coxo-fémorale (hanche) n'appartient PAS à la ceinture pelvienne : c'est l'articulation qui unit le membre inférieur libre à cette ceinture.",
+          "slide": 275
+        },
+        {
+          "id": "q7-07",
+          "q": "Quelles sont les 3 parties de l'os coxal, dans la nomenclature actuelle ?",
+          "choix": [
+            "ilium, ischium, pubis",
+            "ilion, ischion, pubis",
+            "ilium, ischion, pubis",
+            "ilium, ischium, sacrum"
+          ],
+          "bonne": 0,
+          "expl": "Ilium, ischium et pubis (nomenclature actuelle). Ilion et ischion sont les anciens noms d'ilium et ischium — seul pubis n'a pas changé. Le sacrum n'est pas une partie de l'os coxal.",
+          "slide": 278
+        },
+        {
+          "id": "q7-08",
+          "q": "Le pied compte 26 os. Comment se répartissent-ils ?",
+          "choix": [
+            "7 tarsiens, 5 métatarsiens, 14 phalanges",
+            "8 tarsiens, 5 métatarsiens, 13 phalanges",
+            "7 tarsiens, 6 métatarsiens, 13 phalanges",
+            "7 tarsiens, 5 métatarsiens, 15 phalanges"
+          ],
+          "bonne": 0,
+          "expl": "7 (tarse) + 5 (métatarse) + 14 (phalanges : 3 par orteil sauf le gros orteil qui n'en a que 2, soit 3×4+2=14) = 26.",
+          "slide": 294
+        },
+        {
+          "id": "q7-09",
+          "q": "Quelle articulation du membre inférieur est la plus sujette aux entorses ?",
+          "choix": [
+            "l'articulation talo-crurale (la cheville)",
+            "l'articulation tibio-fémorale (le genou)",
+            "l'articulation coxo-fémorale (la hanche)",
+            "l'articulation sacro-iliaque"
+          ],
+          "bonne": 0,
+          "expl": "L'articulation de la cheville (talo-crurale), qui unit le tibia et la fibula au talus, est la plus sujette aux entorses du membre inférieur.",
+          "slide": 295
+        },
+        {
+          "id": "q7-10",
+          "q": "Sur quelle structure se termine le tenseur du fascia lata ?",
+          "choix": [
+            "le tractus ilio-tibial (jusqu'au plateau tibial latéral)",
+            "la patte d'oie",
+            "la tête de la fibula",
+            "le grand trochanter du fémur"
+          ],
+          "bonne": 0,
+          "expl": "Le tenseur du fascia lata se termine sur le tractus ilio-tibial, qui rejoint le plateau tibial latéral — à ne pas confondre avec la patte d'oie (sartorius, gracile, semi-tendineux), un point de terminaison différent et médial.",
+          "slide": 303
+        },
+        {
+          "id": "q7-11",
+          "q": "Parmi les adducteurs de la cuisse, lequel est aussi fléchisseur et rotateur médial de la cuisse, en plus d'être adducteur ?",
+          "choix": [
+            "le long adducteur",
+            "le court adducteur",
+            "le grand adducteur",
+            "le pectiné"
+          ],
+          "bonne": 0,
+          "expl": "Le long adducteur est adducteur, fléchisseur ET rotateur médial de la cuisse. Le court et le grand adducteur ne sont qu'adducteurs. Le pectiné est cité dans ce groupe mais le cours ne détaille pas ses actions.",
+          "slide": 314,
+          "plan": "frontal"
+        },
+        {
+          "id": "q7-12",
+          "q": "L'articulation coxo-fémorale (la hanche) est formée par quels 2 éléments ?",
+          "choix": [
+            "l'acétabulum de l'os coxal et la tête fémorale",
+            "l'acétabulum de l'os coxal et le grand trochanter",
+            "la fosse iliaque et la tête fémorale",
+            "le foramen obturé et la tête fémorale"
+          ],
+          "bonne": 0,
+          "expl": "L'os coxal s'articule latéralement avec le fémur au niveau de l'acétabulum, qui reçoit la tête fémorale.",
+          "slide": 277
+        }
+      ],
+      "muscles": [
+        {
+          "nom": "Ilio-psoas",
+          "origine": [
+            "face antérieure de l'os coxal (fosse iliaque)"
+          ],
+          "terminaison": [
+            "petit trochanter du fémur"
+          ],
+          "actions": [
+            "fléchisseur de la cuisse"
+          ],
+          "slide": 299
+        },
+        {
+          "nom": "Petit glutéal",
+          "origine": [
+            "face externe de l'ilium"
+          ],
+          "terminaison": [
+            "grand trochanter du fémur"
+          ],
+          "actions": [
+            "abducteur de la cuisse",
+            "rotateur médial de la cuisse"
+          ],
+          "slide": 300
+        },
+        {
+          "nom": "Moyen glutéal",
+          "origine": [
+            "face externe de l'ilium"
+          ],
+          "terminaison": [
+            "grand trochanter du fémur"
+          ],
+          "actions": [
+            "abducteur de la cuisse",
+            "stabilisateur du bassin"
+          ],
+          "slide": 301
+        },
+        {
+          "nom": "Grand glutéal",
+          "origine": [
+            "face externe de l'ilium",
+            "crête iliaque",
+            "crête sacrale"
+          ],
+          "terminaison": [
+            "face postérieure du fémur"
+          ],
+          "actions": [
+            "extenseur de la cuisse",
+            "rotateur latéral de la cuisse",
+            "stabilisateur du bassin"
+          ],
+          "slide": 302
+        },
+        {
+          "nom": "Tenseur du fascia lata",
+          "origine": [
+            "épine iliaque antéro-supérieure"
+          ],
+          "terminaison": [
+            "tractus ilio-tibial (qui se termine sur le plateau tibial latéral)"
+          ],
+          "actions": [
+            "abducteur de la cuisse",
+            "rotateur médial de la cuisse",
+            "fléchisseur de la cuisse",
+            "extenseur de la jambe"
+          ],
+          "slide": 303
+        },
+        {
+          "nom": "Sartorius",
+          "origine": [
+            "épine iliaque antéro-supérieure"
+          ],
+          "terminaison": [
+            "patte d'oie"
+          ],
+          "actions": [
+            "fléchisseur de la cuisse",
+            "fléchisseur de la jambe",
+            "rotateur latéral de la cuisse",
+            "abducteur de la cuisse"
+          ],
+          "slide": 309
+        },
+        {
+          "nom": "Quadriceps fémoral",
+          "origine": [
+            "droit fémoral : épine iliaque antéro-inférieure",
+            "vaste médial : bord médial du fémur",
+            "vaste latéral : bord latéral du fémur",
+            "vaste intermédiaire : face antérieure du fémur"
+          ],
+          "terminaison": [
+            "tendon commun de la patella, puis tubérosité tibiale (ligament patellaire)"
+          ],
+          "actions": [
+            "extenseur du genou (les 4 chefs)",
+            "droit fémoral : fléchisseur de la cuisse"
+          ],
+          "slide": 311
+        },
+        {
+          "nom": "Court adducteur",
+          "origine": [
+            "pubis"
+          ],
+          "terminaison": [
+            "ligne âpre du fémur"
+          ],
+          "actions": [
+            "adducteur de la cuisse"
+          ],
+          "slide": 313
+        },
+        {
+          "nom": "Long adducteur",
+          "origine": [
+            "pubis"
+          ],
+          "terminaison": [
+            "ligne âpre du fémur"
+          ],
+          "actions": [
+            "adducteur de la cuisse",
+            "fléchisseur de la cuisse",
+            "rotateur médial de la cuisse"
+          ],
+          "slide": 314
+        },
+        {
+          "nom": "Grand adducteur",
+          "origine": [
+            "pubis",
+            "tubérosité ischiatique"
+          ],
+          "terminaison": [
+            "ligne âpre du fémur",
+            "épicondyle médial du fémur"
+          ],
+          "actions": [
+            "adducteur de la cuisse"
+          ],
+          "slide": 315
+        },
+        {
+          "nom": "Gracile",
+          "origine": [
+            "pubis"
+          ],
+          "terminaison": [
+            "patte d'oie"
+          ],
+          "actions": [
+            "fléchisseur de la jambe",
+            "rotateur médial de la jambe",
+            "adducteur de la cuisse"
+          ],
+          "slide": 316
+        },
+        {
+          "nom": "Biceps fémoral",
+          "origine": [
+            "chef long : tubérosité ischiatique",
+            "chef court : ligne âpre du fémur"
+          ],
+          "terminaison": [
+            "tête de la fibula"
+          ],
+          "actions": [
+            "fléchisseur de la jambe",
+            "chef long : extenseur de la cuisse"
+          ],
+          "slide": 319
+        },
+        {
+          "nom": "Semi-tendineux",
+          "origine": [
+            "tubérosité ischiatique"
+          ],
+          "terminaison": [
+            "patte d'oie"
+          ],
+          "actions": [
+            "fléchisseur de la jambe",
+            "extenseur de la cuisse"
+          ],
+          "slide": 320
+        },
+        {
+          "nom": "Semi-membraneux",
+          "origine": [
+            "tubérosité ischiatique"
+          ],
+          "terminaison": [
+            "plateau tibial"
+          ],
+          "actions": [
+            "fléchisseur de la jambe",
+            "extenseur de la cuisse"
+          ],
+          "slide": 320
+        },
+        {
+          "nom": "Tibial antérieur",
+          "origine": [
+            "bord latéral du tibia"
+          ],
+          "terminaison": [
+            "bord médial du gros orteil"
+          ],
+          "actions": [
+            "fléchisseur dorsal du pied"
+          ],
+          "slide": 325
+        },
+        {
+          "nom": "Gastrocnémien",
+          "origine": [
+            "condyles médial et latéral du fémur"
+          ],
+          "terminaison": [
+            "calcanéus (par le tendon calcanéen)"
+          ],
+          "actions": [
+            "fléchisseur de la jambe",
+            "fléchisseur plantaire du pied"
+          ],
+          "slide": 328
+        },
+        {
+          "nom": "Soléaire",
+          "origine": [
+            "épiphyses proximales du tibia et de la fibula"
+          ],
+          "terminaison": [
+            "calcanéus (par le tendon calcanéen)"
+          ],
+          "actions": [
+            "fléchisseur plantaire du pied"
+          ],
+          "slide": 328
+        }
+      ],
+      "pieges": [
+        {
+          "titre": "Le quadriceps : seul le droit fémoral franchit la hanche",
+          "texte": "Les 4 chefs du quadriceps se terminent ensemble par le tendon commun de la patella puis le ligament patellaire, et sont TOUS extenseurs du genou. Mais un seul, le DROIT FÉMORAL, est aussi fléchisseur de la cuisse : son origine (épine iliaque antéro-inférieure) est sur l'os coxal, donc il franchit l'articulation coxo-fémorale (la hanche). Les 3 vastes (médial, latéral, intermédiaire) s'originent directement sur le fémur : ils ne franchissent que le genou, jamais la hanche, et ne peuvent donc agir que sur la jambe.",
+          "slide": 311
+        },
+        {
+          "titre": "Les ischio-jambiers ont 3 terminaisons différentes, pas une",
+          "texte": "Biceps fémoral, semi-tendineux et semi-membraneux partagent la même origine (tubérosité ischiatique) et les mêmes actions (fléchisseurs de la jambe, extenseurs de la cuisse), mais PAS la même terminaison : le biceps fémoral se termine sur la tête de la FIBULA (côté latéral), le semi-tendineux à la PATTE D'OIE (médial, superficiel), le semi-membraneux sur le PLATEAU TIBIAL (médial, profond). Confondre leurs terminaisons est le piège le plus fréquent sur ce groupe.",
+          "slide": 320
+        },
+        {
+          "titre": "La patte d'oie réunit 3 muscles de 3 groupes différents",
+          "texte": "Sartorius (groupe antérieur de la cuisse), gracile (groupe médial, les adducteurs) et semi-tendineux (groupe postérieur, les ischio-jambiers) se terminent TOUS les 3 à la patte d'oie, sur le bord médial du tibia. Trois muscles d'origine et de fonction différentes, un seul point d'arrivée : ne pas confondre avec le semi-membraneux (voisin du semi-tendineux) qui, lui, se termine plus profondément sur le plateau tibial et n'appartient PAS à la patte d'oie.",
+          "slide": 320
+        },
+        {
+          "titre": "Triceps sural : seul le gastrocnémien franchit le genou",
+          "texte": "Gastrocnémien et soléaire se terminent ensemble sur le calcanéus par le tendon calcanéen (d'Achille), et sont tous les deux fléchisseurs plantaires du pied. Mais seul le GASTROCNÉMIEN est aussi fléchisseur de la JAMBE : son origine (condyles médial et latéral du fémur) est sur le fémur, donc il franchit le genou. Le SOLÉAIRE s'origine sur le tibia et la fibula (épiphyses proximales) : il ne franchit que la cheville, jamais le genou.",
+          "slide": 328
+        }
+      ],
+      "planches": [
+        {
+          "id": "squelette-membre-inferieur-articulations",
+          "titre": "Le squelette du membre inférieur et ses articulations",
+          "vb": "0 0 260 620",
+          "dessin": "<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M90,20 L190,20 L175,95 L105,95 Z'/><circle cx='140' cy='95' r='7'/><path d='M120,85 Q140,72 160,85' stroke-width='2'/><path d='M140,95 L128,380' stroke-width='11' stroke-linecap='round'/><circle cx='128' cy='390' r='9'/><path d='M128,400 L120,560' stroke-width='9' stroke-linecap='round'/><path d='M150,405 L145,555' stroke-width='5' stroke-linecap='round'/><path d='M120,560 L80,585 L135,598 Z'/></g>",
+          "pastilles": [
+            {
+              "n": 1,
+              "x": 150,
+              "y": 30,
+              "t": "Sacro-iliaque",
+              "ancre": "middle",
+              "indice": "où le sacrum rejoint l'ilium, en haut de la ceinture pelvienne"
+            },
+            {
+              "n": 2,
+              "x": 140,
+              "y": 95,
+              "t": "Coxo-fémorale",
+              "ancre": "middle",
+              "indice": "hanche ; acétabulum + tête fémorale"
+            },
+            {
+              "n": 3,
+              "x": 128,
+              "y": 390,
+              "t": "Fémoro-patellaire",
+              "ancre": "start",
+              "indice": "la patella, en avant du genou"
+            },
+            {
+              "n": 4,
+              "x": 110,
+              "y": 398,
+              "t": "Tibio-fémorale",
+              "ancre": "end",
+              "indice": "genou ; entre les 2 os longs"
+            },
+            {
+              "n": 5,
+              "x": 150,
+              "y": 408,
+              "t": "Tibio-fibulaire proximale",
+              "ancre": "start",
+              "indice": "juste sous le genou, côté fibula"
+            },
+            {
+              "n": 6,
+              "x": 122,
+              "y": 560,
+              "t": "Talo-crurale",
+              "ancre": "middle",
+              "indice": "cheville ; tibia + fibula + talus"
+            }
+          ],
+          "slide": 271
+        },
+        {
+          "id": "os-coxal-trois-parties",
+          "titre": "L'os coxal, vue latérale : ses 3 parties",
+          "vb": "0 0 220 300",
+          "dessin": "<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M115,130 Q60,40 90,15 Q160,5 175,55 Q170,100 145,132 Z'/><path d='M112,168 Q60,190 55,240 Q65,270 100,260 Q130,240 128,175 Z'/><path d='M148,168 Q195,185 200,225 Q195,255 160,250 Q132,235 132,175 Z'/><circle cx='130' cy='150' r='22'/></g>",
+          "pastilles": [
+            {
+              "n": 1,
+              "x": 120,
+              "y": 40,
+              "t": "Ilium",
+              "ancre": "middle",
+              "indice": "partie supérieure, la plus large"
+            },
+            {
+              "n": 2,
+              "x": 130,
+              "y": 150,
+              "t": "Acétabulum",
+              "ancre": "middle",
+              "indice": "anneau central ; reçoit la tête fémorale (coxo-fémorale)"
+            },
+            {
+              "n": 3,
+              "x": 80,
+              "y": 245,
+              "t": "Ischium",
+              "ancre": "middle",
+              "indice": "partie postéro-inférieure"
+            },
+            {
+              "n": 4,
+              "x": 175,
+              "y": 235,
+              "t": "Pubis",
+              "ancre": "middle",
+              "indice": "partie antéro-inférieure"
+            }
+          ],
+          "slide": 277
+        },
+        {
+          "id": "quadriceps-quatre-chefs",
+          "titre": "Le quadriceps fémoral : ses 4 chefs, une terminaison commune",
+          "vb": "0 0 220 400",
+          "dessin": "<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M118,22 L118,300' stroke-width='9' stroke-linecap='round'/><circle cx='75' cy='16' r='6'/><circle cx='118' cy='308' r='10'/><path d='M118,318 L112,360' stroke-width='6' stroke-linecap='round'/><path d='M112,360 L108,390' stroke-width='8' stroke-linecap='round'/></g><g class='muscle' fill='none' stroke='currentColor' stroke-width='1.6'><path d='M75,18 L118,306'/><path d='M85,160 L118,306'/><path d='M155,190 L118,306'/><path d='M126,88 L126,298' stroke-dasharray='4 3'/></g>",
+          "pastilles": [
+            {
+              "n": 1,
+              "x": 96,
+              "y": 162,
+              "t": "Droit fémoral",
+              "ancre": "end",
+              "indice": "seul chef dont l'origine est détachée du fémur, plus haut (os coxal)"
+            },
+            {
+              "n": 2,
+              "x": 101,
+              "y": 233,
+              "t": "Vaste latéral",
+              "ancre": "end",
+              "indice": "origine sur le bord latéral du fémur, côté gauche du schéma"
+            },
+            {
+              "n": 3,
+              "x": 136,
+              "y": 248,
+              "t": "Vaste médial",
+              "ancre": "start",
+              "indice": "seul chef dont l'origine arrive du côté droit du schéma"
+            },
+            {
+              "n": 4,
+              "x": 126,
+              "y": 88,
+              "t": "Vaste intermédiaire",
+              "ancre": "start",
+              "indice": "trait pointillé, tout contre le fémur : profond, caché sous le droit fémoral"
+            },
+            {
+              "n": 5,
+              "x": 114,
+              "y": 335,
+              "t": "Ligament patellaire",
+              "ancre": "middle",
+              "indice": "terminaison commune des 4 chefs, sous la patella"
+            }
+          ],
+          "slide": 311
+        },
+        {
+          "id": "ischio-jambiers-trois-terminaisons",
+          "titre": "Les ischio-jambiers : une origine commune, 3 terminaisons",
+          "vb": "0 0 220 400",
+          "dessin": "<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M130,28 L122,280' stroke-width='2' stroke-dasharray='2 3'/><circle cx='130' cy='20' r='8'/><circle cx='180' cy='320' r='7'/><circle cx='100' cy='345' r='7'/><path d='M65,280 L95,280' stroke-width='4' stroke-linecap='round'/></g><g class='muscle' fill='none' stroke='currentColor' stroke-width='1.6'><path d='M130,20 L180,320'/><path d='M130,20 L100,345'/><path d='M130,20 L80,280'/></g>",
+          "pastilles": [
+            {
+              "n": 1,
+              "x": 130,
+              "y": 20,
+              "t": "Tubérosité ischiatique",
+              "ancre": "middle",
+              "indice": "origine commune des 3 muscles, en haut"
+            },
+            {
+              "n": 2,
+              "x": 155,
+              "y": 170,
+              "t": "Biceps fémoral",
+              "ancre": "start",
+              "indice": "le trajet le plus latéral (vers la droite)"
+            },
+            {
+              "n": 3,
+              "x": 115,
+              "y": 182,
+              "t": "Semi-tendineux",
+              "ancre": "start",
+              "indice": "trajet médial, le plus long (le plus bas)"
+            },
+            {
+              "n": 4,
+              "x": 96,
+              "y": 150,
+              "t": "Semi-membraneux",
+              "ancre": "end",
+              "indice": "trajet médial, le plus court (s'arrête au niveau du genou)"
+            },
+            {
+              "n": 5,
+              "x": 180,
+              "y": 320,
+              "t": "Tête de la fibula",
+              "ancre": "start",
+              "indice": "terminaison latérale, du biceps fémoral"
+            },
+            {
+              "n": 6,
+              "x": 100,
+              "y": 345,
+              "t": "Patte d'oie",
+              "ancre": "middle",
+              "indice": "terminaison médiale superficielle, du semi-tendineux"
+            },
+            {
+              "n": 7,
+              "x": 80,
+              "y": 280,
+              "t": "Plateau tibial",
+              "ancre": "end",
+              "indice": "terminaison médiale profonde, du semi-membraneux, au niveau du genou"
+            }
+          ],
+          "slide": 320
+        }
+      ]
     }
   ]
 }

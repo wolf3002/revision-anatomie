@@ -1489,3 +1489,211 @@ PLANCHES['coiffe-rotateurs-vue-postero-laterale'] = {
         }
     ]
 }
+PLANCHES["squelette-membre-inferieur-articulations"] = {
+    "id": "squelette-membre-inferieur-articulations",
+    "titre": "Le squelette du membre inférieur et ses articulations",
+    "vb": "0 0 260 620",
+    "dessin": "<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M90,20 L190,20 L175,95 L105,95 Z'/><circle cx='140' cy='95' r='7'/><path d='M120,85 Q140,72 160,85' stroke-width='2'/><path d='M140,95 L128,380' stroke-width='11' stroke-linecap='round'/><circle cx='128' cy='390' r='9'/><path d='M128,400 L120,560' stroke-width='9' stroke-linecap='round'/><path d='M150,405 L145,555' stroke-width='5' stroke-linecap='round'/><path d='M120,560 L80,585 L135,598 Z'/></g>",
+    "pastilles": [
+        {
+            "n": 1,
+            "x": 150,
+            "y": 30,
+            "t": "Sacro-iliaque",
+            "ancre": "middle",
+            "indice": "où le sacrum rejoint l'ilium, en haut de la ceinture pelvienne"
+        },
+        {
+            "n": 2,
+            "x": 140,
+            "y": 95,
+            "t": "Coxo-fémorale",
+            "ancre": "middle",
+            "indice": "hanche ; acétabulum + tête fémorale"
+        },
+        {
+            "n": 3,
+            "x": 128,
+            "y": 390,
+            "t": "Fémoro-patellaire",
+            "ancre": "start",
+            "indice": "la patella, en avant du genou"
+        },
+        {
+            "n": 4,
+            "x": 110,
+            "y": 398,
+            "t": "Tibio-fémorale",
+            "ancre": "end",
+            "indice": "genou ; entre les 2 os longs"
+        },
+        {
+            "n": 5,
+            "x": 150,
+            "y": 408,
+            "t": "Tibio-fibulaire proximale",
+            "ancre": "start",
+            "indice": "juste sous le genou, côté fibula"
+        },
+        {
+            "n": 6,
+            "x": 122,
+            "y": 560,
+            "t": "Talo-crurale",
+            "ancre": "middle",
+            "indice": "cheville ; tibia + fibula + talus"
+        }
+    ]
+}
+PLANCHES["os-coxal-trois-parties"] = {
+    "id": "os-coxal-trois-parties",
+    "titre": "L'os coxal, vue latérale : ses 3 parties",
+    "vb": "0 0 220 300",
+    "dessin": "<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M115,130 Q60,40 90,15 Q160,5 175,55 Q170,100 145,132 Z'/><path d='M112,168 Q60,190 55,240 Q65,270 100,260 Q130,240 128,175 Z'/><path d='M148,168 Q195,185 200,225 Q195,255 160,250 Q132,235 132,175 Z'/><circle cx='130' cy='150' r='22'/></g>",
+    "pastilles": [
+        {
+            "n": 1,
+            "x": 120,
+            "y": 40,
+            "t": "Ilium",
+            "ancre": "middle",
+            "indice": "partie supérieure, la plus large"
+        },
+        {
+            "n": 2,
+            "x": 130,
+            "y": 150,
+            "t": "Acétabulum",
+            "ancre": "middle",
+            "indice": "anneau central ; reçoit la tête fémorale (coxo-fémorale)"
+        },
+        {
+            "n": 3,
+            "x": 80,
+            "y": 245,
+            "t": "Ischium",
+            "ancre": "middle",
+            "indice": "partie postéro-inférieure"
+        },
+        {
+            "n": 4,
+            "x": 175,
+            "y": 235,
+            "t": "Pubis",
+            "ancre": "middle",
+            "indice": "partie antéro-inférieure"
+        }
+    ]
+}
+PLANCHES["quadriceps-quatre-chefs"] = {
+    "id": "quadriceps-quatre-chefs",
+    "titre": "Le quadriceps fémoral : ses 4 chefs, une terminaison commune",
+    "vb": "0 0 220 400",
+    "dessin": "<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M118,22 L118,300' stroke-width='9' stroke-linecap='round'/><circle cx='75' cy='16' r='6'/><circle cx='118' cy='308' r='10'/><path d='M118,318 L112,360' stroke-width='6' stroke-linecap='round'/><path d='M112,360 L108,390' stroke-width='8' stroke-linecap='round'/></g><g class='muscle' fill='none' stroke='currentColor' stroke-width='1.6'><path d='M75,18 L118,306'/><path d='M85,160 L118,306'/><path d='M155,190 L118,306'/><path d='M126,88 L126,298' stroke-dasharray='4 3'/></g>",
+    "pastilles": [
+        {
+            "n": 1,
+            "x": 96,
+            "y": 162,
+            "t": "Droit fémoral",
+            "ancre": "end",
+            "indice": "seul chef dont l'origine est détachée du fémur, plus haut (os coxal)"
+        },
+        {
+            "n": 2,
+            "x": 101,
+            "y": 233,
+            "t": "Vaste latéral",
+            "ancre": "end",
+            "indice": "origine sur le bord latéral du fémur, côté gauche du schéma"
+        },
+        {
+            "n": 3,
+            "x": 136,
+            "y": 248,
+            "t": "Vaste médial",
+            "ancre": "start",
+            "indice": "seul chef dont l'origine arrive du côté droit du schéma"
+        },
+        {
+            "n": 4,
+            "x": 126,
+            "y": 88,
+            "t": "Vaste intermédiaire",
+            "ancre": "start",
+            "indice": "trait pointillé, tout contre le fémur : profond, caché sous le droit fémoral"
+        },
+        {
+            "n": 5,
+            "x": 114,
+            "y": 335,
+            "t": "Ligament patellaire",
+            "ancre": "middle",
+            "indice": "terminaison commune des 4 chefs, sous la patella"
+        }
+    ]
+}
+PLANCHES["ischio-jambiers-trois-terminaisons"] = {
+    "id": "ischio-jambiers-trois-terminaisons",
+    "titre": "Les ischio-jambiers : une origine commune, 3 terminaisons",
+    "vb": "0 0 220 400",
+    "dessin": "<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M130,28 L122,280' stroke-width='2' stroke-dasharray='2 3'/><circle cx='130' cy='20' r='8'/><circle cx='180' cy='320' r='7'/><circle cx='100' cy='345' r='7'/><path d='M65,280 L95,280' stroke-width='4' stroke-linecap='round'/></g><g class='muscle' fill='none' stroke='currentColor' stroke-width='1.6'><path d='M130,20 L180,320'/><path d='M130,20 L100,345'/><path d='M130,20 L80,280'/></g>",
+    "pastilles": [
+        {
+            "n": 1,
+            "x": 130,
+            "y": 20,
+            "t": "Tubérosité ischiatique",
+            "ancre": "middle",
+            "indice": "origine commune des 3 muscles, en haut"
+        },
+        {
+            "n": 2,
+            "x": 155,
+            "y": 170,
+            "t": "Biceps fémoral",
+            "ancre": "start",
+            "indice": "le trajet le plus latéral (vers la droite)"
+        },
+        {
+            "n": 3,
+            "x": 115,
+            "y": 182,
+            "t": "Semi-tendineux",
+            "ancre": "start",
+            "indice": "trajet médial, le plus long (le plus bas)"
+        },
+        {
+            "n": 4,
+            "x": 96,
+            "y": 150,
+            "t": "Semi-membraneux",
+            "ancre": "end",
+            "indice": "trajet médial, le plus court (s'arrête au niveau du genou)"
+        },
+        {
+            "n": 5,
+            "x": 180,
+            "y": 320,
+            "t": "Tête de la fibula",
+            "ancre": "start",
+            "indice": "terminaison latérale, du biceps fémoral"
+        },
+        {
+            "n": 6,
+            "x": 100,
+            "y": 345,
+            "t": "Patte d'oie",
+            "ancre": "middle",
+            "indice": "terminaison médiale superficielle, du semi-tendineux"
+        },
+        {
+            "n": 7,
+            "x": 80,
+            "y": 280,
+            "t": "Plateau tibial",
+            "ancre": "end",
+            "indice": "terminaison médiale profonde, du semi-membraneux, au niveau du genou"
+        }
+    ]
+}

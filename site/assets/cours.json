@@ -3252,6 +3252,1079 @@
           "slide": 185
         }
       ]
+    },
+    {
+      "num": 6,
+      "titre": "Le membre supérieur",
+      "slides": [
+        191,
+        266
+      ],
+      "sections": [
+        {
+          "titre": "Le squelette du membre supérieur : 4 segments",
+          "slide": 193,
+          "points": [
+            "Le squelette du membre supérieur comprend 4 segments : la ceinture scapulaire, le bras, l'avant-bras et la main."
+          ]
+        },
+        {
+          "titre": "Vue d'ensemble : segments, os et articulations",
+          "slide": 194,
+          "points": [
+            "Ceinture scapulaire : clavicule + scapula (omoplate) ; articulations sterno-claviculaire, acromio-claviculaire et scapulo-humérale (épaule).",
+            "Bras : humérus. Coude : articulations huméro-ulnaire, huméro-radiale et radio-ulnaire proximale.",
+            "Avant-bras : radius (latéral) et ulna/cubitus (médial). Poignet : articulation radio-carpienne ; articulation radio-ulnaire distale."
+          ]
+        },
+        {
+          "titre": "La ceinture scapulaire",
+          "slide": 196,
+          "points": [
+            "Elle est constituée par : 2 clavicules, 2 scapula, le sternum."
+          ]
+        },
+        {
+          "titre": "La clavicule",
+          "slide": 198,
+          "points": [
+            "Os long en forme de « S », situé entre le sternum et la scapula.",
+            "Elle s'articule médialement avec le sternum (manubrium) pour former l'articulation sterno-claviculaire, et latéralement avec la scapula pour former l'articulation acromio-claviculaire."
+          ]
+        },
+        {
+          "titre": "Les articulations sterno- et acromio-claviculaire : nom des extrémités",
+          "slide": 199,
+          "points": [
+            "Extrémité latérale de la clavicule = extrémité ACROMIALE (vers l'articulation acromio-claviculaire).",
+            "Extrémité médiale de la clavicule = extrémité STERNALE (vers l'articulation sterno-claviculaire)."
+          ]
+        },
+        {
+          "titre": "La scapula",
+          "slide": 200,
+          "points": [
+            "Os plat et triangulaire situé sur la face postérieure du thorax.",
+            "Elle s'articule avec la clavicule (au niveau de l'acromion, articulation acromio-claviculaire) et avec l'humérus (au niveau de la cavité glénoïdale, articulation scapulo-humérale)."
+          ]
+        },
+        {
+          "titre": "La scapula : repères de la vue antérieure",
+          "slide": 201,
+          "points": [
+            "Bord supérieur, bord médial, bord latéral.",
+            "Processus coracoïde (lieu d'insertions musculaires), acromion, cavité glénoïdale."
+          ]
+        },
+        {
+          "titre": "La scapula : repères de la vue postérieure",
+          "slide": 202,
+          "points": [
+            "L'épine traverse la face postérieure et se termine par l'acromion (articulation acromio-claviculaire).",
+            "Processus coracoïde à l'avant, cavité glénoïdale (articulation scapulo-humérale), bord latéral."
+          ]
+        },
+        {
+          "titre": "La scapula : vue latérale",
+          "slide": 203,
+          "points": [
+            "La cavité glénoïdale (articulation scapulo-humérale), le processus coracoïde, l'acromion et le bord latéral s'y voient de profil."
+          ]
+        },
+        {
+          "titre": "Le bras : l'humérus",
+          "slide": 205,
+          "points": [
+            "Un seul os : l'humérus. Os long qui s'articule en haut avec la scapula (cavité glénoïdale, articulation scapulo-humérale).",
+            "En bas et latéralement avec le radius (tête du radius, articulation huméro-radiale) ; en bas et médialement avec l'ulna (incisure trochléaire, articulation huméro-ulnaire)."
+          ]
+        },
+        {
+          "titre": "L'humérus : repères",
+          "slide": 206,
+          "points": [
+            "Extrémité proximale : tête humérale, tubercule majeur, tubercule mineur.",
+            "Extrémité distale : capitulum, trochlée humérale, épicondyle médial, épicondyle latéral ; fosse olécranienne à la face postérieure."
+          ]
+        },
+        {
+          "titre": "Les 3 articulations du haut du membre, en aperçu",
+          "slide": 207,
+          "points": [
+            "Articulation scapulo-humérale (épaule), articulation huméro-radiale et articulation huméro-ulnaire (coude)."
+          ]
+        },
+        {
+          "titre": "L'avant-bras : 2 os",
+          "slide": 209,
+          "points": [
+            "Deux os : le radius et l'ulna."
+          ]
+        },
+        {
+          "titre": "Le radius",
+          "slide": 210,
+          "points": [
+            "Os latéral de l'avant-bras. Os long qui s'articule : en haut avec l'humérus (capitulum, articulation huméro-radiale).",
+            "Médialement et en haut avec l'ulna (incisure radiale, articulation radio-ulnaire proximale).",
+            "En bas avec le carpe (scaphoïde + lunatum, articulation radio-carpienne) ; médialement et en bas avec l'ulna (tête de l'ulna, articulation radio-ulnaire distale)."
+          ]
+        },
+        {
+          "titre": "Le radius : repères",
+          "slide": 211,
+          "points": [
+            "Tête radiale, tubérosité radiale, incisure ulnaire, surface articulaire carpienne, processus styloïde (du radius)."
+          ]
+        },
+        {
+          "titre": "L'ulna (cubitus)",
+          "slide": 212,
+          "points": [
+            "Os médial de l'avant-bras. Os long qui s'articule : en haut avec l'humérus (trochlée, articulation huméro-ulnaire).",
+            "Latéralement et en haut avec le radius (tubérosité radiale, articulation radio-ulnaire proximale) ; latéralement et en bas avec le radius (articulation radio-ulnaire distale)."
+          ]
+        },
+        {
+          "titre": "L'ulna : repères",
+          "slide": 213,
+          "points": [
+            "Incisure trochléaire, olécrane, incisure radiale, tête de l'ulna, processus styloïde (de l'ulna)."
+          ]
+        },
+        {
+          "titre": "L'articulation radio-ulnaire proximale",
+          "slide": 214,
+          "points": [
+            "Formée par l'olécrane et l'incisure trochléaire de l'ulna (épiphyse proximale) avec la tête radiale."
+          ]
+        },
+        {
+          "titre": "L'articulation du coude, vue d'ensemble",
+          "slide": 217,
+          "points": [
+            "Articulation huméro-radiale, articulation huméro-ulnaire et articulation radio-ulnaire proximale."
+          ]
+        },
+        {
+          "titre": "L'articulation du coude : 3 articulations, 3 types, 2 mouvements",
+          "slide": 218,
+          "points": [
+            "L'articulation du coude est composée de 3 articulations synoviales ayant la même cavité articulaire (une seule capsule) : l'articulation huméro-ulnaire (ginglyme), l'articulation huméro-radiale (sphéroïde), et l'articulation radio-ulnaire proximale (trochoïde).",
+            "Les 2 premières (huméro-ulnaire, huméro-radiale) permettent des mouvements de flexion-extension de l'avant-bras sur le bras.",
+            "La radio-ulnaire proximale permet des mouvements de prono-supination de l'avant-bras."
+          ]
+        },
+        {
+          "titre": "La main : 27 os en 3 groupes",
+          "slide": 221,
+          "points": [
+            "La main est composée de 27 os répartis en 3 groupes : le carpe (8 os), le métacarpe (5 métacarpiens), les phalanges (3 par doigt sauf le pouce qui n'en a que 2).",
+            "Les phalanges sont proximales, intermédiaires, distales."
+          ]
+        },
+        {
+          "titre": "L'articulation du poignet",
+          "slide": 222,
+          "points": [
+            "L'articulation radio-carpienne (le poignet) est formée par 3 os : 1 os de l'avant-bras, le radius, + 2 os du carpe, le scaphoïde et le lunatum."
+          ]
+        },
+        {
+          "titre": "Les mouvements du poignet",
+          "slide": 223,
+          "points": [
+            "Abduction, adduction, flexion, extension."
+          ]
+        },
+        {
+          "titre": "Repère clinique : la tabatière anatomique",
+          "slide": 224,
+          "points": [
+            "Le scaphoïde se palpe dans la tabatière anatomique, un creux visible sur le bord latéral du poignet quand le pouce est étendu en arrière."
+          ]
+        },
+        {
+          "titre": "Muscles unissant le membre supérieur et la colonne vertébrale",
+          "slide": 226,
+          "points": [
+            "Groupe superficiel : trapèze, grand dorsal.",
+            "Groupe profond : élévateur de la scapula, petit rhomboïde, grand rhomboïde."
+          ]
+        },
+        {
+          "titre": "Le petit et le grand rhomboïde",
+          "slide": 229,
+          "points": [
+            "Petit rhomboïde — origine : processus épineux C7 et T1. Terminaison : bord médial de la scapula (au niveau de l'épine).",
+            "Grand rhomboïde — origine : processus épineux T2 à T5. Terminaison : bord médial de la scapula (sous l'épine).",
+            "Les deux sont adducteurs, élévateurs et fixateurs de la scapula."
+          ]
+        },
+        {
+          "titre": "Le trapèze",
+          "slide": 231,
+          "points": [
+            "Origine : occiput (os postérieur de la base du crâne), processus épineux C1 à T12.",
+            "Terminaison, en 3 faisceaux : clavicule (faisceau supérieur), acromion (faisceau intermédiaire), épine de la scapula (faisceau inférieur).",
+            "Actions : élévateur de la ceinture scapulaire ; adducteur et fixateur de la scapula ; extenseur de la tête (contraction bilatérale) ; inclinateur latéral et rotateur de la tête."
+          ]
+        },
+        {
+          "titre": "Le grand dorsal",
+          "slide": 234,
+          "points": [
+            "Origine : processus épineux T7 à L5, crête sacrale, crête iliaque, côtes 9 à 12. Terminaison : crête du tubercule mineur de l'humérus.",
+            "Actions : adducteur, rotateur médial et agent de la rétropulsion du bras ; adducteur et abaisseur de la scapula."
+          ]
+        },
+        {
+          "titre": "Muscles unissant le membre supérieur et le thorax",
+          "slide": 237,
+          "points": [
+            "4 muscles : grand pectoral, dentelé antérieur, petit pectoral, subclavier."
+          ]
+        },
+        {
+          "titre": "Le grand pectoral",
+          "slide": 240,
+          "points": [
+            "Origine : clavicule, sternum, côtes 2 à 6, aponévrose du grand droit de l'abdomen. Terminaison : crête du tubercule majeur de l'humérus.",
+            "Action : adducteur, rotateur médial et agent de l'antépulsion du bras."
+          ]
+        },
+        {
+          "titre": "Le dentelé antérieur",
+          "slide": 242,
+          "points": [
+            "Origine : côtes 1 à 9 (ou 10). Terminaison : bord médial de la scapula.",
+            "Action : abducteur, abaisseur, rotateur médial et fixateur de la scapula."
+          ]
+        },
+        {
+          "titre": "Le petit pectoral et le subclavier",
+          "slide": 243,
+          "points": [
+            "Nommés et illustrés, sans origine ni terminaison détaillées dans ce cours."
+          ]
+        },
+        {
+          "titre": "Muscles de l'épaule",
+          "slide": 245,
+          "points": [
+            "6 muscles : deltoïde, supra-épineux, infra-épineux, petit rond, grand rond, subscapulaire."
+          ]
+        },
+        {
+          "titre": "Le deltoïde : origine et terminaison",
+          "slide": 246,
+          "points": [
+            "Repères de la vue latérale : épine, bord latéral de l'humérus, acromion, clavicule."
+          ]
+        },
+        {
+          "titre": "Le deltoïde : 3 faisceaux, 3 actions opposées",
+          "slide": 247,
+          "points": [
+            "Origine : clavicule (faisceau claviculaire ou antérieur), acromion (faisceau acromial ou intermédiaire), épine (faisceau épineux ou postérieur). Terminaison commune : tubérosité deltoïdienne de l'humérus.",
+            "Faisceau claviculaire (antérieur) : fléchisseur (antépulsion) et rotateur médial du bras.",
+            "Faisceau acromial (intermédiaire) : abducteur du bras.",
+            "Faisceau épineux (postérieur) : extenseur (rétropulsion) et rotateur latéral du bras."
+          ]
+        },
+        {
+          "titre": "Muscles de l'épaule, vue postérieure : actions du supra-épineux au grand rond",
+          "slide": 249,
+          "points": [
+            "Supra-épineux : abducteur du bras + fixateur de l'épaule.",
+            "Infra-épineux : abducteur et rotateur latéral du bras.",
+            "Petit rond : adducteur et rotateur latéral du bras.",
+            "Grand rond : adducteur et rotateur médial du bras."
+          ]
+        },
+        {
+          "titre": "Le subscapulaire",
+          "slide": 250,
+          "points": [
+            "Action : adducteur et rotateur médial du bras (le cours ne donne pas son origine ni sa terminaison)."
+          ]
+        },
+        {
+          "titre": "La coiffe des rotateurs",
+          "slide": 251,
+          "points": [
+            "Formée de 4 muscles : le supra-épineux (le plus fragile), l'infra-épineux, le petit rond, le subscapulaire.",
+            "L'articulation scapulo-humérale est mobile, donc instable par nature. Ces muscles agissent donc comme des ligaments actifs qui maintiennent l'articulation."
+          ]
+        },
+        {
+          "titre": "Muscles du bras : 2 groupes",
+          "slide": 254,
+          "points": [
+            "Groupe antérieur (fléchisseur) : biceps brachial, coraco-brachial, brachial.",
+            "Groupe postérieur (extenseur) : triceps brachial, anconé."
+          ]
+        },
+        {
+          "titre": "Le biceps brachial",
+          "slide": 255,
+          "points": [
+            "Origine : chef long, tubercule supra-glénoïdal ; chef court, processus coracoïde. Terminaison : tubérosité radiale.",
+            "Actions : fléchisseur et supinateur de l'avant-bras (les 2 chefs) ; chef court, adducteur du bras ; chef long, agent de l'antépulsion du bras."
+          ]
+        },
+        {
+          "titre": "Le coraco-brachial et le brachial",
+          "slide": 258,
+          "points": [
+            "Coraco-brachial — origine : processus coracoïde. Terminaison : diaphyse de l'humérus. Action : adducteur et agent de l'antépulsion du bras.",
+            "Brachial — origine : face antérieure de l'humérus. Terminaison : épiphyse proximale de l'ulna. Action : fléchisseur de l'avant-bras."
+          ]
+        },
+        {
+          "titre": "Le triceps brachial",
+          "slide": 261,
+          "points": [
+            "Origine : chef long, tubercule infra-glénoïdal ; chef médial, face postérieure de l'humérus (moitié inférieure) ; chef latéral, face postérieure de l'humérus (moitié supérieure). Terminaison : olécrane.",
+            "Actions : extenseur de l'avant-bras (les 3 chefs) ; chef long, adducteur et agent de la rétropulsion du bras."
+          ]
+        },
+        {
+          "titre": "Muscles de l'avant-bras",
+          "slide": 264,
+          "points": [
+            "3 muscles pronateurs : le rond pronateur, le carré pronateur, le brachio-radial. 1 muscle supinateur : le supinateur.",
+            "3 muscles fléchisseurs de la main : fléchisseur radial du carpe (+ abduction), long palmaire, fléchisseur ulnaire du carpe (+ adduction).",
+            "5 muscles extenseurs de la main : extenseur ulnaire du carpe (+ adduction), extenseur des doigts, extenseur du petit doigt, court et long extenseur radial du carpe (+ abduction).",
+            "7 muscles des doigts : fléchisseur superficiel des doigts, fléchisseur profond des doigts, long fléchisseur du pouce, long et court extenseur du pouce, long abducteur du pouce, extenseur de l'index."
+          ]
+        },
+        {
+          "titre": "Les mouvements de l'avant-bras",
+          "slide": 265,
+          "points": [
+            "Pronation, supination."
+          ]
+        }
+      ],
+      "cartes": [
+        {
+          "id": "c6-01",
+          "q": "Quels sont les 4 segments du squelette du membre supérieur ?",
+          "r": "La ceinture scapulaire, le bras, l'avant-bras et la main.",
+          "slide": 193
+        },
+        {
+          "id": "c6-02",
+          "q": "Quels 2 os composent la ceinture scapulaire, en plus du sternum ?",
+          "r": "La clavicule et la scapula (omoplate).",
+          "slide": 196
+        },
+        {
+          "id": "c6-03",
+          "q": "Quelle est la forme de la clavicule, et avec quels 2 os s'articule-t-elle ?",
+          "r": "Un os long en forme de « S » ; elle s'articule médialement avec le sternum (manubrium, articulation sterno-claviculaire) et latéralement avec la scapula (articulation acromio-claviculaire).",
+          "slide": 198
+        },
+        {
+          "id": "c6-04",
+          "q": "Sur la clavicule, quelle extrémité est dite « acromiale » et laquelle est dite « sternale » ?",
+          "r": "L'extrémité latérale = extrémité acromiale (vers l'articulation acromio-claviculaire) ; l'extrémité médiale = extrémité sternale (vers l'articulation sterno-claviculaire).",
+          "slide": 199
+        },
+        {
+          "id": "c6-05",
+          "q": "Où est située la scapula, et avec quels 2 os s'articule-t-elle ?",
+          "r": "Os plat et triangulaire situé sur la face postérieure du thorax ; elle s'articule avec la clavicule (au niveau de l'acromion, articulation acromio-claviculaire) et avec l'humérus (au niveau de la cavité glénoïdale, articulation scapulo-humérale).",
+          "slide": 200
+        },
+        {
+          "id": "c6-06",
+          "q": "Où se trouvent l'acromion, le processus coracoïde, l'épine et la cavité glénoïdale sur la scapula ?",
+          "r": "L'épine traverse la face postérieure et se termine par l'acromion (qui forme l'articulation acromio-claviculaire) ; le processus coracoïde est à l'avant (insertions musculaires) ; la cavité glénoïdale reçoit la tête humérale (articulation scapulo-humérale).",
+          "slide": 202
+        },
+        {
+          "id": "c6-07",
+          "q": "Avec quels os l'humérus s'articule-t-il, et quels repères se trouvent à ses 2 extrémités ?",
+          "r": "En haut avec la scapula (scapulo-humérale) ; en bas latéralement avec le radius (huméro-radiale) et médialement avec l'ulna (huméro-ulnaire). Extrémité proximale : tête humérale, tubercules majeur et mineur. Extrémité distale : capitulum, trochlée, épicondyles médial et latéral, fosse olécranienne.",
+          "slide": 205
+        },
+        {
+          "id": "c6-08",
+          "q": "Le radius et l'ulna : lequel est latéral, lequel est médial, et avec quels os chacun s'articule-t-il ?",
+          "r": "Le radius est LATÉRAL : il s'articule avec l'humérus (capitulum → huméro-radiale), avec le carpe (scaphoïde + lunatum → radio-carpienne), et avec l'ulna (→ radio-ulnaire proximale en haut, radio-ulnaire distale en bas). L'ulna est MÉDIALE : elle s'articule avec l'humérus (trochlée → huméro-ulnaire) et avec le radius (radio-ulnaire proximale et distale).",
+          "slide": 210
+        },
+        {
+          "id": "c6-09",
+          "q": "L'articulation du coude comprend 3 articulations synoviales dans une même capsule : lesquelles, de quel type chacune, et quels mouvements permettent-elles ?",
+          "r": "Huméro-ulnaire (ginglyme) et huméro-radiale (sphéroïde) : flexion-extension de l'avant-bras sur le bras. Radio-ulnaire proximale (trochoïde) : prono-supination de l'avant-bras.",
+          "slide": 218
+        },
+        {
+          "id": "c6-10",
+          "q": "Combien d'os compte la main, et comment se répartissent-ils en 3 groupes ?",
+          "r": "27 os : le carpe (8 os), le métacarpe (5 métacarpiens), les phalanges (3 par doigt, sauf le pouce qui n'en a que 2 : proximales, intermédiaires, distales).",
+          "slide": 221
+        },
+        {
+          "id": "c6-11",
+          "q": "Quels 3 os forment l'articulation radio-carpienne (le poignet) ?",
+          "r": "1 os de l'avant-bras, le radius, + 2 os du carpe : le scaphoïde et le lunatum. L'ulna n'y participe PAS directement.",
+          "slide": 222
+        },
+        {
+          "id": "c6-12",
+          "q": "Quels sont les 4 mouvements du poignet ?",
+          "r": "Abduction, adduction, flexion, extension.",
+          "slide": 223
+        },
+        {
+          "id": "c6-13",
+          "q": "Où se palpe le scaphoïde ?",
+          "r": "Dans la tabatière anatomique, au niveau du poignet.",
+          "slide": 224
+        },
+        {
+          "id": "c6-14",
+          "q": "Quels muscles unissent le membre supérieur à la colonne vertébrale, en groupe superficiel et en groupe profond ?",
+          "r": "Groupe superficiel : trapèze, grand dorsal. Groupe profond : élévateur de la scapula, petit rhomboïde, grand rhomboïde.",
+          "slide": 226
+        },
+        {
+          "id": "c6-15",
+          "q": "Quelle est la différence d'origine et de terminaison entre le petit et le grand rhomboïde ?",
+          "r": "Petit rhomboïde : origine processus épineux C7 et T1, terminaison au bord médial de la scapula au niveau de l'épine. Grand rhomboïde : origine processus épineux T2 à T5, terminaison au bord médial de la scapula sous l'épine.",
+          "slide": 229
+        },
+        {
+          "id": "c6-16",
+          "q": "Le trapèze se termine par 3 faisceaux : lesquels, et sur quelle structure chacun s'insère-t-il ?",
+          "r": "Faisceau supérieur → clavicule ; faisceau intermédiaire → acromion ; faisceau inférieur → épine de la scapula.",
+          "slide": 231
+        },
+        {
+          "id": "c6-17",
+          "q": "Quelles sont les actions du grand dorsal sur le bras et sur la scapula ?",
+          "r": "Sur le bras : adducteur, rotateur médial, agent de la rétropulsion. Sur la scapula : adducteur, abaisseur.",
+          "slide": 234
+        },
+        {
+          "id": "c6-18",
+          "q": "Quels sont les 4 muscles qui unissent le membre supérieur au thorax ?",
+          "r": "Le grand pectoral, le dentelé antérieur, le petit pectoral et le subclavier.",
+          "slide": 237
+        },
+        {
+          "id": "c6-19",
+          "q": "Quelles sont l'origine, la terminaison et l'action du grand pectoral ?",
+          "r": "Origine : clavicule, sternum, côtes 2 à 6, aponévrose du grand droit de l'abdomen. Terminaison : crête du tubercule majeur de l'humérus. Action : adducteur, rotateur médial et agent de l'antépulsion du bras.",
+          "slide": 240
+        },
+        {
+          "id": "c6-20",
+          "q": "Quelle est l'action du dentelé antérieur sur la scapula ?",
+          "r": "Abducteur, abaisseur, rotateur médial et fixateur de la scapula.",
+          "slide": 242
+        },
+        {
+          "id": "c6-21",
+          "q": "Quels sont les 6 muscles de l'épaule ?",
+          "r": "Le deltoïde, le supra-épineux, l'infra-épineux, le petit rond, le grand rond, le subscapulaire.",
+          "slide": 245
+        },
+        {
+          "id": "c6-22",
+          "q": "Le deltoïde a 3 faisceaux : quelle est l'origine de chacun, et où s'insèrent-ils tous ?",
+          "r": "Faisceau claviculaire (antérieur) : clavicule. Faisceau acromial (intermédiaire) : acromion. Faisceau épineux (postérieur) : épine de la scapula. Les 3 s'insèrent ensemble sur la tubérosité deltoïdienne de l'humérus.",
+          "slide": 247,
+          "plan": "frontal"
+        },
+        {
+          "id": "c6-23",
+          "q": "Le deltoïde n'a qu'une seule terminaison mais 3 actions différentes selon le faisceau : lesquelles ?",
+          "r": "Faisceau claviculaire : fléchisseur (antépulsion) et rotateur médial du bras. Faisceau acromial : abducteur du bras. Faisceau épineux : extenseur (rétropulsion) et rotateur latéral du bras — l'exact opposé du faisceau claviculaire.",
+          "slide": 247
+        },
+        {
+          "id": "c6-24",
+          "q": "Quels 4 muscles forment la coiffe des rotateurs, et pourquoi le cours les compare-t-il à des « ligaments actifs » ?",
+          "r": "Le supra-épineux (le plus fragile), l'infra-épineux, le petit rond et le subscapulaire. L'articulation scapulo-humérale est mobile donc instable par nature : ces 4 muscles agissent comme des ligaments actifs qui la maintiennent.",
+          "slide": 251
+        },
+        {
+          "id": "c6-25",
+          "q": "Quels sont les 2 groupes de muscles du bras, et quels muscles chacun contient-il ?",
+          "r": "Groupe antérieur (fléchisseur) : biceps brachial, coraco-brachial, brachial. Groupe postérieur (extenseur) : triceps brachial, anconé.",
+          "slide": 254
+        }
+      ],
+      "quiz": [
+        {
+          "id": "q6-01",
+          "q": "L'articulation du coude comprend 3 articulations dans une seule capsule. Laquelle est de type trochoïde et permet la prono-supination ?",
+          "choix": [
+            "l'articulation radio-ulnaire proximale",
+            "l'articulation huméro-ulnaire",
+            "l'articulation huméro-radiale",
+            "l'articulation radio-ulnaire distale"
+          ],
+          "bonne": 0,
+          "expl": "La radio-ulnaire proximale (trochoïde) permet la prono-supination. L'huméro-ulnaire (ginglyme) et l'huméro-radiale (sphéroïde) permettent la flexion-extension. La radio-ulnaire distale n'appartient pas à la capsule du coude.",
+          "slide": 218
+        },
+        {
+          "id": "q6-02",
+          "q": "Sur la clavicule, l'extrémité latérale (celle qui forme l'articulation acromio-claviculaire) se nomme extrémité...",
+          "choix": [
+            "acromiale",
+            "sternale",
+            "coracoïde",
+            "glénoïdale"
+          ],
+          "bonne": 0,
+          "expl": "Extrémité latérale = acromiale (vers l'acromion de la scapula). Extrémité médiale = sternale (vers le sternum). Coracoïde et glénoïdale ne sont pas des extrémités de la clavicule.",
+          "slide": 199
+        },
+        {
+          "id": "q6-03",
+          "q": "Le radius est l'os ... de l'avant-bras.",
+          "choix": [
+            "latéral",
+            "médial",
+            "postérieur",
+            "antérieur"
+          ],
+          "bonne": 0,
+          "expl": "Le radius est latéral, l'ulna est médial. C'est la confusion la plus fréquente sur l'avant-bras.",
+          "slide": 210
+        },
+        {
+          "id": "q6-04",
+          "q": "L'articulation radio-carpienne (le poignet) est formée par le radius et 2 os du carpe. Lesquels ?",
+          "choix": [
+            "le scaphoïde et le lunatum",
+            "le scaphoïde et l'ulna",
+            "l'ulna et le lunatum",
+            "le scaphoïde, le lunatum et l'ulna"
+          ],
+          "bonne": 0,
+          "expl": "Radius + scaphoïde + lunatum. L'ulna ne participe PAS directement à l'articulation radio-carpienne — piège fréquent.",
+          "slide": 222
+        },
+        {
+          "id": "q6-05",
+          "q": "Le mouvement de prono-supination de l'avant-bras se fait grâce à quelle articulation, de quel type ?",
+          "choix": [
+            "la radio-ulnaire proximale, trochoïde",
+            "la huméro-ulnaire, ginglyme",
+            "la huméro-radiale, sphéroïde",
+            "la scapulo-humérale, sphéroïde"
+          ],
+          "bonne": 0,
+          "expl": "Seule l'articulation radio-ulnaire proximale (trochoïde) permet la prono-supination. Les articulations huméro-ulnaire et huméro-radiale ne permettent que la flexion-extension.",
+          "slide": 218,
+          "plan": "transversal"
+        },
+        {
+          "id": "q6-06",
+          "q": "La main compte 27 os. Comment se répartissent-ils ?",
+          "choix": [
+            "8 carpiens, 5 métacarpiens, 14 phalanges",
+            "7 carpiens, 5 métacarpiens, 15 phalanges",
+            "8 carpiens, 6 métacarpiens, 13 phalanges",
+            "8 carpiens, 5 métacarpiens, 15 phalanges"
+          ],
+          "bonne": 0,
+          "expl": "8 (carpe) + 5 (métacarpe) + 14 (phalanges : 3 par doigt sauf le pouce qui n'en a que 2, soit 3×4+2=14) = 27.",
+          "slide": 221
+        },
+        {
+          "id": "q6-07",
+          "q": "Le faisceau intermédiaire du trapèze se termine sur...",
+          "choix": [
+            "l'acromion",
+            "la clavicule",
+            "l'épine de la scapula",
+            "le processus coracoïde"
+          ],
+          "bonne": 0,
+          "expl": "Faisceau supérieur → clavicule ; faisceau intermédiaire → acromion ; faisceau inférieur → épine de la scapula.",
+          "slide": 231
+        },
+        {
+          "id": "q6-08",
+          "q": "Le faisceau acromial (intermédiaire) du deltoïde est...",
+          "choix": [
+            "abducteur du bras",
+            "fléchisseur et rotateur médial du bras",
+            "extenseur et rotateur latéral du bras",
+            "adducteur du bras"
+          ],
+          "bonne": 0,
+          "expl": "Le faisceau acromial est abducteur du bras — c'est ce mouvement, dans le plan frontal, qui donne au deltoïde son rôle le plus connu. Le faisceau claviculaire est fléchisseur/rotateur médial, le faisceau épineux est extenseur/rotateur latéral.",
+          "slide": 247,
+          "plan": "frontal"
+        },
+        {
+          "id": "q6-09",
+          "q": "Le faisceau épineux (postérieur) du deltoïde est...",
+          "choix": [
+            "extenseur (rétropulsion) et rotateur latéral du bras",
+            "fléchisseur (antépulsion) et rotateur médial du bras",
+            "abducteur du bras",
+            "adducteur du bras"
+          ],
+          "bonne": 0,
+          "expl": "Le faisceau épineux est extenseur et rotateur latéral : l'exact opposé du faisceau claviculaire (fléchisseur et rotateur médial). Un seul muscle, trois faisceaux, des actions contradictoires.",
+          "slide": 247
+        },
+        {
+          "id": "q6-10",
+          "q": "Quels sont les 4 muscles de la coiffe des rotateurs ?",
+          "choix": [
+            "supra-épineux, infra-épineux, petit rond, subscapulaire",
+            "supra-épineux, infra-épineux, deltoïde, subscapulaire",
+            "supra-épineux, infra-épineux, grand rond, subscapulaire",
+            "deltoïde, infra-épineux, petit rond, grand rond"
+          ],
+          "bonne": 0,
+          "expl": "La coiffe des rotateurs, ce sont le supra-épineux, l'infra-épineux, le petit rond et le subscapulaire. Le deltoïde et le grand rond n'en font PAS partie : c'est le piège le plus fréquent sur cette notion.",
+          "slide": 251
+        },
+        {
+          "id": "q6-11",
+          "q": "Le biceps brachial a 2 chefs. Où est l'origine de chacun ?",
+          "choix": [
+            "chef long : tubercule supra-glénoïdal ; chef court : processus coracoïde",
+            "chef long : processus coracoïde ; chef court : tubercule supra-glénoïdal",
+            "chef long : tubercule infra-glénoïdal ; chef court : processus coracoïde",
+            "chef long et chef court : tubercule supra-glénoïdal"
+          ],
+          "bonne": 0,
+          "expl": "Chef long → tubercule supra-glénoïdal ; chef court → processus coracoïde. Les deux se terminent sur la tubérosité radiale.",
+          "slide": 255
+        },
+        {
+          "id": "q6-12",
+          "q": "Parmi les 3 chefs du triceps brachial, lequel est aussi adducteur et agent de la rétropulsion du bras (en plus d'être extenseur de l'avant-bras) ?",
+          "choix": [
+            "le chef long",
+            "le chef médial",
+            "le chef latéral",
+            "les 3 chefs à égalité"
+          ],
+          "bonne": 0,
+          "expl": "Le chef long, seul, part du tubercule infra-glénoïdal (donc de la scapula) : il agit aussi sur le bras (adducteur, rétropulsion). Les chefs médial et latéral partent de l'humérus et n'agissent que sur l'avant-bras.",
+          "slide": 261
+        }
+      ],
+      "muscles": [
+        {
+          "nom": "Petit rhomboïde",
+          "origine": [
+            "processus épineux C7 et T1"
+          ],
+          "terminaison": [
+            "bord médial de la scapula (au niveau de l'épine)"
+          ],
+          "actions": [
+            "adducteur de la scapula",
+            "élévateur de la scapula",
+            "fixateur de la scapula"
+          ],
+          "slide": 229
+        },
+        {
+          "nom": "Grand rhomboïde",
+          "origine": [
+            "processus épineux T2 à T5"
+          ],
+          "terminaison": [
+            "bord médial de la scapula (sous l'épine)"
+          ],
+          "actions": [
+            "adducteur de la scapula",
+            "élévateur de la scapula",
+            "fixateur de la scapula"
+          ],
+          "slide": 229
+        },
+        {
+          "nom": "Trapèze",
+          "origine": [
+            "occiput",
+            "processus épineux C1 à T12"
+          ],
+          "terminaison": [
+            "clavicule (faisceau supérieur)",
+            "acromion (faisceau intermédiaire)",
+            "épine de la scapula (faisceau inférieur)"
+          ],
+          "actions": [
+            "élévateur de la ceinture scapulaire",
+            "adducteur de la scapula",
+            "fixateur de la scapula",
+            "extenseur de la tête (contraction bilatérale)",
+            "inclinateur latéral de la tête",
+            "rotateur de la tête"
+          ],
+          "slide": 231
+        },
+        {
+          "nom": "Grand dorsal",
+          "origine": [
+            "processus épineux T7 à L5",
+            "crête sacrale",
+            "crête iliaque",
+            "côtes 9 à 12"
+          ],
+          "terminaison": [
+            "crête du tubercule mineur de l'humérus"
+          ],
+          "actions": [
+            "adducteur du bras",
+            "rotateur médial du bras",
+            "rétropulsion du bras",
+            "adducteur de la scapula",
+            "abaisseur de la scapula"
+          ],
+          "slide": 234
+        },
+        {
+          "nom": "Grand pectoral",
+          "origine": [
+            "clavicule",
+            "sternum",
+            "côtes 2 à 6",
+            "aponévrose du grand droit de l'abdomen"
+          ],
+          "terminaison": [
+            "crête du tubercule majeur de l'humérus"
+          ],
+          "actions": [
+            "adducteur du bras",
+            "rotateur médial du bras",
+            "antépulsion du bras"
+          ],
+          "slide": 240
+        },
+        {
+          "nom": "Dentelé antérieur",
+          "origine": [
+            "côtes 1 à 9 (ou 10)"
+          ],
+          "terminaison": [
+            "bord médial de la scapula"
+          ],
+          "actions": [
+            "abducteur de la scapula",
+            "abaisseur de la scapula",
+            "rotateur médial de la scapula",
+            "fixateur de la scapula"
+          ],
+          "slide": 242
+        },
+        {
+          "nom": "Deltoïde",
+          "origine": [
+            "clavicule (faisceau claviculaire ou antérieur)",
+            "acromion (faisceau acromial ou intermédiaire)",
+            "épine de la scapula (faisceau épineux ou postérieur)"
+          ],
+          "terminaison": [
+            "tubérosité deltoïdienne de l'humérus"
+          ],
+          "actions": [
+            "faisceau claviculaire : fléchisseur (antépulsion) et rotateur médial du bras",
+            "faisceau acromial : abducteur du bras",
+            "faisceau épineux : extenseur (rétropulsion) et rotateur latéral du bras"
+          ],
+          "slide": 247
+        },
+        {
+          "nom": "Biceps brachial",
+          "origine": [
+            "chef long : tubercule supra-glénoïdal",
+            "chef court : processus coracoïde"
+          ],
+          "terminaison": [
+            "tubérosité radiale"
+          ],
+          "actions": [
+            "fléchisseur de l'avant-bras (les 2 chefs)",
+            "supinateur de l'avant-bras (les 2 chefs)",
+            "chef court : adducteur du bras",
+            "chef long : antépulsion du bras"
+          ],
+          "slide": 255
+        },
+        {
+          "nom": "Coraco-brachial",
+          "origine": [
+            "processus coracoïde"
+          ],
+          "terminaison": [
+            "diaphyse de l'humérus"
+          ],
+          "actions": [
+            "adducteur du bras",
+            "antépulsion du bras"
+          ],
+          "slide": 258
+        },
+        {
+          "nom": "Brachial",
+          "origine": [
+            "face antérieure de l'humérus"
+          ],
+          "terminaison": [
+            "épiphyse proximale de l'ulna"
+          ],
+          "actions": [
+            "fléchisseur de l'avant-bras"
+          ],
+          "slide": 258
+        },
+        {
+          "nom": "Triceps brachial",
+          "origine": [
+            "chef long : tubercule infra-glénoïdal",
+            "chef médial : face postérieure de l'humérus (moitié inférieure)",
+            "chef latéral : face postérieure de l'humérus (moitié supérieure)"
+          ],
+          "terminaison": [
+            "olécrane"
+          ],
+          "actions": [
+            "extenseur de l'avant-bras (les 3 chefs)",
+            "chef long : adducteur du bras",
+            "chef long : rétropulsion du bras"
+          ],
+          "slide": 261
+        }
+      ],
+      "pieges": [
+        {
+          "titre": "La coiffe des rotateurs ne compte QUE 4 muscles précis",
+          "texte": "Supra-épineux, infra-épineux, petit rond, subscapulaire — pas un de plus. Le piège le plus fréquent est d'y ajouter le DELTOÏDE (qui coiffe l'épaule mais n'est PAS un muscle profond stabilisateur) ou le GRAND ROND (voisin du petit rond, mais absent de la coiffe). L'articulation scapulo-humérale est mobile donc instable par nature : ces 4 muscles, et eux seuls, agissent comme des ligaments actifs qui la maintiennent.",
+          "slide": 251
+        },
+        {
+          "titre": "Le deltoïde : un seul muscle, trois faisceaux, trois actions contradictoires",
+          "texte": "Le deltoïde a une terminaison UNIQUE (tubérosité deltoïdienne) mais 3 faisceaux d'origine différente dont les actions s'opposent selon celui qui se contracte. Faisceau claviculaire (antérieur) : fléchisseur et rotateur MÉDIAL du bras. Faisceau épineux (postérieur) : extenseur et rotateur LATÉRAL du bras — l'exact opposé. Faisceau acromial (intermédiaire) : abducteur. Ne jamais répondre « le deltoïde fait X » sans préciser le faisceau.",
+          "slide": 247
+        },
+        {
+          "titre": "Le coude : 3 articulations, 3 types, mais 1 seule capsule",
+          "texte": "L'articulation du coude n'est pas une seule articulation synoviale : elle en réunit 3, de 3 types différents, dans une même cavité articulaire (une seule capsule). Huméro-ulnaire (ginglyme) et huméro-radiale (sphéroïde) font la flexion-extension. Radio-ulnaire proximale (trochoïde) fait la prono-supination — un type et un mouvement complètement différents, dans la même capsule que les deux premières.",
+          "slide": 218
+        },
+        {
+          "titre": "Le poignet (radio-carpienne) : radius + scaphoïde + lunatum — PAS l'ulna",
+          "texte": "L'articulation radio-carpienne (le poignet) est formée par 3 os : le radius (seul os de l'avant-bras impliqué) + 2 os du carpe, le scaphoïde et le lunatum. L'ulna, pourtant présent dans l'avant-bras jusqu'au poignet, n'entre PAS directement dans cette articulation : c'est un piège fréquent de l'y inclure.",
+          "slide": 222
+        }
+      ],
+      "planches": [
+        {
+          "id": "squelette-membre-superieur-articulations",
+          "titre": "Le squelette du membre supérieur et ses articulations",
+          "vb": "0 0 300 640",
+          "dessin": "<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M70,45 Q105,32 150,58' stroke-width='6' stroke-linecap='round'/><path d='M150,58 L150,140'/><path d='M150,145 L150,325' stroke-width='11' stroke-linecap='round'/><path d='M150,325 L70,345'/><path d='M150,325 L230,345'/><path d='M70,350 L92,515' stroke-width='8' stroke-linecap='round'/><path d='M230,350 L198,540' stroke-width='8' stroke-linecap='round'/><path d='M78,522 L142,540 L128,600 Q108,612 88,598 Z' stroke-width='2'/></g>",
+          "pastilles": [
+            {
+              "n": 1,
+              "x": 70,
+              "y": 45,
+              "t": "Sterno-claviculaire",
+              "ancre": "middle",
+              "indice": "extrémité médiale (sternale) de la clavicule"
+            },
+            {
+              "n": 2,
+              "x": 150,
+              "y": 58,
+              "t": "Acromio-claviculaire",
+              "ancre": "middle",
+              "indice": "extrémité latérale (acromiale) de la clavicule"
+            },
+            {
+              "n": 3,
+              "x": 150,
+              "y": 143,
+              "t": "Scapulo-humérale",
+              "ancre": "middle",
+              "indice": "cavité glénoïdale + tête humérale"
+            },
+            {
+              "n": 4,
+              "x": 70,
+              "y": 345,
+              "t": "Huméro-ulnaire",
+              "ancre": "middle",
+              "indice": "coude, côté médial (ulna)"
+            },
+            {
+              "n": 5,
+              "x": 230,
+              "y": 345,
+              "t": "Huméro-radiale",
+              "ancre": "middle",
+              "indice": "coude, côté latéral (radius)"
+            },
+            {
+              "n": 6,
+              "x": 150,
+              "y": 395,
+              "t": "Radio-ulnaire proximale",
+              "ancre": "middle",
+              "indice": "entre radius et ulna, juste sous le coude"
+            },
+            {
+              "n": 7,
+              "x": 198,
+              "y": 545,
+              "t": "Radio-carpienne",
+              "ancre": "middle",
+              "indice": "poignet ; radius + scaphoïde + lunatum"
+            },
+            {
+              "n": 8,
+              "x": 92,
+              "y": 515,
+              "t": "Radio-ulnaire distale",
+              "ancre": "middle",
+              "indice": "entre radius et ulna, côté médial du poignet"
+            }
+          ],
+          "slide": 194
+        },
+        {
+          "id": "scapula-reperes",
+          "titre": "La scapula, vue postérieure : ses repères",
+          "vb": "0 0 300 320",
+          "dessin": "<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M75,55 L215,92 L108,300 Z'/><path d='M92,92 L202,113' stroke-width='4'/><path d='M202,113 Q223,100 228,78' stroke-width='4' stroke-linecap='round'/><path d='M192,78 Q183,50 206,44' stroke-width='4' stroke-linecap='round'/><ellipse cx='207' cy='122' rx='15' ry='11'/></g>",
+          "pastilles": [
+            {
+              "n": 1,
+              "x": 202,
+              "y": 47,
+              "t": "Processus coracoïde",
+              "ancre": "middle",
+              "indice": "crochet à l'avant, lieu d'insertions musculaires"
+            },
+            {
+              "n": 2,
+              "x": 140,
+              "y": 100,
+              "t": "Épine",
+              "ancre": "middle",
+              "indice": "crête qui traverse la face postérieure"
+            },
+            {
+              "n": 3,
+              "x": 228,
+              "y": 78,
+              "t": "Acromion",
+              "ancre": "middle",
+              "indice": "extrémité latérale de l'épine ; articulation acromio-claviculaire"
+            },
+            {
+              "n": 4,
+              "x": 207,
+              "y": 122,
+              "t": "Cavité glénoïdale",
+              "ancre": "middle",
+              "indice": "reçoit la tête humérale"
+            }
+          ],
+          "slide": 202
+        },
+        {
+          "id": "deltoide-trois-faisceaux",
+          "titre": "Le deltoïde, vue latérale : ses 3 faisceaux",
+          "vb": "0 0 300 300",
+          "dessin": "<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M65,40 Q105,26 148,46'/><path d='M152,46 Q195,42 235,58'/><circle cx='150' cy='46' r='4' fill='currentColor' stroke='none'/><path d='M150,88 L150,335' stroke-width='11' stroke-linecap='round'/></g><g class='faisceau' fill='none' stroke='currentColor' stroke-width='1.4'><path d='M65,40 L128,180'/><path d='M65,40 L140,196'/><path d='M65,40 L150,212'/><path d='M150,46 L144,180'/><path d='M150,46 L150,196'/><path d='M150,46 L156,212'/><path d='M235,58 L172,180'/><path d='M235,58 L160,196'/><path d='M235,58 L150,212'/></g>",
+          "pastilles": [
+            {
+              "n": 1,
+              "x": 78,
+              "y": 100,
+              "t": "Claviculaire",
+              "ancre": "middle",
+              "indice": "faisceau antérieur, origine sur la clavicule"
+            },
+            {
+              "n": 2,
+              "x": 150,
+              "y": 132,
+              "t": "Acromial",
+              "ancre": "middle",
+              "indice": "faisceau intermédiaire, origine sur l'acromion"
+            },
+            {
+              "n": 3,
+              "x": 222,
+              "y": 100,
+              "t": "Épineux",
+              "ancre": "middle",
+              "indice": "faisceau postérieur, origine sur l'épine de la scapula"
+            },
+            {
+              "n": 4,
+              "x": 150,
+              "y": 228,
+              "t": "Tubérosité deltoïdienne",
+              "ancre": "middle",
+              "indice": "insertion commune des 3 faisceaux, sur l'humérus"
+            }
+          ],
+          "slide": 246
+        },
+        {
+          "id": "coiffe-rotateurs-vue-postero-laterale",
+          "titre": "La coiffe des rotateurs, vue postéro-latérale",
+          "vb": "0 0 300 340",
+          "dessin": "<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M100,40 L240,90 L130,340 Z'/><path d='M115,95 L225,115' stroke-width='3'/><path d='M225,115 Q245,100 250,80' stroke-width='3' stroke-linecap='round'/><circle cx='255' cy='150' r='26'/></g><g class='muscle' fill='none' stroke='currentColor' stroke-width='1.3'><path d='M130,60 L235,128'/><path d='M150,70 L238,138'/><path d='M170,80 L236,148'/><path d='M130,150 L232,158'/><path d='M140,190 L228,165'/><path d='M150,230 L224,172'/><path d='M150,260 L220,180'/><path d='M155,285 L216,186'/><path d='M150,300 L214,192' stroke-dasharray='3 3'/><path d='M155,320 L212,198' stroke-dasharray='3 3'/></g>",
+          "pastilles": [
+            {
+              "n": 1,
+              "x": 150,
+              "y": 68,
+              "t": "Supra-épineux",
+              "ancre": "middle",
+              "indice": "au-dessus de l'épine ; le plus fragile de la coiffe"
+            },
+            {
+              "n": 2,
+              "x": 165,
+              "y": 180,
+              "t": "Infra-épineux",
+              "ancre": "middle",
+              "indice": "sous l'épine ; la plus grande surface"
+            },
+            {
+              "n": 3,
+              "x": 158,
+              "y": 268,
+              "t": "Petit rond",
+              "ancre": "middle",
+              "indice": "bande étroite, bord latéral, sous l'infra-épineux"
+            },
+            {
+              "n": 4,
+              "x": 152,
+              "y": 308,
+              "t": "Subscapulaire",
+              "ancre": "middle",
+              "indice": "face antérieure (costale) ; non visible de dos, figuré en pointillé"
+            }
+          ],
+          "slide": 251
+        }
+      ]
     }
   ]
 }

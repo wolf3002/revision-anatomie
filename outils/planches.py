@@ -1294,3 +1294,198 @@ PLANCHES['fibres-abdominales-orientation'] = {
         }
     ]
 }
+
+
+# --- Chapitre 6 : le membre supérieur (squelette, scapula, deltoïde, coiffe) ---
+PLANCHES['squelette-membre-superieur-articulations'] = {
+    "id": "squelette-membre-superieur-articulations",
+    "titre": "Le squelette du membre supérieur et ses articulations",
+    "vb": "0 0 300 640",
+    "dessin": "<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M70,45 Q105,32 150,58' stroke-width='6' stroke-linecap='round'/><path d='M150,58 L150,140'/><path d='M150,145 L150,325' stroke-width='11' stroke-linecap='round'/><path d='M150,325 L70,345'/><path d='M150,325 L230,345'/><path d='M70,350 L92,515' stroke-width='8' stroke-linecap='round'/><path d='M230,350 L198,540' stroke-width='8' stroke-linecap='round'/><path d='M78,522 L142,540 L128,600 Q108,612 88,598 Z' stroke-width='2'/></g>",
+    "pastilles": [
+        {
+            "n": 1,
+            "x": 70,
+            "y": 45,
+            "t": "Sterno-claviculaire",
+            "ancre": "middle",
+            "indice": "extrémité médiale (sternale) de la clavicule"
+        },
+        {
+            "n": 2,
+            "x": 150,
+            "y": 58,
+            "t": "Acromio-claviculaire",
+            "ancre": "middle",
+            "indice": "extrémité latérale (acromiale) de la clavicule"
+        },
+        {
+            "n": 3,
+            "x": 150,
+            "y": 143,
+            "t": "Scapulo-humérale",
+            "ancre": "middle",
+            "indice": "cavité glénoïdale + tête humérale"
+        },
+        {
+            "n": 4,
+            "x": 70,
+            "y": 345,
+            "t": "Huméro-ulnaire",
+            "ancre": "middle",
+            "indice": "coude, côté médial (ulna)"
+        },
+        {
+            "n": 5,
+            "x": 230,
+            "y": 345,
+            "t": "Huméro-radiale",
+            "ancre": "middle",
+            "indice": "coude, côté latéral (radius)"
+        },
+        {
+            "n": 6,
+            "x": 150,
+            "y": 395,
+            "t": "Radio-ulnaire proximale",
+            "ancre": "middle",
+            "indice": "entre radius et ulna, juste sous le coude"
+        },
+        {
+            "n": 7,
+            "x": 198,
+            "y": 545,
+            "t": "Radio-carpienne",
+            "ancre": "middle",
+            "indice": "poignet ; radius + scaphoïde + lunatum"
+        },
+        {
+            "n": 8,
+            "x": 92,
+            "y": 515,
+            "t": "Radio-ulnaire distale",
+            "ancre": "middle",
+            "indice": "entre radius et ulna, côté médial du poignet"
+        }
+    ]
+}
+PLANCHES['scapula-reperes'] = {
+    "id": "scapula-reperes",
+    "titre": "La scapula, vue postérieure : ses repères",
+    "vb": "0 0 300 320",
+    "dessin": "<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M75,55 L215,92 L108,300 Z'/><path d='M92,92 L202,113' stroke-width='4'/><path d='M202,113 Q223,100 228,78' stroke-width='4' stroke-linecap='round'/><path d='M192,78 Q183,50 206,44' stroke-width='4' stroke-linecap='round'/><ellipse cx='207' cy='122' rx='15' ry='11'/></g>",
+    "pastilles": [
+        {
+            "n": 1,
+            "x": 202,
+            "y": 47,
+            "t": "Processus coracoïde",
+            "ancre": "middle",
+            "indice": "crochet à l'avant, lieu d'insertions musculaires"
+        },
+        {
+            "n": 2,
+            "x": 140,
+            "y": 100,
+            "t": "Épine",
+            "ancre": "middle",
+            "indice": "crête qui traverse la face postérieure"
+        },
+        {
+            "n": 3,
+            "x": 228,
+            "y": 78,
+            "t": "Acromion",
+            "ancre": "middle",
+            "indice": "extrémité latérale de l'épine ; articulation acromio-claviculaire"
+        },
+        {
+            "n": 4,
+            "x": 207,
+            "y": 122,
+            "t": "Cavité glénoïdale",
+            "ancre": "middle",
+            "indice": "reçoit la tête humérale"
+        }
+    ]
+}
+PLANCHES['deltoide-trois-faisceaux'] = {
+    "id": "deltoide-trois-faisceaux",
+    "titre": "Le deltoïde, vue latérale : ses 3 faisceaux",
+    "vb": "0 0 300 300",
+    "dessin": "<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M65,40 Q105,26 148,46'/><path d='M152,46 Q195,42 235,58'/><circle cx='150' cy='46' r='4' fill='currentColor' stroke='none'/><path d='M150,88 L150,335' stroke-width='11' stroke-linecap='round'/></g><g class='faisceau' fill='none' stroke='currentColor' stroke-width='1.4'><path d='M65,40 L128,180'/><path d='M65,40 L140,196'/><path d='M65,40 L150,212'/><path d='M150,46 L144,180'/><path d='M150,46 L150,196'/><path d='M150,46 L156,212'/><path d='M235,58 L172,180'/><path d='M235,58 L160,196'/><path d='M235,58 L150,212'/></g>",
+    "pastilles": [
+        {
+            "n": 1,
+            "x": 78,
+            "y": 100,
+            "t": "Claviculaire",
+            "ancre": "middle",
+            "indice": "faisceau antérieur, origine sur la clavicule"
+        },
+        {
+            "n": 2,
+            "x": 150,
+            "y": 132,
+            "t": "Acromial",
+            "ancre": "middle",
+            "indice": "faisceau intermédiaire, origine sur l'acromion"
+        },
+        {
+            "n": 3,
+            "x": 222,
+            "y": 100,
+            "t": "Épineux",
+            "ancre": "middle",
+            "indice": "faisceau postérieur, origine sur l'épine de la scapula"
+        },
+        {
+            "n": 4,
+            "x": 150,
+            "y": 228,
+            "t": "Tubérosité deltoïdienne",
+            "ancre": "middle",
+            "indice": "insertion commune des 3 faisceaux, sur l'humérus"
+        }
+    ]
+}
+PLANCHES['coiffe-rotateurs-vue-postero-laterale'] = {
+    "id": "coiffe-rotateurs-vue-postero-laterale",
+    "titre": "La coiffe des rotateurs, vue postéro-latérale",
+    "vb": "0 0 300 340",
+    "dessin": "<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M100,40 L240,90 L130,340 Z'/><path d='M115,95 L225,115' stroke-width='3'/><path d='M225,115 Q245,100 250,80' stroke-width='3' stroke-linecap='round'/><circle cx='255' cy='150' r='26'/></g><g class='muscle' fill='none' stroke='currentColor' stroke-width='1.3'><path d='M130,60 L235,128'/><path d='M150,70 L238,138'/><path d='M170,80 L236,148'/><path d='M130,150 L232,158'/><path d='M140,190 L228,165'/><path d='M150,230 L224,172'/><path d='M150,260 L220,180'/><path d='M155,285 L216,186'/><path d='M150,300 L214,192' stroke-dasharray='3 3'/><path d='M155,320 L212,198' stroke-dasharray='3 3'/></g>",
+    "pastilles": [
+        {
+            "n": 1,
+            "x": 150,
+            "y": 68,
+            "t": "Supra-épineux",
+            "ancre": "middle",
+            "indice": "au-dessus de l'épine ; le plus fragile de la coiffe"
+        },
+        {
+            "n": 2,
+            "x": 165,
+            "y": 180,
+            "t": "Infra-épineux",
+            "ancre": "middle",
+            "indice": "sous l'épine ; la plus grande surface"
+        },
+        {
+            "n": 3,
+            "x": 158,
+            "y": 268,
+            "t": "Petit rond",
+            "ancre": "middle",
+            "indice": "bande étroite, bord latéral, sous l'infra-épineux"
+        },
+        {
+            "n": 4,
+            "x": 152,
+            "y": 308,
+            "t": "Subscapulaire",
+            "ancre": "middle",
+            "indice": "face antérieure (costale) ; non visible de dos, figuré en pointillé"
+        }
+    ]
+}

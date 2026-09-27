@@ -1186,6 +1186,759 @@
           "slide": 54
         }
       ]
+    },
+    {
+      "num": 3,
+      "titre": "Le système articulaire",
+      "slides": [
+        72,
+        109
+      ],
+      "sections": [
+        {
+          "titre": "L'articulation : définition et rôle",
+          "slide": 73,
+          "points": [
+            "Une articulation est le moyen d'union entre 2 ou plusieurs pièces du squelette entre elles. Les os s'unissent entre eux par ces zones, plus ou moins mobiles.",
+            "En raison de leur rôle important en biomécanique, l'atteinte pathologique (arthrite, arthrose) ou traumatique (luxation, entorse) d'une articulation peut compromettre les postures et les mouvements, donc la performance.",
+            "L'étude des articulations est l'arthrologie."
+          ]
+        },
+        {
+          "titre": "Classification générale : simples/composées, fibreuses, cartilagineuses",
+          "slide": 75,
+          "points": [
+            "Les articulations simples unissent deux éléments ; les articulations composées en unissent plus de deux.",
+            "Les articulations fibreuses (synarthroses) : l'interzone articulaire est occupée par du tissu fibreux. Sans mobilité et sans cartilage articulaire (ex : la suture des os de la tête).",
+            "Les articulations cartilagineuses (amphiarthroses) : l'interzone est occupée par du fibrocartilage. Mobilité réduite, un cartilage articulaire, mais dépourvues de cavité articulaire (ex : la symphyse pubienne)."
+          ]
+        },
+        {
+          "titre": "Les articulations synoviales (diarthroses)",
+          "slide": 77,
+          "points": [
+            "Elles présentent des surfaces articulaires de forme variable, encroûtées de cartilage hyalin ; une cavité articulaire ; une capsule articulaire constituée de deux membranes (une fibreuse, une synoviale).",
+            "Elles sont particulièrement mobiles."
+          ]
+        },
+        {
+          "titre": "Les 7 types de diarthroses",
+          "slide": 79,
+          "points": [
+            "Il existe 7 types de diarthroses, classés en fonction de la forme de leurs surfaces articulaires."
+          ]
+        },
+        {
+          "titre": "A. Les sphéroïdes (énarthroses)",
+          "slide": 81,
+          "points": [
+            "Une sphère pleine (convexe) s'emboîte dans une sphère creuse (concave).",
+            "Ces articulations permettent des mouvements dans toutes les directions (3 axes).",
+            "Exemple : la hanche."
+          ]
+        },
+        {
+          "titre": "B. Les ellipsoïdes (condyliennes)",
+          "slide": 84,
+          "points": [
+            "Une ellipse convexe s'emboîte dans une ellipse concave.",
+            "Elles possèdent 2 axes principaux de mouvement : flexion/extension, abduction/adduction."
+          ]
+        },
+        {
+          "titre": "C. Les articulations en selle",
+          "slide": 86,
+          "points": [
+            "Une surface « en selle », concave dans un sens et convexe dans l'autre, correspond à une surface inversement conformée.",
+            "Elles possèdent 2 axes principaux de mouvement : flexion/extension, abduction/adduction.",
+            "Exemple : l'articulation sterno-claviculaire."
+          ]
+        },
+        {
+          "titre": "D. La ginglyme (trochléenne)",
+          "slide": 88,
+          "points": [
+            "Une trochlée s'emboîte dans une cochlée, formant ainsi une charnière.",
+            "Elle possède 1 axe principal de mouvement : flexion-extension.",
+            "Exemple : l'articulation huméro-ulnaire."
+          ]
+        },
+        {
+          "titre": "E. Les trochoïdes",
+          "slide": 90,
+          "points": [
+            "Un cylindre convexe s'emboîte dans un cylindre concave.",
+            "Elle possède 1 axe de mouvement : pronation-supination (mouvement de rotation).",
+            "Exemple : l'articulation radio-ulnaire proximale."
+          ]
+        },
+        {
+          "titre": "F. La bicondylienne",
+          "slide": 92,
+          "points": [
+            "Une paire de condyles convexes vient s'opposer à une paire de condyles quasi plane.",
+            "1 axe principal de mouvement : flexion/extension.",
+            "Exemple : l'articulation tibio-fémorale."
+          ]
+        },
+        {
+          "titre": "G. Les articulations planes (arthrodies)",
+          "slide": 94,
+          "points": [
+            "Deux surfaces planes s'opposent.",
+            "Mouvement de glissement uniquement.",
+            "Exemple : le carpe."
+          ]
+        },
+        {
+          "titre": "Structures de protection : la capsule articulaire",
+          "slide": 97,
+          "points": [
+            "La capsule articulaire est composée de deux membranes.",
+            "La membrane fibreuse : un manchon fibreux très résistant et peu élastique, prolongement du périoste.",
+            "La membrane synoviale : une membrane conjonctive mince et transparente, qui adhère à la face profonde de la membrane fibreuse. Elle recouvre les parties osseuses, les tendons et les ligaments intracapsulaires, et sécrète le liquide synovial."
+          ]
+        },
+        {
+          "titre": "Structures d'amortissement des pressions : cartilage et synovie",
+          "slide": 99,
+          "points": [
+            "Le cartilage articulaire est un cartilage hyalin qui protège les surfaces articulaires contre l'usure. Son épaisseur est proportionnelle à la pression subie ; il est déformable (jusqu'à 50 %) et augmente d'épaisseur avec la mobilisation dynamique.",
+            "Il se nourrit par imbibition du liquide synovial (pompage favorisé par le mouvement). Une fois détruit, le cartilage ne se régénère pas (pas de nerf ni de vaisseau).",
+            "La synovie est un liquide transparent et visqueux. Elle lubrifie et absorbe les chocs de l'articulation ; elle nourrit le cartilage (O2 et nutriments) et élimine les déchets.",
+            "À froid ou à l'immobilité, la synovie reste très visqueuse ; sa sécrétion est stimulée par le mouvement."
+          ]
+        },
+        {
+          "titre": "Structures d'adaptation des surfaces : le ménisque",
+          "slide": 102,
+          "points": [
+            "Le ménisque est un anneau de fibrocartilage, avec deux faces libres et une face adhérente à la capsule articulaire.",
+            "Il assure la stabilité des surfaces articulaires en présence."
+          ]
+        },
+        {
+          "titre": "Structures de maintien",
+          "slide": 104,
+          "points": [
+            "Elles s'opposent à la dislocation de l'articulation. Leurs élongations et leurs ruptures sont responsables des entorses.",
+            "La membrane fibreuse de la capsule articulaire constitue un des moyens d'union les plus importants.",
+            "Les ligaments sont des lames fibreuses unissant les pièces constitutives d'une articulation. On distingue les ligaments intracapsulaires (ex : les croisés du genou) des ligaments extracapsulaires (ex : les latéraux du genou).",
+            "Les tendons musculaires jouent aussi un rôle de contention très important. L'atrophie des structures de maintien favorise les instabilités et les blessures."
+          ]
+        },
+        {
+          "titre": "Structures de glissement",
+          "slide": 106,
+          "points": [
+            "Le cartilage articulaire, grâce à sa surface exceptionnellement lisse, réduit le coefficient de friction articulaire.",
+            "La synovie joue le rôle d'un lubrifiant, qui gomme les aspérités des cartilages."
+          ]
+        },
+        {
+          "titre": "Adaptation fonctionnelle des articulations",
+          "slide": 108,
+          "points": [
+            "Les articulations s'adaptent aux conditions mécaniques imposées par l'activité musculaire : l'absence d'activité musculaire entraîne le blocage progressif de l'articulation.",
+            "Une mobilisation poussée jusqu'aux limites physiologiques crée une hyperlaxité articulaire, voire une luxation.",
+            "La mobilité articulaire varie en fonction de l'âge, du sexe (la femme et l'enfant ont une souplesse plus grande que l'homme) et de la pratique sportive.",
+            "L'échauffement sportif des articulations concernées par l'activité est indispensable."
+          ]
+        }
+      ],
+      "planches": [
+        {
+          "id": "articulation-synoviale-coupe",
+          "titre": "L'articulation synoviale type, en coupe",
+          "vb": "0 0 620 460",
+          "dessin": "<rect x='260' y='20' width='40' height='150' fill='none' stroke='currentColor' stroke-width='2'/><path d='M248,178 Q280,215 312,178' fill='none' stroke='currentColor' stroke-width='4'/><rect x='260' y='290' width='40' height='150' fill='none' stroke='currentColor' stroke-width='2'/><path d='M248,282 Q280,245 312,282' fill='none' stroke='currentColor' stroke-width='4'/><path d='M230,196 Q223,230 230,264 Q250,240 262,230 Q250,220 230,196 Z' fill='none' stroke='currentColor' stroke-width='2'/><path d='M260,150 Q205,225 260,300' fill='none' stroke='currentColor' stroke-width='1.6' stroke-dasharray='6 4'/><path d='M300,150 Q355,225 300,300' fill='none' stroke='currentColor' stroke-width='1.6' stroke-dasharray='6 4'/><path d='M260,158 Q222,225 260,292' fill='none' stroke='currentColor' stroke-width='1.2' stroke-dasharray='3 3'/><path d='M300,158 Q338,225 300,292' fill='none' stroke='currentColor' stroke-width='1.2' stroke-dasharray='3 3'/><path d='M300,120 Q385,225 300,330' fill='none' stroke='currentColor' stroke-width='3'/><defs><marker id='fleche' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0 0 L10 5 L0 10 Z' fill='currentColor'/></marker></defs><g class='reperes' fill='none' stroke='currentColor' stroke-width='1.2'><path d='M245,165 L188,150' marker-end='url(#fleche)'/><path d='M234,230 L188,230' marker-end='url(#fleche)'/><path d='M254,268 L188,318' marker-end='url(#fleche)'/><path d='M303,182 L372,150' marker-end='url(#fleche)'/><path d='M290,228 L372,230' marker-end='url(#fleche)'/><path d='M328,232 L372,318' marker-end='url(#fleche)'/></g>",
+          "pastilles": [
+            {
+              "n": 1,
+              "x": 170,
+              "y": 150,
+              "t": "Membrane fibreuse",
+              "ancre": "end",
+              "indice": "couche externe de la capsule, résistante, peu élastique"
+            },
+            {
+              "n": 2,
+              "x": 170,
+              "y": 230,
+              "t": "Ménisque",
+              "ancre": "end",
+              "indice": "coin de fibrocartilage, adhérent à la capsule"
+            },
+            {
+              "n": 3,
+              "x": 170,
+              "y": 320,
+              "t": "Membrane synoviale",
+              "ancre": "end",
+              "indice": "couche interne de la capsule, sécrète le liquide synovial"
+            },
+            {
+              "n": 4,
+              "x": 390,
+              "y": 150,
+              "t": "Cartilage articulaire",
+              "ancre": "start",
+              "indice": "coiffe l'extrémité de chaque os"
+            },
+            {
+              "n": 5,
+              "x": 390,
+              "y": 230,
+              "t": "Cavité articulaire",
+              "ancre": "start",
+              "indice": "espace entre les deux surfaces, où loge le liquide synovial"
+            },
+            {
+              "n": 6,
+              "x": 390,
+              "y": 320,
+              "t": "Ligament",
+              "ancre": "start",
+              "indice": "hors de la capsule, relie les deux os"
+            }
+          ],
+          "slide": 77
+        },
+        {
+          "id": "diarthrose-spheroide",
+          "titre": "La sphéroïde (énarthrose)",
+          "vb": "0 0 220 345",
+          "dessin": "<path d='M88.8,91.7 A62,62 0 1,0 131.2,91.7' fill='none' stroke='currentColor' stroke-width='2.2'/><circle cx='110' cy='150' r='40' fill='none' stroke='currentColor' stroke-width='2.2'/><path d='M110,110 L110,55' fill='none' stroke='currentColor' stroke-width='2.2'/><path d='M90,35 L130,35 L130,55 L90,55 Z' fill='none' stroke='currentColor' stroke-width='2.2'/>",
+          "pastilles": [
+            {
+              "n": 1,
+              "x": 110,
+              "y": 245,
+              "t": "Sphéroïde (énarthrose)",
+              "ancre": "middle",
+              "indice": "sphère pleine dans une sphère creuse"
+            },
+            {
+              "n": 2,
+              "x": 110,
+              "y": 278,
+              "t": "3 axes : tous les mouvements",
+              "ancre": "middle"
+            },
+            {
+              "n": 3,
+              "x": 110,
+              "y": 311,
+              "t": "Ex : la hanche",
+              "ancre": "middle"
+            }
+          ],
+          "slide": 81
+        },
+        {
+          "id": "diarthrose-ellipsoide",
+          "titre": "L'ellipsoïde (condylienne)",
+          "vb": "0 0 220 345",
+          "dessin": "<path d='M85.4,101.1 A72,52 0 1,0 134.6,101.1' fill='none' stroke='currentColor' stroke-width='2.2'/><ellipse cx='110' cy='150' rx='46' ry='30' fill='none' stroke='currentColor' stroke-width='2.2'/><path d='M110,120 L110,55' fill='none' stroke='currentColor' stroke-width='2.2'/><path d='M90,35 L130,35 L130,55 L90,55 Z' fill='none' stroke='currentColor' stroke-width='2.2'/>",
+          "pastilles": [
+            {
+              "n": 1,
+              "x": 110,
+              "y": 245,
+              "t": "Ellipsoïde (condylienne)",
+              "ancre": "middle",
+              "indice": "ellipse convexe dans une ellipse concave"
+            },
+            {
+              "n": 2,
+              "x": 110,
+              "y": 278,
+              "t": "Flexion, extension",
+              "ancre": "middle"
+            },
+            {
+              "n": 3,
+              "x": 110,
+              "y": 311,
+              "t": "Abduction, adduction",
+              "ancre": "middle"
+            }
+          ],
+          "slide": 84
+        },
+        {
+          "id": "diarthrose-selle",
+          "titre": "L'articulation en selle",
+          "vb": "0 0 220 380",
+          "dessin": "<path d='M50,120 Q80,90 110,120 Q140,150 170,120' fill='none' stroke='currentColor' stroke-width='2.2'/><path d='M50,132 Q80,102 110,132 Q140,162 170,132' fill='none' stroke='currentColor' stroke-width='2.2'/><path d='M80,90 L80,45' fill='none' stroke='currentColor' stroke-width='2.2'/><path d='M60,25 L100,25 L100,45 L60,45 Z' fill='none' stroke='currentColor' stroke-width='2.2'/><path d='M140,162 L140,205' fill='none' stroke='currentColor' stroke-width='2.2'/><path d='M120,205 L160,205 L160,225 L120,225 Z' fill='none' stroke='currentColor' stroke-width='2.2'/>",
+          "pastilles": [
+            {
+              "n": 1,
+              "x": 110,
+              "y": 235,
+              "t": "Articulation en selle",
+              "ancre": "middle",
+              "indice": "surface concave dans un sens, convexe dans l'autre"
+            },
+            {
+              "n": 2,
+              "x": 110,
+              "y": 268,
+              "t": "Flexion, extension",
+              "ancre": "middle"
+            },
+            {
+              "n": 3,
+              "x": 110,
+              "y": 301,
+              "t": "Abduction, adduction",
+              "ancre": "middle"
+            },
+            {
+              "n": 4,
+              "x": 110,
+              "y": 334,
+              "t": "Ex : sterno-claviculaire",
+              "ancre": "middle"
+            }
+          ],
+          "slide": 86
+        },
+        {
+          "id": "diarthrose-ginglyme",
+          "titre": "La ginglyme (trochléenne)",
+          "vb": "0 0 220 345",
+          "dessin": "<defs><marker id='fleche' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0 0 L10 5 L0 10 Z' fill='currentColor'/></marker></defs><path d='M95,35 L95,92' fill='none' stroke='currentColor' stroke-width='2.2'/><path d='M55,92 L135,92' fill='none' stroke='currentColor' stroke-width='2.2'/><circle cx='95' cy='100' r='9' fill='none' stroke='currentColor' stroke-width='2.2'/><path d='M55,108 L135,108' fill='none' stroke='currentColor' stroke-width='2.2'/><path d='M95,108 L95,195' fill='none' stroke='currentColor' stroke-width='2.2'/><path d='M187.5,120.6 A32,32 0 1,1 138.5,120.6' fill='none' stroke='currentColor' stroke-width='1.8' marker-end='url(#fleche)'/>",
+          "pastilles": [
+            {
+              "n": 1,
+              "x": 110,
+              "y": 245,
+              "t": "Ginglyme (trochléenne)",
+              "ancre": "middle",
+              "indice": "une trochlée s'emboîte dans une cochlée : une charnière"
+            },
+            {
+              "n": 2,
+              "x": 110,
+              "y": 278,
+              "t": "1 axe : flexion-extension",
+              "ancre": "middle"
+            },
+            {
+              "n": 3,
+              "x": 110,
+              "y": 311,
+              "t": "Ex : huméro-ulnaire",
+              "ancre": "middle"
+            }
+          ],
+          "slide": 88
+        },
+        {
+          "id": "diarthrose-trochoide",
+          "titre": "La trochoïde",
+          "vb": "0 0 220 345",
+          "dessin": "<defs><marker id='fleche' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0 0 L10 5 L0 10 Z' fill='currentColor'/></marker></defs><path d='M110,30 L110,210' fill='none' stroke='currentColor' stroke-width='2.6'/><ellipse cx='110' cy='115' rx='46' ry='20' fill='none' stroke='currentColor' stroke-width='2.2'/><path d='M157.5,97.0 A62,28 0 0,1 157.5,133.0' fill='none' stroke='currentColor' stroke-width='1.8' marker-end='url(#fleche)'/><path d='M62.5,97.0 A62,28 0 0,0 62.5,133.0' fill='none' stroke='currentColor' stroke-width='1.8' marker-end='url(#fleche)'/>",
+          "pastilles": [
+            {
+              "n": 1,
+              "x": 110,
+              "y": 245,
+              "t": "Trochoïde",
+              "ancre": "middle",
+              "indice": "cylindre convexe dans un cylindre concave"
+            },
+            {
+              "n": 2,
+              "x": 110,
+              "y": 278,
+              "t": "1 axe : pronation-supination",
+              "ancre": "middle"
+            },
+            {
+              "n": 3,
+              "x": 110,
+              "y": 311,
+              "t": "Ex : radio-ulnaire proximale",
+              "ancre": "middle"
+            }
+          ],
+          "slide": 90
+        },
+        {
+          "id": "diarthrose-bicondylienne",
+          "titre": "La bicondylienne",
+          "vb": "0 0 220 345",
+          "dessin": "<path d='M110,25 L110,70' fill='none' stroke='currentColor' stroke-width='2.2'/><path d='M110,70 L78,95' fill='none' stroke='currentColor' stroke-width='2.2'/><path d='M110,70 L142,95' fill='none' stroke='currentColor' stroke-width='2.2'/><circle cx='78' cy='120' r='26' fill='none' stroke='currentColor' stroke-width='2.2'/><circle cx='142' cy='120' r='26' fill='none' stroke='currentColor' stroke-width='2.2'/><path d='M40,168 A300,300 0 0,0 180,168' fill='none' stroke='currentColor' stroke-width='2.2'/><path d='M110,168 L110,210' fill='none' stroke='currentColor' stroke-width='2.2'/>",
+          "pastilles": [
+            {
+              "n": 1,
+              "x": 110,
+              "y": 245,
+              "t": "Bicondylienne",
+              "ancre": "middle",
+              "indice": "une paire de condyles convexes sur une surface plane"
+            },
+            {
+              "n": 2,
+              "x": 110,
+              "y": 278,
+              "t": "1 axe : flexion/extension",
+              "ancre": "middle"
+            },
+            {
+              "n": 3,
+              "x": 110,
+              "y": 311,
+              "t": "Ex : tibio-fémorale",
+              "ancre": "middle"
+            }
+          ],
+          "slide": 92
+        },
+        {
+          "id": "diarthrose-plane",
+          "titre": "L'articulation plane (arthrodie)",
+          "vb": "0 0 220 345",
+          "dessin": "<defs><marker id='fleche' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0 0 L10 5 L0 10 Z' fill='currentColor'/></marker></defs><path d='M110,30 L110,92' fill='none' stroke='currentColor' stroke-width='2.2'/><path d='M50,92 L170,92' fill='none' stroke='currentColor' stroke-width='2.4'/><path d='M50,112 L170,112' fill='none' stroke='currentColor' stroke-width='2.4'/><path d='M110,112 L110,205' fill='none' stroke='currentColor' stroke-width='2.2'/><path d='M45,102 L175,102' fill='none' stroke='currentColor' stroke-width='1.8' marker-start='url(#fleche)' marker-end='url(#fleche)'/>",
+          "pastilles": [
+            {
+              "n": 1,
+              "x": 110,
+              "y": 245,
+              "t": "Articulation plane (arthrodie)",
+              "ancre": "middle",
+              "indice": "deux surfaces planes qui s'opposent"
+            },
+            {
+              "n": 2,
+              "x": 110,
+              "y": 278,
+              "t": "Glissement uniquement",
+              "ancre": "middle"
+            },
+            {
+              "n": 3,
+              "x": 110,
+              "y": 311,
+              "t": "Ex : le carpe",
+              "ancre": "middle"
+            }
+          ],
+          "slide": 94
+        }
+      ],
+      "cartes": [
+        {
+          "id": "c3-01",
+          "q": "Qu'est-ce qu'une articulation, quel est le nom de la discipline qui les étudie, et pourquoi leur atteinte peut-elle compromettre la performance ?",
+          "r": "Le moyen d'union entre 2 ou plusieurs pièces du squelette entre elles, plus ou moins mobile selon les cas ; leur étude est l'arthrologie. En raison de leur rôle en biomécanique, une atteinte pathologique (arthrite, arthrose) ou traumatique (luxation, entorse) peut compromettre les postures et les mouvements, donc la performance.",
+          "slide": 73
+        },
+        {
+          "id": "c3-02",
+          "q": "Quelle différence sépare une articulation simple d'une articulation composée ?",
+          "r": "Une articulation simple unit deux éléments ; une articulation composée en unit plus de deux.",
+          "slide": 75
+        },
+        {
+          "id": "c3-03",
+          "q": "Qu'est-ce qu'une synarthrose (articulation fibreuse), et quel exemple le cours en donne-t-il ?",
+          "r": "Une articulation dont l'interzone est occupée par du tissu fibreux : sans mobilité et sans cartilage articulaire. Exemple : la suture des os de la tête.",
+          "slide": 75
+        },
+        {
+          "id": "c3-04",
+          "q": "Qu'est-ce qu'une amphiarthrose (articulation cartilagineuse), et quel exemple le cours en donne-t-il ?",
+          "r": "Une articulation dont l'interzone est occupée par du fibrocartilage : mobilité réduite, un cartilage articulaire, mais aucune cavité articulaire. Exemple : la symphyse pubienne.",
+          "slide": 75
+        },
+        {
+          "id": "c3-05",
+          "q": "Quelles sont les trois caractéristiques communes aux articulations synoviales (diarthroses) ?",
+          "r": "Des surfaces articulaires de forme variable, encroûtées de cartilage hyalin ; une cavité articulaire ; une capsule articulaire faite de deux membranes (une fibreuse, une synoviale). Elles sont particulièrement mobiles.",
+          "slide": 77
+        },
+        {
+          "id": "c3-06",
+          "q": "Selon quel critère les 7 types de diarthroses sont-ils classés ?",
+          "r": "Selon la forme de leurs surfaces articulaires.",
+          "slide": 79
+        },
+        {
+          "id": "c3-07",
+          "q": "Décris la sphéroïde (énarthrose) : forme des surfaces, mouvements permis et exemple.",
+          "r": "Une sphère pleine (convexe) s'emboîte dans une sphère creuse (concave). Elle permet des mouvements dans toutes les directions (3 axes). Exemple : la hanche.",
+          "slide": 81
+        },
+        {
+          "id": "c3-08",
+          "q": "Décris l'ellipsoïde (condylienne) : forme des surfaces et mouvements permis.",
+          "r": "Une ellipse convexe s'emboîte dans une ellipse concave. Elle possède 2 axes principaux de mouvement : flexion/extension, abduction/adduction.",
+          "slide": 84
+        },
+        {
+          "id": "c3-09",
+          "q": "Décris l'articulation en selle : forme des surfaces, mouvements permis et exemple.",
+          "r": "Une surface « en selle », concave dans un sens et convexe dans l'autre, correspond à une surface inversement conformée. Elle possède 2 axes : flexion/extension, abduction/adduction. Exemple : l'articulation sterno-claviculaire.",
+          "slide": 86
+        },
+        {
+          "id": "c3-10",
+          "q": "Décris la ginglyme (trochléenne) : forme des surfaces, mouvement permis et exemple.",
+          "r": "Une trochlée s'emboîte dans une cochlée, formant une charnière. Elle possède 1 axe : flexion-extension. Exemple : l'articulation huméro-ulnaire.",
+          "slide": 88,
+          "plan": "sagittal"
+        },
+        {
+          "id": "c3-11",
+          "q": "Décris la trochoïde : forme des surfaces, mouvement permis et exemple.",
+          "r": "Un cylindre convexe s'emboîte dans un cylindre concave. Elle possède 1 axe de mouvement : pronation-supination (rotation). Exemple : l'articulation radio-ulnaire proximale.",
+          "slide": 90,
+          "plan": "transversal"
+        },
+        {
+          "id": "c3-12",
+          "q": "Décris la bicondylienne : forme des surfaces, mouvement permis et exemple.",
+          "r": "Une paire de condyles convexes s'oppose à une paire de condyles quasi plane. 1 axe principal : flexion/extension. Exemple : l'articulation tibio-fémorale.",
+          "slide": 92,
+          "plan": "sagittal"
+        },
+        {
+          "id": "c3-13",
+          "q": "Décris l'articulation plane (arthrodie) : forme des surfaces, mouvement permis et exemple.",
+          "r": "Deux surfaces planes s'opposent. Le seul mouvement possible est un glissement. Exemple : le carpe.",
+          "slide": 94
+        },
+        {
+          "id": "c3-14",
+          "q": "De quoi est composée la capsule articulaire, et que décrivent respectivement sa membrane fibreuse et sa membrane synoviale ?",
+          "r": "De deux membranes. La membrane fibreuse : un manchon fibreux très résistant et peu élastique, prolongement du périoste. La membrane synoviale : mince et transparente, elle adhère à la face profonde de la fibreuse, recouvre les parties osseuses, tendons et ligaments intracapsulaires, et sécrète le liquide synovial.",
+          "slide": 97
+        },
+        {
+          "id": "c3-15",
+          "q": "Quel est le rôle mécanique du cartilage articulaire, et comment varie son épaisseur ?",
+          "r": "C'est un cartilage hyalin qui protège les surfaces articulaires contre l'usure. Son épaisseur est proportionnelle à la pression subie ; il est déformable (jusqu'à 50 %) et augmente d'épaisseur avec la mobilisation dynamique.",
+          "slide": 99
+        },
+        {
+          "id": "c3-16",
+          "q": "Comment le cartilage articulaire se nourrit-il, et que se passe-t-il une fois qu'il est détruit ?",
+          "r": "Il se nourrit par imbibition du liquide synovial (un pompage favorisé par le mouvement). Une fois détruit, il ne se régénère pas : il n'a ni nerf ni vaisseau.",
+          "slide": 99
+        },
+        {
+          "id": "c3-17",
+          "q": "Quelles sont les propriétés physiques de la synovie, et comment varie sa viscosité ?",
+          "r": "Un liquide transparent et visqueux. À froid ou à l'immobilité, elle reste très visqueuse ; sa sécrétion est stimulée par le mouvement.",
+          "slide": 99
+        },
+        {
+          "id": "c3-18",
+          "q": "Quels sont les rôles de la synovie envers l'articulation et le cartilage ?",
+          "r": "Elle lubrifie et absorbe les chocs de l'articulation. Elle nourrit le cartilage (O2 et nutriments) et élimine les déchets.",
+          "slide": 99
+        },
+        {
+          "id": "c3-19",
+          "q": "Outre nourrir le cartilage et éliminer les déchets, quel rôle supplémentaire joue le liquide synovial contre les micro-organismes ?",
+          "r": "Le liquide synovial contient aussi des phagocytes, qui débarrassent la cavité articulaire des micro-organismes et des débris cellulaires.",
+          "slide": 109
+        },
+        {
+          "id": "c3-20",
+          "q": "Décris le ménisque : structure et rôle.",
+          "r": "Un anneau de fibrocartilage, avec deux faces libres et une face adhérente à la capsule articulaire. Il assure la stabilité des surfaces articulaires en présence.",
+          "slide": 102
+        },
+        {
+          "id": "c3-21",
+          "q": "À quoi s'opposent les structures de maintien de l'articulation, de quoi sont-elles responsables en cas d'atteinte, et lesquelles le cours nomme-t-il ?",
+          "r": "Elles s'opposent à la dislocation de l'articulation ; leurs élongations et leurs ruptures sont responsables des entorses. Le cours en nomme trois : la membrane fibreuse de la capsule articulaire, les ligaments, et les tendons musculaires.",
+          "slide": 104
+        },
+        {
+          "id": "c3-22",
+          "q": "Quelle différence sépare un ligament intracapsulaire d'un ligament extracapsulaire, et quel exemple le cours donne-t-il de chacun au genou ?",
+          "r": "Les ligaments intracapsulaires sont à l'intérieur de la capsule articulaire (ex : les ligaments croisés du genou) ; les ligaments extracapsulaires sont à l'extérieur (ex : les ligaments latéraux du genou).",
+          "slide": 104
+        },
+        {
+          "id": "c3-23",
+          "q": "Quel rôle jouent les tendons musculaires dans le maintien de l'articulation, et que favorise l'atrophie des structures de maintien ?",
+          "r": "Ils jouent un rôle de contention très important. L'atrophie des structures de maintien favorise les instabilités et les blessures.",
+          "slide": 104
+        },
+        {
+          "id": "c3-24",
+          "q": "Par quels mécanismes le cartilage articulaire et la synovie réduisent-ils la friction dans l'articulation ?",
+          "r": "Le cartilage, grâce à sa surface exceptionnellement lisse, réduit le coefficient de friction articulaire. La synovie joue le rôle d'un lubrifiant qui gomme les aspérités des cartilages.",
+          "slide": 106
+        },
+        {
+          "id": "c3-25",
+          "q": "Que provoquent, respectivement, l'absence d'activité musculaire et une mobilisation poussée jusqu'aux limites physiologiques sur une articulation ? De quels facteurs dépend par ailleurs la mobilité articulaire ?",
+          "r": "L'absence d'activité musculaire entraîne le blocage progressif de l'articulation ; une mobilisation poussée jusqu'aux limites physiologiques crée au contraire une hyperlaxité articulaire, voire une luxation. La mobilité varie selon l'âge, le sexe (la femme et l'enfant ont une souplesse plus grande que l'homme) et la pratique sportive : l'échauffement des articulations concernées par l'activité est indispensable.",
+          "slide": 108
+        }
+      ],
+      "quiz": [
+        {
+          "id": "q3-01",
+          "q": "Une sphère pleine s'emboîte dans une sphère creuse, permettant des mouvements dans toutes les directions (3 axes). De quel type de diarthrose s'agit-il ?",
+          "choix": [
+            "La sphéroïde (énarthrose)",
+            "L'ellipsoïde (condylienne)",
+            "L'articulation en selle",
+            "La bicondylienne"
+          ],
+          "bonne": 0,
+          "expl": "La sphéroïde est la seule diarthrose à 3 axes, définie par une sphère pleine dans une sphère creuse (ex : la hanche). L'ellipsoïde est le distracteur le plus proche : elle aussi emboîte une forme convexe dans une forme concave, mais c'est une ELLIPSE (pas une sphère) et elle n'a que 2 axes, pas 3. L'articulation en selle et la bicondylienne ont elles aussi 2 axes ou moins, et des surfaces de formes différentes (en selle, ou en paire de condyles).",
+          "slide": 81
+        },
+        {
+          "id": "q3-02",
+          "q": "Quelle diarthrose permet la pronation-supination, par la rotation d'un cylindre convexe dans un cylindre concave ?",
+          "choix": [
+            "La ginglyme (trochléenne)",
+            "La trochoïde",
+            "La bicondylienne",
+            "L'articulation plane (arthrodie)"
+          ],
+          "bonne": 1,
+          "expl": "La trochoïde (ex : l'articulation radio-ulnaire proximale) est définie par un cylindre convexe qui s'emboîte dans un cylindre concave, avec 1 axe de rotation (pronation-supination). La ginglyme est le distracteur le plus proche : elle a aussi 1 seul axe, mais c'est une charnière (trochlée dans cochlée) qui ne fait que de la flexion-extension, pas de rotation. La bicondylienne (flexion/extension) et l'articulation plane (glissement seul) n'ont ni cylindre ni rotation.",
+          "slide": 90,
+          "plan": "transversal"
+        },
+        {
+          "id": "q3-03",
+          "q": "Quelle famille d'articulations possède un cartilage articulaire mais est dépourvue de cavité articulaire ?",
+          "choix": [
+            "Les synarthroses (fibreuses)",
+            "Les amphiarthroses (cartilagineuses)",
+            "Les diarthroses (synoviales)"
+          ],
+          "bonne": 1,
+          "expl": "Les amphiarthroses possèdent un cartilage articulaire (l'interzone est du fibrocartilage) mais aucune cavité articulaire — c'est leur définition exacte (ex : la symphyse pubienne). Les synarthroses sont écartées par excès : elles n'ont NI cartilage NI mobilité (interzone fibreuse, ex : les sutures du crâne). Les diarthroses sont écartées par manque : elles ont justement une cavité articulaire, en plus du cartilage — c'est ce qui les rend particulièrement mobiles, contrairement aux amphiarthroses.",
+          "slide": 75
+        },
+        {
+          "id": "q3-04",
+          "q": "Au genou, les ligaments croisés et les ligaments latéraux sont-ils intracapsulaires ou extracapsulaires ?",
+          "choix": [
+            "Les croisés sont intracapsulaires, les latéraux sont extracapsulaires",
+            "Les croisés sont extracapsulaires, les latéraux sont intracapsulaires",
+            "Les croisés et les latéraux sont tous deux intracapsulaires",
+            "Les croisés et les latéraux sont tous deux extracapsulaires"
+          ],
+          "bonne": 0,
+          "expl": "Le cours donne exactement ces deux exemples : les ligaments croisés du genou pour les ligaments intracapsulaires (à l'intérieur de la capsule), les ligaments latéraux du genou pour les extracapsulaires (à l'extérieur). Les trois autres options confondent ou inversent ce couple ; retenir que « croisé » et « intracapsulaire » vont ensemble évite l'inversion la plus fréquente.",
+          "slide": 104
+        },
+        {
+          "id": "q3-05",
+          "q": "Quelle membrane de la capsule articulaire sécrète le liquide synovial ?",
+          "choix": [
+            "La membrane fibreuse",
+            "La membrane synoviale",
+            "Le périoste",
+            "Le périchondre"
+          ],
+          "bonne": 1,
+          "expl": "La membrane synoviale, mince et transparente, adhère à la face profonde de la membrane fibreuse et sécrète le liquide synovial. La membrane fibreuse est le distracteur le plus proche : c'est l'autre moitié de la même capsule, mais son rôle est mécanique (manchon résistant, peu élastique, prolongement du périoste), pas sécrétoire. Le périoste et le périchondre sont des membranes réelles du cours (chapitre 2), mais elles enveloppent respectivement l'os et le cartilage en général — ni l'une ni l'autre n'appartient à la capsule articulaire.",
+          "slide": 97
+        },
+        {
+          "id": "q3-06",
+          "q": "Une fois détruit, le cartilage articulaire peut-il se régénérer ?",
+          "choix": [
+            "Non, il n'a ni nerf ni vaisseau",
+            "Oui, lentement, grâce à sa vascularisation",
+            "Oui, rapidement, grâce à la synovie qui le régénère",
+            "Oui, mais seulement chez l'enfant"
+          ],
+          "bonne": 0,
+          "expl": "Le cours l'affirme sans nuance : une fois détruit, le cartilage articulaire ne se régénère pas, faute de nerf et de vaisseau. La synovie le NOURRIT par imbibition (elle favorise son entretien pendant qu'il est intact), mais rien dans le cours ne dit qu'elle le régénère une fois détruit — c'est la confusion entre « se nourrir » et « se régénérer » que ce distracteur exploite. Aucune vascularisation, à aucun âge, n'est mentionnée pour ce cartilage.",
+          "slide": 99
+        },
+        {
+          "id": "q3-07",
+          "q": "Que devient la synovie à froid ou à l'immobilité, et qu'est-ce qui stimule sa sécrétion ?",
+          "choix": [
+            "Elle reste très visqueuse ; sa sécrétion est stimulée par le mouvement",
+            "Elle devient fluide ; sa sécrétion est stimulée par le repos",
+            "Elle se solidifie ; sa sécrétion est constante, indépendante du mouvement",
+            "Elle s'évapore ; sa sécrétion est stimulée par la chaleur"
+          ],
+          "bonne": 0,
+          "expl": "Le cours l'énonce dans cet ordre précis : à froid ou à l'immobilité, la synovie reste très visqueuse, et c'est le MOUVEMENT qui stimule sa sécrétion — d'où l'intérêt de l'échauffement. Les trois autres options inversent soit l'effet du froid (fluide au lieu de visqueuse), soit le déclencheur de la sécrétion (repos ou chaleur au lieu du mouvement).",
+          "slide": 99
+        },
+        {
+          "id": "q3-08",
+          "q": "Que provoque l'absence d'activité musculaire sur une articulation ?",
+          "choix": [
+            "Le blocage progressif de l'articulation",
+            "Une hyperlaxité articulaire",
+            "Une luxation immédiate",
+            "Aucun effet mesurable"
+          ],
+          "bonne": 0,
+          "expl": "Le cours l'affirme directement : l'absence d'activité musculaire entraîne le blocage progressif de l'articulation. L'hyperlaxité et la luxation sont le distracteur le plus piégeur : elles sont réelles, mais causées par le mécanisme INVERSE — une mobilisation poussée jusqu'aux limites physiologiques, pas son absence. « Aucun effet » contredit l'idée même d'adaptation fonctionnelle que ce paragraphe développe.",
+          "slide": 108
+        },
+        {
+          "id": "q3-09",
+          "q": "L'atteinte des structures de maintien (ligaments, tendons, membrane fibreuse) est responsable de quel type de traumatisme ?",
+          "choix": [
+            "Des entorses",
+            "De l'arthrose",
+            "D'une luxation congénitale",
+            "De l'arthrite"
+          ],
+          "bonne": 0,
+          "expl": "Le cours le dit explicitement : les élongations et ruptures des structures de maintien sont responsables des entorses. L'arthrose et l'arthrite sont des pathologies réelles nommées dans le chapitre (slide 73), mais liées à l'usure ou à l'inflammation de l'articulation, pas à l'atteinte des ligaments et tendons. La luxation, elle, est plutôt associée par le cours à l'excès de mobilisation (hyperlaxité), pas à l'atteinte des structures de maintien.",
+          "slide": 104
+        },
+        {
+          "id": "q3-10",
+          "q": "Selon quel critère les 7 types de diarthroses sont-ils classés ?",
+          "choix": [
+            "La forme de leurs surfaces articulaires",
+            "Le nombre d'axes de mouvement qu'elles autorisent",
+            "Leur localisation anatomique (membre supérieur ou inférieur)",
+            "La taille de leur cavité articulaire"
+          ],
+          "bonne": 0,
+          "expl": "Le cours l'énonce explicitement : les 7 types de diarthroses sont classés en fonction de la forme de leurs surfaces articulaires. Le nombre d'axes est une CONSÉQUENCE de cette forme (une sphère a 3 axes, une charnière 1 axe), pas le critère de classement lui-même. La localisation anatomique et la taille de la cavité ne sont jamais utilisées comme critère de classification dans le cours.",
+          "slide": 79
+        }
+      ],
+      "pieges": [
+        {
+          "titre": "Le cartilage articulaire ne se régénère JAMAIS une fois détruit",
+          "texte": "Contrairement à l'os, qui reste vivant et vascularisé, le cartilage articulaire n'a ni nerf ni vaisseau : il se nourrit seulement par imbibition du liquide synovial (un pompage favorisé par le mouvement), mais une fois détruit, il ne se régénère pas.",
+          "slide": 99
+        },
+        {
+          "titre": "La synovie reste visqueuse À FROID — c'est le mouvement qui stimule sa sécrétion",
+          "texte": "Deux faits liés, faciles à inverser : à froid ou à l'immobilité, la synovie reste très visqueuse (elle lubrifie mal) ; c'est le mouvement qui stimule sa sécrétion. D'où l'importance de l'échauffement avant l'effort, pour obtenir une synovie fluide au bon moment.",
+          "slide": 99
+        },
+        {
+          "titre": "Absence de mouvement et excès de mouvement causent deux problèmes OPPOSÉS",
+          "texte": "L'absence d'activité musculaire entraîne le blocage progressif de l'articulation. À l'inverse, une mobilisation poussée jusqu'aux limites physiologiques crée une hyperlaxité articulaire, voire une luxation. Ne pas confondre : ce n'est pas le même mécanisme qui produit ces deux effets, ni la même conséquence.",
+          "slide": 108
+        },
+        {
+          "titre": "Les entorses viennent de l'atteinte des structures de MAINTIEN, pas des structures de protection",
+          "texte": "Les structures de maintien (membrane fibreuse de la capsule, ligaments, tendons musculaires) s'opposent à la dislocation de l'articulation : ce sont leurs élongations et leurs ruptures qui sont responsables des entorses — pas l'usure du cartilage (structure d'amortissement) ni un défaut de la membrane synoviale (structure de protection).",
+          "slide": 104
+        }
+      ],
+      "muscles": []
     }
   ]
 }

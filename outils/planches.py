@@ -457,3 +457,508 @@ PLANCHES = {
         ],
     },
 }
+
+# --- Chapitre 3 : les sept diarthroses (slides 81-94) --------------------
+#
+# "C'est la géométrie des surfaces qui les distingue, donc un schéma y est plus
+# juste qu'une liste" (plan de la tâche 3). Chaque type est donc une planche
+# AUTONOME et minuscule (vb 220x345, une seule paire de formes emboîtées),
+# jamais une planche unique à 7 panneaux : une planche large ne tient pas dans
+# 320 px (cf. les plans anatomiques du chapitre 1, éclatés pour la même
+# raison). Le test du mode muet porte ici sur la GEOMETRIE seule : sphère
+# pleine dans sphère creuse, ellipse dans ellipse, surface ondulée en selle,
+# charnière à goupille, tige tournant dans un anneau, deux condyles sur un
+# plateau quasi plat, deux plans qui glissent — sept silhouettes volontai-
+# rement DIFFERENTES entre elles (pas de recyclage de la même paire de
+# cercles pour deux types), vérifiées une à une en rendant chaque planche
+# sans ses pastilles (rsvg-convert) avant d'écrire ce module.
+#
+# Absence volontaire de "plan" sur les pastilles : contrairement aux 3 plans
+# anatomiques du chapitre 1, ces planches ne portent pas sur le plan frontal/
+# sagittal/transversal mais sur la forme des surfaces ; forcer un mouvement à
+# 2 axes (ellipsoïde, selle) dans un seul plan aurait été inexact.
+#
+# Aucun exemple anatomique n'est donné dans le cours pour l'ellipsoïde (slide
+# 84 s'arrête aux 2 axes de mouvement) : sa planche n'a donc que 2 pastilles,
+# pas 3 -- inventer un "Ex :" aurait violé la règle "ne pas deviner".
+_VB_DIARTHROSE = "0 0 220 345"
+_Y_TYPE = 245
+_Y_AXES = 278
+_Y_EXEMPLE = 311
+
+PLANCHES.update(
+    {
+        "diarthrose-spheroide": {
+            "id": "diarthrose-spheroide",
+            "titre": "La sphéroïde (énarthrose)",
+            "vb": _VB_DIARTHROSE,
+            # Sphère pleine (le "ballon", cercle plein) qui s'emboîte dans une
+            # sphère creuse (le "creux", grand arc concentrique presque fermé,
+            # ouvert seulement au sommet -- juste assez pour laisser passer le
+            # col qui relie la tête à sa diaphyse, comme la tête fémorale dans
+            # l'acétabulum). Nesting CONCENTRIQUE (même centre, rayons
+            # différents) : la seule ouverture est l'échancrure du haut, pas un
+            # décalage de centre -- ce qui distingue ce pictogramme, au premier
+            # coup d'oeil, de la charnière ou du pivot qui suivent.
+            "dessin": (
+                "<path d='M88.8,91.7 A62,62 0 1,0 131.2,91.7' "
+                "fill='none' stroke='currentColor' stroke-width='2.2'/>"
+                "<circle cx='110' cy='150' r='40' fill='none' "
+                "stroke='currentColor' stroke-width='2.2'/>"
+                "<path d='M110,110 L110,55' fill='none' stroke='currentColor' "
+                "stroke-width='2.2'/>"
+                "<path d='M90,35 L130,35 L130,55 L90,55 Z' fill='none' "
+                "stroke='currentColor' stroke-width='2.2'/>"
+            ),
+            "pastilles": [
+                {
+                    "n": 1,
+                    "x": 110,
+                    "y": _Y_TYPE,
+                    "t": "Sphéroïde (énarthrose)",
+                    "ancre": "middle",
+                    "indice": "sphère pleine dans une sphère creuse",
+                },
+                {
+                    "n": 2,
+                    "x": 110,
+                    "y": _Y_AXES,
+                    "t": "3 axes : tous les mouvements",
+                    "ancre": "middle",
+                },
+                {
+                    "n": 3,
+                    "x": 110,
+                    "y": _Y_EXEMPLE,
+                    "t": "Ex : la hanche",
+                    "ancre": "middle",
+                },
+            ],
+        },
+        "diarthrose-ellipsoide": {
+            "id": "diarthrose-ellipsoide",
+            "titre": "L'ellipsoïde (condylienne)",
+            "vb": _VB_DIARTHROSE,
+            # Meme grammaire que la sphéroïde (nesting concentrique, col qui
+            # sort par le sommet) mais avec des ELLIPSES, nettement plus
+            # larges que hautes : la silhouette entière est plus plate et plus
+            # évasée que le cercle de la sphéroïde -- c'est ce contraste de
+            # forme (ronde contre aplatie), pas une étiquette, qui doit
+            # permettre de ne pas confondre les deux au premier coup d'oeil.
+            "dessin": (
+                "<path d='M85.4,101.1 A72,52 0 1,0 134.6,101.1' "
+                "fill='none' stroke='currentColor' stroke-width='2.2'/>"
+                "<ellipse cx='110' cy='150' rx='46' ry='30' fill='none' "
+                "stroke='currentColor' stroke-width='2.2'/>"
+                "<path d='M110,120 L110,55' fill='none' stroke='currentColor' "
+                "stroke-width='2.2'/>"
+                "<path d='M90,35 L130,35 L130,55 L90,55 Z' fill='none' "
+                "stroke='currentColor' stroke-width='2.2'/>"
+            ),
+            "pastilles": [
+                {
+                    "n": 1,
+                    "x": 110,
+                    "y": _Y_TYPE,
+                    "t": "Ellipsoïde (condylienne)",
+                    "ancre": "middle",
+                    "indice": "ellipse convexe dans une ellipse concave",
+                },
+                {
+                    "n": 2,
+                    "x": 110,
+                    "y": _Y_AXES,
+                    "t": "Flexion, extension",
+                    "ancre": "middle",
+                },
+                {
+                    "n": 3,
+                    "x": 110,
+                    "y": _Y_EXEMPLE,
+                    "t": "Abduction, adduction",
+                    "ancre": "middle",
+                },
+            ],
+        },
+        "diarthrose-selle": {
+            "id": "diarthrose-selle",
+            "titre": "L'articulation en selle",
+            # Vb propre, plus haut que les six autres : cette planche est la
+            # seule a devoir loger 4 lignes de libelle (nom + 2 axes distincts
+            # + exemple) plutot que 3.
+            "vb": "0 0 220 380",
+            # Deux courbes en S paralleles (concave dans un sens, convexe dans
+            # l'autre -- la selle de cheval) au lieu d'un nesting fermé : c'est
+            # la SEULE des sept planches sans forme emboitée en anneau, ce qui
+            # la rend immédiatement différente des sphéroïde/ellipsoïde
+            # voisines malgré les mêmes 2 axes de mouvement. Une tige rejoint
+            # chaque courbe à l'endroit où SA face est convexe (l'autre y étant
+            # alors concave), pour suggérer que les deux pièces sont bien
+            # inversement conformées.
+            "dessin": (
+                "<path d='M50,120 Q80,90 110,120 Q140,150 170,120' fill='none' "
+                "stroke='currentColor' stroke-width='2.2'/>"
+                "<path d='M50,132 Q80,102 110,132 Q140,162 170,132' fill='none' "
+                "stroke='currentColor' stroke-width='2.2'/>"
+                "<path d='M80,90 L80,45' fill='none' stroke='currentColor' "
+                "stroke-width='2.2'/>"
+                "<path d='M60,25 L100,25 L100,45 L60,45 Z' fill='none' "
+                "stroke='currentColor' stroke-width='2.2'/>"
+                "<path d='M140,162 L140,205' fill='none' stroke='currentColor' "
+                "stroke-width='2.2'/>"
+                "<path d='M120,205 L160,205 L160,225 L120,225 Z' fill='none' "
+                "stroke='currentColor' stroke-width='2.2'/>"
+            ),
+            "pastilles": [
+                {
+                    "n": 1,
+                    "x": 110,
+                    "y": 235,
+                    "t": "Articulation en selle",
+                    "ancre": "middle",
+                    "indice": "surface concave dans un sens, convexe dans l'autre",
+                },
+                {
+                    "n": 2,
+                    "x": 110,
+                    "y": 268,
+                    "t": "Flexion, extension",
+                    "ancre": "middle",
+                },
+                {
+                    "n": 3,
+                    "x": 110,
+                    "y": 301,
+                    "t": "Abduction, adduction",
+                    "ancre": "middle",
+                },
+                {
+                    "n": 4,
+                    "x": 110,
+                    "y": 334,
+                    "t": "Ex : sterno-claviculaire",
+                    "ancre": "middle",
+                },
+            ],
+        },
+        "diarthrose-ginglyme": {
+            "id": "diarthrose-ginglyme",
+            "titre": "La ginglyme (trochléenne)",
+            "vb": _VB_DIARTHROSE,
+            # Le cours nomme lui-meme cette diarthrose une "charniere" (slide
+            # 88) : le pictogramme reprend donc l'icone universelle de la
+            # charniere (deux barres traversees par une goupille), pas une
+            # tentative de dessiner la trochlee/cochlee anatomique -- bien
+            # plus surement identifiable sans etiquette, et fidele au mot du
+            # cours. La fleche courbe (1 sens) marque l'axe UNIQUE, contre les
+            # deux fleches opposees du pivot ci-dessous.
+            "dessin": _DEFS_FLECHE
+            + (
+                "<path d='M95,35 L95,92' fill='none' stroke='currentColor' "
+                "stroke-width='2.2'/>"
+                "<path d='M55,92 L135,92' fill='none' stroke='currentColor' "
+                "stroke-width='2.2'/>"
+                "<circle cx='95' cy='100' r='9' fill='none' "
+                "stroke='currentColor' stroke-width='2.2'/>"
+                "<path d='M55,108 L135,108' fill='none' stroke='currentColor' "
+                "stroke-width='2.2'/>"
+                "<path d='M95,108 L95,195' fill='none' stroke='currentColor' "
+                "stroke-width='2.2'/>"
+                "<path d='M187.5,120.6 A32,32 0 1,1 138.5,120.6' fill='none' "
+                "stroke='currentColor' stroke-width='1.8' "
+                "marker-end='url(#fleche)'/>"
+            ),
+            "pastilles": [
+                {
+                    "n": 1,
+                    "x": 110,
+                    "y": _Y_TYPE,
+                    "t": "Ginglyme (trochléenne)",
+                    "ancre": "middle",
+                    "indice": "une trochlée s'emboîte dans une cochlée : une charnière",
+                },
+                {
+                    "n": 2,
+                    "x": 110,
+                    "y": _Y_AXES,
+                    "t": "1 axe : flexion-extension",
+                    "ancre": "middle",
+                },
+                {
+                    "n": 3,
+                    "x": 110,
+                    "y": _Y_EXEMPLE,
+                    "t": "Ex : huméro-ulnaire",
+                    "ancre": "middle",
+                },
+            ],
+        },
+        "diarthrose-trochoide": {
+            "id": "diarthrose-trochoide",
+            "titre": "La trochoïde",
+            "vb": _VB_DIARTHROSE,
+            # Une tige verticale continue traverse un anneau (cylindre convexe
+            # dans cylindre concave) : contrairement a la charniere (deux
+            # barres qui s'arretent a la goupille), ici la tige NE S'INTERROMPT
+            # PAS -- elle tourne SUR son axe, elle ne bascule pas autour de lui.
+            # Deux fleches courbes opposees (au lieu d'une seule pour la
+            # ginglyme) rendent visible que la rotation se fait dans les deux
+            # sens (pronation ET supination).
+            "dessin": _DEFS_FLECHE
+            + (
+                "<path d='M110,30 L110,210' fill='none' stroke='currentColor' "
+                "stroke-width='2.6'/>"
+                "<ellipse cx='110' cy='115' rx='46' ry='20' fill='none' "
+                "stroke='currentColor' stroke-width='2.2'/>"
+                "<path d='M157.5,97.0 A62,28 0 0,1 157.5,133.0' fill='none' "
+                "stroke='currentColor' stroke-width='1.8' "
+                "marker-end='url(#fleche)'/>"
+                "<path d='M62.5,97.0 A62,28 0 0,0 62.5,133.0' fill='none' "
+                "stroke='currentColor' stroke-width='1.8' "
+                "marker-end='url(#fleche)'/>"
+            ),
+            "pastilles": [
+                {
+                    "n": 1,
+                    "x": 110,
+                    "y": _Y_TYPE,
+                    "t": "Trochoïde",
+                    "ancre": "middle",
+                    "indice": "cylindre convexe dans un cylindre concave",
+                },
+                {
+                    "n": 2,
+                    "x": 110,
+                    "y": _Y_AXES,
+                    "t": "1 axe : pronation-supination",
+                    "ancre": "middle",
+                },
+                {
+                    "n": 3,
+                    "x": 110,
+                    "y": _Y_EXEMPLE,
+                    "t": "Ex : radio-ulnaire proximale",
+                    "ancre": "middle",
+                },
+            ],
+        },
+        "diarthrose-bicondylienne": {
+            "id": "diarthrose-bicondylienne",
+            "titre": "La bicondylienne",
+            "vb": _VB_DIARTHROSE,
+            # Seule planche a deux bosses SEPAREES (une tige qui se separe en
+            # deux, chacune vers son propre condyle) posees sur un unique
+            # plateau presque plat : le compte ("deux" ronds, pas un ni deux
+            # anneaux) est ce qui la distingue sans ambiguite de la sphéroïde/
+            # ellipsoïde (une seule piece emboitee) et de la plane ci-dessous
+            # (aucune bosse).
+            "dessin": (
+                "<path d='M110,25 L110,70' fill='none' stroke='currentColor' "
+                "stroke-width='2.2'/>"
+                "<path d='M110,70 L78,95' fill='none' stroke='currentColor' "
+                "stroke-width='2.2'/>"
+                "<path d='M110,70 L142,95' fill='none' stroke='currentColor' "
+                "stroke-width='2.2'/>"
+                "<circle cx='78' cy='120' r='26' fill='none' "
+                "stroke='currentColor' stroke-width='2.2'/>"
+                "<circle cx='142' cy='120' r='26' fill='none' "
+                "stroke='currentColor' stroke-width='2.2'/>"
+                "<path d='M40,168 A300,300 0 0,0 180,168' fill='none' "
+                "stroke='currentColor' stroke-width='2.2'/>"
+                "<path d='M110,168 L110,210' fill='none' stroke='currentColor' "
+                "stroke-width='2.2'/>"
+            ),
+            "pastilles": [
+                {
+                    "n": 1,
+                    "x": 110,
+                    "y": _Y_TYPE,
+                    "t": "Bicondylienne",
+                    "ancre": "middle",
+                    "indice": "une paire de condyles convexes sur une surface plane",
+                },
+                {
+                    "n": 2,
+                    "x": 110,
+                    "y": _Y_AXES,
+                    "t": "1 axe : flexion/extension",
+                    "ancre": "middle",
+                },
+                {
+                    "n": 3,
+                    "x": 110,
+                    "y": _Y_EXEMPLE,
+                    "t": "Ex : tibio-fémorale",
+                    "ancre": "middle",
+                },
+            ],
+        },
+        "diarthrose-plane": {
+            "id": "diarthrose-plane",
+            "titre": "L'articulation plane (arthrodie)",
+            "vb": _VB_DIARTHROSE,
+            # Deux barres droites paralleles, sans aucune courbe ni bosse : la
+            # seule planche entierement rectiligne des sept -- ce qui la rend
+            # instantanement differente de toutes les autres, qui portent
+            # chacune au moins une courbe. La fleche horizontale double
+            # souligne que le seul mouvement possible est un glissement, pas
+            # une rotation autour d'un axe (contrairement aux six autres).
+            "dessin": _DEFS_FLECHE
+            + (
+                "<path d='M110,30 L110,92' fill='none' stroke='currentColor' "
+                "stroke-width='2.2'/>"
+                "<path d='M50,92 L170,92' fill='none' stroke='currentColor' "
+                "stroke-width='2.4'/>"
+                "<path d='M50,112 L170,112' fill='none' stroke='currentColor' "
+                "stroke-width='2.4'/>"
+                "<path d='M110,112 L110,205' fill='none' stroke='currentColor' "
+                "stroke-width='2.2'/>"
+                "<path d='M45,102 L175,102' fill='none' stroke='currentColor' "
+                "stroke-width='1.8' marker-start='url(#fleche)' "
+                "marker-end='url(#fleche)'/>"
+            ),
+            "pastilles": [
+                {
+                    "n": 1,
+                    "x": 110,
+                    "y": _Y_TYPE,
+                    "t": "Articulation plane (arthrodie)",
+                    "ancre": "middle",
+                    "indice": "deux surfaces planes qui s'opposent",
+                },
+                {
+                    "n": 2,
+                    "x": 110,
+                    "y": _Y_AXES,
+                    "t": "Glissement uniquement",
+                    "ancre": "middle",
+                },
+                {
+                    "n": 3,
+                    "x": 110,
+                    "y": _Y_EXEMPLE,
+                    "t": "Ex : le carpe",
+                    "ancre": "middle",
+                },
+            ],
+        },
+    }
+)
+
+# --- Chapitre 3 : l'articulation synoviale type, en coupe (slides 77-104) -
+#
+# Slide 77 sous-titre lui-meme son schema "Schema d'une articulation
+# synoviale type" -- c'est le slide cite ici. Les elements dessines
+# rassemblent des faits repartis sur plusieurs slides textuelles (77 : sur-
+# faces + cavite + capsule a deux membranes ; 99 : cartilage ; 102 : menisque ;
+# 104 : ligament), verifies un a un contre le texte extrait (pdftotext) et
+# contre les deux schemas-images du cours (slides 100 et 109, rendus en PNG
+# et lus) avant d'etre traduits en traits. Deux os en vis-a-vis (rectangles),
+# chacun coiffe d'un arc plus epais (cartilage articulaire) ; entre eux, la
+# cavite articulaire (l'espace vide central, ou loge le liquide synovial) et
+# un coin (le menisque, ancre a la capsule interne cote gauche, conformement
+# au texte "face adherente a la capsule") ; autour, DEUX enveloppes en poin-
+# tilles concentriques (la capsule : fibreuse=exterieure, synoviale=interieu-
+# re) ; a l'exterieur de la capsule, un trait plein continu (le ligament) --
+# sa position, dehors, est la piece spatiale que ce schema doit faire
+# passer : le ligament n'est PAS a l'interieur de la capsule.
+#
+# Viewbox large (620x460) et libelles courts (<=22 caracteres, meme plafond
+# que "Cartilage articulaire" sur os-long-coupe) : une premiere version avec
+# "Capsule : membrane fibreuse" et "Cavité articulaire (liquide synovial)"
+# debordait du cadre une fois decalee par son ancre (~7 px/caractere a cette
+# echelle, cf. le calcul de marge d'os-long-coupe) -- verifie par rendu reel
+# (rsvg-convert) avant d'etre corrige ici. Chaque libelle rejoint sa structure
+# par un repere (fleche fine), le point de depart choisi du cote ou la
+# structure est reellement visible (fibreuse/synoviale/menisque a gauche,
+# cartilage/cavite/ligament a droite).
+_DESSIN_ARTICULATION_SYNOVIALE = (
+    "<rect x='260' y='20' width='40' height='150' fill='none' "
+    "stroke='currentColor' stroke-width='2'/>"
+    "<path d='M248,178 Q280,215 312,178' fill='none' stroke='currentColor' "
+    "stroke-width='4'/>"
+    "<rect x='260' y='290' width='40' height='150' fill='none' "
+    "stroke='currentColor' stroke-width='2'/>"
+    "<path d='M248,282 Q280,245 312,282' fill='none' stroke='currentColor' "
+    "stroke-width='4'/>"
+    "<path d='M230,196 Q223,230 230,264 Q250,240 262,230 Q250,220 230,196 Z' "
+    "fill='none' stroke='currentColor' stroke-width='2'/>"
+    "<path d='M260,150 Q205,225 260,300' fill='none' stroke='currentColor' "
+    "stroke-width='1.6' stroke-dasharray='6 4'/>"
+    "<path d='M300,150 Q355,225 300,300' fill='none' stroke='currentColor' "
+    "stroke-width='1.6' stroke-dasharray='6 4'/>"
+    "<path d='M260,158 Q222,225 260,292' fill='none' stroke='currentColor' "
+    "stroke-width='1.2' stroke-dasharray='3 3'/>"
+    "<path d='M300,158 Q338,225 300,292' fill='none' stroke='currentColor' "
+    "stroke-width='1.2' stroke-dasharray='3 3'/>"
+    "<path d='M300,120 Q385,225 300,330' fill='none' stroke='currentColor' "
+    "stroke-width='3'/>"
+    + _DEFS_FLECHE
+    + "<g class='reperes' fill='none' stroke='currentColor' stroke-width='1.2'>"
+    "<path d='M245,165 L188,150' marker-end='url(#fleche)'/>"
+    "<path d='M234,230 L188,230' marker-end='url(#fleche)'/>"
+    "<path d='M254,268 L188,318' marker-end='url(#fleche)'/>"
+    "<path d='M303,182 L372,150' marker-end='url(#fleche)'/>"
+    "<path d='M290,228 L372,230' marker-end='url(#fleche)'/>"
+    "<path d='M328,232 L372,318' marker-end='url(#fleche)'/>"
+    "</g>"
+)
+
+_PASTILLES_ARTICULATION_SYNOVIALE = [
+    {
+        "n": 1,
+        "x": 170,
+        "y": 150,
+        "t": "Membrane fibreuse",
+        "ancre": "end",
+        "indice": "couche externe de la capsule, résistante, peu élastique",
+    },
+    {
+        "n": 2,
+        "x": 170,
+        "y": 230,
+        "t": "Ménisque",
+        "ancre": "end",
+        "indice": "coin de fibrocartilage, adhérent à la capsule",
+    },
+    {
+        "n": 3,
+        "x": 170,
+        "y": 320,
+        "t": "Membrane synoviale",
+        "ancre": "end",
+        "indice": "couche interne de la capsule, sécrète le liquide synovial",
+    },
+    {
+        "n": 4,
+        "x": 390,
+        "y": 150,
+        "t": "Cartilage articulaire",
+        "ancre": "start",
+        "indice": "coiffe l'extrémité de chaque os",
+    },
+    {
+        "n": 5,
+        "x": 390,
+        "y": 230,
+        "t": "Cavité articulaire",
+        "ancre": "start",
+        "indice": "espace entre les deux surfaces, où loge le liquide synovial",
+    },
+    {
+        "n": 6,
+        "x": 390,
+        "y": 320,
+        "t": "Ligament",
+        "ancre": "start",
+        "indice": "hors de la capsule, relie les deux os",
+    },
+]
+
+PLANCHES["articulation-synoviale-coupe"] = {
+    "id": "articulation-synoviale-coupe",
+    "titre": "L'articulation synoviale type, en coupe",
+    "vb": "0 0 620 460",
+    "dessin": _DESSIN_ARTICULATION_SYNOVIALE,
+    "pastilles": _PASTILLES_ARTICULATION_SYNOVIALE,
+}

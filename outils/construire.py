@@ -205,11 +205,30 @@ def _rendre_volet(cle, chapitre):
         # vit dans ce <th> du nom, pas dans une 4e colonne : la bascule mobile mappe
         # .muscles td:nth-of-type(1/2/3) sur les trois <td> ci-dessous, une colonne
         # de plus la casserait.
+        #
+        # Defaut Critical corrige ici : origine/terminaison/action vivaient en texte
+        # brut, sans aucun mecanisme de masquage ni de saisie -- ouvrir l'onglet
+        # exposait toutes les reponses (voir docs/superpowers/plans/2026-09-26-
+        # chapitres-2-a-7.md, tache 1). Chaque valeur est desormais enveloppee dans
+        # un <span class="muscle__valeur"> : le texte reste present et lisible tel
+        # quel (aucun attribut de masquage pose ICI, a la difference du verso d'une
+        # carte) -- si le script echoue, la table degrade en simple table de
+        # reference. C'est interface.js qui, une fois charge, bascule la table en
+        # mode="champs" par defaut : il lit alors le texte de chaque span comme
+        # reponse attendue, l'y masque via l'attribut data-mode du <table> (pas du
+        # <span>) et injecte un champ de saisie a la place -- jamais l'inverse, sinon
+        # la table resterait aveugle sans JavaScript.
+        #
+        # Le data-id du <tr> porte l'identifiant planifiable {chapitre}#muscle#{nom}
+        # (meme formule que celle d'exercices.itemsDuCours, cote JS) : un nom de
+        # muscle contient des espaces, invalides dans un attribut id, d'ou data-id
+        # plutot que id.
         lignes = "".join(
-            f"<tr><th>{html.escape(m['nom'])} {_src(m)}</th>"
-            f"<td>{html.escape(' ; '.join(m['origine']))}</td>"
-            f"<td>{html.escape(' ; '.join(m['terminaison']))}</td>"
-            f"<td>{html.escape(' ; '.join(m['actions']))}</td></tr>"
+            f'<tr data-id="{html.escape(f"{chapitre["num"]}#muscle#{m["nom"]}")}">'
+            f"<th>{html.escape(m['nom'])} {_src(m)}</th>"
+            f'<td><span class="muscle__valeur">{html.escape(" ; ".join(m["origine"]))}</span></td>'
+            f'<td><span class="muscle__valeur">{html.escape(" ; ".join(m["terminaison"]))}</span></td>'
+            f'<td><span class="muscle__valeur">{html.escape(" ; ".join(m["actions"]))}</span></td></tr>'
             for m in chapitre["muscles"]
         )
         return (
@@ -229,7 +248,7 @@ def _rendre_volet(cle, chapitre):
             '<article class="piege">'
             '<span class="piege__etiquette">Piège</span>'
             f'<p class="piege__titre">{html.escape(p["titre"])}</p>'
-            f'<p>{html.escape(p["texte"])}</p>'
+            f"<p>{html.escape(p['texte'])}</p>"
             f"{_src(p)}</article>"
             for p in chapitre["pieges"]
         )

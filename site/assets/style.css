@@ -782,6 +782,17 @@ body {
 /* --- 5.8 Tableau de muscles -------------------------------------------- */
 
 .muscles {
+  width: 100%;
+  /* table-layout: auto laissait chaque colonne reclamer jusqu'a --mesure
+   * (68ch) de large : avec un nom de muscle francais reel et sa police de
+   * repli (webfont bloquee, hors ligne ou lente), la somme des quatre
+   * colonnes depassait le cadre a 768px -- signale par
+   * outils/verifier_mobile.py, jamais visible avant les donnees reelles des
+   * chapitres 5 a 7. table-layout: fixed borne chaque colonne a 1/4 de la
+   * largeur du tableau (aucune largeur explicite sur la premiere ligne de
+   * thead) quelle que soit la police ; le texte enveloppe au lieu de forcer
+   * la table a s'elargir. */
+  table-layout: fixed;
   background: var(--carte);
   border: 1px solid var(--trait);
   font-size: var(--t-s);
@@ -813,13 +824,19 @@ body {
   padding: var(--pas) var(--pas-2);
   border: 1px solid var(--trait);
   max-width: var(--mesure);
+  /* table-layout: fixed borne chaque colonne, mais un terme compose sans
+   * espace (parenthese, barre oblique) peut malgre tout depasser une colonne
+   * etroite a 768px -- constate empiriquement avec un vrai nom de muscle
+   * francais. overflow-wrap: anywhere autorise la coupure en dernier
+   * recours, apres les points de coupure normaux (espaces, traits d'union) :
+   * jamais de defilement horizontal a la place. */
+  overflow-wrap: anywhere;
 }
 
 .muscles tbody th {
   font-family: var(--police-titre);
   font-size: var(--t-m);
   font-weight: 600;
-  white-space: nowrap;
 }
 
 /* Sous 720 px, une table a quatre colonnes deborde. Elle devient une liste de
@@ -889,6 +906,47 @@ body {
   .muscles td:nth-of-type(3)::before {
     content: "action";
   }
+}
+
+/* --- 5.8a Table de muscles : mode champs -------------------------------
+ * Defaut Critical corrige ici (plan chapitres-2-a-7, tache 1) : la table ne
+ * possedait ni masquage ni champ de saisie -- ouvrir l'onglet exposait
+ * toutes les reponses. Meme grammaire que le mode muet des planches (§5.6),
+ * appliquee ligne par ligne :
+ *   - .muscle__valeur porte la valeur telle qu'ecrite par outils/construire.py
+ *     -- visible par defaut, donc lisible sans JavaScript (contrainte de la
+ *     tache : si le script echoue, la table degrade en reference lue).
+ *   - .muscle__champ (input + verdict) est cree par interface.js, jamais par
+ *     le generateur ; il reste absent du DOM tant que le script n'a pas
+ *     tourne, donc rien a masquer par defaut sans JS.
+ *   - C'est l'attribut data-mode du <table> -- pose par interface.js, "champs"
+ *     par defaut -- qui bascule laquelle des deux est affichee. Sans lui
+ *     (JS absent), .muscle__valeur reste seule visible : degradation sure. */
+.muscle__champ {
+  display: none;
+  flex-direction: column;
+  gap: calc(var(--pas) / 2);
+}
+
+.muscles[data-mode="champs"] .muscle__valeur {
+  display: none;
+}
+
+.muscles[data-mode="champs"] .muscle__champ {
+  display: flex;
+}
+
+/* Correction d'un champ de muscle : meme grammaire visuelle que le quiz et
+ * la pastille muette (§5.5, §5.12) -- trait et graisse, jamais une teinte. */
+.muscle__champ input[data-verdict="bon"] {
+  border-color: var(--encre);
+  border-width: 2px;
+  font-weight: 700;
+}
+
+.muscle__champ input[data-verdict="mauvais"] {
+  border-style: dashed;
+  color: var(--encre-doux);
 }
 
 /* --- 5.8b Pieges (mises en garde) --------------------------------------

@@ -297,6 +297,117 @@ export function demarrer(document, support) {
     }
   }
 
+  // --- Muscles (reference / champs) -------------------------------------------
+  //
+  // Defaut Critical corrige ici (plan chapitres-2-a-7, tache 1) : la table
+  // n'avait ni masquage ni champ de saisie -- ouvrir l'onglet exposait toutes
+  // les reponses. Meme grammaire que le mode muet des planches ci-dessus,
+  // appliquee ligne par ligne : la verite attendue vient du DOM (le texte
+  // deja rendu par outils/construire.py dans .muscle__valeur), jamais de
+  // cours.json -- comme verifierPastille pour une legende de planche.
+  //
+  // A la difference des planches (par defaut "legende", donc lisible, tant
+  // qu'on n'a pas explicitement demande le mode muet), le mode par defaut ici
+  // est "champs" : c'est la table de reference (valeurs visibles) qui est
+  // l'etat secondaire, atteint par bascule. Sans JavaScript, aucun .muscle__champ
+  // n'est jamais cree : la table reste sur son unique etat construit -- valeurs
+  // visibles -- ce qui satisfait la degradation sans script.
+
+  function construireChampsMuscles(table) {
+    for (const ligne of table.querySelectorAll(':scope > tbody > tr')) {
+      for (const cellule of ligne.querySelectorAll(':scope > td')) {
+        const valeur = cellule.querySelector('.muscle__valeur');
+        if (!valeur) continue;
+        const attendu = valeur.textContent.trim();
+        const libelle = ['Origine', 'Terminaison', 'Action'][cellule.cellIndex - 1] || 'Réponse';
+
+        const enveloppe = document.createElement('span');
+        enveloppe.className = 'muscle__champ';
+
+        const champ = document.createElement('input');
+        champ.type = 'text';
+        champ.className = 'champ';
+        champ.autocomplete = 'off';
+        champ.dataset.attendu = attendu;
+        champ.setAttribute('aria-label', `${libelle} — ${ligne.dataset.id || ''}`);
+
+        const etat = document.createElement('span');
+        etat.className = 'muscle__etat mono';
+
+        enveloppe.append(champ, etat);
+        cellule.appendChild(enveloppe);
+      }
+    }
+  }
+
+  // Verifie TOUTES les lignes de la table en un seul geste, comme
+  // verifierPlanche pour toutes les pastilles d'une planche : "ligne par
+  // ligne" (spec §4.2) decrit la granularite du verdict -- un par muscle --
+  // pas un bouton distinct par ligne.
+  function verifierMuscles(table) {
+    for (const ligne of table.querySelectorAll(':scope > tbody > tr')) {
+      const champs = Array.from(ligne.querySelectorAll('.muscle__champ input'));
+      if (!champs.length) continue;
+      let toutCorrect = true;
+      for (const champ of champs) {
+        const correct = verifierPastille({ t: champ.dataset.attendu }, champ.value);
+        champ.dataset.verdict = correct ? 'bon' : 'mauvais';
+        const etatSpan = champ.parentElement.querySelector('.muscle__etat');
+        if (etatSpan) etatSpan.textContent = correct ? 'juste' : 'faux';
+        if (!correct) toutCorrect = false;
+      }
+      const id = ligne.dataset.id;
+      if (id) enregistrerVerdict(id, toutCorrect ? 'su' : 'rate');
+      ligne.dataset.verifie = 'oui';
+    }
+  }
+
+  function etatModeMuscles(table) {
+    return table.dataset.mode === 'reference' ? 'reference' : 'champs';
+  }
+
+  function actualiserBoutonModeMuscles(table, bouton) {
+    if (!bouton) return;
+    const mode = etatModeMuscles(table);
+    bouton.setAttribute('aria-pressed', mode === 'champs' ? 'true' : 'false');
+    const etat = bouton.querySelector('.mode-muscles__etat');
+    if (etat) etat.textContent = mode === 'champs' ? 'mode champs' : 'mode référence';
+  }
+
+  // Comme basculerModePlanches : le bouton Verifier n'a de sens qu'en mode
+  // champs -- en reference, rien n'est masque a verifier.
+  function basculerModeMuscles(table, boutonMode, boutonVerifier) {
+    const nouveauMode = etatModeMuscles(table) === 'champs' ? 'reference' : 'champs';
+    table.dataset.mode = nouveauMode;
+    if (boutonVerifier) boutonVerifier.hidden = nouveauMode !== 'champs';
+    actualiserBoutonModeMuscles(table, boutonMode);
+  }
+
+  const tablesMuscles = Array.from(document.querySelectorAll('.muscles'));
+  if (tablesMuscles.length) {
+    // Une seule table par page de chapitre (l'onglet Muscles n'apparait que
+    // si le chapitre en a) : la boucle documente qu'aucune limite n'est
+    // supposee, sans en tirer de complexite supplementaire.
+    for (const table of tablesMuscles) {
+      construireChampsMuscles(table);
+      table.dataset.mode = 'champs';
+
+      const boutonVerifier = document.createElement('button');
+      boutonVerifier.type = 'button';
+      boutonVerifier.className = 'action';
+      boutonVerifier.textContent = 'Vérifier';
+      boutonVerifier.addEventListener('click', () => verifierMuscles(table));
+      table.after(boutonVerifier);
+
+      const boutonMode = document.querySelector('[data-action="mode-muscles"]');
+      actualiserBoutonModeMuscles(table, boutonMode);
+      if (boutonMode) {
+        boutonMode.hidden = false;
+        boutonMode.addEventListener('click', () => basculerModeMuscles(table, boutonMode, boutonVerifier));
+      }
+    }
+  }
+
   // --- Progression (accueil) --------------------------------------------------
 
   // Un chapitre jamais ouvert doit se voir vide, pas gris-neutre (spec §4.1) :

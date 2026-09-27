@@ -54,6 +54,14 @@ export function itemsDuCours(cours) {
         items.push(neuf(`${planche.id}#${pastille.n}`, 'pastille'));
       }
     }
+    // Meme formule d'identifiant que le data-id pose par outils/construire.py
+    // sur le <tr> correspondant (§ _rendre_volet, cle "muscles") : une seule
+    // definition en Python, une seule en JS, jamais partagee -- une derive
+    // entre les deux casserait silencieusement enregistrerVerdict (l'item ne
+    // retrouverait jamais sa ligne).
+    for (const muscle of chapitre.muscles || []) {
+      items.push(neuf(`${chapitre.num}#muscle#${muscle.nom}`, 'muscle'));
+    }
   }
   return items;
 }

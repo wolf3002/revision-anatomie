@@ -57,6 +57,7 @@ def test_la_table_des_muscles_est_structuree():
     from outils.construire import _rendre_volet
 
     chapitre_factice = {
+        "num": 5,
         "muscles": [
             {
                 "nom": "Muscle factice",
@@ -65,7 +66,7 @@ def test_la_table_des_muscles_est_structuree():
                 "actions": ["Action factice"],
                 "slide": 1,
             }
-        ]
+        ],
     }
     rendu = _rendre_volet("muscles", chapitre_factice)
     assert '<table class="muscles">' in rendu
@@ -82,6 +83,7 @@ def test_la_ligne_de_muscle_affiche_son_renvoi_de_slide():
     from outils.construire import _rendre_volet
 
     chapitre_factice = {
+        "num": 5,
         "muscles": [
             {
                 "nom": "Muscle factice",
@@ -90,7 +92,7 @@ def test_la_ligne_de_muscle_affiche_son_renvoi_de_slide():
                 "actions": ["A"],
                 "slide": 123,
             }
-        ]
+        ],
     }
     rendu = _rendre_volet("muscles", chapitre_factice)
     ligne = rendu[rendu.index("<tbody>") :]
@@ -99,6 +101,57 @@ def test_la_ligne_de_muscle_affiche_son_renvoi_de_slide():
     # Le renvoi vit dans le <th> du nom, pas dans une 4e colonne : la bascule
     # mobile mappe .muscles td:nth-of-type(1/2/3) sur exactement trois <td>.
     assert rendu.count("<td>") == 3
+
+
+def test_une_ligne_de_muscle_porte_son_identifiant_planifiable():
+    # Defaut Critical (plan chapitres-2-a-7, tache 1) : sans data-id, le
+    # planificateur ne peut pas faire revenir un muscle rate. Le nom peut
+    # contenir des espaces/apostrophes -- invalides dans un attribut id --
+    # d'ou data-id, lu par interface.js/exercices.itemsDuCours (meme formule
+    # {chapitre}#muscle#{nom}).
+    from outils.construire import _rendre_volet
+
+    chapitre_factice = {
+        "num": 6,
+        "muscles": [
+            {
+                "nom": "Fléchisseur ulnaire du carpe",
+                "origine": ["O"],
+                "terminaison": ["T"],
+                "actions": ["A"],
+                "slide": 200,
+            }
+        ],
+    }
+    rendu = _rendre_volet("muscles", chapitre_factice)
+    assert 'data-id="6#muscle#Fléchisseur ulnaire du carpe"' in rendu
+
+
+def test_les_valeurs_de_muscle_restent_lisibles_sans_javascript():
+    # Complement du defaut Critical : les valeurs ne sont PAS masquees a la
+    # construction (aucun data-etat="cachee" ici, a la difference du verso
+    # d'une carte) -- si le script echoue, la table degrade en reference lue.
+    # C'est interface.js qui les masque dynamiquement (mode="champs" par
+    # defaut) en s'appuyant sur le wrapper .muscle__valeur ci-dessous.
+    from outils.construire import _rendre_volet
+
+    chapitre_factice = {
+        "num": 5,
+        "muscles": [
+            {
+                "nom": "Muscle factice",
+                "origine": ["Origine lisible"],
+                "terminaison": ["Terminaison lisible"],
+                "actions": ["Action lisible"],
+                "slide": 1,
+            }
+        ],
+    }
+    rendu = _rendre_volet("muscles", chapitre_factice)
+    assert 'data-etat="cachee"' not in rendu
+    assert rendu.count('<span class="muscle__valeur">') == 3
+    for valeur in ("Origine lisible", "Terminaison lisible", "Action lisible"):
+        assert valeur in rendu
 
 
 def test_les_six_pieges_du_chapitre_1_sont_rendus_avec_leur_slide():

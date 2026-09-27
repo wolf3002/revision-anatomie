@@ -61,3 +61,24 @@ test('le cours est aplati en items planifiables', () => {
   assert.deepEqual([...new Set(items.map((i) => i.type))], ['carte', 'quiz', 'pastille']);
   assert.ok(items.every((i) => i.chapitre === 1 && i.statut === 'jamais'));
 });
+
+test('une ligne de muscle devient un item planifiable identifié {chapitre}#muscle#{nom}', () => {
+  const cours = {
+    chapitres: [{
+      num: 5,
+      cartes: [],
+      quiz: [],
+      planches: [],
+      muscles: [
+        { nom: 'Grand rhomboïde', origine: ['O'], terminaison: ['T'], actions: ['A'], slide: 150 },
+        { nom: "Long fléchisseur de l'hallux", origine: ['O'], terminaison: ['T'], actions: ['A'], slide: 151 },
+      ],
+    }],
+  };
+  const items = itemsDuCours(cours);
+  assert.deepEqual(items.map((i) => i.id), [
+    '5#muscle#Grand rhomboïde',
+    "5#muscle#Long fléchisseur de l'hallux",
+  ]);
+  assert.ok(items.every((i) => i.type === 'muscle' && i.chapitre === 5 && i.statut === 'jamais'));
+});

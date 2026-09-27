@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  intervalleDeBase, echeance, estDu, composerSeance, ajouterJours,
+  intervalleDeBase, echeance, estDu, composerSeance, ajouterJours, reinjecterRate,
 } from '../site/assets/planificateur.js';
 
 const item = (id, chapitre, statut = 'jamais', derniereVue = null, type = 'carte') =>
@@ -95,4 +95,39 @@ test('la séance entrelace aussi les formats à l\'intérieur d\'un même chapit
   const seance = composerSeance(items, { intervalle: 4, aujourdHui: '2026-09-18', taille: 6 });
   const types = seance.map((i) => i.type);
   assert.deepEqual(types, ['carte', 'quiz', 'pastille', 'carte', 'quiz', 'pastille']);
+});
+
+// Spec §4.3 : un item note "rate" "repasse en fin de la séance en cours" --
+// pas seulement le lendemain une fois sa nouvelle echeance (le jour meme)
+// calculee. composerSeance ne construit sa file qu'une fois au demarrage ;
+// c'est reinjecterRate qui porte ce comportement, appele par interface.js a
+// chaque verdict enregistre pendant une seance (voir enregistrerVerdict /
+// surVerdictPendantSeance dans site/assets/interface.js).
+test('un item rate pendant la seance repasse en fin de la file en cours', () => {
+  const enCours = [item('b', 2), item('c', 3)];
+  const rate = { ...item('a', 1, 'rate', '2026-09-18'), echecs: 1 };
+  const file = reinjecterRate(enCours, rate);
+  assert.deepEqual(file.map((i) => i.id), ['b', 'c', 'a']);
+  assert.equal(file[2], rate, 'l\'item reinjecte est bien celui fourni (meme reference, verdict a jour)');
+});
+
+test('un item su ou difficile ne repasse pas dans la seance en cours', () => {
+  const enCours = [item('b', 2)];
+  const su = item('a', 1, 'su', '2026-09-18');
+  const difficile = item('c', 1, 'difficile', '2026-09-18');
+  assert.equal(reinjecterRate(enCours, su), enCours);
+  assert.equal(reinjecterRate(enCours, difficile), enCours);
+});
+
+test('reinjecterRate ne mute jamais la file recue', () => {
+  const enCours = [item('b', 2)];
+  const original = [...enCours];
+  reinjecterRate(enCours, { ...item('a', 1, 'rate', '2026-09-18') });
+  assert.deepEqual(enCours, original);
+});
+
+test('sans item a reinjecter, la file en cours ne change pas', () => {
+  const enCours = [item('b', 2)];
+  assert.equal(reinjecterRate(enCours, null), enCours);
+  assert.equal(reinjecterRate(enCours, undefined), enCours);
 });

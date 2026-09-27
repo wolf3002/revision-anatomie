@@ -23,7 +23,7 @@
  * meme DOM que dans sa page de chapitre -- pas une imitation.
  */
 
-import { intervalleDeBase, composerSeance } from './planificateur.js';
+import { intervalleDeBase, composerSeance, reinjecterRate } from './planificateur.js';
 import { creerStockage } from './stockage.js';
 import { appliquerAutoEvaluation, corrigerQuestion, verifierPastille, itemsDuCours } from './exercices.js';
 
@@ -81,6 +81,13 @@ export function demarrer(document, support) {
 
   let carteActive = null;
 
+  // Hook pose par le bloc "Seance du jour" plus bas (accueil uniquement) pour
+  // reinjecter en fin de file un item note "rate" PENDANT la seance en cours
+  // (spec §4.3). Reste a `null` sur une page de chapitre, qui n'a pas de
+  // notion de file de seance -- enregistrerVerdict y fonctionne exactement
+  // comme avant.
+  let surVerdictPendantSeance = null;
+
   function itemParDefaut(id) {
     return coursItemsParDefaut.get(id) || { echecs: 0 };
   }
@@ -91,6 +98,7 @@ export function demarrer(document, support) {
     const itemMisAJour = appliquerAutoEvaluation(itemExistant, verdict, aujourdHuiISO());
     stockage.ecrireItem(id, itemMisAJour);
     actualiserProgression();
+    if (surVerdictPendantSeance) surVerdictPendantSeance(itemMisAJour);
     return itemMisAJour;
   }
 
@@ -554,6 +562,20 @@ export function demarrer(document, support) {
     // Suivant sans lui laisseraient deux appels se chevaucher et corrompre
     // position/file (constate par pilotage -- "Suivant" clique en rafale).
     let enTransition = false;
+
+    // Cable le hook defini plus haut : chaque verdict enregistre PENDANT la
+    // seance (carte, quiz, planche, muscle -- enregistrerVerdict est le seul
+    // point de passage commun) passe ici. `file.length` vaut 0 hors seance
+    // (avant "Commencer", ou apres terminerSeance) : reinjecterRate n'agit
+    // donc jamais en dehors d'une seance reellement en cours. Pousser en fin
+    // de TABLEAU, quelle que soit la position courante, est exactement "fin
+    // de la seance en cours" (spec §4.3) -- pas besoin de connaitre la
+    // position pour ca.
+    surVerdictPendantSeance = (itemMisAJour) => {
+      if (!file.length) return;
+      file = reinjecterRate(file, itemMisAJour);
+      if (compteSeance) compteSeance.textContent = `${position + 1} / ${file.length}`;
+    };
 
     // Un item est "revise" s'il porte la trace laissee par une vraie
     // evaluation -- pas seulement affiche. Cartes et quiz marquent deja le

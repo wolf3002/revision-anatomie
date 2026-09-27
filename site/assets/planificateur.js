@@ -69,3 +69,19 @@ export function composerSeance(items, { intervalle, aujourdHui, taille = 25 }) {
 
   return [...fragiles, ...entrelaces].slice(0, taille);
 }
+
+/**
+ * Reinjecte un item note "rate" en fin de la file de seance EN COURS.
+ *
+ * La spec (§4.3) annonce qu'un item rate "repasse en fin de la séance en
+ * cours" -- pas seulement le lendemain, une fois la nouvelle echeance (le
+ * jour meme) recalculee par `echeance`. Sans cet appel, composerSeance ne
+ * construit sa file qu'une fois au demarrage : un item rate n'y revient
+ * jamais avant la prochaine ouverture de la seance. Fonction pure comme le
+ * reste du module : ne mute jamais `file`, renvoie la meme reference si rien
+ * ne doit changer (item absent, ou verdict autre que "rate").
+ */
+export function reinjecterRate(file, itemMisAJour) {
+  if (!itemMisAJour || itemMisAJour.statut !== 'rate') return file;
+  return [...file, itemMisAJour];
+}

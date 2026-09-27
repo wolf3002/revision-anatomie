@@ -18,7 +18,7 @@ def test_le_contenu_est_conforme_au_schema():
 def test_le_chapitre_6_couvre_le_volume_cible():
     assert 20 <= len(CHAPITRE_6["cartes"]) <= 25
     assert 10 <= len(CHAPITRE_6["quiz"]) <= 12
-    assert 3 <= len(CHAPITRE_6["pieges"]) <= 4
+    assert 3 <= len(CHAPITRE_6["pieges"]) <= 5
     assert 2 <= len(CHAPITRE_6["planches"]) <= 4
 
 

@@ -794,6 +794,16 @@ export function demarrer(document, support) {
   const etatInitial = stockage.lire();
   document.documentElement.dataset.theme = etatInitial.theme || 'auto';
 
+  // Invite a saisir la date d'examen (accueil uniquement) : la seule
+  // information que le site demande (spec S3.4), visible tant qu'elle n'est
+  // pas connue -- sans elle, l'intervalle retombe a 3 jours au lieu d'etre
+  // calcule sur le delai reel (planificateur.intervalleDeBase). Ni obstacle
+  // ni etape obligatoire : le bouton "Demarrer la seance du jour" reste
+  // cliquable sans qu'on y touche.
+  const inviteDateExamen = document.getElementById('invite-date-examen');
+  const champInviteDateExamen = document.getElementById('invite-date-examen-saisie');
+  if (inviteDateExamen) inviteDateExamen.hidden = Boolean(etatInitial.dateExamen);
+
   const boutonReglagesBascule = document.querySelector('[data-action="reglages-bascule"]');
   const panneauReglages = document.getElementById('reglages-panneau');
   if (boutonReglagesBascule && panneauReglages) {
@@ -835,6 +845,22 @@ export function demarrer(document, support) {
     champDateExamen.addEventListener('change', () => {
       stockage.definirDateExamen(champDateExamen.value || null);
       actualiserIntervalle(champDateExamen.value);
+      // Renseignee depuis les reglages plutot que depuis l'invite (chemin
+      // rare mais possible) : l'invite n'a plus lieu d'etre, meme logique
+      // que le chemin normal ci-dessous.
+      if (inviteDateExamen) inviteDateExamen.hidden = Boolean(champDateExamen.value);
+    });
+  }
+
+  if (champInviteDateExamen) {
+    champInviteDateExamen.addEventListener('change', () => {
+      const valeur = champInviteDateExamen.value || null;
+      stockage.definirDateExamen(valeur);
+      // Reglages tenus a jour tout de suite : rouvrir le panneau plus tard
+      // doit montrer la meme date, pas un champ vide.
+      if (champDateExamen) champDateExamen.value = valeur || '';
+      actualiserIntervalle(valeur);
+      if (inviteDateExamen) inviteDateExamen.hidden = Boolean(valeur);
     });
   }
 

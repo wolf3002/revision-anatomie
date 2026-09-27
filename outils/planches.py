@@ -847,8 +847,16 @@ PLANCHES.update(
 
 # --- Chapitre 3 : l'articulation synoviale type, en coupe (slides 77-104) -
 #
-# Slide 77 sous-titre lui-meme son schema "Schema d'une articulation
-# synoviale type" -- c'est le slide cite ici. Les elements dessines
+# Correction (audit de fidelite, 2026-09-27) : le slide cite dans cours.json
+# etait 77, qui sous-titre bien son propre schema "Schema d'une articulation
+# synoviale type" -- mais celui-ci n'a que 4 reperes (membrane synoviale,
+# surface articulaire, membrane fibreuse, cavite articulaire), sans menisque
+# ni ligament. Le schema qui porte reellement 5 des 6 reperes de CETTE
+# planche (membrane fibreuse, membrane synoviale, cartilage articulaire,
+# cavite articulaire, menisque) est celui de la slide 102, "Menisque
+# articulaire (coupe longitudinale d'une articulation)" -- desormais le slide
+# cite. Seul le ligament (le 6e repere) n'a pas de schema qui le montre : il
+# reste purement textuel, slide 104 (cf. plus bas). Les elements dessines
 # rassemblent des faits repartis sur plusieurs slides textuelles (77 : sur-
 # faces + cavite + capsule a deux membranes ; 99 : cartilage ; 102 : menisque ;
 # 104 : ligament), verifies un a un contre le texte extrait (pdftotext) et
@@ -1166,7 +1174,7 @@ PLANCHES["sarcomere-stries-z"] = {
 
 
 # --- Chapitre 5 : le tronc (rachis, thorax, myologie du tronc) ---------
-PLANCHES['rachis-courbures-regions'] = {
+PLANCHES["rachis-courbures-regions"] = {
     "id": "rachis-courbures-regions",
     "titre": "Les 4 courbures du rachis, de haut en bas",
     "vb": "0 0 280 560",
@@ -1178,7 +1186,7 @@ PLANCHES['rachis-courbures-regions'] = {
             "y": 90,
             "t": "Lordose cervicale",
             "ancre": "middle",
-            "indice": "1re bosse, convexité antérieure"
+            "indice": "1re bosse, convexité antérieure",
         },
         {
             "n": 2,
@@ -1186,7 +1194,7 @@ PLANCHES['rachis-courbures-regions'] = {
             "y": 215,
             "t": "Cyphose dorsale",
             "ancre": "middle",
-            "indice": "2e bosse, convexité postérieure"
+            "indice": "2e bosse, convexité postérieure",
         },
         {
             "n": 3,
@@ -1194,7 +1202,7 @@ PLANCHES['rachis-courbures-regions'] = {
             "y": 340,
             "t": "Lordose lombaire",
             "ancre": "middle",
-            "indice": "3e bosse, convexité antérieure"
+            "indice": "3e bosse, convexité antérieure",
         },
         {
             "n": 4,
@@ -1202,11 +1210,11 @@ PLANCHES['rachis-courbures-regions'] = {
             "y": 465,
             "t": "Courbure sacro-coccygienne",
             "ancre": "middle",
-            "indice": "4e bosse ; sacrum et coccyx soudés"
-        }
-    ]
+            "indice": "4e bosse ; sacrum et coccyx soudés",
+        },
+    ],
 }
-PLANCHES['vertebre-vue-superieure'] = {
+PLANCHES["vertebre-vue-superieure"] = {
     "id": "vertebre-vue-superieure",
     "titre": "La vertèbre type, vue de dessus",
     "vb": "0 0 320 330",
@@ -1218,7 +1226,7 @@ PLANCHES['vertebre-vue-superieure'] = {
             "y": 55,
             "t": "Corps vertébral",
             "ancre": "middle",
-            "indice": "partie antérieure, cylindrique"
+            "indice": "partie antérieure, cylindrique",
         },
         {
             "n": 2,
@@ -1226,7 +1234,7 @@ PLANCHES['vertebre-vue-superieure'] = {
             "y": 100,
             "t": "Pédicule",
             "ancre": "end",
-            "indice": "×2 ; passage des nerfs rachidiens"
+            "indice": "×2 ; passage des nerfs rachidiens",
         },
         {
             "n": 3,
@@ -1234,7 +1242,7 @@ PLANCHES['vertebre-vue-superieure'] = {
             "y": 175,
             "t": "Processus transverse",
             "ancre": "start",
-            "indice": "×2, latéral"
+            "indice": "×2, latéral",
         },
         {
             "n": 4,
@@ -1242,7 +1250,7 @@ PLANCHES['vertebre-vue-superieure'] = {
             "y": 200,
             "t": "Canal rachidien",
             "ancre": "middle",
-            "indice": "passage de la moelle épinière"
+            "indice": "passage de la moelle épinière",
         },
         {
             "n": 5,
@@ -1250,11 +1258,11 @@ PLANCHES['vertebre-vue-superieure'] = {
             "y": 270,
             "t": "Processus épineux",
             "ancre": "middle",
-            "indice": "×1, médian postérieur"
-        }
-    ]
+            "indice": "×1, médian postérieur",
+        },
+    ],
 }
-PLANCHES['fibres-abdominales-orientation'] = {
+PLANCHES["fibres-abdominales-orientation"] = {
     "id": "fibres-abdominales-orientation",
     "titre": "Orientation des fibres des 4 muscles abdominaux",
     "vb": "0 0 300 700",
@@ -1266,7 +1274,7 @@ PLANCHES['fibres-abdominales-orientation'] = {
             "y": 138,
             "t": "Transverse de l'abdomen",
             "ancre": "middle",
-            "indice": "le plus profond ; fibres transversales"
+            "indice": "le plus profond ; fibres transversales",
         },
         {
             "n": 2,
@@ -1274,7 +1282,7 @@ PLANCHES['fibres-abdominales-orientation'] = {
             "y": 308,
             "t": "Oblique interne",
             "ancre": "middle",
-            "indice": "sous l'oblique externe ; fibres en éventail vers le haut"
+            "indice": "sous l'oblique externe ; fibres en éventail vers le haut",
         },
         {
             "n": 3,
@@ -1282,7 +1290,7 @@ PLANCHES['fibres-abdominales-orientation'] = {
             "y": 478,
             "t": "Oblique externe",
             "ancre": "middle",
-            "indice": "le plus superficiel ; fibres obliques vers le bas"
+            "indice": "le plus superficiel ; fibres obliques vers le bas",
         },
         {
             "n": 4,
@@ -1290,14 +1298,14 @@ PLANCHES['fibres-abdominales-orientation'] = {
             "y": 648,
             "t": "Droit de l'abdomen",
             "ancre": "middle",
-            "indice": "de part et d'autre de la ligne blanche ; fibres verticales"
-        }
-    ]
+            "indice": "de part et d'autre de la ligne blanche ; fibres verticales",
+        },
+    ],
 }
 
 
 # --- Chapitre 6 : le membre supérieur (squelette, scapula, deltoïde, coiffe) ---
-PLANCHES['squelette-membre-superieur-articulations'] = {
+PLANCHES["squelette-membre-superieur-articulations"] = {
     "id": "squelette-membre-superieur-articulations",
     "titre": "Le squelette du membre supérieur et ses articulations",
     "vb": "0 0 300 640",
@@ -1309,7 +1317,7 @@ PLANCHES['squelette-membre-superieur-articulations'] = {
             "y": 45,
             "t": "Sterno-claviculaire",
             "ancre": "middle",
-            "indice": "extrémité médiale (sternale) de la clavicule"
+            "indice": "extrémité médiale (sternale) de la clavicule",
         },
         {
             "n": 2,
@@ -1317,7 +1325,7 @@ PLANCHES['squelette-membre-superieur-articulations'] = {
             "y": 58,
             "t": "Acromio-claviculaire",
             "ancre": "middle",
-            "indice": "extrémité latérale (acromiale) de la clavicule"
+            "indice": "extrémité latérale (acromiale) de la clavicule",
         },
         {
             "n": 3,
@@ -1325,7 +1333,7 @@ PLANCHES['squelette-membre-superieur-articulations'] = {
             "y": 143,
             "t": "Scapulo-humérale",
             "ancre": "middle",
-            "indice": "cavité glénoïdale + tête humérale"
+            "indice": "cavité glénoïdale + tête humérale",
         },
         {
             "n": 4,
@@ -1333,7 +1341,7 @@ PLANCHES['squelette-membre-superieur-articulations'] = {
             "y": 345,
             "t": "Huméro-ulnaire",
             "ancre": "middle",
-            "indice": "coude, côté médial (ulna)"
+            "indice": "coude, côté médial (ulna)",
         },
         {
             "n": 5,
@@ -1341,7 +1349,7 @@ PLANCHES['squelette-membre-superieur-articulations'] = {
             "y": 345,
             "t": "Huméro-radiale",
             "ancre": "middle",
-            "indice": "coude, côté latéral (radius)"
+            "indice": "coude, côté latéral (radius)",
         },
         {
             "n": 6,
@@ -1349,7 +1357,7 @@ PLANCHES['squelette-membre-superieur-articulations'] = {
             "y": 395,
             "t": "Radio-ulnaire proximale",
             "ancre": "middle",
-            "indice": "entre radius et ulna, juste sous le coude"
+            "indice": "entre radius et ulna, juste sous le coude",
         },
         {
             "n": 7,
@@ -1357,7 +1365,7 @@ PLANCHES['squelette-membre-superieur-articulations'] = {
             "y": 545,
             "t": "Radio-carpienne",
             "ancre": "middle",
-            "indice": "poignet ; radius + scaphoïde + lunatum"
+            "indice": "poignet ; radius + scaphoïde + lunatum",
         },
         {
             "n": 8,
@@ -1365,11 +1373,11 @@ PLANCHES['squelette-membre-superieur-articulations'] = {
             "y": 515,
             "t": "Radio-ulnaire distale",
             "ancre": "middle",
-            "indice": "entre radius et ulna, côté médial du poignet"
-        }
-    ]
+            "indice": "entre radius et ulna, côté médial du poignet",
+        },
+    ],
 }
-PLANCHES['scapula-reperes'] = {
+PLANCHES["scapula-reperes"] = {
     "id": "scapula-reperes",
     "titre": "La scapula, vue postérieure : ses repères",
     "vb": "0 0 300 320",
@@ -1381,7 +1389,7 @@ PLANCHES['scapula-reperes'] = {
             "y": 47,
             "t": "Processus coracoïde",
             "ancre": "middle",
-            "indice": "crochet à l'avant, lieu d'insertions musculaires"
+            "indice": "crochet à l'avant, lieu d'insertions musculaires",
         },
         {
             "n": 2,
@@ -1389,7 +1397,7 @@ PLANCHES['scapula-reperes'] = {
             "y": 100,
             "t": "Épine",
             "ancre": "middle",
-            "indice": "crête qui traverse la face postérieure"
+            "indice": "crête qui traverse la face postérieure",
         },
         {
             "n": 3,
@@ -1397,7 +1405,7 @@ PLANCHES['scapula-reperes'] = {
             "y": 78,
             "t": "Acromion",
             "ancre": "middle",
-            "indice": "extrémité latérale de l'épine ; articulation acromio-claviculaire"
+            "indice": "extrémité latérale de l'épine ; articulation acromio-claviculaire",
         },
         {
             "n": 4,
@@ -1405,11 +1413,11 @@ PLANCHES['scapula-reperes'] = {
             "y": 122,
             "t": "Cavité glénoïdale",
             "ancre": "middle",
-            "indice": "reçoit la tête humérale"
-        }
-    ]
+            "indice": "reçoit la tête humérale",
+        },
+    ],
 }
-PLANCHES['deltoide-trois-faisceaux'] = {
+PLANCHES["deltoide-trois-faisceaux"] = {
     "id": "deltoide-trois-faisceaux",
     "titre": "Le deltoïde, vue latérale : ses 3 faisceaux",
     "vb": "0 0 300 300",
@@ -1421,7 +1429,7 @@ PLANCHES['deltoide-trois-faisceaux'] = {
             "y": 100,
             "t": "Claviculaire",
             "ancre": "middle",
-            "indice": "faisceau antérieur, origine sur la clavicule"
+            "indice": "faisceau antérieur, origine sur la clavicule",
         },
         {
             "n": 2,
@@ -1429,7 +1437,7 @@ PLANCHES['deltoide-trois-faisceaux'] = {
             "y": 132,
             "t": "Acromial",
             "ancre": "middle",
-            "indice": "faisceau intermédiaire, origine sur l'acromion"
+            "indice": "faisceau intermédiaire, origine sur l'acromion",
         },
         {
             "n": 3,
@@ -1437,7 +1445,7 @@ PLANCHES['deltoide-trois-faisceaux'] = {
             "y": 100,
             "t": "Épineux",
             "ancre": "middle",
-            "indice": "faisceau postérieur, origine sur l'épine de la scapula"
+            "indice": "faisceau postérieur, origine sur l'épine de la scapula",
         },
         {
             "n": 4,
@@ -1445,11 +1453,11 @@ PLANCHES['deltoide-trois-faisceaux'] = {
             "y": 228,
             "t": "Tubérosité deltoïdienne",
             "ancre": "middle",
-            "indice": "insertion commune des 3 faisceaux, sur l'humérus"
-        }
-    ]
+            "indice": "insertion commune des 3 faisceaux, sur l'humérus",
+        },
+    ],
 }
-PLANCHES['coiffe-rotateurs-vue-postero-laterale'] = {
+PLANCHES["coiffe-rotateurs-vue-postero-laterale"] = {
     "id": "coiffe-rotateurs-vue-postero-laterale",
     "titre": "La coiffe des rotateurs, vue postéro-latérale",
     "vb": "0 0 300 340",
@@ -1461,7 +1469,7 @@ PLANCHES['coiffe-rotateurs-vue-postero-laterale'] = {
             "y": 68,
             "t": "Supra-épineux",
             "ancre": "middle",
-            "indice": "au-dessus de l'épine ; le plus fragile de la coiffe"
+            "indice": "au-dessus de l'épine ; le plus fragile de la coiffe",
         },
         {
             "n": 2,
@@ -1469,7 +1477,7 @@ PLANCHES['coiffe-rotateurs-vue-postero-laterale'] = {
             "y": 180,
             "t": "Infra-épineux",
             "ancre": "middle",
-            "indice": "sous l'épine ; la plus grande surface"
+            "indice": "sous l'épine ; la plus grande surface",
         },
         {
             "n": 3,
@@ -1477,7 +1485,7 @@ PLANCHES['coiffe-rotateurs-vue-postero-laterale'] = {
             "y": 268,
             "t": "Petit rond",
             "ancre": "middle",
-            "indice": "bande étroite, bord latéral, sous l'infra-épineux"
+            "indice": "bande étroite, bord latéral, sous l'infra-épineux",
         },
         {
             "n": 4,
@@ -1485,9 +1493,9 @@ PLANCHES['coiffe-rotateurs-vue-postero-laterale'] = {
             "y": 308,
             "t": "Subscapulaire",
             "ancre": "middle",
-            "indice": "face antérieure (costale) ; non visible de dos, figuré en pointillé"
-        }
-    ]
+            "indice": "face antérieure (costale) ; non visible de dos, figuré en pointillé",
+        },
+    ],
 }
 PLANCHES["squelette-membre-inferieur-articulations"] = {
     "id": "squelette-membre-inferieur-articulations",
@@ -1501,7 +1509,7 @@ PLANCHES["squelette-membre-inferieur-articulations"] = {
             "y": 30,
             "t": "Sacro-iliaque",
             "ancre": "middle",
-            "indice": "où le sacrum rejoint l'ilium, en haut de la ceinture pelvienne"
+            "indice": "où le sacrum rejoint l'ilium, en haut de la ceinture pelvienne",
         },
         {
             "n": 2,
@@ -1509,7 +1517,7 @@ PLANCHES["squelette-membre-inferieur-articulations"] = {
             "y": 95,
             "t": "Coxo-fémorale",
             "ancre": "middle",
-            "indice": "hanche ; acétabulum + tête fémorale"
+            "indice": "hanche ; acétabulum + tête fémorale",
         },
         {
             "n": 3,
@@ -1517,7 +1525,7 @@ PLANCHES["squelette-membre-inferieur-articulations"] = {
             "y": 390,
             "t": "Fémoro-patellaire",
             "ancre": "start",
-            "indice": "la patella, en avant du genou"
+            "indice": "la patella, en avant du genou",
         },
         {
             "n": 4,
@@ -1525,7 +1533,7 @@ PLANCHES["squelette-membre-inferieur-articulations"] = {
             "y": 398,
             "t": "Tibio-fémorale",
             "ancre": "end",
-            "indice": "genou ; entre les 2 os longs"
+            "indice": "genou ; entre les 2 os longs",
         },
         {
             "n": 5,
@@ -1533,7 +1541,7 @@ PLANCHES["squelette-membre-inferieur-articulations"] = {
             "y": 408,
             "t": "Tibio-fibulaire proximale",
             "ancre": "start",
-            "indice": "juste sous le genou, côté fibula"
+            "indice": "juste sous le genou, côté fibula",
         },
         {
             "n": 6,
@@ -1541,9 +1549,9 @@ PLANCHES["squelette-membre-inferieur-articulations"] = {
             "y": 560,
             "t": "Talo-crurale",
             "ancre": "middle",
-            "indice": "cheville ; tibia + fibula + talus"
-        }
-    ]
+            "indice": "cheville ; tibia + fibula + talus",
+        },
+    ],
 }
 PLANCHES["os-coxal-trois-parties"] = {
     "id": "os-coxal-trois-parties",
@@ -1557,7 +1565,7 @@ PLANCHES["os-coxal-trois-parties"] = {
             "y": 40,
             "t": "Ilium",
             "ancre": "middle",
-            "indice": "partie supérieure, la plus large"
+            "indice": "partie supérieure, la plus large",
         },
         {
             "n": 2,
@@ -1565,7 +1573,7 @@ PLANCHES["os-coxal-trois-parties"] = {
             "y": 150,
             "t": "Acétabulum",
             "ancre": "middle",
-            "indice": "anneau central ; reçoit la tête fémorale (coxo-fémorale)"
+            "indice": "anneau central ; reçoit la tête fémorale (coxo-fémorale)",
         },
         {
             "n": 3,
@@ -1573,7 +1581,7 @@ PLANCHES["os-coxal-trois-parties"] = {
             "y": 245,
             "t": "Ischium",
             "ancre": "middle",
-            "indice": "partie postéro-inférieure"
+            "indice": "partie postéro-inférieure",
         },
         {
             "n": 4,
@@ -1581,9 +1589,9 @@ PLANCHES["os-coxal-trois-parties"] = {
             "y": 235,
             "t": "Pubis",
             "ancre": "middle",
-            "indice": "partie antéro-inférieure"
-        }
-    ]
+            "indice": "partie antéro-inférieure",
+        },
+    ],
 }
 PLANCHES["quadriceps-quatre-chefs"] = {
     "id": "quadriceps-quatre-chefs",
@@ -1597,7 +1605,7 @@ PLANCHES["quadriceps-quatre-chefs"] = {
             "y": 162,
             "t": "Droit fémoral",
             "ancre": "end",
-            "indice": "seul chef dont l'origine est détachée du fémur, plus haut (os coxal)"
+            "indice": "seul chef dont l'origine est détachée du fémur, plus haut (os coxal)",
         },
         {
             "n": 2,
@@ -1605,7 +1613,7 @@ PLANCHES["quadriceps-quatre-chefs"] = {
             "y": 233,
             "t": "Vaste latéral",
             "ancre": "end",
-            "indice": "origine sur le bord latéral du fémur, côté gauche du schéma"
+            "indice": "origine sur le bord latéral du fémur, côté gauche du schéma",
         },
         {
             "n": 3,
@@ -1613,7 +1621,7 @@ PLANCHES["quadriceps-quatre-chefs"] = {
             "y": 248,
             "t": "Vaste médial",
             "ancre": "start",
-            "indice": "seul chef dont l'origine arrive du côté droit du schéma"
+            "indice": "seul chef dont l'origine arrive du côté droit du schéma",
         },
         {
             "n": 4,
@@ -1621,7 +1629,7 @@ PLANCHES["quadriceps-quatre-chefs"] = {
             "y": 88,
             "t": "Vaste intermédiaire",
             "ancre": "start",
-            "indice": "trait pointillé, tout contre le fémur : profond, caché sous le droit fémoral"
+            "indice": "trait pointillé, tout contre le fémur : profond, caché sous le droit fémoral",
         },
         {
             "n": 5,
@@ -1629,9 +1637,9 @@ PLANCHES["quadriceps-quatre-chefs"] = {
             "y": 335,
             "t": "Ligament patellaire",
             "ancre": "middle",
-            "indice": "terminaison commune des 4 chefs, sous la patella"
-        }
-    ]
+            "indice": "terminaison commune des 4 chefs, sous la patella",
+        },
+    ],
 }
 PLANCHES["ischio-jambiers-trois-terminaisons"] = {
     "id": "ischio-jambiers-trois-terminaisons",
@@ -1645,7 +1653,7 @@ PLANCHES["ischio-jambiers-trois-terminaisons"] = {
             "y": 20,
             "t": "Tubérosité ischiatique",
             "ancre": "middle",
-            "indice": "origine commune des 3 muscles, en haut"
+            "indice": "origine commune des 3 muscles, en haut",
         },
         {
             "n": 2,
@@ -1653,7 +1661,7 @@ PLANCHES["ischio-jambiers-trois-terminaisons"] = {
             "y": 170,
             "t": "Biceps fémoral",
             "ancre": "start",
-            "indice": "le trajet le plus latéral (vers la droite)"
+            "indice": "le trajet le plus latéral (vers la droite)",
         },
         {
             "n": 3,
@@ -1661,7 +1669,7 @@ PLANCHES["ischio-jambiers-trois-terminaisons"] = {
             "y": 182,
             "t": "Semi-tendineux",
             "ancre": "start",
-            "indice": "trajet médial, le plus long (le plus bas)"
+            "indice": "trajet médial, le plus long (le plus bas)",
         },
         {
             "n": 4,
@@ -1669,7 +1677,7 @@ PLANCHES["ischio-jambiers-trois-terminaisons"] = {
             "y": 150,
             "t": "Semi-membraneux",
             "ancre": "end",
-            "indice": "trajet médial, le plus court (s'arrête au niveau du genou)"
+            "indice": "trajet médial, le plus court (s'arrête au niveau du genou)",
         },
         {
             "n": 5,
@@ -1677,7 +1685,7 @@ PLANCHES["ischio-jambiers-trois-terminaisons"] = {
             "y": 320,
             "t": "Tête de la fibula",
             "ancre": "start",
-            "indice": "terminaison latérale, du biceps fémoral"
+            "indice": "terminaison latérale, du biceps fémoral",
         },
         {
             "n": 6,
@@ -1685,7 +1693,7 @@ PLANCHES["ischio-jambiers-trois-terminaisons"] = {
             "y": 345,
             "t": "Patte d'oie",
             "ancre": "middle",
-            "indice": "terminaison médiale superficielle, du semi-tendineux"
+            "indice": "terminaison médiale superficielle, du semi-tendineux",
         },
         {
             "n": 7,
@@ -1693,7 +1701,7 @@ PLANCHES["ischio-jambiers-trois-terminaisons"] = {
             "y": 280,
             "t": "Plateau tibial",
             "ancre": "end",
-            "indice": "terminaison médiale profonde, du semi-membraneux, au niveau du genou"
-        }
-    ]
+            "indice": "terminaison médiale profonde, du semi-membraneux, au niveau du genou",
+        },
+    ],
 }

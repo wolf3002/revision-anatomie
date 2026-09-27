@@ -823,7 +823,7 @@
               "indice": "extrémité distale, loin du tronc"
             }
           ],
-          "slide": 65
+          "slide": 66
         },
         {
           "id": "squelette-axial-appendiculaire",
@@ -1108,7 +1108,7 @@
           ],
           "bonne": 1,
           "expl": "Le cours donne explicitement les os courts en exemple : les os de la main (dont le carpe) et du pied, dont les trois dimensions sont presque égales. Os long est le distracteur le plus tentant, car c'est le type le plus connu — mais rien dans un os du carpe n'est longiligne. Os plat (exemple donné : le pariétal) et os irrégulier (exemple donné : la vertèbre) sont les deux autres types nommément illustrés par d'autres os du cours, pas par le carpe.",
-          "slide": 63
+          "slide": 64
         },
         {
           "id": "q2-08",
@@ -1402,7 +1402,7 @@
               "indice": "hors de la capsule, relie les deux os"
             }
           ],
-          "slide": 77
+          "slide": 102
         },
         {
           "id": "diarthrose-spheroide",
@@ -1782,6 +1782,18 @@
           "q": "Que provoquent, respectivement, l'absence d'activité musculaire et une mobilisation poussée jusqu'aux limites physiologiques sur une articulation ? De quels facteurs dépend par ailleurs la mobilité articulaire ?",
           "r": "L'absence d'activité musculaire entraîne le blocage progressif de l'articulation ; une mobilisation poussée jusqu'aux limites physiologiques crée au contraire une hyperlaxité articulaire, voire une luxation. La mobilité varie selon l'âge, le sexe (la femme et l'enfant ont une souplesse plus grande que l'homme) et la pratique sportive : l'échauffement des articulations concernées par l'activité est indispensable.",
           "slide": 108
+        },
+        {
+          "id": "c3-26",
+          "q": "Dans l'articulation, que sont les coussinets adipeux et quel est leur rôle ?",
+          "r": "Le cours les définit par leur seul rôle : ils amortissent les chocs.",
+          "slide": 109
+        },
+        {
+          "id": "c3-27",
+          "q": "La bourse séreuse : qu'est-ce que c'est, et à quoi le cours la compare-t-il ?",
+          "r": "De petits sacs fibreux qui contiennent une mince pellicule de liquide synovial. Le cours les compare à des « roulements à billes » : ils empêchent l'articulation de frotter, dans ses mouvements, contre les structures qui l'entourent.",
+          "slide": 109
         }
       ],
       "quiz": [
@@ -1914,6 +1926,19 @@
           "bonne": 0,
           "expl": "Le cours l'énonce explicitement : les 7 types de diarthroses sont classés en fonction de la forme de leurs surfaces articulaires. Le nombre d'axes est une CONSÉQUENCE de cette forme (une sphère a 3 axes, une charnière 1 axe), pas le critère de classement lui-même. La localisation anatomique et la taille de la cavité ne sont jamais utilisées comme critère de classification dans le cours.",
           "slide": 79
+        },
+        {
+          "id": "q3-11",
+          "q": "Quelle structure agit « comme des roulements à billes » pour réduire le frottement au voisinage de l'articulation ?",
+          "choix": [
+            "La bourse séreuse",
+            "Le coussinet adipeux",
+            "Le cartilage articulaire",
+            "La membrane synoviale"
+          ],
+          "bonne": 0,
+          "expl": "Le cours emploie littéralement l'image des « roulements à billes » pour la bourse séreuse : ce petit sac fibreux contient une mince pellicule de liquide synovial et empêche l'articulation de frotter contre les structures qui l'entourent. Le coussinet adipeux est le distracteur le plus proche : sur le même schéma, il amortit les CHOCS (compression), pas le frottement (glissement). Le cartilage articulaire réduit lui aussi la friction, mais par sa propre lisseté, pas par un sac de liquide séparé ; la membrane synoviale SÉCRÈTE le liquide synovial, elle ne joue pas ce rôle de coussin roulant.",
+          "slide": 109
         }
       ],
       "pieges": [
@@ -4125,6 +4150,11 @@
           "titre": "Le poignet (radio-carpienne) : radius + scaphoïde + lunatum — PAS l'ulna",
           "texte": "L'articulation radio-carpienne (le poignet) est formée par 3 os : le radius (seul os de l'avant-bras impliqué) + 2 os du carpe, le scaphoïde et le lunatum. L'ulna, pourtant présent dans l'avant-bras jusqu'au poignet, n'entre PAS directement dans cette articulation : c'est un piège fréquent de l'y inclure.",
           "slide": 222
+        },
+        {
+          "titre": "L'ulna (slide 212) dit « tubérosité radiale » — le cours se trompe lui-même",
+          "texte": "La slide 212 écrit que l'ulna s'articule avec le radius « latéralement et en haut, au niveau de la tubérosité radiale » pour former l'articulation radio-ulnaire proximale. C'est une erreur du cours : le repère qui forme réellement cette articulation est la TÊTE RADIALE (elle tourne dans l'incisure radiale de l'ulna) — la tubérosité radiale est un repère distinct et plus distal, l'insertion du biceps, que la slide 211 liste séparément, juste à côté de la tête radiale sur le même os. Si l'évaluation reprend la formulation exacte de la slide 212, « tubérosité radiale » est la réponse attendue à l'examen ; anatomiquement, c'est la tête radiale. Deux mots voisins, deux repères différents du même os : ne pas les confondre est justement ce que ce piège teste.",
+          "slide": 212
         }
       ],
       "planches": [
@@ -4281,7 +4311,7 @@
               "indice": "insertion commune des 3 faisceaux, sur l'humérus"
             }
           ],
-          "slide": 246
+          "slide": 247
         },
         {
           "id": "coiffe-rotateurs-vue-postero-laterale",

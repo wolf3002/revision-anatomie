@@ -1,0 +1,1506 @@
+/* Systeme visuel du site de revision UC1 Anatomie.
+ *
+ * Registre : la planche d'atlas anatomique. Numerotation des planches, pastilles
+ * de legende, etiquettes en caracteres techniques, trait fin, aucun ornement.
+ *
+ * REGLE DE COULEUR, non negociable : les trois teintes du site sont les trois
+ * plans anatomiques du cours, et elles ne servent qu'a ca. Aucune autre
+ * information (bon/mauvais choix, verdict d'auto-evaluation, etat d'un onglet)
+ * n'est portee par la couleur : ces etats sont signales par le trait, la graisse
+ * et un libelle en toutes lettres. Corollaire applique partout : tout element
+ * teinte porte aussi son plan ecrit, pour rester lisible imprime en noir et
+ * blanc et pour un daltonien.
+ *
+ * Les trois familles sont chargees par le <link> Google Fonts de
+ * gabarits/base.html ; chaque pile porte ici son repli systeme, la feuille ne
+ * depend donc d'aucune requete reseau pour rester lisible.
+ *
+ * Ordre du fichier : 1 variables / 2 reinitialisation / 3 typographie /
+ * 4 mise en page / 5 composants / 6 focus / 7 mouvement reduit / 8 impression.
+ * Les marges ne sont posees QUE par des selecteurs de classe : la
+ * reinitialisation met toutes les marges a zero, aucune regle d'element ne
+ * revient ensuite en poser. Deux regles ne peuvent donc pas s'annuler.
+ */
+
+/* ========================================================================
+ * 1. VARIABLES — les deux themes
+ * ===================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* Neutres, theme clair */
+  --papier: #EDEFF2;
+  --carte: #FFFFFF;
+  --encre: #101A22;
+  --encre-doux: #4A5A66;
+  --trait: #C9D2D9;
+
+  /* Les trois plans anatomiques — seules teintes du site */
+  --frontal: #C1553A;
+  --sagittal: #1F6F78;
+  --transversal: #B0821F;
+
+  /* Neutres derives : fond en creux (onglet au repos, en-tete de table) */
+  --creux: #E2E7EC;
+  --ombre: rgba(16, 26, 34, 0.07);
+
+  /* Echelle typographique — 13 / 15 / 17 / 21 / 28 / 44 px a la taille de
+   * base du navigateur. Exprimee en rem pour suivre la preference de taille
+   * de l'utilisateur ; les cibles tactiles restent en px. */
+  --t-xs: 0.8125rem;   /* 13 px — etiquettes, renvois de slide, pastilles */
+  --t-s: 0.9375rem;    /* 15 px — interface, onglets, legendes */
+  --t-m: 1.0625rem;    /* 17 px — corps */
+  --t-l: 1.3125rem;    /* 21 px — question de carte et de quiz */
+  --t-xl: 1.75rem;     /* 28 px — titre de planche */
+  --t-2xl: 2.75rem;    /* 44 px — numero de planche */
+
+  --corps-interligne: 1.55;
+  --titre-interligne: 1.1;
+  --mesure: 68ch;      /* longueur de ligne plafonnee */
+
+  --pas: 0.5rem;
+  --pas-2: 1rem;
+  --pas-3: 1.5rem;
+  --pas-4: 2rem;
+
+  --rayon: 2px;
+
+  --police-titre: "Saira Condensed", "Liberation Sans Narrow", "Arial Narrow",
+    ui-sans-serif, system-ui, sans-serif;
+  --police-corps: "Public Sans", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", "Liberation Sans", Arial, sans-serif;
+  --police-mono: "IBM Plex Mono", ui-monospace, "DejaVu Sans Mono",
+    "Liberation Mono", Menlo, Consolas, monospace;
+
+  /* Durees : les trois seules animations du site. */
+  --duree-retournement: 220ms;
+  --duree-fondu: 120ms;
+  --duree-anneau: 420ms;
+}
+
+/* Bascule manuelle vers le theme sombre. */
+[data-theme="sombre"] {
+  color-scheme: dark;
+  --papier: #0E1418;
+  --carte: #161F25;
+  --encre: #E6EDF2;
+  --encre-doux: #97A7B2;
+  --trait: #2A3841;
+  --frontal: #E07A5F;
+  --sagittal: #3FA3AD;
+  --transversal: #DCA83A;
+  --creux: #1B242C;
+  --ombre: rgba(0, 0, 0, 0.45);
+}
+
+/* Theme du systeme, sauf si l'utilisateur a explicitement choisi le clair.
+ * Le garde :not([data-theme="clair"]) laisse la bascule manuelle gagner. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="clair"]) {
+    color-scheme: dark;
+    --papier: #0E1418;
+    --carte: #161F25;
+    --encre: #E6EDF2;
+    --encre-doux: #97A7B2;
+    --trait: #2A3841;
+    --frontal: #E07A5F;
+    --sagittal: #3FA3AD;
+    --transversal: #DCA83A;
+    --creux: #1B242C;
+    --ombre: rgba(0, 0, 0, 0.45);
+  }
+}
+
+/* ========================================================================
+ * 2. REINITIALISATION
+ * ===================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Sans ce !important, une regle de composant qui pose display:grid ou flex
+ * desactiverait l'attribut hidden — or c'est lui qui porte la segmentation
+ * (une seule tache visible pendant une carte ou une question). */
+[hidden] {
+  display: none !important;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--papier);
+  color: var(--encre);
+  min-height: 100vh;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+/* ========================================================================
+ * 3. TYPOGRAPHIE ET ECHELLE
+ * ===================================================================== */
+
+body {
+  font-family: var(--police-corps);
+  font-size: var(--t-m);
+  line-height: var(--corps-interligne);
+  font-variant-numeric: tabular-nums;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--police-titre);
+  line-height: var(--titre-interligne);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+h1 {
+  font-size: var(--t-xl);
+}
+
+h2 {
+  font-size: var(--t-l);
+}
+
+h3 {
+  font-size: var(--t-m);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+p,
+li {
+  max-width: var(--mesure);
+}
+
+strong {
+  font-weight: 700;
+}
+
+/* Etiquettes techniques : tout ce qui numerote, renvoie ou annote. */
+.src,
+.mono,
+.pastille__n,
+.anneau__valeur,
+.entete__slides,
+.touche {
+  font-family: var(--police-mono);
+  font-size: var(--t-xs);
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  /* Un renvoi de slide se lit « slide 15 » partout, y compris dans un
+   * figcaption qui, lui, est en capitales. */
+  text-transform: none;
+}
+
+/* ========================================================================
+ * 4. MISE EN PAGE — une colonne sous 720 px, deux au-dela
+ * ===================================================================== */
+
+.page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--pas-3);
+  width: 100%;
+  max-width: 64rem;
+  margin-inline: auto;
+  padding-inline: var(--pas-2);
+  padding-block: var(--pas-3);
+}
+
+/* Reserve la hauteur de la barre d'actions ancree, pour que le dernier
+ * element du contenu ne finisse jamais dessous. */
+body {
+  padding-block-end: calc(44px + var(--pas-4));
+}
+
+.volets {
+  display: grid;
+  gap: var(--pas-3);
+  min-width: 0;
+}
+
+.volet {
+  display: grid;
+  gap: var(--pas-3);
+  min-width: 0;
+  counter-reset: planche;
+}
+
+@media (min-width: 720px) {
+  body {
+    padding-block-end: var(--pas-4);
+  }
+
+  .page {
+    grid-template-columns: 13rem minmax(0, 1fr);
+    gap: var(--pas-4);
+    padding-inline: var(--pas-3);
+  }
+
+  .entete {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ========================================================================
+ * 5. COMPOSANTS
+ * ===================================================================== */
+
+/* --- 5.1 En-tete de planche (page chapitre) --------------------------- */
+
+.entete {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: var(--pas-2);
+  row-gap: 2px;
+  padding-block-end: var(--pas-2);
+  border-block-end: 2px solid var(--encre);
+}
+
+.entete__num {
+  font-family: var(--police-titre);
+  font-size: var(--t-2xl);
+  font-weight: 700;
+  line-height: var(--titre-interligne);
+  letter-spacing: -0.02em;
+  grid-row: 1 / span 2;
+}
+
+.entete__titre {
+  font-size: var(--t-xl);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.entete__slides {
+  color: var(--encre-doux);
+  grid-column: 2;
+}
+
+/* --- 5.2 Barre d'onglets ---------------------------------------------- */
+
+/* Les cinq onglets passent a la ligne plutot que de defiler : sous 400 px, une
+ * barre defilante cachait « Le cours » hors de l'ecran, donc hors de vue. */
+.onglets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.onglet {
+  flex: 0 1 auto;
+  min-height: 44px;
+  padding: var(--pas) var(--pas-2);
+  font-family: var(--police-titre);
+  font-size: var(--t-s);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--encre-doux);
+  background: var(--creux);
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+}
+
+/* Onglet courant : fond de carte, trait epais sous le libelle. Aucun signal
+ * de couleur — la teinte est reservee aux plans. */
+.onglet[aria-selected="true"] {
+  color: var(--encre);
+  background: var(--carte);
+  box-shadow: inset 0 -3px 0 0 var(--encre);
+}
+
+@media (min-width: 720px) {
+  .onglets {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+    position: sticky;
+    top: var(--pas-2);
+    align-self: start;
+    border-inline-start: 1px solid var(--trait);
+  }
+
+  .onglet {
+    text-align: start;
+    background: none;
+    border: none;
+    border-radius: 0;
+  }
+
+  .onglet[aria-selected="true"] {
+    background: var(--carte);
+    box-shadow: inset 3px 0 0 0 var(--encre);
+  }
+}
+
+/* --- 5.3 Les trois plans ---------------------------------------------- */
+
+/* Chaque plan pose sa teinte ET son libelle. Les deux vivent dans la meme
+ * declaration : on ne peut pas teinter sans nommer. */
+.plan--frontal,
+.carte[data-plan="frontal"],
+.question[data-plan="frontal"],
+.pastille[data-plan="frontal"] {
+  --teinte: var(--frontal);
+  --plan-libelle: "frontal";
+}
+
+.plan--sagittal,
+.carte[data-plan="sagittal"],
+.question[data-plan="sagittal"],
+.pastille[data-plan="sagittal"] {
+  --teinte: var(--sagittal);
+  --plan-libelle: "sagittal";
+}
+
+.plan--transversal,
+.carte[data-plan="transversal"],
+.question[data-plan="transversal"],
+.pastille[data-plan="transversal"] {
+  --teinte: var(--transversal);
+  --plan-libelle: "transversal";
+}
+
+/* Nom de mouvement dans une phrase : teinte + pastille de plan en toutes
+ * lettres. Sur un <g> SVG, seul `color` agit (les pseudo-elements ne sont pas
+ * generes) : le trace herite de la teinte par currentColor. */
+.plan--frontal,
+.plan--sagittal,
+.plan--transversal {
+  color: var(--teinte);
+  font-weight: 500;
+}
+
+.plan--frontal::after,
+.plan--sagittal::after,
+.plan--transversal::after {
+  content: var(--plan-libelle);
+  font-family: var(--police-mono);
+  font-size: var(--t-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  padding: 0 0.35em;
+  margin-inline-start: 0.4em;
+  border: 1px solid var(--teinte);
+  border-radius: var(--rayon);
+  vertical-align: 0.06em;
+}
+
+/* --- 5.4 Carte recto-verso -------------------------------------------- */
+
+.carte {
+  display: grid;
+  gap: var(--pas-2);
+  padding: var(--pas-3);
+  background: var(--carte);
+  border: 1px solid var(--trait);
+  /* Sans plan declare, --teinte n'existe pas : le liseré retombe sur le trait
+   * neutre. Une seule regle couvre les deux cas. */
+  border-inline-start: 3px solid var(--teinte, var(--trait));
+  border-radius: var(--rayon);
+  perspective: 900px;
+}
+
+/* Plan de la carte, ecrit : la teinte du liseré ne code jamais seule. */
+.carte[data-plan="frontal"]::before,
+.carte[data-plan="sagittal"]::before,
+.carte[data-plan="transversal"]::before,
+.question[data-plan="frontal"]::before,
+.question[data-plan="sagittal"]::before,
+.question[data-plan="transversal"]::before {
+  content: "plan " var(--plan-libelle);
+  justify-self: start;
+  font-family: var(--police-mono);
+  font-size: var(--t-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--teinte);
+  padding: 1px 0.45em;
+  border: 1px solid var(--teinte);
+  border-radius: var(--rayon);
+}
+
+.carte__q {
+  font-size: var(--t-l);
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+.carte__r {
+  position: relative;
+  min-height: calc(44px + var(--pas-2));
+  padding: var(--pas-2);
+  background: var(--creux);
+  border-radius: var(--rayon);
+  transform-origin: center;
+  transition: transform var(--duree-retournement) ease,
+    visibility 0s;
+}
+
+/* Verso cache : retourne de 180deg, illisible et non selectionnable. Le bloc
+ * garde sa hauteur, le retournement ne fait donc sauter aucune mise en page. */
+.carte__r[data-etat="cachee"] {
+  visibility: hidden;
+  transform: rotateX(180deg);
+}
+
+/* Le cartouche du verso est re-rendu visible et contre-retourne, sinon il
+ * s'afficherait a l'envers. */
+.carte__r[data-etat="cachee"]::before {
+  content: "verso — retourne la carte";
+  visibility: visible;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  transform: rotateX(180deg);
+  font-family: var(--police-mono);
+  font-size: var(--t-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--encre-doux);
+  background: var(--creux);
+  border: 1px dashed var(--trait);
+  border-radius: var(--rayon);
+}
+
+/* --- 5.5 Question de quiz --------------------------------------------- */
+
+.question {
+  display: grid;
+  gap: var(--pas);
+  padding: var(--pas-3);
+  background: var(--carte);
+  border: 1px solid var(--trait);
+  border-inline-start: 3px solid var(--teinte, var(--trait));
+  border-radius: var(--rayon);
+  counter-reset: choix;
+}
+
+.question__q {
+  font-size: var(--t-l);
+  line-height: 1.3;
+  font-weight: 500;
+  margin-block-end: var(--pas);
+}
+
+.choix {
+  display: grid;
+  grid-template-columns: 1.8em minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--pas);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--pas) var(--pas-2);
+  text-align: start;
+  font-size: var(--t-m);
+  line-height: 1.35;
+  background: var(--carte);
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+  counter-increment: choix;
+  transition: border-color var(--duree-fondu) ease;
+}
+
+.choix::before {
+  content: counter(choix, upper-alpha);
+  font-family: var(--police-mono);
+  font-size: var(--t-xs);
+  color: var(--encre-doux);
+  padding-block-start: 0.15em;
+}
+
+/* Correction : signalee par le trait et un mot, jamais par une teinte — les
+ * trois teintes du site appartiennent aux plans anatomiques. */
+.choix[data-verdict="bon"] {
+  border-color: var(--encre);
+  border-width: 2px;
+  font-weight: 700;
+}
+
+/* Pas de rature : un distracteur doit rester lisible apres correction, c'est
+ * en le relisant qu'on comprend pourquoi il est faux (§3.5 de la spec). */
+.choix[data-verdict="mauvais"] {
+  border-style: dashed;
+  color: var(--encre-doux);
+}
+
+.choix[data-verdict="bon"]::after,
+.choix[data-verdict="mauvais"]::after {
+  font-family: var(--police-mono);
+  font-size: var(--t-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding-block-start: 0.15em;
+}
+
+.choix[data-verdict="bon"]::after {
+  content: "juste";
+}
+
+.choix[data-verdict="mauvais"]::after {
+  content: "faux";
+}
+
+.question__expl {
+  font-size: var(--t-s);
+  color: var(--encre-doux);
+  padding-block-start: var(--pas-2);
+  border-block-start: 1px solid var(--trait);
+}
+
+/* L'explication n'est pas un verso : elle s'ajoute apres la tentative, elle ne
+ * remplace rien. Elle est donc retiree du flux, pas retournee. */
+.question__expl[data-etat="cachee"] {
+  display: none;
+}
+
+/* --- 5.6 Planche SVG --------------------------------------------------- */
+
+/* Conteneur de plusieurs planches autonomes (chapitre 1 : les trois plans
+ * anatomiques + les termes de localisation, quatre planches distinctes depuis
+ * leur eclatement pour le mobile). Elles s'alignent cote a cote quand la
+ * largeur le permet, et s'empilent en une seule colonne sur telephone. Sans
+ * ce conteneur, plusieurs planches independantes s'empilent aussi sur grand
+ * ecran et on perd la comparaison entre les trois plans. */
+.planches {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: var(--pas-3);
+}
+
+.planche {
+  display: grid;
+  gap: var(--pas-2);
+  padding: var(--pas-3);
+  background: var(--carte);
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+  counter-increment: planche;
+}
+
+.planche figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--pas);
+  font-family: var(--police-titre);
+  font-size: var(--t-l);
+  line-height: var(--titre-interligne);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding-block-end: var(--pas);
+  border-block-end: 1px solid var(--encre);
+}
+
+/* Numerotation de planche, tenue par un compteur : aucune saisie a maintenir
+ * dans le gabarit, aucun numero ne peut se desynchroniser. */
+.planche figcaption::before {
+  content: "Pl. " counter(planche, decimal-leading-zero);
+  font-family: var(--police-mono);
+  font-size: var(--t-xs);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--encre-doux);
+  padding: 2px 0.4em;
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+  text-transform: none;
+}
+
+.planche svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: var(--encre);
+}
+
+.pastille circle {
+  fill: var(--carte);
+  stroke: var(--teinte, var(--encre));
+  stroke-width: 1.5;
+}
+
+.pastille__n {
+  fill: var(--teinte, var(--encre));
+  font-weight: 500;
+}
+
+.pastille__t {
+  font-family: var(--police-corps);
+  font-size: var(--t-s);
+  fill: var(--teinte, var(--encre));
+  transition: opacity var(--duree-fondu) ease, visibility 0s;
+}
+
+/* Mode muet : les libelles disparaissent, les pastilles numerotees restent.
+ * visibility (et pas seulement opacity) pour qu'un libelle efface ne soit ni
+ * selectionnable ni lu par un lecteur d'ecran. */
+.planche[data-mode="muet"] .pastille__t {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.planche[data-mode="legende"] .pastille__t {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Champs de saisie du mode muet, un par pastille. */
+.legendes {
+  display: grid;
+  gap: var(--pas);
+}
+
+.legendes li {
+  display: grid;
+  grid-template-columns: 2em minmax(0, 1fr);
+  align-items: center;
+  gap: var(--pas);
+  max-width: var(--mesure);
+}
+
+.legendes li::before {
+  content: counter(legende, decimal) ".";
+  counter-increment: legende;
+  font-family: var(--police-mono);
+  font-size: var(--t-xs);
+  color: var(--encre-doux);
+}
+
+.legendes {
+  counter-reset: legende;
+}
+
+.legendes input {
+  min-height: 44px;
+  width: 100%;
+  padding: var(--pas) var(--pas-2);
+  font-size: var(--t-m);
+  background: var(--papier);
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+}
+
+.legendes input::placeholder {
+  color: var(--encre-doux);
+  font-family: var(--police-mono);
+  font-size: var(--t-xs);
+}
+
+/* Correction tache 5 (retrait du defilement horizontal) : cette regle datait
+ * de l'unique planche a viewBox 720 unites de large, ou une largeur pleine
+ * page tombait a une echelle de 0,43 et rendait les etiquettes illisibles
+ * (6 px a l'ecran) -- d'ou un defilement horizontal force, avec la HAUTEUR
+ * fixee et le titre ancre a gauche pendant le defilement.
+ *
+ * Depuis l'eclatement en quatre planches autonomes (tache 3, ronde 4), les
+ * viewBox font 240 ou 320 unites de large : tres proches de la largeur de
+ * contenu disponible sur telephone une fois les paddings de .page et de
+ * .planche deduits (~240 px a 320 px de viewport). La regle par defaut
+ * (§5.6, `.planche svg { width: 100%; height: auto }`) suffit donc seule :
+ * l'echelle reste voisine de 1 pour les trois planches de plan (240/240) et
+ * autour de 0,75 pour « termes de localisation » (240/320) -- lisible, et
+ * jamais en debordement puisque la largeur suit exactement le conteneur.
+ *
+ * Conserver l'ancienne regle (hauteur fixe + overflow-x: auto) aurait ete
+ * non seulement inutile mais dangereux ici : a 320 px de large, une planche
+ * a viewBox 320 forcee a 18rem de haut rend a ~271 px, alors que le
+ * conteneur n'offre que ~240 px -- un vrai debordement de ~31 px, que
+ * overflow-x: auto aurait absorbe en le rendant defilant au lieu de le
+ * signaler (outils/verifier_mobile.py exclut explicitement de son controle
+ * tout ce qui vit sous un ancetre defilant). Verifie : sans cette regle,
+ * `verifier_mobile.py site/chapitre-1.html` ne signale aucun debordement de
+ * planche aux huit largeurs de reference. Si une future planche depasse
+ * malgre tout, elle doit rester signalee, pas glisser sous le tapis. */
+
+/* --- 5.7 Le cours ------------------------------------------------------ */
+
+.notion {
+  display: grid;
+  gap: var(--pas);
+  padding: var(--pas-3);
+  background: var(--carte);
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+}
+
+.notion ul {
+  display: grid;
+  gap: var(--pas);
+}
+
+.notion li {
+  padding-inline-start: var(--pas-2);
+  border-inline-start: 1px solid var(--trait);
+}
+
+/* --- 5.8 Tableau de muscles -------------------------------------------- */
+
+.muscles {
+  width: 100%;
+  /* table-layout: auto laissait chaque colonne reclamer jusqu'a --mesure
+   * (68ch) de large : avec un nom de muscle francais reel et sa police de
+   * repli (webfont bloquee, hors ligne ou lente), la somme des quatre
+   * colonnes depassait le cadre a 768px -- signale par
+   * outils/verifier_mobile.py, jamais visible avant les donnees reelles des
+   * chapitres 5 a 7. table-layout: fixed borne chaque colonne a 1/4 de la
+   * largeur du tableau (aucune largeur explicite sur la premiere ligne de
+   * thead) quelle que soit la police ; le texte enveloppe au lieu de forcer
+   * la table a s'elargir. */
+  table-layout: fixed;
+  background: var(--carte);
+  border: 1px solid var(--trait);
+  font-size: var(--t-s);
+}
+
+.muscles caption {
+  text-align: start;
+  font-family: var(--police-titre);
+  font-size: var(--t-l);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding-block-end: var(--pas);
+}
+
+.muscles thead th {
+  font-family: var(--police-mono);
+  font-size: var(--t-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--encre-doux);
+  background: var(--creux);
+}
+
+.muscles th,
+.muscles td {
+  text-align: start;
+  vertical-align: top;
+  padding: var(--pas) var(--pas-2);
+  border: 1px solid var(--trait);
+  max-width: var(--mesure);
+  /* table-layout: fixed borne chaque colonne, mais un terme compose sans
+   * espace (parenthese, barre oblique) peut malgre tout depasser une colonne
+   * etroite a 768px -- constate empiriquement avec un vrai nom de muscle
+   * francais. overflow-wrap: anywhere autorise la coupure en dernier
+   * recours, apres les points de coupure normaux (espaces, traits d'union) :
+   * jamais de defilement horizontal a la place. */
+  overflow-wrap: anywhere;
+}
+
+.muscles tbody th {
+  font-family: var(--police-titre);
+  font-size: var(--t-m);
+  font-weight: 600;
+}
+
+/* Sous 720 px, une table a quatre colonnes deborde. Elle devient une liste de
+ * fiches : une ligne = un muscle, chaque cellule reprenant son intitule de
+ * colonne. L'ordre des colonnes est fixe par le generateur
+ * (origine, terminaison, action), d'ou le nth-of-type. */
+@media (max-width: 719px) {
+  .muscles,
+  .muscles caption,
+  .muscles tbody,
+  .muscles tr,
+  .muscles th,
+  .muscles td {
+    display: block;
+    max-width: none;
+  }
+
+  /* La table n'est plus un cadre : chaque ligne devient sa propre fiche. */
+  .muscles {
+    background: none;
+    border: none;
+  }
+
+  .muscles thead {
+    display: none;
+  }
+
+  .muscles tr {
+    margin-block-end: var(--pas-2);
+    background: var(--carte);
+    border: 1px solid var(--trait);
+  }
+
+  .muscles tr:last-child {
+    margin-block-end: 0;
+  }
+
+  .muscles th,
+  .muscles td {
+    border: none;
+    border-block-start: 1px solid var(--trait);
+  }
+
+  .muscles tbody th {
+    border-block-start: none;
+    background: var(--creux);
+    white-space: normal;
+  }
+
+  .muscles td::before {
+    display: block;
+    font-family: var(--police-mono);
+    font-size: var(--t-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--encre-doux);
+  }
+
+  .muscles td:nth-of-type(1)::before {
+    content: "origine";
+  }
+
+  .muscles td:nth-of-type(2)::before {
+    content: "terminaison";
+  }
+
+  .muscles td:nth-of-type(3)::before {
+    content: "action";
+  }
+}
+
+/* --- 5.8a Table de muscles : mode champs -------------------------------
+ * Defaut Critical corrige ici (plan chapitres-2-a-7, tache 1) : la table ne
+ * possedait ni masquage ni champ de saisie -- ouvrir l'onglet exposait
+ * toutes les reponses. Meme grammaire que le mode muet des planches (§5.6),
+ * appliquee ligne par ligne :
+ *   - .muscle__valeur porte la valeur telle qu'ecrite par outils/construire.py
+ *     -- visible par defaut, donc lisible sans JavaScript (contrainte de la
+ *     tache : si le script echoue, la table degrade en reference lue).
+ *   - .muscle__champ (input + verdict) est cree par interface.js, jamais par
+ *     le generateur ; il reste absent du DOM tant que le script n'a pas
+ *     tourne, donc rien a masquer par defaut sans JS.
+ *   - C'est l'attribut data-mode du <table> -- pose par interface.js, "champs"
+ *     par defaut -- qui bascule laquelle des deux est affichee. Sans lui
+ *     (JS absent), .muscle__valeur reste seule visible : degradation sure. */
+.muscle__champ {
+  display: none;
+  flex-direction: column;
+  gap: calc(var(--pas) / 2);
+}
+
+.muscles[data-mode="champs"] .muscle__valeur {
+  display: none;
+}
+
+.muscles[data-mode="champs"] .muscle__champ {
+  display: flex;
+}
+
+/* Correction d'un champ de muscle : meme grammaire visuelle que le quiz et
+ * la pastille muette (§5.5, §5.12) -- trait et graisse, jamais une teinte. */
+.muscle__champ input[data-verdict="bon"] {
+  border-color: var(--encre);
+  border-width: 2px;
+  font-weight: 700;
+}
+
+.muscle__champ input[data-verdict="mauvais"] {
+  border-style: dashed;
+  color: var(--encre-doux);
+}
+
+/* --- 5.8b Pieges (mises en garde) --------------------------------------
+ * Un piege n'est pas un exercice : contrairement au verso d'une carte ou a
+ * l'explication d'un quiz, son contenu est affiche d'emblee, jamais masque.
+ * Aucune teinte n'est introduite (regle section 1 : les trois seules teintes
+ * du site sont les plans anatomiques) -- le signal est le trait pointille et
+ * l'etiquette en toutes lettres, comme .src--hors pour "[hors cours]". */
+
+.piege {
+  display: grid;
+  gap: var(--pas);
+  padding: var(--pas-3);
+  background: var(--carte);
+  border: 1px dashed var(--encre-doux);
+  border-radius: var(--rayon);
+}
+
+.piege__etiquette {
+  font-family: var(--police-mono);
+  font-size: var(--t-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--encre-doux);
+}
+
+.piege__titre {
+  font-size: var(--t-l);
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+/* --- 5.9 Anneau de progression ----------------------------------------- */
+
+.progression {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
+  gap: var(--pas-2);
+}
+
+.progression li {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: var(--pas-2) var(--pas);
+  background: var(--carte);
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+}
+
+/* Contrat attendu du gabarit :
+ *   <svg class="anneau" style="--part: 42" viewBox="0 0 48 48">
+ *     <circle class="anneau__fond" cx="24" cy="24" r="20" pathLength="100"/>
+ *     <circle class="anneau__part" cx="24" cy="24" r="20" pathLength="100"/>
+ *   </svg>
+ * pathLength="100" permet d'exprimer la part en pourcentage, sans calcul. */
+.anneau {
+  display: block;
+  width: 4.5rem;
+  height: 4.5rem;
+  --part: 0;
+}
+
+.anneau__fond {
+  fill: none;
+  stroke: var(--trait);
+  stroke-width: 5;
+  stroke-dasharray: 2 3;
+}
+
+.anneau__part {
+  fill: none;
+  stroke: var(--encre);
+  stroke-width: 5;
+  stroke-dasharray: var(--part) 100;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  animation: remplissage var(--duree-anneau) ease-out both;
+}
+
+@keyframes remplissage {
+  from {
+    stroke-dasharray: 0 100;
+  }
+}
+
+.anneau__valeur {
+  color: var(--encre-doux);
+}
+
+.progression__titre {
+  font-family: var(--police-titre);
+  font-size: var(--t-s);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+/* --- 5.10 Barre d'actions ancree ---------------------------------------- */
+
+/* Sur mobile, les actions principales restent dans la zone atteignable au
+ * pouce : ancrees en bas d'ecran, jamais a chercher en haut de page. */
+.actions {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  gap: var(--pas);
+  padding: var(--pas);
+  padding-block-end: calc(var(--pas) + env(safe-area-inset-bottom, 0px));
+  background: var(--carte);
+  border-block-start: 1px solid var(--trait);
+  box-shadow: 0 -2px 8px var(--ombre);
+}
+
+.action {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 44px;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 1px;
+  padding: var(--pas) var(--pas);
+  font-family: var(--police-titre);
+  font-size: var(--t-s);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--carte);
+  border: 1px solid var(--encre);
+  border-radius: var(--rayon);
+}
+
+/* Action dominante (Retourner, Valider) : pleine, pas coloree. */
+.action--majeure {
+  background: var(--encre);
+  color: var(--papier);
+}
+
+/* Action discrete (Suivant, dans la seance du jour) : l'inverse d'une action
+ * dominante. Sur un outil fonde sur le rappel actif, le geste le plus facile
+ * ne doit jamais etre celui qui n'evalue rien -- "Suivant" doit se lire
+ * comme un lien secondaire, jamais rivaliser avec un verdict (Rate/Difficile/
+ * Su), une reponse de quiz ou une verification de planche. Cible tactile
+ * (min-height 44px) et alignement herites de .action, inchanges. */
+.action--discrete {
+  background: none;
+  border-color: transparent;
+  color: var(--encre-doux);
+  text-decoration: underline;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.action--discrete:hover,
+.action--discrete:focus-visible {
+  color: var(--encre);
+}
+
+/* Rappel du raccourci clavier, en caracteres techniques. */
+.touche {
+  color: var(--encre-doux);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+
+.action--majeure .touche {
+  color: var(--papier);
+  opacity: 0.75;
+}
+
+@media (min-width: 720px) {
+  .actions {
+    position: static;
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
+
+  .action {
+    flex: 0 0 auto;
+    min-width: 8rem;
+  }
+}
+
+/* Correction ronde de controle (outils/verifier_mobile.py) : a 320px, 4 boutons
+ * a parts egales laissent 68px a chacun, et le libelle "Retourner" (le plus
+ * large des quatre en Saira Condensed) en demandait 79 -- tronque de 12px.
+ * Le rappel de raccourci ne sert a rien sans clavier physique sur un
+ * telephone : le retirer sous cette largeur, et reduire legerement la
+ * typographie de la barre, suffit a faire rentrer "Retourner" sans jamais
+ * abreger un libelle ni descendre sous la cible tactile de 44px (min-height
+ * inchangee ; mesure : hauteur reelle toujours 44px, largeur du libelle
+ * desormais egale a la largeur disponible, ecart 0). */
+@media (max-width: 359px) {
+  .touche {
+    display: none;
+  }
+
+  .action {
+    font-size: var(--t-xs);
+    letter-spacing: 0.02em;
+    padding-inline: 0.375rem;
+  }
+}
+
+/* --- 5.11 Renvoi de slide ----------------------------------------------- */
+
+.src {
+  justify-self: start;
+  color: var(--encre-doux);
+  white-space: nowrap;
+}
+
+/* Mention hors cours : marquee par le trait et par son libelle, jamais par une
+ * teinte. Elle doit rester visible a l'impression en noir et blanc. */
+.src--hors {
+  color: var(--encre);
+  font-weight: 500;
+  padding: 1px 0.4em;
+  border: 1px dashed var(--encre-doux);
+  border-radius: var(--rayon);
+}
+
+/* --- 5.12 Reglages et verification muette ------------------------------ */
+
+/* Champ generique (date d'examen, import de fichier) : meme cible tactile et
+ * meme cadre que les champs de legende du mode muet (§5.6), pour une seule
+ * famille de champs dans tout le site. */
+.champ {
+  min-height: 44px;
+  width: 100%;
+  padding: var(--pas) var(--pas-2);
+  font-size: var(--t-m);
+  background: var(--papier);
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+}
+
+/* Correction d'une pastille muette : meme grammaire visuelle que le quiz
+ * (§5.5) -- trait et graisse, jamais une teinte. */
+.legendes input[data-verdict="bon"] {
+  border-color: var(--encre);
+  border-width: 2px;
+  font-weight: 700;
+}
+
+.legendes input[data-verdict="mauvais"] {
+  border-style: dashed;
+  color: var(--encre-doux);
+}
+
+.reglages {
+  display: grid;
+  gap: var(--pas-3);
+  max-width: var(--mesure);
+  padding: var(--pas-3);
+  background: var(--carte);
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+}
+
+.reglages__bloc {
+  display: grid;
+  gap: var(--pas);
+}
+
+.reglages__label {
+  font-family: var(--police-mono);
+  font-size: var(--t-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--encre-doux);
+}
+
+.reglages__groupe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pas);
+}
+
+/* Position choisie dans le groupe theme (auto/clair/sombre) : signalee comme
+ * partout ailleurs par le trait et la graisse, jamais par une teinte. */
+[data-theme-choix][aria-pressed="true"] {
+  border-width: 2px;
+  font-weight: 700;
+}
+
+/* --- 5.13 Accueil -------------------------------------------------------- */
+
+/* Colonne unique a toute largeur : contrairement a .page (rail de navigation
+ * + contenu des la page chapitre), l'accueil n'a pas de second rail -- rien
+ * ne justifierait de reserver 13rem a gauche sur grand ecran. */
+.accueil {
+  display: grid;
+  gap: var(--pas-4);
+  width: 100%;
+  max-width: 40rem;
+  margin-inline: auto;
+  padding-inline: var(--pas-2);
+  padding-block: var(--pas-3);
+}
+
+@media (min-width: 720px) {
+  .accueil {
+    padding-inline: var(--pas-3);
+  }
+}
+
+.accueil__entete {
+  display: grid;
+  gap: 2px;
+}
+
+.accueil__titre {
+  font-size: var(--t-2xl);
+}
+
+.accueil__sous_titre {
+  color: var(--encre-doux);
+}
+
+/* Invite a saisir la date d'examen (S3.4/S4.1) : la seule information que le
+ * site demande, et elle commande tout le moteur d'espacement -- masquee par
+ * defaut (voir gabarits/accueil.html), reveler par interface.js tant qu'elle
+ * n'est pas connue. Un trait de 2px, pas une teinte, la rend evidente sans
+ * ajouter de couleur ; elle n'est jamais un peage : le bouton de seance,
+ * juste dessous, reste utilisable sans y toucher. */
+.invite-date {
+  display: grid;
+  gap: var(--pas-2);
+  padding: var(--pas-3);
+  background: var(--carte);
+  border: 2px solid var(--encre);
+  border-radius: var(--rayon);
+}
+
+.invite-date__texte {
+  max-width: var(--mesure);
+}
+
+.invite-date__champ {
+  display: grid;
+  gap: var(--pas);
+  max-width: 16rem;
+}
+
+.seance,
+.progression-bloc,
+.chapitres-bloc {
+  display: grid;
+  gap: var(--pas-2);
+}
+
+.seance__intro {
+  color: var(--encre-doux);
+  max-width: var(--mesure);
+}
+
+/* Bouton unique de la seance du jour : hors de la barre ancree (§5.10), donc
+ * pas position:fixed -- il vit dans le flux, en tete de page. */
+.seance__bouton {
+  justify-self: start;
+  min-width: 14rem;
+  padding-inline: var(--pas-3);
+}
+
+#seance-zone {
+  display: grid;
+  gap: var(--pas-2);
+}
+
+.seance__consolidation {
+  color: var(--encre-doux);
+  font-style: italic;
+}
+
+/* Suivant / Terminer : dans le flux, pas ancres -- la barre ancree
+ * (#actions-carte) reste reservee au verdict d'une carte, sous peine de deux
+ * barres fixed superposees au bas de l'ecran. */
+.seance__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pas);
+}
+
+.seance__nav .action {
+  flex: 0 0 auto;
+  min-width: 8rem;
+}
+
+/* --- 5.14 Liste des chapitres (acces direct) ----------------------------- */
+
+.chapitres {
+  display: grid;
+  gap: var(--pas);
+}
+
+/* Sans ces deux lignes, un <a> garde le bleu souligne par defaut du
+ * navigateur -- c'est le seul lien de tout le site (les pages chapitre
+ * naviguent par boutons/onglets, jamais par <a>), donc la seule regle de
+ * reinitialisation (§2, qui ne cible que button/input/select/textarea)
+ * ne le couvrait pas. */
+.chapitre-lien {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: var(--pas-2);
+  min-height: 44px;
+  padding: var(--pas-2);
+  color: var(--encre);
+  text-decoration: none;
+  background: var(--carte);
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+}
+
+/* Survol : meme grammaire que le reste de l'interface (trait renforce),
+ * jamais une teinte -- les trois seules couleurs du site codent les plans
+ * anatomiques du mouvement (§5.2) et rien d'autre (cf. .onglet[aria-selected]).
+ * Le focus clavier est deja couvert par la regle :focus-visible globale (§6). */
+.chapitre-lien:hover {
+  border-color: var(--encre);
+}
+
+.chapitre-lien__num {
+  font-family: var(--police-titre);
+  font-size: var(--t-l);
+  font-weight: 700;
+}
+
+.chapitre-lien__titre {
+  font-weight: 500;
+}
+
+.chapitre-lien__slides {
+  color: var(--encre-doux);
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .chapitre-lien {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .chapitre-lien__slides {
+    grid-column: 2;
+  }
+}
+
+/* --- 5.15 Anneau "jamais ouvert" ------------------------------------------ */
+
+/* Un chapitre jamais ouvert se distingue par le trait (dashed), meme
+ * convention que .src--hors et une pastille fausse (§5.11-5.12) -- jamais par
+ * une teinte. Sans cette regle, un chapitre touche mais a 0 % de "su" et un
+ * chapitre jamais ouvert produiraient le meme anneau vide, indiscernables. */
+.progression li[data-etat="vide"] {
+  border-style: dashed;
+  background: transparent;
+}
+
+.progression li[data-etat="vide"] .anneau__fond,
+.progression li[data-etat="vide"] .anneau__part {
+  opacity: 0.4;
+}
+
+.progression li[data-etat="vide"] .anneau__valeur {
+  font-style: italic;
+}
+
+/* ========================================================================
+ * 6. FOCUS
+ * ===================================================================== */
+
+:focus-visible {
+  outline: 3px solid var(--encre);
+  outline-offset: 2px;
+  border-radius: var(--rayon);
+}
+
+.action--majeure:focus-visible {
+  outline-color: var(--encre);
+  box-shadow: 0 0 0 2px var(--carte);
+}
+
+/* ========================================================================
+ * 7. MOUVEMENT REDUIT
+ * ===================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ========================================================================
+ * 8. IMPRESSION — noir et blanc, sans perte d'information
+ * ===================================================================== */
+
+@media print {
+  :root {
+    --papier: #FFFFFF;
+    --carte: #FFFFFF;
+    --creux: #FFFFFF;
+    --encre: #000000;
+    --encre-doux: #333333;
+    --trait: #999999;
+    --frontal: #000000;
+    --sagittal: #000000;
+    --transversal: #000000;
+  }
+
+  /* Les plans ne sont plus distingues par la teinte : ils le restent par leur
+   * libelle, present sur chaque element teinte. */
+  .actions,
+  .onglets,
+  .reglages,
+  .invite-date,
+  [data-action="mode-planches"],
+  [data-action="reglages-bascule"] {
+    display: none;
+  }
+
+  /* .onglets disparait juste au-dessus : a partir de 720px, .page est une
+   * grille a 2 pistes (13rem + 1fr, S4.2) ou .volets recevait sa largeur par
+   * simple auto-placement, apres .onglets sur la meme ligne. Sans lui, la
+   * grille rabat .volets sur la PREMIERE piste (13rem) au lieu de la seconde
+   * -- tout le contenu imprime (cartes, quiz, planches, table musculaire...)
+   * se retrouvait confine dans une colonne etroite, page quasi vide a
+   * droite, et deux fois plus de pages que necessaire. */
+  .volets {
+    grid-column: 1 / -1;
+  }
+
+  .carte__r[data-etat="cachee"],
+  .question__expl[data-etat="cachee"] {
+    display: none;
+  }
+
+  .planche,
+  .carte,
+  .question,
+  .notion {
+    break-inside: avoid;
+  }
+}

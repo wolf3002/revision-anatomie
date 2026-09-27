@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<title>{{titre}}</title>
+<style>
+/* Feuille de style de la fiche PDF imprimable -- entierement autonome
+ * (aucune police distante, aucun script) : contrairement a gabarits/base.html,
+ * cette page est convertie hors-ligne par Chrome headless (outils/pdf.py) et ne
+ * doit dependre d'aucune requete reseau pour rester fidele d'une machine a
+ * l'autre.
+ *
+ * Regle d'impression du projet (site/assets/style.css, section 8) : les trois
+ * plans anatomiques ne sont JAMAIS distingues par la seule teinte. Ici la
+ * regle est appliquee au plus simple : aucune couleur nulle part, seulement du
+ * noir, du gris de texte et des traits -- le plan s'ecrit toujours en toutes
+ * lettres (".fiche-plan", "::after" des pastilles de plan).
+ */
+* { box-sizing: border-box; }
+
+@page {
+  size: A4;
+  margin: 15mm 14mm 18mm;
+}
+
+body {
+  margin: 0;
+  color: #000;
+  background: #fff;
+  font-family: "Noto Sans", "Liberation Sans", Arial, sans-serif;
+  font-size: 10.3pt;
+  line-height: 1.35;
+}
+
+h1, h2, h3 {
+  font-family: "Noto Sans", "Liberation Sans", Arial, sans-serif;
+  margin: 0 0 3mm 0;
+  break-after: avoid;
+}
+
+h1 { font-size: 15pt; }
+h2 { font-size: 12.5pt; border-bottom: 1pt solid #000; padding-bottom: 1mm; margin-top: 6mm; }
+h3 { font-size: 10.8pt; margin-top: 4mm; }
+
+p { margin: 0 0 1.5mm 0; }
+
+/* --- En-tete de fiche ---------------------------------------------- */
+
+.fiche-entete {
+  display: flex;
+  align-items: baseline;
+  gap: 4mm;
+  border-bottom: 1.5pt solid #000;
+  padding-bottom: 2mm;
+  margin-bottom: 4mm;
+}
+
+.fiche-entete__num {
+  font-family: "Liberation Mono", monospace;
+  font-weight: bold;
+  font-size: 13pt;
+}
+
+.fiche-entete h1 { flex: 1; }
+
+.fiche-entete__slides {
+  font-family: "Liberation Mono", monospace;
+  font-size: 9pt;
+  color: #333;
+}
+
+/* --- Renvoi de slide (reutilise le contenu de outils.construire._src) --- */
+
+.src {
+  display: inline-block;
+  font-family: "Liberation Mono", monospace;
+  font-size: 8pt;
+  color: #333;
+  border: 0.75pt solid #666;
+  border-radius: 2pt;
+  padding: 0.3mm 1.3mm;
+  margin-top: 1mm;
+}
+
+.src--hors { border-style: dashed; }
+
+/* --- Plan anatomique, toujours ecrit --------------------------------- */
+
+.fiche-plan {
+  display: inline-block;
+  font-family: "Liberation Mono", monospace;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 0.75pt solid #000;
+  border-radius: 2pt;
+  padding: 0.3mm 1.3mm;
+  margin: 0 2mm 1.5mm 0;
+}
+
+/* --- 1. Planches en mode muet ---------------------------------------- */
+
+.fiche-planche {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 5mm;
+  border: 0.75pt solid #999;
+  border-radius: 2pt;
+  padding: 3mm;
+  margin-bottom: 4mm;
+  break-inside: avoid;
+}
+
+.fiche-planche__figure { flex: 0 0 auto; }
+
+.fiche-planche figcaption {
+  font-weight: bold;
+  font-size: 9.5pt;
+  margin-bottom: 1.5mm;
+}
+
+.fiche-planche svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pastille circle {
+  fill: #fff;
+  stroke: #000;
+  stroke-width: 1.5;
+}
+
+.pastille__n {
+  fill: #000;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Les libelles n'existent plus dans le DOM du mode muet (voir
+ * outils/fiches.py, _rendre_planche_muette) : rien a masquer ici. Dans le
+ * corrige, la meme classe redevient un texte normal, noir, sans mise en
+ * forme particuliere -- la reponse s'y affiche en clair, comme il se doit. */
+.pastille__t {
+  fill: #000;
+  font-size: 14px;
+}
+
+.fiche-legende {
+  flex: 1 1 60mm;
+  min-width: 55mm;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: none;
+}
+
+.fiche-legende li {
+  display: flex;
+  align-items: baseline;
+  gap: 2mm;
+  padding: 1.2mm 0;
+  border-bottom: 0.5pt dotted #999;
+}
+
+.fiche-legende__n {
+  font-family: "Liberation Mono", monospace;
+  font-weight: bold;
+  min-width: 4mm;
+}
+
+.fiche-legende__indice {
+  color: #444;
+  font-size: 8.6pt;
+  white-space: nowrap;
+}
+
+.fiche-legende__trait {
+  flex: 1 1 auto;
+  min-width: 20mm;
+}
+
+/* --- 2. Questions : cartes et QCM ------------------------------------- */
+
+.fiche-carte,
+.fiche-quiz {
+  border: 0.75pt solid #999;
+  border-radius: 2pt;
+  padding: 3mm;
+  margin-bottom: 3mm;
+  break-inside: avoid;
+}
+
+.fiche-carte__q,
+.fiche-quiz__q {
+  font-weight: bold;
+  font-size: 10.6pt;
+  margin-bottom: 1.5mm;
+}
+
+.fiche-carte__reponse-trait {
+  border-bottom: 0.5pt dotted #999;
+  height: 7mm;
+  margin-top: 2mm;
+}
+
+.fiche-quiz__choix {
+  margin: 0 0 1.5mm 0;
+  padding-left: 6mm;
+}
+
+.fiche-quiz__choix li { padding: 0.6mm 0; }
+
+/* --- 3. Table musculaire a completer ---------------------------------- */
+
+table.fiche-muscles,
+table.muscles {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 4mm;
+  font-size: 9.6pt;
+}
+
+table.fiche-muscles caption,
+table.muscles caption {
+  text-align: left;
+  font-weight: bold;
+  font-size: 10.5pt;
+  margin-bottom: 1.5mm;
+}
+
+table.fiche-muscles th,
+table.fiche-muscles td,
+table.muscles th,
+table.muscles td {
+  border: 0.75pt solid #666;
+  padding: 1.3mm 1.8mm;
+  vertical-align: top;
+  text-align: left;
+}
+
+table.fiche-muscles thead th,
+table.muscles thead th {
+  background: #eee;
+  font-size: 9pt;
+}
+
+table.fiche-muscles tbody th,
+table.muscles tbody th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+table.fiche-muscles tr,
+table.muscles tr { break-inside: avoid; }
+
+.fiche-muscle__case {
+  height: 15mm;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 4.6mm,
+    #ccc 4.6mm,
+    #ccc 4.8mm
+  );
+}
+
+.muscle__valeur { font-size: 9.6pt; }
+
+/* --- 4. Pieges : affiches en clair -------------------------------------- */
+
+.fiche-piege {
+  border: 1pt solid #000;
+  border-radius: 2pt;
+  padding: 3mm;
+  margin-bottom: 3mm;
+  break-inside: avoid;
+}
+
+.fiche-piege__etiquette {
+  display: inline-block;
+  font-family: "Liberation Mono", monospace;
+  font-weight: bold;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border: 1pt solid #000;
+  border-radius: 2pt;
+  padding: 0.3mm 1.6mm;
+  margin-bottom: 1.5mm;
+}
+
+.fiche-piege__titre {
+  font-weight: bold;
+  font-size: 10.4pt;
+}
+
+/* --- 5. Corrige : en fin de document, jamais en regard ------------------ */
+
+.fiche-corrige {
+  break-before: page;
+}
+
+.fiche-corrige__titre {
+  font-size: 16pt;
+  border-bottom: 2pt solid #000;
+  padding-bottom: 2mm;
+}
+
+.fiche-corrige__bloc { margin-bottom: 5mm; }
+
+.fiche-corrige__carte,
+.fiche-corrige__quiz {
+  border-bottom: 0.5pt solid #ccc;
+  padding: 2mm 0;
+  break-inside: avoid;
+}
+
+.fiche-corrige__q {
+  font-weight: bold;
+  margin-bottom: 1mm;
+}
+
+.fiche-corrige__r { margin-bottom: 1mm; }
+
+.fiche-corrige__quiz ol { margin: 1mm 0 1.5mm 0; padding-left: 6mm; }
+
+.fiche-corrige__bonne {
+  font-weight: bold;
+}
+
+.fiche-corrige__bonne::after {
+  content: " — bonne réponse";
+  font-weight: normal;
+  font-style: italic;
+}
+
+.fiche-corrige__expl {
+  color: #222;
+  font-size: 9.6pt;
+}
+
+.fiche-corrige__planches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5mm;
+  margin-bottom: 4mm;
+}
+
+.fiche-corrige__planche {
+  display: inline-block;
+  vertical-align: top;
+  border: 0.75pt dashed #999;
+  border-radius: 2pt;
+  padding: 2mm;
+  break-inside: avoid;
+}
+
+.fiche-corrige__planche figcaption {
+  font-weight: bold;
+  font-size: 9.5pt;
+  margin-bottom: 1.5mm;
+}
+
+.fiche-corrige__planche svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+</style>
+</head>
+<body>
+{{corps}}
+</body>
+</html>

@@ -333,3 +333,86 @@ def test_valider_planche_seule_sans_bornes_accepte_absence_de_slide():
         "pastilles": [{"n": 1, "x": 10, "y": 10, "t": "A", "ancre": "start"}],
     }
     assert valider_planche(planche) == []
+
+
+# --- Emprise du texte d'un libelle ---------------------------------------------
+#
+# valider_planche ne verifiait que le point d'ancrage : « Tete de la fibula »,
+# ancre a 176 unites dans un viewBox de 220, etait accepte et rogne a 77 %.
+
+
+def _planche_a_une_pastille(vb, x, y, texte, ancre):
+    return {
+        "id": "p1",
+        "titre": "T",
+        "vb": vb,
+        "dessin": "<g><circle cx='5' cy='5' r='2'/></g>",
+        "pastilles": [{"n": 1, "x": x, "y": y, "t": texte, "ancre": ancre}],
+    }
+
+
+def test_une_etiquette_longue_ancree_pres_du_bord_droit_est_refusee():
+    from contenu.schema import valider_planche
+
+    # Ancre « start » a x=180 : le texte commence a 194 et s'etend sur plus de 100
+    # unites dans un cadre de 220 -- le cas reel de « Tete de la fibula ».
+    planche = _planche_a_une_pastille("0 0 220 400", 180, 320, "Tête de la fibula", "start")
+    erreurs = valider_planche(planche)
+    assert len(erreurs) == 1
+    assert "deborde" in erreurs[0] and "droite" in erreurs[0]
+    assert "Tête de la fibula" in erreurs[0]
+
+
+def test_une_etiquette_longue_ancree_pres_du_bord_gauche_est_refusee():
+    from contenu.schema import valider_planche
+
+    planche = _planche_a_une_pastille("0 0 220 400", 96, 150, "Semi-membraneux", "end")
+    erreurs = valider_planche(planche)
+    assert len(erreurs) == 1 and "gauche" in erreurs[0]
+
+
+def test_une_etiquette_centree_trop_large_pour_le_cadre_est_refusee():
+    from contenu.schema import valider_planche
+
+    planche = _planche_a_une_pastille("0 0 120 100", 60, 40, "Tubérosité ischiatique", "middle")
+    assert valider_planche(planche)
+
+
+def test_la_meme_etiquette_tient_quand_le_cadre_est_elargi():
+    from contenu.schema import valider_planche
+
+    planche = _planche_a_une_pastille("0 0 340 400", 180, 320, "Tête de la fibula", "start")
+    assert valider_planche(planche) == []
+    # ... ou quand le libelle passe sous la pastille (ancre « middle ») et que le
+    # trace est decale : c'est la solution retenue pour les ischio-jambiers.
+    planche = _planche_a_une_pastille("0 0 300 400", 210, 320, "Tête de la fibula", "middle")
+    assert valider_planche(planche) == []
+
+
+def test_un_libelle_qui_deborde_en_hauteur_est_refuse():
+    from contenu.schema import valider_planche
+
+    # Ancre « middle » : le texte est pose 24 unites sous la pastille.
+    planche = _planche_a_une_pastille("0 0 200 60", 100, 40, "Court", "middle")
+    erreurs = valider_planche(planche)
+    assert any("hauteur" in e for e in erreurs) or any("cadre" in e for e in erreurs)
+
+
+def test_l_estimation_de_largeur_couvre_les_mesures_de_chrome():
+    # Largeurs getBBox() mesurees dans Chrome (police Public Sans, 15 px) : le
+    # controle doit les estimer par exces, sans jamais les sous-estimer de plus
+    # de 5 % (constantes documentees dans contenu/schema.py).
+    from contenu.schema import largeur_estimee_libelle
+
+    mesures = {
+        "Tête de la fibula": 111.1,
+        "Vaste intermédiaire": 135.3,
+        "Tibio-fibulaire proximale": 170.1,
+        "Endomysium": 88.9,
+        "Semi-membraneux": 132.3,
+        "Rotation, pronation, supination": 221.0,
+    }
+    for texte, mesure in mesures.items():
+        estimee = largeur_estimee_libelle(texte)
+        assert estimee >= mesure * 0.95, (texte, estimee, mesure)
+        assert estimee <= mesure * 1.25, (texte, estimee, mesure)

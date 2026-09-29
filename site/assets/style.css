@@ -52,12 +52,14 @@
   --t-s: 0.9375rem;    /* 15 px — interface, onglets, legendes */
   --t-m: 1.0625rem;    /* 17 px — corps */
   --t-l: 1.3125rem;    /* 21 px — question de carte et de quiz */
+  --t-h2: 1.5rem;      /* 24 px — titre de section de la fiche */
   --t-xl: 1.75rem;     /* 28 px — titre de planche */
   --t-2xl: 2.75rem;    /* 44 px — numero de planche */
 
   --corps-interligne: 1.55;
   --titre-interligne: 1.1;
   --mesure: 68ch;      /* longueur de ligne plafonnee */
+  --mesure-lecture: 62ch; /* la fiche : ~70 caracteres par ligne */
 
   --pas: 0.5rem;
   --pas-2: 1rem;
@@ -233,24 +235,37 @@ strong {
 }
 
 /* ========================================================================
- * 4. MISE EN PAGE — une colonne sous 720 px, deux au-dela
+ * 4. MISE EN PAGE — une seule colonne, centree, a toutes les largeurs
  * ===================================================================== */
 
+/* La page d'un chapitre est un texte a lire : une colonne d'environ 46rem
+ * (736 px), centree, sans rail lateral. Sur grand ecran, les marges restent
+ * vides plutot que la ligne ne s'allonge -- au-dela d'une soixantaine de
+ * caracteres, l'oeil perd sa ligne (les paragraphes sont bornes par --mesure ;
+ * la fiche, par --mesure-lecture, plus serree encore). */
 .page {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: var(--pas-3);
   width: 100%;
-  max-width: 64rem;
+  max-width: 46rem;
   margin-inline: auto;
   padding-inline: var(--pas-2);
-  padding-block: var(--pas-3);
+  padding-block: var(--pas-2) var(--pas-4);
 }
 
 /* Reserve la hauteur de la barre d'actions ancree, pour que le dernier
  * element du contenu ne finisse jamais dessous. */
 body {
   padding-block-end: calc(44px + var(--pas-4));
+}
+
+.panneaux {
+  min-width: 0;
+}
+
+.panneau {
+  min-width: 0;
 }
 
 .volets {
@@ -272,13 +287,8 @@ body {
   }
 
   .page {
-    grid-template-columns: 13rem minmax(0, 1fr);
-    gap: var(--pas-4);
     padding-inline: var(--pas-3);
-  }
-
-  .entete {
-    grid-column: 1 / -1;
+    padding-block-start: var(--pas-3);
   }
 }
 
@@ -318,61 +328,96 @@ body {
   grid-column: 2;
 }
 
-/* --- 5.2 Barre d'onglets ---------------------------------------------- */
+/* --- 5.2 Retour, onglets ------------------------------------------------ */
 
-/* Les cinq onglets passent a la ligne plutot que de defiler : sous 400 px, une
- * barre defilante cachait « Le cours » hors de l'ecran, donc hors de vue. */
+/* Deux onglets, Fiche puis S'exercer, dans l'ordre ou on les parcourt : lire,
+ * puis s'exercer. Un trait sous l'onglet courant, une graisse, un libelle en
+ * toutes lettres -- jamais une teinte, reservee aux trois plans (§1). Ils
+ * partagent la largeur sur telephone (cible tactile large), et se tassent a
+ * gauche des qu'il y a la place. */
+.retour {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-block-end: calc(var(--pas-2) * -1);
+  font-family: var(--police-mono);
+  font-size: var(--t-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--encre-doux);
+  text-decoration: none;
+}
+
+.retour:hover {
+  color: var(--encre);
+  text-decoration: underline;
+}
+
 .onglets {
   display: flex;
-  flex-wrap: wrap;
-  gap: 2px;
+  border-block-end: 1px solid var(--trait);
 }
 
 .onglet {
-  flex: 0 1 auto;
-  min-height: 44px;
+  flex: 1 1 0;
+  min-height: 48px;
   padding: var(--pas) var(--pas-2);
+  margin-block-end: -1px;
   font-family: var(--police-titre);
-  font-size: var(--t-s);
+  font-size: var(--t-m);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.07em;
   color: var(--encre-doux);
-  background: var(--creux);
-  border: 1px solid var(--trait);
-  border-radius: var(--rayon);
+  background: none;
+  border: none;
+  border-block-end: 3px solid transparent;
 }
 
-/* Onglet courant : fond de carte, trait epais sous le libelle. Aucun signal
- * de couleur — la teinte est reservee aux plans. */
 .onglet[aria-selected="true"] {
   color: var(--encre);
-  background: var(--carte);
-  box-shadow: inset 0 -3px 0 0 var(--encre);
+  border-block-end-color: var(--encre);
 }
 
 @media (min-width: 720px) {
-  .onglets {
-    flex-direction: column;
-    flex-wrap: nowrap;
-    gap: 0;
-    position: sticky;
-    top: var(--pas-2);
-    align-self: start;
-    border-inline-start: 1px solid var(--trait);
-  }
-
   .onglet {
-    text-align: start;
-    background: none;
-    border: none;
-    border-radius: 0;
+    flex: 0 0 auto;
+    padding-inline: var(--pas-3);
   }
+}
 
-  .onglet[aria-selected="true"] {
-    background: var(--carte);
-    box-shadow: inset 3px 0 0 0 var(--encre);
-  }
+/* Une phrase en tete de l'accueil : quoi faire. Pas un cadre, une ligne qui se
+ * lit d'abord. */
+.guide {
+  max-width: var(--mesure);
+  font-size: var(--t-l);
+  line-height: 1.35;
+}
+
+/* --- 5.2a Sans JavaScript ------------------------------------------------ */
+
+/* Etat par defaut = script absent ou en echec (site/ ouvert en file://, ou
+ * JavaScript desactive). La fiche est le contenu : elle est dans la page, entiere
+ * et sans rien de masque, et se lit telle quelle. Les exercices, eux, ont besoin
+ * du script (reveler, corriger, memoriser) : leur onglet, la barre d'onglets et
+ * les liens qui y menent sont retires, et une ligne le dit. interface.js pose la
+ * classe `js` sur <html> avant toute autre chose ; tout revient alors. */
+html:not(.js) .js-seulement {
+  display: none;
+}
+
+html.js .sans-js {
+  display: none;
+}
+
+.sans-js {
+  max-width: var(--mesure);
+  padding: var(--pas) var(--pas-2);
+  background: var(--carte);
+  border: 1px solid var(--trait);
+  border-inline-start: 3px solid var(--encre);
+  border-radius: var(--rayon);
 }
 
 /* --- 5.3 Les trois plans ---------------------------------------------- */
@@ -612,17 +657,22 @@ body {
   gap: var(--pas-3);
 }
 
-.planche {
+.planche,
+.planche-fiche {
   display: grid;
   gap: var(--pas-2);
   padding: var(--pas-3);
   background: var(--carte);
   border: 1px solid var(--trait);
   border-radius: var(--rayon);
+}
+
+.planche {
   counter-increment: planche;
 }
 
-.planche figcaption {
+.planche figcaption,
+.planche-fiche figcaption {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
@@ -639,7 +689,8 @@ body {
 
 /* Numerotation de planche, tenue par un compteur : aucune saisie a maintenir
  * dans le gabarit, aucun numero ne peut se desynchroniser. */
-.planche figcaption::before {
+.planche figcaption::before,
+.planche-fiche figcaption::before {
   content: "Pl. " counter(planche, decimal-leading-zero);
   font-family: var(--police-mono);
   font-size: var(--t-xs);
@@ -652,11 +703,27 @@ body {
   text-transform: none;
 }
 
-.planche svg {
+/* Dans la fiche, le numero est le rang de la planche dans le chapitre (pas un
+ * compteur : la fiche range les figures dans l'ordre du cours). */
+.planche-fiche figcaption::before {
+  content: "Pl. " attr(data-num);
+}
+
+.planche svg,
+.planche-fiche svg {
   display: block;
   width: 100%;
   height: auto;
   color: var(--encre);
+}
+
+/* Sur telephone, chaque pixel du cadre pris par le remplissage est un pixel de
+ * moins pour le trace : les libelles y sont deja petits. */
+@media (max-width: 479px) {
+  .planche,
+  .planche-fiche {
+    padding: var(--pas-2);
+  }
 }
 
 .pastille circle {
@@ -726,6 +793,11 @@ body {
   border-radius: var(--rayon);
 }
 
+/* Apres verification : « juste », ou « faux — attendu : … » sous le champ. */
+.legendes__etat {
+  grid-column: 2;
+}
+
 .legendes input::placeholder {
   color: var(--encre-doux);
   font-family: var(--police-mono);
@@ -758,30 +830,229 @@ body {
  * planche aux huit largeurs de reference. Si une future planche depasse
  * malgre tout, elle doit rester signalee, pas glisser sous le tapis. */
 
-/* --- 5.7 Le cours ------------------------------------------------------ */
+/* --- 5.7 La fiche (lecture) --------------------------------------------- */
 
-.notion {
-  display: grid;
-  gap: var(--pas);
-  padding: var(--pas-3);
+/* Le cours a lire, du haut vers le bas : un plan, puis des sections a plat
+ * (un titre numerote, ses points, sa ou ses planches legendees, ses pieges),
+ * puis la table musculaire en reference. Rien n'y est masque et aucune
+ * regle de ce bloc ne cible une classe qu'interface.js equipe (.planche,
+ * .muscles, .carte...) : les figures sont des .planche-fiche, la table une
+ * .table-ref, qui partagent seulement l'aspect (§5.6, §5.8). La fiche est le
+ * plus long contenu du site : pas de cadre par section, un simple filet, et
+ * les cartes sont reservees a ce qui n'est pas du texte (figure, table, piege). */
+
+.plan {
   background: var(--carte);
   border: 1px solid var(--trait);
   border-radius: var(--rayon);
 }
 
-.notion ul {
-  display: grid;
+.plan > summary {
+  display: flex;
+  align-items: center;
   gap: var(--pas);
+  min-height: 44px;
+  padding: var(--pas) var(--pas-2);
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--police-titre);
+  font-size: var(--t-s);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
 }
 
-.notion li {
-  padding-inline-start: var(--pas-2);
-  border-inline-start: 1px solid var(--trait);
+.plan > summary::-webkit-details-marker {
+  display: none;
+}
+
+.plan > summary .mono {
+  margin-inline-start: auto;
+  color: var(--encre-doux);
+  font-weight: 400;
+}
+
+/* Etat replie / deplie dit par un signe, pas par une teinte. */
+.plan > summary::after {
+  content: "+";
+  font-family: var(--police-mono);
+  font-size: var(--t-l);
+  line-height: 1;
+}
+
+.plan[open] > summary::after {
+  content: "\2212";
+}
+
+.plan__liste {
+  padding: var(--pas) var(--pas-2) var(--pas-2);
+  border-block-start: 1px solid var(--trait);
+}
+
+/* Cible tactile de 44 px sur telephone ; au-dela, le plan reprend une densite
+ * de liste (deux colonnes) pour ne pas repousser la premiere section. */
+.plan__liste a {
+  display: flex;
+  align-items: baseline;
+  gap: var(--pas);
+  min-height: 44px;
+  padding-block: 0.6rem;
+  color: var(--encre);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.plan__liste a .mono {
+  flex: none;
+  color: var(--encre-doux);
+}
+
+.plan__liste a:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 720px) {
+  .plan__liste {
+    columns: 2 16rem;
+    column-gap: var(--pas-3);
+  }
+
+  .plan__liste li {
+    break-inside: avoid;
+    max-width: none;
+  }
+
+  .plan__liste a {
+    min-height: 0;
+    padding-block: 0.2rem;
+  }
+}
+
+/* Le texte est ce qu'on lit le plus longtemps : de l'air entre les sections, un
+ * titre qui se repere de loin, des points en liste (pas en citation), et une
+ * ligne plus courte que le cadre. --mesure-lecture borne la ligne a environ 70
+ * caracteres ; le cadre, lui, reste large pour les figures et la table. */
+.fiche {
+  display: grid;
+  gap: 0;
+  min-width: 0;
+}
+
+.fiche-section {
+  display: grid;
+  gap: var(--pas-2);
+  min-width: 0;
+  margin-block-start: var(--pas-4);
+  padding-block-start: var(--pas-4);
+  border-block-start: 1px solid var(--trait);
+  scroll-margin-block-start: var(--pas-2);
+}
+
+.plan + .fiche-section {
+  margin-block-start: var(--pas-3);
+}
+
+.fiche-section__tete {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--pas) var(--pas-2);
+}
+
+.fiche-section__tete h2 {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: baseline;
+  gap: var(--pas);
+  min-width: 0;
+  font-size: var(--t-h2);
+  line-height: 1.15;
+}
+
+.fiche-section__n {
+  flex: none;
+  padding: 1px 0.4em;
+  color: var(--encre-doux);
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+}
+
+/* Une puce carree, dans la grammaire de l'atlas, et un retrait suspendu : la
+ * deuxieme ligne d'un point s'aligne sur la premiere, pas sous la puce. */
+.fiche-points {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.fiche-points li {
+  position: relative;
+  max-width: var(--mesure-lecture);
+  padding-inline-start: 1.25rem;
+}
+
+.fiche-points li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0.1rem;
+  top: 0.62em;
+  width: 0.4rem;
+  height: 0.4rem;
+  background: var(--encre-doux);
+}
+
+.fiche-section .piege {
+  margin-block-start: var(--pas);
+}
+
+.fiche-section .piege p {
+  max-width: var(--mesure-lecture);
+}
+
+/* Les planches d'une section cote a cote quand la place le permet, sans jamais
+ * s'etirer sur toute la largeur de lecture : une planche seule a 780 px serait
+ * un cliche de 1600 px de haut. La hauteur du trace est bornee pour la meme
+ * raison ; le rapport largeur/hauteur du viewBox est conserve. */
+.fiche-figures {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--pas-3);
+  margin-block-start: var(--pas);
+}
+
+.planche-fiche {
+  flex: 1 1 14rem;
+  max-width: 26rem;
+  min-width: 0;
+}
+
+.planche-fiche svg {
+  width: auto;
+  max-width: 100%;
+  max-height: 34rem;
+  margin-inline: auto;
+}
+
+/* Fin de fiche : « tout lu ? » -> les exercices. Le lien est plein : c'est
+ * l'action suivante du parcours. */
+.fiche-suite {
+  display: grid;
+  margin-block-start: var(--pas-4);
+  padding-block-start: var(--pas-3);
+  border-block-start: 1px solid var(--trait);
+}
+
+.fiche-suite .action {
+  justify-self: start;
+  min-width: 14rem;
 }
 
 /* --- 5.8 Tableau de muscles -------------------------------------------- */
 
-.muscles {
+/* .table-ref est la meme table en lecture (fiche) : meme aspect, meme bascule
+ * en fiches sous 720 px, mais aucune des regles de saisie du §5.8a. */
+
+:is(.muscles, .table-ref) {
   width: 100%;
   /* table-layout: auto laissait chaque colonne reclamer jusqu'a --mesure
    * (68ch) de large : avec un nom de muscle francais reel et sa police de
@@ -798,7 +1069,7 @@ body {
   font-size: var(--t-s);
 }
 
-.muscles caption {
+:is(.muscles, .table-ref) caption {
   text-align: start;
   font-family: var(--police-titre);
   font-size: var(--t-l);
@@ -807,7 +1078,7 @@ body {
   padding-block-end: var(--pas);
 }
 
-.muscles thead th {
+:is(.muscles, .table-ref) thead th {
   font-family: var(--police-mono);
   font-size: var(--t-xs);
   font-weight: 500;
@@ -817,8 +1088,8 @@ body {
   background: var(--creux);
 }
 
-.muscles th,
-.muscles td {
+:is(.muscles, .table-ref) th,
+:is(.muscles, .table-ref) td {
   text-align: start;
   vertical-align: top;
   padding: var(--pas) var(--pas-2);
@@ -833,7 +1104,7 @@ body {
   overflow-wrap: anywhere;
 }
 
-.muscles tbody th {
+:is(.muscles, .table-ref) tbody th {
   font-family: var(--police-titre);
   font-size: var(--t-m);
   font-weight: 600;
@@ -844,49 +1115,49 @@ body {
  * colonne. L'ordre des colonnes est fixe par le generateur
  * (origine, terminaison, action), d'ou le nth-of-type. */
 @media (max-width: 719px) {
-  .muscles,
-  .muscles caption,
-  .muscles tbody,
-  .muscles tr,
-  .muscles th,
-  .muscles td {
+  :is(.muscles, .table-ref),
+  :is(.muscles, .table-ref) caption,
+  :is(.muscles, .table-ref) tbody,
+  :is(.muscles, .table-ref) tr,
+  :is(.muscles, .table-ref) th,
+  :is(.muscles, .table-ref) td {
     display: block;
     max-width: none;
   }
 
   /* La table n'est plus un cadre : chaque ligne devient sa propre fiche. */
-  .muscles {
+  :is(.muscles, .table-ref) {
     background: none;
     border: none;
   }
 
-  .muscles thead {
+  :is(.muscles, .table-ref) thead {
     display: none;
   }
 
-  .muscles tr {
+  :is(.muscles, .table-ref) tr {
     margin-block-end: var(--pas-2);
     background: var(--carte);
     border: 1px solid var(--trait);
   }
 
-  .muscles tr:last-child {
+  :is(.muscles, .table-ref) tr:last-child {
     margin-block-end: 0;
   }
 
-  .muscles th,
-  .muscles td {
+  :is(.muscles, .table-ref) th,
+  :is(.muscles, .table-ref) td {
     border: none;
     border-block-start: 1px solid var(--trait);
   }
 
-  .muscles tbody th {
+  :is(.muscles, .table-ref) tbody th {
     border-block-start: none;
     background: var(--creux);
     white-space: normal;
   }
 
-  .muscles td::before {
+  :is(.muscles, .table-ref) td::before {
     display: block;
     font-family: var(--police-mono);
     font-size: var(--t-xs);
@@ -895,15 +1166,15 @@ body {
     color: var(--encre-doux);
   }
 
-  .muscles td:nth-of-type(1)::before {
+  :is(.muscles, .table-ref) td:nth-of-type(1)::before {
     content: "origine";
   }
 
-  .muscles td:nth-of-type(2)::before {
+  :is(.muscles, .table-ref) td:nth-of-type(2)::before {
     content: "terminaison";
   }
 
-  .muscles td:nth-of-type(3)::before {
+  :is(.muscles, .table-ref) td:nth-of-type(3)::before {
     content: "action";
   }
 }
@@ -982,22 +1253,6 @@ body {
 
 /* --- 5.9 Anneau de progression ----------------------------------------- */
 
-.progression {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
-  gap: var(--pas-2);
-}
-
-.progression li {
-  display: grid;
-  justify-items: center;
-  gap: 2px;
-  padding: var(--pas-2) var(--pas);
-  background: var(--carte);
-  border: 1px solid var(--trait);
-  border-radius: var(--rayon);
-}
-
 /* Contrat attendu du gabarit :
  *   <svg class="anneau" style="--part: 42" viewBox="0 0 48 48">
  *     <circle class="anneau__fond" cx="24" cy="24" r="20" pathLength="100"/>
@@ -1006,9 +1261,20 @@ body {
  * pathLength="100" permet d'exprimer la part en pourcentage, sans calcul. */
 .anneau {
   display: block;
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 2.75rem;
+  height: 2.75rem;
   --part: 0;
+}
+
+/* Le numero du chapitre au centre : l'anneau ne coute aucune place de plus que
+ * le numero qu'il remplace. */
+.anneau__num {
+  font-family: var(--police-titre);
+  font-size: 22px;
+  font-weight: 700;
+  fill: var(--encre);
+  text-anchor: middle;
+  dominant-baseline: central;
 }
 
 .anneau__fond {
@@ -1036,15 +1302,6 @@ body {
 
 .anneau__valeur {
   color: var(--encre-doux);
-}
-
-.progression__titre {
-  font-family: var(--police-titre);
-  font-size: var(--t-s);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  text-align: center;
 }
 
 /* --- 5.10 Barre d'actions ancree ---------------------------------------- */
@@ -1243,14 +1500,13 @@ body {
 
 /* --- 5.13 Accueil -------------------------------------------------------- */
 
-/* Colonne unique a toute largeur : contrairement a .page (rail de navigation
- * + contenu des la page chapitre), l'accueil n'a pas de second rail -- rien
- * ne justifierait de reserver 13rem a gauche sur grand ecran. */
+/* Colonne unique : contrairement a une page de chapitre, l'accueil n'a rien a
+ * lire longtemps -- une phrase, un bouton, une liste. */
 .accueil {
   display: grid;
   gap: var(--pas-4);
   width: 100%;
-  max-width: 40rem;
+  max-width: 44rem;
   margin-inline: auto;
   padding-inline: var(--pas-2);
   padding-block: var(--pas-3);
@@ -1264,27 +1520,23 @@ body {
 
 .accueil__entete {
   display: grid;
-  gap: 2px;
+  gap: var(--pas);
 }
 
 .accueil__titre {
   font-size: var(--t-2xl);
 }
 
-.accueil__sous_titre {
-  color: var(--encre-doux);
-}
-
 /* Invite a saisir la date d'examen (S3.4/S4.1) : la seule information que le
  * site demande, et elle commande tout le moteur d'espacement -- masquee par
- * defaut (voir gabarits/accueil.html), reveler par interface.js tant qu'elle
+ * defaut (voir gabarits/accueil.html), revelee par interface.js tant qu'elle
  * n'est pas connue. Un trait de 2px, pas une teinte, la rend evidente sans
  * ajouter de couleur ; elle n'est jamais un peage : le bouton de seance,
  * juste dessous, reste utilisable sans y toucher. */
 .invite-date {
   display: grid;
   gap: var(--pas-2);
-  padding: var(--pas-3);
+  padding: var(--pas-2) var(--pas-3);
   background: var(--carte);
   border: 2px solid var(--encre);
   border-radius: var(--rayon);
@@ -1300,11 +1552,17 @@ body {
   max-width: 16rem;
 }
 
+/* Le deroule d'exercices : seance du jour (accueil) et S'exercer (chapitre). */
 .seance,
-.progression-bloc,
 .chapitres-bloc {
   display: grid;
   gap: var(--pas-2);
+}
+
+.seance__debut {
+  display: grid;
+  gap: var(--pas);
+  justify-items: start;
 }
 
 .seance__intro {
@@ -1312,12 +1570,18 @@ body {
   max-width: var(--mesure);
 }
 
-/* Bouton unique de la seance du jour : hors de la barre ancree (§5.10), donc
- * pas position:fixed -- il vit dans le flux, en tete de page. */
+/* Bouton unique de depart : hors de la barre ancree (§5.10), donc pas
+ * position:fixed -- il vit dans le flux, en tete de page. Pleine largeur sur
+ * telephone : la cible la plus grande de la page est la plus utile. */
 .seance__bouton {
-  justify-self: start;
   min-width: 14rem;
   padding-inline: var(--pas-3);
+}
+
+@media (max-width: 479px) {
+  .seance__bouton {
+    width: 100%;
+  }
 }
 
 #seance-zone {
@@ -1344,82 +1608,178 @@ body {
   min-width: 8rem;
 }
 
-/* --- 5.14 Liste des chapitres (acces direct) ----------------------------- */
+/* « Suivant » se lit comme un lien : a gauche, sans le remplissage d'un bouton. */
+.seance__nav .action--discrete {
+  justify-items: start;
+  min-width: 0;
+  padding-inline: 0;
+  margin-inline-end: var(--pas-2);
+}
 
+/* Le numero « Pl. 01 » d'une planche vient d'un compteur CSS : dans le deroule,
+ * ou la planche est seule, il vaudrait toujours 01 -- il ne dirait rien de vrai. */
+#seance-planche .planche figcaption::before {
+  display: none;
+}
+
+/* Une planche a legender : le trace et les champs cote a cote des que la place
+ * le permet, pour ne pas faire defiler entre le dessin et ce qu'on y ecrit. */
+@media (min-width: 720px) {
+  #seance-planche .planche {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 17rem);
+    align-items: start;
+    column-gap: var(--pas-3);
+  }
+
+  #seance-planche .planche figcaption {
+    grid-column: 1 / -1;
+  }
+
+  #seance-planche .planche svg {
+    grid-column: 1;
+    grid-row: 2 / span 2;
+    max-height: 34rem;
+    margin-inline: auto;
+  }
+
+  #seance-planche .planche .legendes,
+  #seance-planche .planche > button.action {
+    grid-column: 2;
+  }
+
+  #seance-planche .planche > button.action {
+    justify-self: start;
+  }
+}
+
+/* Le lien des reglages : un texte, pas un bouton -- il est la, discret, pour qui
+ * le cherche. */
+.reglages-zone {
+  display: grid;
+  gap: var(--pas-2);
+  justify-items: start;
+}
+
+.lien-discret {
+  min-height: 44px;
+  padding-inline: 0;
+  font-size: var(--t-s);
+  color: var(--encre-doux);
+  text-decoration: underline;
+}
+
+.lien-discret:hover,
+.lien-discret[aria-expanded="true"] {
+  color: var(--encre);
+}
+
+/* --- 5.14 Liste des chapitres --------------------------------------------- */
+
+/* Une ligne par chapitre : l'anneau (numero au centre), le titre, sa progression
+ * en toutes lettres, et deux actions explicites -- lire, puis s'exercer. Sur
+ * telephone les actions passent dessous, a parts egales (cibles de 44 px) ; des
+ * 560 px elles se rangent a droite. */
 .chapitres {
   display: grid;
   gap: var(--pas);
 }
 
-/* Sans ces deux lignes, un <a> garde le bleu souligne par defaut du
- * navigateur -- c'est le seul lien de tout le site (les pages chapitre
- * naviguent par boutons/onglets, jamais par <a>), donc la seule regle de
- * reinitialisation (§2, qui ne cible que button/input/select/textarea)
- * ne le couvrait pas. */
-.chapitre-lien {
+.chapitre {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: baseline;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  align-items: center;
   column-gap: var(--pas-2);
-  min-height: 44px;
+  row-gap: var(--pas-2);
   padding: var(--pas-2);
-  color: var(--encre);
-  text-decoration: none;
   background: var(--carte);
   border: 1px solid var(--trait);
   border-radius: var(--rayon);
 }
 
-/* Survol : meme grammaire que le reste de l'interface (trait renforce),
- * jamais une teinte -- les trois seules couleurs du site codent les plans
- * anatomiques du mouvement (§5.2) et rien d'autre (cf. .onglet[aria-selected]).
- * Le focus clavier est deja couvert par la regle :focus-visible globale (§6). */
-.chapitre-lien:hover {
-  border-color: var(--encre);
+.chapitre__texte {
+  min-width: 0;
 }
 
-.chapitre-lien__num {
-  font-family: var(--police-titre);
-  font-size: var(--t-l);
-  font-weight: 700;
+/* h3 reste un titre, mais celui-ci se lit comme un nom de chapitre, pas comme
+ * une etiquette en capitales. */
+.chapitre__titre {
+  font-family: var(--police-corps);
+  font-size: var(--t-m);
+  font-weight: 600;
+  line-height: 1.25;
+  text-transform: none;
+  letter-spacing: 0;
 }
 
-.chapitre-lien__titre {
-  font-weight: 500;
-}
-
-.chapitre-lien__slides {
+.chapitre__meta {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--pas-2);
   color: var(--encre-doux);
-  white-space: nowrap;
 }
 
-@media (max-width: 480px) {
-  .chapitre-lien {
-    grid-template-columns: auto minmax(0, 1fr);
+.chapitre__actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: var(--pas);
+}
+
+.chapitre__actions .action {
+  flex: 1 1 0;
+}
+
+@media (min-width: 560px) {
+  .chapitre {
+    grid-template-columns: 2.75rem minmax(0, 1fr) auto;
   }
 
-  .chapitre-lien__slides {
-    grid-column: 2;
+  .chapitre__actions {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .chapitre__actions .action {
+    flex: 0 0 auto;
+    min-width: 8.5rem;
   }
 }
 
-/* --- 5.15 Anneau "jamais ouvert" ------------------------------------------ */
+/* Un lien qui a l'allure d'une action (les deux du chapitre, la fin de fiche) :
+ * sans le soulignement ni le bleu du navigateur. */
+a.action {
+  color: var(--encre);
+  text-decoration: none;
+}
 
-/* Un chapitre jamais ouvert se distingue par le trait (dashed), meme
- * convention que .src--hors et une pastille fausse (§5.11-5.12) -- jamais par
- * une teinte. Sans cette regle, un chapitre touche mais a 0 % de "su" et un
- * chapitre jamais ouvert produiraient le meme anneau vide, indiscernables. */
-.progression li[data-etat="vide"] {
+a.action--majeure {
+  color: var(--papier);
+}
+
+a.action:hover {
+  background: var(--creux);
+}
+
+a.action--majeure:hover {
+  background: var(--encre);
+  opacity: 0.88;
+}
+
+/* --- 5.15 Anneau « pas commence » ------------------------------------------ */
+
+/* Un chapitre pas commence se distingue par le trait (dashed), meme convention
+ * que .src--hors et une pastille fausse (§5.11-5.12) -- jamais par une teinte.
+ * Sans cette regle, un chapitre touche mais a 0 % de "su" et un chapitre pas
+ * commence produiraient le meme anneau vide, indiscernables. */
+.chapitre[data-etat="vide"] {
   border-style: dashed;
-  background: transparent;
 }
 
-.progression li[data-etat="vide"] .anneau__fond,
-.progression li[data-etat="vide"] .anneau__part {
+.chapitre[data-etat="vide"] .anneau__fond,
+.chapitre[data-etat="vide"] .anneau__part {
   opacity: 0.4;
 }
 
-.progression li[data-etat="vide"] .anneau__valeur {
+.chapitre[data-etat="vide"] .anneau__valeur {
   font-style: italic;
 }
 
@@ -1473,23 +1833,16 @@ body {
   /* Les plans ne sont plus distingues par la teinte : ils le restent par leur
    * libelle, present sur chaque element teinte. */
   .actions,
+  .retour,
   .onglets,
   .reglages,
+  .reglages-zone,
   .invite-date,
-  [data-action="mode-planches"],
+  .fiche-suite,
+  .sans-js,
+  .plan,
   [data-action="reglages-bascule"] {
     display: none;
-  }
-
-  /* .onglets disparait juste au-dessus : a partir de 720px, .page est une
-   * grille a 2 pistes (13rem + 1fr, S4.2) ou .volets recevait sa largeur par
-   * simple auto-placement, apres .onglets sur la meme ligne. Sans lui, la
-   * grille rabat .volets sur la PREMIERE piste (13rem) au lieu de la seconde
-   * -- tout le contenu imprime (cartes, quiz, planches, table musculaire...)
-   * se retrouvait confine dans une colonne etroite, page quasi vide a
-   * droite, et deux fois plus de pages que necessaire. */
-  .volets {
-    grid-column: 1 / -1;
   }
 
   .carte__r[data-etat="cachee"],
@@ -1498,9 +1851,14 @@ body {
   }
 
   .planche,
+  .planche-fiche,
   .carte,
   .question,
-  .notion {
+  .piege {
     break-inside: avoid;
+  }
+
+  .fiche-section__tete {
+    break-after: avoid;
   }
 }

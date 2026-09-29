@@ -240,23 +240,27 @@ const __module_interface = (function () {
  * Il lit l'etat via `stockage`, calcule via `planificateur` et `exercices`,
  * et n'implemente aucune regle metier lui-meme -- ni echeance, ni verdict de
  * correction, ni tolerance orthographique. Son unique travail : cabler des
- * evenements sur un DOM deja complet (gabarits/chapitre.html + le rendu de
+ * evenements sur un DOM deja complet (gabarits/ + le rendu de
  * outils/construire.py), et ecrire chaque interaction dans le stockage.
  *
- * Contrat de degradation : les cartes, questions et sections vivent deja
- * dans le DOM sans JavaScript (aucun `hidden` pose par le generateur). Ce
- * module REVELE (retire `hidden`/`cachee`) et MASQUE (les pose) ; il n'injecte
- * du contenu neuf que pour des controles purement interactifs qui n'ont pas
- * de sens sans JavaScript (champs de saisie du mode muet, bouton de
- * verification) -- jamais pour du texte de cours, de carte ou de question.
+ * Contrat de degradation : la fiche (le cours a lire) vit deja dans le DOM,
+ * sans JavaScript, sans rien de masque. Ce module REVELE (retire `hidden`) et
+ * MASQUE (le pose) ; il n'injecte du contenu neuf que pour des controles
+ * purement interactifs qui n'ont pas de sens sans JavaScript (champs de saisie
+ * des planches muettes et des muscles, bouton de verification) -- jamais pour
+ * du texte de cours, de carte ou de question.
  *
- * Exception assumee : la seance du jour (accueil). Sa composition depend du
- * localStorage, donc ne peut pas etre figee au moment du build. Elle ne
- * redefinit pour autant aucun gabarit de carte/question/planche -- elle CLONE
- * l'element deja rendu par outils/construire.py dans la page du chapitre
- * concerne -- clone depuis #reservoir-seance, injecte dans index.html par outils/empaqueter.py dans cette variante autonome -- et le rejoue avec les memes
- * fonctions que ci-dessous. Un item de seance est donc, litteralement, le
- * meme DOM que dans sa page de chapitre -- pas une imitation.
+ * Un seul mecanisme d'exercice : le deroule d'une seance (composerSeance,
+ * un item a la fois, verdicts, ecriture en stockage). Il sert
+ *   - la seance du jour, sur l'accueil : tous les chapitres ;
+ *   - l'onglet « S'exercer » d'une page de chapitre : ce chapitre seul
+ *     (attribut data-chapitre du bloc .seance).
+ * Il ne redefinit aucun gabarit de carte/question/planche/muscle : il CLONE
+ * l'element deja rendu par outils/construire.py -- dans le reservoir cache de
+ * la page ([data-reservoir]) quand elle en porte un (page de chapitre,
+ * accueil de la variante autonome), sinon dans la page du chapitre concerne,
+ * recuperee par fetch -- et le rejoue avec les memes fonctions. Un item de
+ * seance est donc, litteralement, le meme DOM que celui que la page contient.
  */
 
 
@@ -293,6 +297,12 @@ function estDansUnChamp(cible) {
 }
 
 function demarrer(document, support) {
+  // Premiere instruction : tant qu'elle n'a pas tourne, la page est dans son etat
+  // sans JavaScript (la fiche seule, une ligne qui dit que les exercices ont
+  // besoin du script -- style.css §5.2a). Un module qui ne se charge pas
+  // (file://) la laisse donc absente, ce qui est voulu.
+  document.documentElement.classList.add('js');
+
   const stockage = creerStockage(support);
 
   // Donnees brutes du cours (bonne reponse de quiz, forme canonique d'un
@@ -314,11 +324,10 @@ function demarrer(document, support) {
 
   let carteActive = null;
 
-  // Hook pose par le bloc "Seance du jour" plus bas (accueil uniquement) pour
-  // reinjecter en fin de file un item note "rate" PENDANT la seance en cours
-  // (spec §4.3). Reste a `null` sur une page de chapitre, qui n'a pas de
-  // notion de file de seance -- enregistrerVerdict y fonctionne exactement
-  // comme avant.
+  // Hook pose par le bloc "Seance" plus bas pour reinjecter en fin de file un
+  // item note "rate" PENDANT la seance en cours (spec §4.3). Reste a `null`
+  // hors d'une seance (page de chapitre sur la fiche) : enregistrerVerdict y
+  // fonctionne exactement comme avant.
   let surVerdictPendantSeance = null;
 
   function itemParDefaut(id) {
@@ -335,25 +344,60 @@ function demarrer(document, support) {
     return itemMisAJour;
   }
 
-  // --- Onglets ------------------------------------------------------------
+  // --- Onglets : Fiche / S'exercer ---------------------------------------------
 
   const boutonsOnglet = Array.from(document.querySelectorAll('.onglet'));
-  const volets = Array.from(document.querySelectorAll('.volet'));
+  const panneaux = Array.from(document.querySelectorAll('.panneau'));
   const barreCarte = document.getElementById('actions-carte');
 
-  function activerOnglet(cle, { focus = false } = {}) {
+  // Page de chapitre : deux onglets, un chapitre s'ouvre sur la fiche (le cours a
+  // lire), jamais sur un exercice. Sur l'accueil il n'y en a pas : `ongletCourant`
+  // reste null, et un exercice de la seance est donc toujours « a l'ecran ».
+  let ongletCourant = null;
+
+  // Hook pose par le bloc "Seance" : la premiere ouverture de S'exercer lance la
+  // serie, sans second clic. Une serie en cours n'est jamais relancee par un
+  // simple aller-retour entre les deux onglets.
+  let surPremiereOuvertureExercer = null;
+  let exercerDejaOuvert = false;
+
+  // Une carte retournee attend son verdict tant qu'on ne l'a pas juge : la barre
+  // ancree en bas d'ecran ne doit pourtant se voir que sur S'exercer, pas sur la
+  // fiche qu'on lit.
+  function carteAttendUnVerdict() {
+    if (!carteActive || !carteActive.isConnected) return false;
+    if (carteActive.dataset.dernierVerdict) return false;
+    return !carteActive.querySelector('.carte__r')?.dataset.etat;
+  }
+
+  function exerciceAffiche() {
+    return ongletCourant === null || ongletCourant === 'exercer';
+  }
+
+  function activerOnglet(cle, { focus = false, majUrl = true } = {}) {
+    ongletCourant = cle;
     for (const bouton of boutonsOnglet) {
       bouton.setAttribute('aria-selected', bouton.dataset.onglet === cle ? 'true' : 'false');
     }
-    for (const volet of volets) {
-      volet.hidden = volet.dataset.volet !== cle;
+    for (const panneau of panneaux) {
+      panneau.hidden = panneau.dataset.panneau !== cle;
     }
-    if (cle !== 'cartes') {
-      carteActive = null;
-      if (barreCarte) barreCarte.hidden = true;
-    }
+    if (barreCarte) barreCarte.hidden = !(cle === 'exercer' && carteAttendUnVerdict());
     if (focus) {
       boutonsOnglet.find((b) => b.dataset.onglet === cle)?.focus();
+    }
+    if (majUrl) {
+      try {
+        // L'onglet ouvert survit a un rechargement ; l'accueil le vise par #exercer.
+        window.history.replaceState(
+          null, '',
+          cle === 'exercer' ? '#exercer' : window.location.pathname + window.location.search,
+        );
+      } catch { /* file:// strict, iframe : sans effet */ }
+    }
+    if (cle === 'exercer' && !exercerDejaOuvert) {
+      exercerDejaOuvert = true;
+      if (surPremiereOuvertureExercer) surPremiereOuvertureExercer();
     }
   }
 
@@ -364,13 +408,43 @@ function demarrer(document, support) {
     activerOnglet(boutonsOnglet[suivant].dataset.onglet, { focus: true });
   }
 
-  for (const bouton of boutonsOnglet) {
-    bouton.addEventListener('click', () => activerOnglet(bouton.dataset.onglet));
+  // Au clic (pas au chargement) : si on a lu la fiche jusqu'en bas, le contenu du
+  // nouvel onglet doit commencer a l'ecran, pas quelque part au milieu. On s'arrete
+  // sur la barre d'onglets -- on peut ainsi rechanger d'onglet d'un geste.
+  function revenirAuxOnglets() {
+    const barre = document.querySelector('.onglets');
+    if (barre && barre.getBoundingClientRect().top < 0) barre.scrollIntoView({ block: 'start' });
   }
-  if (boutonsOnglet.length) activerOnglet(boutonsOnglet[0].dataset.onglet);
+
+  for (const bouton of boutonsOnglet) {
+    bouton.addEventListener('click', () => {
+      activerOnglet(bouton.dataset.onglet);
+      revenirAuxOnglets();
+    });
+  }
+
+  // Lien de fin de fiche : « tout lu ? » -> S'exercer. Un lien (pas un bouton) : sans
+  // JavaScript il ne fait rien et le gabarit le masque.
+  for (const lien of document.querySelectorAll('[data-aller]')) {
+    lien.addEventListener('click', (evenement) => {
+      evenement.preventDefault();
+      activerOnglet(lien.dataset.aller);
+      revenirAuxOnglets();
+    });
+  }
+
+  // Plan de la fiche : ouvert a la construction quand il est court (voir
+  // outils/construire.py, PLAN_OUVERT_JUSQU_A) ; sur telephone, meme un plan court
+  // repousserait la premiere section hors de l'ecran -- on le replie, un appui
+  // le rouvre. Sans JavaScript il reste tel que construit, donc lisible.
+  const planFiche = document.querySelector('.plan');
+  if (planFiche && window.matchMedia('(max-width: 719px)').matches) planFiche.open = false;
 
   // --- Cartes --------------------------------------------------------------
 
+  // Les cartes n'existent a l'ecran que dans le deroule d'une seance (elles sont
+  // clonees depuis le reservoir, voir plus bas) : le volet est celui de la zone
+  // de seance, jamais un onglet.
   function carteParDefaut() {
     const voletCourant = document.querySelector('.volet[data-volet="cartes"]:not([hidden])');
     return voletCourant ? voletCourant.querySelector('.carte') : null;
@@ -410,14 +484,6 @@ function demarrer(document, support) {
     if (barreCarte) barreCarte.hidden = true;
   }
 
-  const zoneCartes = document.querySelector('.volet[data-volet="cartes"]');
-  if (zoneCartes) {
-    for (const carte of zoneCartes.querySelectorAll('.carte')) {
-      carte.tabIndex = 0;
-      carte.addEventListener('click', () => activerCarte(carte));
-      carte.addEventListener('focus', () => { carteActive = carte; });
-    }
-  }
   if (barreCarte) {
     barreCarte.querySelector('[data-action="retourner"]')
       ?.addEventListener('click', () => basculerCarteCourante());
@@ -428,6 +494,7 @@ function demarrer(document, support) {
 
   // --- Quiz ------------------------------------------------------------------
 
+  // Meme remarque : le volet est celui de la zone de seance.
   const zoneQuiz = document.querySelector('.volet[data-volet="quiz"]');
   if (zoneQuiz) {
     zoneQuiz.addEventListener('click', (evenement) => {
@@ -452,9 +519,15 @@ function demarrer(document, support) {
     });
   }
 
-  // --- Planches (legende / muet) ---------------------------------------------
+  // --- Planches muettes --------------------------------------------------------
 
-  const planches = Array.from(document.querySelectorAll('.planche'));
+  // Le reservoir ([data-reservoir]) tient dans le DOM la place de la page du
+  // chapitre : ce sont des MODELES a cloner, pas des exercices affiches. Les
+  // equiper au chargement les ferait cloner deja equipes -- un second jeu de
+  // champs (muscles) ou un bouton Verifier sans ecouteur (planches : importNode
+  // ne copie pas les ecouteurs), donc mort. Un modele reste nu ; la seance
+  // equipe le CLONE au moment de l'inserer (voir afficherEtapeCourante).
+  const reservoirLocal = document.querySelector('[data-reservoir]');
 
   function construireLegende(planche) {
     const pastilles = Array.from(planche.querySelectorAll('.pastille'));
@@ -492,14 +565,17 @@ function demarrer(document, support) {
     planche.append(liste, boutonVerifier);
   }
 
+  // Apres la tentative -- et seulement apres --, la correction se montre : les
+  // libelles reapparaissent sur le trace et chaque erreur dit ce qu'on attendait.
+  // Les champs se figent : on ne « corrige » pas sa reponse en recopiant la bonne.
   function verifierPlanche(planche) {
     const liste = planche.querySelector('.legendes');
     if (!liste) return;
-    const aujourdhui = aujourdHuiISO();
 
     for (const champ of liste.querySelectorAll('input')) {
       const correct = verifierPastille({ t: champ.dataset.attendu }, champ.value);
       champ.dataset.verdict = correct ? 'bon' : 'mauvais';
+      champ.readOnly = true;
 
       let etatSpan = champ.parentElement.querySelector('.legendes__etat');
       if (!etatSpan) {
@@ -507,65 +583,24 @@ function demarrer(document, support) {
         etatSpan.className = 'legendes__etat mono';
         champ.parentElement.appendChild(etatSpan);
       }
-      etatSpan.textContent = correct ? 'juste' : 'faux';
+      etatSpan.textContent = correct ? 'juste' : `faux — attendu : ${champ.dataset.attendu}`;
 
       enregistrerVerdict(`${planche.id}#${champ.dataset.pastilleN}`, correct ? 'su' : 'rate');
     }
-    // Marqueur reutilise par la seance du jour pour distinguer une planche
-    // reellement verifiee d'une planche seulement affichee puis passee.
+    planche.dataset.mode = 'legende';
+    const boutonVerifier = planche.querySelector(':scope > button.action');
+    if (boutonVerifier) boutonVerifier.hidden = true;
+    // Marqueur reutilise par la seance pour distinguer une planche reellement
+    // verifiee d'une planche seulement affichee puis passee.
     planche.dataset.verifie = 'oui';
   }
 
-  function etatModePlanches() {
-    return planches[0]?.dataset.mode === 'muet' ? 'muet' : 'legende';
-  }
-
-  function actualiserBoutonMode() {
-    const bouton = document.querySelector('[data-action="mode-planches"]');
-    if (!bouton) return;
-    const mode = etatModePlanches();
-    bouton.setAttribute('aria-pressed', mode === 'muet' ? 'true' : 'false');
-    const etat = bouton.querySelector('.mode-planches__etat');
-    if (etat) etat.textContent = mode === 'muet' ? 'mode muet' : 'mode légendé';
-  }
-
-  function basculerModePlanches() {
-    const nouveauMode = etatModePlanches() === 'muet' ? 'legende' : 'muet';
-    for (const planche of planches) {
-      planche.dataset.mode = nouveauMode;
-      const liste = planche.querySelector('.legendes');
-      const bouton = planche.querySelector(':scope > button.action');
-      if (liste) liste.hidden = nouveauMode !== 'muet';
-      if (bouton) bouton.hidden = nouveauMode !== 'muet';
-    }
-    actualiserBoutonMode();
-  }
-
-  if (planches.length) {
-    for (const planche of planches) construireLegende(planche);
-    actualiserBoutonMode();
-    const boutonMode = document.querySelector('[data-action="mode-planches"]');
-    if (boutonMode) {
-      boutonMode.hidden = false;
-      boutonMode.addEventListener('click', () => basculerModePlanches());
-    }
-  }
-
-  // --- Muscles (reference / champs) -------------------------------------------
+  // --- Muscles a completer ------------------------------------------------------
   //
-  // Defaut Critical corrige ici (plan chapitres-2-a-7, tache 1) : la table
-  // n'avait ni masquage ni champ de saisie -- ouvrir l'onglet exposait toutes
-  // les reponses. Meme grammaire que le mode muet des planches ci-dessus,
-  // appliquee ligne par ligne : la verite attendue vient du DOM (le texte
-  // deja rendu par outils/construire.py dans .muscle__valeur), jamais de
-  // cours.json -- comme verifierPastille pour une legende de planche.
-  //
-  // A la difference des planches (par defaut "legende", donc lisible, tant
-  // qu'on n'a pas explicitement demande le mode muet), le mode par defaut ici
-  // est "champs" : c'est la table de reference (valeurs visibles) qui est
-  // l'etat secondaire, atteint par bascule. Sans JavaScript, aucun .muscle__champ
-  // n'est jamais cree : la table reste sur son unique etat construit -- valeurs
-  // visibles -- ce qui satisfait la degradation sans script.
+  // Meme grammaire que la planche muette, ligne par ligne : la verite attendue
+  // vient du DOM (le texte deja rendu par outils/construire.py dans
+  // .muscle__valeur), jamais de cours.json. La table clonee en seance est en mode
+  // "champs" : valeurs masquees (style.css §5.8a), un champ par colonne.
 
   function construireChampsMuscles(table) {
     for (const ligne of table.querySelectorAll(':scope > tbody > tr')) {
@@ -597,8 +632,9 @@ function demarrer(document, support) {
   // Verifie TOUTES les lignes de la table en un seul geste, comme
   // verifierPlanche pour toutes les pastilles d'une planche : "ligne par
   // ligne" (spec §4.2) decrit la granularite du verdict -- un par muscle --
-  // pas un bouton distinct par ligne.
-  function verifierMuscles(table) {
+  // pas un bouton distinct par ligne. Comme pour la planche, la correction se
+  // montre APRES la tentative : ce qu'on attendait, sous chaque erreur.
+  function verifierMuscles(table, boutonVerifier) {
     for (const ligne of table.querySelectorAll(':scope > tbody > tr')) {
       const champs = Array.from(ligne.querySelectorAll('.muscle__champ input'));
       if (!champs.length) continue;
@@ -606,43 +642,23 @@ function demarrer(document, support) {
       for (const champ of champs) {
         const correct = verifierPastille({ t: champ.dataset.attendu }, champ.value);
         champ.dataset.verdict = correct ? 'bon' : 'mauvais';
+        champ.readOnly = true;
         const etatSpan = champ.parentElement.querySelector('.muscle__etat');
-        if (etatSpan) etatSpan.textContent = correct ? 'juste' : 'faux';
+        if (etatSpan) {
+          etatSpan.textContent = correct ? 'juste' : `faux — attendu : ${champ.dataset.attendu}`;
+        }
         if (!correct) toutCorrect = false;
       }
       const id = ligne.dataset.id;
       if (id) enregistrerVerdict(id, toutCorrect ? 'su' : 'rate');
       ligne.dataset.verifie = 'oui';
     }
+    if (boutonVerifier) boutonVerifier.hidden = true;
   }
 
-  function etatModeMuscles(table) {
-    return table.dataset.mode === 'reference' ? 'reference' : 'champs';
-  }
-
-  function actualiserBoutonModeMuscles(table, bouton) {
-    if (!bouton) return;
-    const mode = etatModeMuscles(table);
-    bouton.setAttribute('aria-pressed', mode === 'champs' ? 'true' : 'false');
-    const etat = bouton.querySelector('.mode-muscles__etat');
-    if (etat) etat.textContent = mode === 'champs' ? 'mode champs' : 'mode référence';
-  }
-
-  // Comme basculerModePlanches : le bouton Verifier n'a de sens qu'en mode
-  // champs -- en reference, rien n'est masque a verifier.
-  function basculerModeMuscles(table, boutonMode, boutonVerifier) {
-    const nouveauMode = etatModeMuscles(table) === 'champs' ? 'reference' : 'champs';
-    table.dataset.mode = nouveauMode;
-    if (boutonVerifier) boutonVerifier.hidden = nouveauMode !== 'champs';
-    actualiserBoutonModeMuscles(table, boutonMode);
-  }
-
-  // Construit les champs, force le mode par defaut et pose le bouton
-  // Verifier -- partage entre la page de chapitre (une table, toutes ses
-  // lignes) et la seance du jour (une table clonee, une seule ligne : voir
-  // elementPourItem plus bas). Une seule definition : la seance affiche
-  // litteralement le meme mecanisme que l'onglet Muscles, jamais une
-  // seconde grammaire pour la meme table.
+  // Construit les champs, force le mode "champs" et pose le bouton Verifier --
+  // applique par la seance a la table clonee (une seule ligne : voir
+  // elementPourItem plus bas).
   function activerPresentationMuscles(table) {
     construireChampsMuscles(table);
     table.dataset.mode = 'champs';
@@ -651,33 +667,17 @@ function demarrer(document, support) {
     boutonVerifier.type = 'button';
     boutonVerifier.className = 'action';
     boutonVerifier.textContent = 'Vérifier';
-    boutonVerifier.addEventListener('click', () => verifierMuscles(table));
+    boutonVerifier.addEventListener('click', () => verifierMuscles(table, boutonVerifier));
     table.after(boutonVerifier);
     return boutonVerifier;
   }
 
-  const tablesMuscles = Array.from(document.querySelectorAll('.muscles'));
-  if (tablesMuscles.length) {
-    // Une seule table par page de chapitre (l'onglet Muscles n'apparait que
-    // si le chapitre en a) : la boucle documente qu'aucune limite n'est
-    // supposee, sans en tirer de complexite supplementaire.
-    for (const table of tablesMuscles) {
-      const boutonVerifier = activerPresentationMuscles(table);
-
-      const boutonMode = document.querySelector('[data-action="mode-muscles"]');
-      actualiserBoutonModeMuscles(table, boutonMode);
-      if (boutonMode) {
-        boutonMode.hidden = false;
-        boutonMode.addEventListener('click', () => basculerModeMuscles(table, boutonMode, boutonVerifier));
-      }
-    }
-  }
-
   // --- Progression (accueil) --------------------------------------------------
 
-  // Un chapitre jamais ouvert doit se voir vide, pas gris-neutre (spec §4.1) :
+  // Un chapitre pas commence doit se voir vide, pas gris-neutre (spec §4.1) :
   // data-etat="vide" (pose par defaut au build) distingue "aucun item touche"
-  // de "items touches, 0 % su", que le seul pourcentage confondrait.
+  // de "items touches, 0 % su", que le seul pourcentage confondrait. L'anneau
+  // est celui de la ligne du chapitre (son numero est au centre).
   function actualiserProgression() {
     if (!coursDonnees) return;
     const etat = stockage.lire();
@@ -702,12 +702,12 @@ function demarrer(document, support) {
       const anneau = li.querySelector('.anneau');
       const valeur = li.querySelector('.anneau__valeur');
       const part = touche ? Math.round((su / items.length) * 100) : 0;
-      const etatTexte = touche ? `${part} % su` : 'jamais ouvert';
+      const etatTexte = touche ? `${part} % su` : 'pas commencé';
       li.dataset.etat = touche ? 'touche' : 'vide';
       if (anneau) {
         anneau.style.setProperty('--part', String(part));
-        // Sans cette ligne, un lecteur d'ecran annoncait toujours "jamais
-        // ouvert" (valeur figee au build) meme apres des verdicts reels --
+        // Sans cette ligne, un lecteur d'ecran annoncait toujours "pas
+        // commence" (valeur figee au build) meme apres des verdicts reels --
         // l'anneau mentait silencieusement a qui ne voit pas son remplissage.
         const titre = titresParChapitre.get(numero) || '';
         anneau.setAttribute('aria-label', `Chapitre ${numero}, ${titre} : ${etatTexte}`);
@@ -716,10 +716,20 @@ function demarrer(document, support) {
     }
   }
 
-  // --- Seance du jour (accueil) ------------------------------------------------
+  // --- Le deroule : seance du jour (accueil) et S'exercer (page de chapitre) ----
+  //
+  // UN seul mecanisme pour les deux. Le bloc .seance (gabarits/seance.html) a les
+  // memes identifiants partout ; seul son attribut data-chapitre change ce qu'on
+  // en tire : absent (accueil), la seance melange tous les chapitres dus ;
+  // present (page de chapitre), composerSeance ne recoit que les items de ce
+  // chapitre. Meme composition, meme deroule, memes verdicts, meme ecriture en
+  // stockage -- rien n'est reecrit pour le chapitre.
 
   const boutonSeance = document.getElementById('seance');
   if (boutonSeance) {
+    const blocSeance = boutonSeance.closest('.seance');
+    const chapitreSeance = blocSeance?.dataset.chapitre ? Number(blocSeance.dataset.chapitre) : null;
+    const debutSeance = boutonSeance.closest('[data-seance-debut]') || boutonSeance;
     const zoneSeance = document.getElementById('seance-zone');
     const messageSeance = document.getElementById('seance-message');
     const compteSeance = document.getElementById('seance-compte');
@@ -733,21 +743,22 @@ function demarrer(document, support) {
 
     // Une page de chapitre par numero, recuperee une seule fois et reutilisee
     // pour toute la seance -- c'est elle qui porte le vrai rendu d'une carte,
-    // d'une question ou d'une planche (voir l'exception documentee en tete
-    // de fichier).
-    // Variante autonome (outils/empaqueter.py) : plus de fetch de
-    // chapitre-N.html (impossible en file://) -- clone depuis
-    // #reservoir-seance, depose dans index.html a la construction avec
-    // EXACTEMENT le balisage que outils/construire.py (_rendre_volet) met
-    // dans chapitre-N.html pour ce meme chapitre. Meme fonctions de rendu :
-    // l'identite entre un item de seance et sa page de chapitre reste
-    // garantie par construction, pas par une copie a resynchroniser.
-    function reservoirSeance() {
-      return document.getElementById('reservoir-seance');
+    // d'une question ou d'une planche. Ce chemin ne sert que sur l'accueil de
+    // site/ : une page de chapitre, et l'accueil de la variante autonome, ont
+    // deja leurs modeles dans un reservoir local (reservoirLocal).
+    // Variante autonome (outils/empaqueter.py) : plus de page de chapitre a
+    // recuperer (impossible en file://). Les modeles d'exercice sont TOUJOURS
+    // dans un reservoir local ([data-reservoir]) : celui de la page d'un chapitre,
+    // ou #reservoir-seance sur l'accueil, depose a la construction avec
+    // EXACTEMENT le balisage que outils/construire.py (_rendre_volet) produit.
+    // Meme fonctions de rendu : l'identite entre un item de seance et sa page de
+    // chapitre reste garantie par construction, pas par une copie a resynchroniser.
+    function chargerPageChapitre() {
+      return Promise.resolve(null);
     }
 
     async function elementPourItem(item) {
-      const page = reservoirSeance();
+      const page = reservoirLocal || await chargerPageChapitre(item.chapitre);
       if (!page) return null;
 
       // Un item "muscle" designe une ligne (data-id, pas un id DOM -- un nom
@@ -772,8 +783,10 @@ function demarrer(document, support) {
       // Un item "pastille" designe une legende individuelle, mais la seule
       // unite affichable et verifiable est la planche entiere (verifierPlanche
       // corrige toutes ses pastilles a la fois, comme en page de chapitre).
+      // Selecteur d'attribut plutot que getElementById : `page` est tantot un
+      // document (page de chapitre recuperee), tantot un element (reservoir).
       const idSource = item.type === 'pastille' ? item.id.split('#')[0] : item.id;
-      const source = page.querySelector(`#${idSource}`);
+      const source = page.querySelector(`[id="${idSource}"]`);
       return source ? document.importNode(source, true) : null;
     }
 
@@ -860,6 +873,10 @@ function demarrer(document, support) {
       const bilan = bilanSeance();
       viderZoneSeance();
       if (zoneSeance) zoneSeance.hidden = true;
+      // Le bouton de depart revient : sur une page de chapitre, c'est pour la
+      // serie suivante (les items encore dus, puis la consolidation).
+      debutSeance.hidden = false;
+      if (chapitreSeance !== null) boutonSeance.textContent = 'Continuer';
       if (messageSeance) {
         messageSeance.textContent = motif === 'interrompue'
           ? `Séance interrompue — ${bilan}`
@@ -894,6 +911,11 @@ function demarrer(document, support) {
       }
 
       if (compteSeance) compteSeance.textContent = `${position + 1} / ${file.length}`;
+      // Un exercice long (quiz, table) laisse la page defilee : le suivant doit
+      // commencer a l'ecran, pas quelque part au-dessus.
+      if (zoneSeance && zoneSeance.getBoundingClientRect().top < 0) {
+        zoneSeance.scrollIntoView({ block: 'start' });
+      }
       const element = await elementPourItem(item);
       if (!element) {
         // Page de chapitre introuvable ou id absent : on saute l'etape sans
@@ -913,7 +935,9 @@ function demarrer(document, support) {
         // page de chapitre) : reveler exige un geste explicite (clic ou
         // Espace), sinon la reponse s'affiche avant toute tentative de rappel.
         carteActive = element;
-        element.focus();
+        // Sauf si l'on vient de choisir l'onglet au clavier : le focus y reste,
+        // les fleches continuent de changer d'onglet.
+        if (!document.activeElement?.closest?.('.onglet')) element.focus();
       } else if (item.type === 'quiz' && voletQuizSeance) {
         voletQuizSeance.hidden = false;
         voletQuizSeance.appendChild(element);
@@ -971,6 +995,7 @@ function demarrer(document, support) {
         if (!coursDonnees) {
           if (messageSeance) messageSeance.textContent = 'Chargement du contenu…';
           await coursPret;
+          if (messageSeance) messageSeance.textContent = '';
         }
         if (!coursDonnees) {
           if (messageSeance) messageSeance.textContent = 'Contenu indisponible pour le moment.';
@@ -979,8 +1004,12 @@ function demarrer(document, support) {
 
         // Fusion stockage + items par defaut : un item inconnu du stockage
         // demarre a "jamais", donc du immediatement (spec §4.3/§4.4).
+        // Sur une page de chapitre, seuls les items de CE chapitre entrent dans
+        // composerSeance : c'est tout ce qui distingue S'exercer de la seance du jour.
         const etat = stockage.lire();
-        const items = itemsDuCours(coursDonnees).map((item) => etat.items[item.id] || item);
+        const items = itemsDuCours(coursDonnees)
+          .filter((item) => chapitreSeance === null || item.chapitre === chapitreSeance)
+          .map((item) => etat.items[item.id] || item);
         const aujourdhui = aujourdHuiISO();
         const joursAvantExamen = etat.dateExamen ? joursEntre(aujourdhui, etat.dateExamen) : NaN;
         const intervalle = intervalleDeBase(joursAvantExamen);
@@ -1008,15 +1037,31 @@ function demarrer(document, support) {
         nbRevises = 0;
         nbPasses = 0;
         if (bandeauConsolidation) bandeauConsolidation.hidden = !consolidation;
+        // Le depart s'efface pendant la serie : « Terminer » en est la seule sortie.
+        debutSeance.hidden = true;
         if (zoneSeance) zoneSeance.hidden = false;
         await afficherEtapeCourante();
-        zoneSeance?.scrollIntoView({ block: 'start' });
+        if (chapitreSeance === null) zoneSeance?.scrollIntoView({ block: 'start' });
       } finally {
         enTransition = false;
       }
     }
 
     boutonSeance.addEventListener('click', () => { demarrerSeance(); });
+    // Page de chapitre : ouvrir S'exercer, c'est deja commencer.
+    surPremiereOuvertureExercer = () => { demarrerSeance(); };
+  }
+
+  // Onglet d'ouverture : la fiche, sauf si l'on arrive par un lien « S'exercer »
+  // (#exercer). Apres le bloc ci-dessus : l'ouverture de S'exercer lance la serie,
+  // dont le hook vient d'etre pose.
+  if (boutonsOnglet.length) {
+    const demande = window.location.hash === '#exercer'
+      && boutonsOnglet.some((b) => b.dataset.onglet === 'exercer');
+    // Sur la fiche a l'ouverture, l'adresse est laissee telle quelle : une ancre
+    // (#fiche-s12, un lien du plan) doit survivre a un rechargement.
+    activerOnglet(demande ? 'exercer' : 'fiche', { majUrl: false });
+    if (demande) window.scrollTo(0, 0);
   }
 
   // --- Reglages : theme, date d'examen, export / import -----------------------
@@ -1134,29 +1179,31 @@ function demarrer(document, support) {
     switch (evenement.key) {
       case ' ':
       case 'Spacebar':
+        // Espace ne retourne la carte que s'il y a une carte a l'ecran : sur la
+        // fiche, il garde son sens natif (faire defiler la page), et sur un
+        // bouton ou un lien il l'active.
+        if (!exerciceAffiche() || evenement.target.closest?.('button, a, summary')) break;
+        if (!(carteActive || carteParDefaut())) break;
         evenement.preventDefault();
         basculerCarteCourante();
         break;
       case '1':
-        appliquerVerdictCourant('rate');
+        if (exerciceAffiche()) appliquerVerdictCourant('rate');
         break;
       case '2':
-        appliquerVerdictCourant('difficile');
+        if (exerciceAffiche()) appliquerVerdictCourant('difficile');
         break;
       case '3':
-        appliquerVerdictCourant('su');
+        if (exerciceAffiche()) appliquerVerdictCourant('su');
         break;
       case 'ArrowLeft':
-        evenement.preventDefault();
-        ongletVoisin(-1);
-        break;
       case 'ArrowRight':
-        evenement.preventDefault();
-        ongletVoisin(1);
-        break;
-      case 'm':
-      case 'M':
-        if (planches.length) basculerModePlanches();
+        // Fleches : d'un onglet a l'autre, quand un onglet a le focus (schema
+        // habituel des onglets) -- pas partout, elles servent aussi a lire.
+        if (evenement.target.closest?.('.onglet')) {
+          evenement.preventDefault();
+          ongletVoisin(evenement.key === 'ArrowLeft' ? -1 : 1);
+        }
         break;
       default:
         break;

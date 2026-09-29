@@ -1,0 +1,28 @@
+<section class="seance{{seance_classe}}" aria-label="{{seance_libelle}}"{{seance_attributs}}>
+  <div class="seance__debut" data-seance-debut>
+    <p class="seance__intro">{{seance_intro}}</p>
+    <button type="button" id="seance" class="action action--majeure seance__bouton">{{seance_bouton}}</button>
+  </div>
+  <p id="seance-message" class="mono" aria-live="polite"></p>
+
+  <section id="seance-zone" aria-label="Exercice en cours" hidden>
+    <p id="seance-compte" class="mono" aria-live="polite"></p>
+    <p id="seance-consolidation" class="seance__consolidation" hidden>
+      Rien n&#x27;est dû aujourd&#x27;hui&nbsp;: séance de consolidation sur les items les plus fragiles.
+    </p>
+    <div class="volets">
+      <section class="volet" data-volet="cartes" hidden></section>
+      <section class="volet" data-volet="quiz" hidden></section>
+      <div class="planches" id="seance-planche" hidden></div>
+      <div id="seance-muscle" hidden></div>
+    </div>
+    <div class="seance__nav">
+      <button type="button" class="action action--discrete" id="seance-suivant">
+        Suivant
+      </button>
+      <button type="button" class="action" id="seance-quitter">
+        Terminer
+      </button>
+    </div>
+  </section>
+</section>

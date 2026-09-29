@@ -147,6 +147,28 @@ Puis cinq onglets.
 L'onglet **Muscles** n'apparaît que pour les chapitres qui contiennent des tables musculaires
 (chapitres 5, 6 et 7). Les onglets ne sont pas affichés vides.
 
+> **Révision du 2026-09-29 (remplace l'ordre et « Le cours » ci-dessus).** L'ordre d'origine
+> (Planche, Cartes, Quiz, Muscles, Le cours) mettait l'exercice avant la lecture : on ne peut pas
+> récupérer en mémoire ce qu'on n'y a jamais mis (§3.3 vaut pour une matière déjà rencontrée). Les
+> onglets sont désormais en deux groupes : **1 Apprendre** (Fiche, Pièges : rien n'y est masqué)
+> puis **2 Se tester** (Planche, Cartes, Quiz, Muscles : aucune réponse avant tentative). « Le
+> cours » devient la **Fiche**, premier onglet et onglet ouvert par défaut : plan, sections, planches
+> légendées à l'endroit où la notion est traitée, pièges, table musculaire en référence. L'onglet
+> Planche s'ouvre **muet** (le mode légendé est dans la fiche ; la bascule reste pour vérifier après
+> tentative), conformément à §3.3. Voir le README, « Parcours d'un chapitre ».
+
+> **Révision du 2026-09-29 (simplification, remplace les deux tableaux d'onglets ci-dessus).**
+> Six onglets demandaient de comprendre ce que chacun contenait avant de commencer. Il n'en
+> reste que deux : **Fiche** (par défaut ; tout ce qui se lit, y compris les pièges) et
+> **S'exercer** (un parcours unique, un exercice à la fois, qui mélange cartes, questions,
+> planches muettes et muscles). S'exercer est la séance du jour restreinte à un chapitre
+> (`composerSeance` filtré, même dérouleur, mêmes verdicts) — aucun second mécanisme.
+> L'accueil se réduit à une phrase, au bouton de séance et aux sept chapitres (deux actions
+> chacun : Lire la fiche, S'exercer) ; les réglages sont derrière un lien discret. Perte
+> assumée : l'accès direct à un seul type d'exercice. Raccourcis : `←` `→` changent d'onglet
+> quand un onglet a le focus, `M` n'existe plus (la correction d'une planche ou d'un muscle
+> s'affiche après « Vérifier »). Voir le README, « Parcours d'un chapitre ».
+
 ### 4.3 Moteur de planification
 
 État par item : `{ id, chapitre, type, derniereVue, statut, echecs }` avec

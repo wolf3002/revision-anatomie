@@ -131,3 +131,30 @@ test('sans item a reinjecter, la file en cours ne change pas', () => {
   assert.equal(reinjecterRate(enCours, null), enCours);
   assert.equal(reinjecterRate(enCours, undefined), enCours);
 });
+
+// S'exercer (page de chapitre) ne réécrit aucun planificateur : il passe à
+// composerSeance les seuls items du chapitre. Ces deux tests fixent ce que ce
+// filtrage garantit, sur la même fonction que la séance du jour.
+test('composerSeance filtrée sur un chapitre ne renvoie que ce chapitre', () => {
+  const tous = [
+    item('c1-01', 1), item('c1-02', 1), item('q1-01', 1, 'jamais', null, 'quiz'),
+    item('c2-01', 2), item('c2-02', 2), item('q2-01', 2, 'jamais', null, 'quiz'),
+  ];
+  const duChapitre = tous.filter((i) => i.chapitre === 2);
+  const seance = composerSeance(duChapitre, { intervalle: 3, aujourdHui: '2026-09-18' });
+  assert.equal(seance.length, 3);
+  assert.ok(seance.every((i) => i.chapitre === 2));
+});
+
+test('sur un seul chapitre, la séance entrelace quand même les formats', () => {
+  const items = [
+    ...['a', 'b', 'c'].map((id) => item(`c-${id}`, 5, 'jamais', null, 'carte')),
+    ...['a', 'b', 'c'].map((id) => item(`q-${id}`, 5, 'jamais', null, 'quiz')),
+    ...['a', 'b', 'c'].map((id) => item(`m-${id}`, 5, 'jamais', null, 'muscle')),
+  ];
+  const types = composerSeance(items, { intervalle: 3, aujourdHui: '2026-09-18' })
+    .map((i) => i.type);
+  for (let k = 1; k < types.length; k += 1) {
+    assert.notEqual(types[k], types[k - 1], `deux ${types[k]} d'affilée : ${types}`);
+  }
+});

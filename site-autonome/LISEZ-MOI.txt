@@ -3,9 +3,15 @@ Site de revision -- Anatomie
 
 QU'EST-CE QUE C'EST ?
 ----------------------
-Un site pour reviser le cours d'anatomie : cartes de rappel actif, questions
-a choix multiples, planches a legender, tables musculaires a completer, et
-une "seance du jour" qui pioche automatiquement dans ce qui doit etre revu.
+Un site pour reviser le cours d'anatomie : la fiche de chaque chapitre a lire,
+puis des exercices (cartes, questions, planches a legender, muscles a completer)
+et une "seance du jour" qui pioche automatiquement dans ce qui doit etre revu.
+
+PAR OU COMMENCER ?
+-------------------
+Sur la page d'accueil, chaque chapitre a deux boutons : "Lire la fiche" (le
+cours, a lire d'abord) puis "S'exercer" (les exercices du chapitre, un a la
+fois). La "seance du jour" te fait ensuite revenir sur ce que tu as deja vu.
 
 COMMENT L'OUVRIR ?
 -------------------
@@ -21,7 +27,8 @@ importante :
   - si tu changes d'ordinateur, de telephone ou de navigateur, ta progression
     ne te suivra pas ;
   - si tu vides le cache / les donnees de navigation, elle est perdue.
-Le bouton "Exporter la progression", dans les reglages de chaque page,
+Le bouton "Exporter la progression", dans les "Reglages" (lien discret en bas
+de la page d'accueil),
 permet d'en garder une copie de secours dans un fichier, a reimporter plus
 tard (meme bouton, "Importer une progression").
 

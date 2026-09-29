@@ -1,14 +1,13 @@
 <div class="accueil">
   <header class="accueil__entete">
     <h1 class="accueil__titre">{{cours}}</h1>
-    <p class="accueil__sous_titre">Une séance mélange les chapitres dus et les formats — c'est voulu.</p>
+    <p class="guide">Lis la fiche d&#x27;un chapitre, puis exerce-toi.</p>
   </header>
 
   <section id="invite-date-examen" class="invite-date" aria-label="Date d&#x27;examen" hidden>
     <p class="invite-date__texte">
-      <strong>Quand est ton examen&nbsp;?</strong> C&#x27;est la seule information que ce site
-      demande&nbsp;: elle règle l&#x27;espacement de tes révisions sur le temps qu&#x27;il te reste.
-      Facultatif — tu peux lancer ta séance sans y répondre.
+      <strong>Quand est ton examen&nbsp;?</strong> Cette date règle l&#x27;espacement de tes
+      révisions (facultatif).
     </p>
     <div class="invite-date__champ">
       <label for="invite-date-examen-saisie">Date d&#x27;examen</label>
@@ -16,82 +15,49 @@
     </div>
   </section>
 
-  <section class="seance" aria-labelledby="seance-titre">
-    <h2 id="seance-titre">La séance du jour</h2>
-    <p class="seance__intro">Environ 20 minutes, piochées dans les chapitres dus.</p>
-    <button type="button" id="seance" class="action action--majeure seance__bouton">
-      Démarrer la séance du jour
-    </button>
-    <p id="seance-message" class="mono" aria-live="polite"></p>
-
-    <section id="seance-zone" aria-label="Séance en cours" hidden>
-      <p id="seance-compte" class="mono" aria-live="polite"></p>
-      <p id="seance-consolidation" class="seance__consolidation" hidden>
-        Rien n&#x27;est dû aujourd&#x27;hui&nbsp;: séance de consolidation sur les items les plus fragiles.
-      </p>
-      <div class="volets">
-        <section class="volet" data-volet="cartes" hidden></section>
-        <section class="volet" data-volet="quiz" hidden></section>
-        <div class="planches" id="seance-planche" hidden></div>
-        <div id="seance-muscle" hidden></div>
-      </div>
-      <div class="seance__nav">
-        <button type="button" class="action action--discrete" id="seance-suivant">
-          Suivant
-        </button>
-        <button type="button" class="action" id="seance-quitter">
-          Terminer la séance
-        </button>
-      </div>
-    </section>
-  </section>
-
-  <section class="progression-bloc" aria-labelledby="progression-titre">
-    <h2 id="progression-titre">Progression</h2>
-    <ul class="progression">
-      {{progression}}
-    </ul>
-  </section>
+  {{seance}}
 
   <section class="chapitres-bloc" aria-labelledby="chapitres-titre">
     <h2 id="chapitres-titre">{{titre_chapitres}}</h2>
-    <ul class="chapitres">
+    <ul class="chapitres progression">
       {{chapitres}}
     </ul>
   </section>
 
-  <button type="button" class="action" data-action="reglages-bascule"
-    aria-expanded="false" aria-controls="reglages-panneau" hidden>
-    Réglages
-  </button>
-  <section id="reglages-panneau" class="reglages" aria-label="Réglages" hidden>
-    <div class="reglages__bloc">
-      <span class="reglages__label">Thème</span>
-      <div class="reglages__groupe" role="group" aria-label="Thème">
-        <button type="button" class="action" data-theme-choix="auto" aria-pressed="false">Auto</button>
-        <button type="button" class="action" data-theme-choix="clair" aria-pressed="false">Clair</button>
-        <button type="button" class="action" data-theme-choix="sombre" aria-pressed="false">Sombre</button>
+  <div class="reglages-zone">
+    <button type="button" class="lien-discret" data-action="reglages-bascule"
+      aria-expanded="false" aria-controls="reglages-panneau" hidden>
+      Réglages
+    </button>
+    <section id="reglages-panneau" class="reglages" aria-label="Réglages" hidden>
+      <div class="reglages__bloc">
+        <span class="reglages__label">Thème</span>
+        <div class="reglages__groupe" role="group" aria-label="Thème">
+          <button type="button" class="action" data-theme-choix="auto" aria-pressed="false">Auto</button>
+          <button type="button" class="action" data-theme-choix="clair" aria-pressed="false">Clair</button>
+          <button type="button" class="action" data-theme-choix="sombre" aria-pressed="false">Sombre</button>
+        </div>
       </div>
-    </div>
-    <div class="reglages__bloc">
-      <label for="reglages-date-examen">Date d&#x27;examen</label>
-      <input type="date" id="reglages-date-examen" class="champ">
-      <span id="reglages-intervalle" class="mono"></span>
-    </div>
-    <div class="reglages__bloc">
-      <button type="button" class="action" data-action="exporter">Exporter la progression</button>
-    </div>
-    <div class="reglages__bloc">
-      <label for="reglages-import">Importer une progression (JSON)</label>
-      <input type="file" id="reglages-import" class="champ" accept="application/json">
-      <p id="reglages-statut" class="mono" aria-live="polite"></p>
-    </div>
-    <div class="reglages__bloc">
-      <button type="button" class="action" data-action="reinitialiser">
-        Réinitialiser la progression
-      </button>
-    </div>
-  </section>
+      <div class="reglages__bloc">
+        <label for="reglages-date-examen">Date d&#x27;examen</label>
+        <input type="date" id="reglages-date-examen" class="champ">
+        <span id="reglages-intervalle" class="mono"></span>
+      </div>
+      <div class="reglages__bloc">
+        <button type="button" class="action" data-action="exporter">Exporter la progression</button>
+      </div>
+      <div class="reglages__bloc">
+        <label for="reglages-import">Importer une progression (JSON)</label>
+        <input type="file" id="reglages-import" class="champ" accept="application/json">
+        <p id="reglages-statut" class="mono" aria-live="polite"></p>
+      </div>
+      <div class="reglages__bloc">
+        <button type="button" class="action" data-action="reinitialiser">
+          Réinitialiser la progression
+        </button>
+      </div>
+    </section>
+  </div>
 
   <div class="actions" id="actions-carte" hidden>
     <button type="button" class="action action--majeure" data-action="retourner">

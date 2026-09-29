@@ -19,7 +19,10 @@ def test_le_chapitre_7_couvre_le_volume_cible():
     assert 20 <= len(CHAPITRE_7["cartes"]) <= 25
     assert 10 <= len(CHAPITRE_7["quiz"]) <= 12
     assert 3 <= len(CHAPITRE_7["pieges"]) <= 4
-    assert 2 <= len(CHAPITRE_7["planches"]) <= 4
+    # Cinq depuis la decoupe du squelette du membre inferieur en deux planches
+    # (bassin-hanche-genou / jambe-cheville) : deux libelles de 100 et 170 unites
+    # de part et d'autre du genou ne tenaient pas dans 300 unites de large.
+    assert 2 <= len(CHAPITRE_7["planches"]) <= 5
 
 
 def test_les_bornes_de_slides_sont_celles_relevees():
@@ -159,6 +162,7 @@ def test_les_planches_attendues_du_chapitre_7_existent():
         "squelette-membre-inferieur-articulations",
         "os-coxal-trois-parties",
         "quadriceps-quatre-chefs",
+        "squelette-membre-inferieur-jambe-cheville",
         "ischio-jambiers-trois-terminaisons",
     } <= {p["id"] for p in CHAPITRE_7["planches"]}
 

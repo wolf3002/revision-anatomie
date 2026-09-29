@@ -4,6 +4,8 @@
     <h1 class="entete__titre">{{titre}}</h1>
     <span class="entete__slides">{{slides}}</span>
   </header>
+  <p class="guide">Lis d'abord la fiche (<strong>1&nbsp;Apprendre</strong>), puis teste-toi
+    (<strong>2&nbsp;Se tester</strong>)&nbsp;: on ne retrouve que ce qu'on a lu.</p>
   <nav class="onglets" aria-label="Sections du chapitre">
     {{onglets}}
   </nav>
@@ -11,11 +13,11 @@
     {{volets}}
   </div>
 
-  <button type="button" class="action" data-action="mode-planches" aria-pressed="false" hidden>
+  <button type="button" class="action" data-action="mode-planches" data-visible-sur="planche" aria-pressed="false" hidden>
     Planches <span class="mode-planches__etat mono">légendé</span> <span class="touche">M</span>
   </button>
 
-  <button type="button" class="action" data-action="mode-muscles" aria-pressed="false" hidden>
+  <button type="button" class="action" data-action="mode-muscles" data-visible-sur="muscles" aria-pressed="false" hidden>
     Muscles <span class="mode-muscles__etat mono">mode champs</span>
   </button>
 

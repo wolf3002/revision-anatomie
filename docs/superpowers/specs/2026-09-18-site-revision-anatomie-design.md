@@ -147,6 +147,16 @@ Puis cinq onglets.
 L'onglet **Muscles** n'apparaît que pour les chapitres qui contiennent des tables musculaires
 (chapitres 5, 6 et 7). Les onglets ne sont pas affichés vides.
 
+> **Révision du 2026-09-29 (remplace l'ordre et « Le cours » ci-dessus).** L'ordre d'origine
+> (Planche, Cartes, Quiz, Muscles, Le cours) mettait l'exercice avant la lecture : on ne peut pas
+> récupérer en mémoire ce qu'on n'y a jamais mis (§3.3 vaut pour une matière déjà rencontrée). Les
+> onglets sont désormais en deux groupes : **1 Apprendre** (Fiche, Pièges : rien n'y est masqué)
+> puis **2 Se tester** (Planche, Cartes, Quiz, Muscles : aucune réponse avant tentative). « Le
+> cours » devient la **Fiche**, premier onglet et onglet ouvert par défaut : plan, sections, planches
+> légendées à l'endroit où la notion est traitée, pièges, table musculaire en référence. L'onglet
+> Planche s'ouvre **muet** (le mode légendé est dans la fiche ; la bascule reste pour vérifier après
+> tentative), conformément à §3.3. Voir le README, « Parcours d'un chapitre ».
+
 ### 4.3 Moteur de planification
 
 État par item : `{ id, chapitre, type, derniereVue, statut, echecs }` avec

@@ -82,7 +82,7 @@ BALISES_SCRIPT_CLASSIQUES = (
 )
 
 # Les seuls volets qui produisent des items planifiables (cf.
-# exercices.itemsDuCours) -- "pieges" et "cours" (les sections de lecture) ne
+# exercices.itemsDuCours) -- "pieges" et "fiche" (les volets de lecture) ne
 # sont jamais tires en seance, donc jamais recherches dans le reservoir.
 # cle -> attribut du chapitre a tester avant de rendre (chapitre sans
 # planches ne doit pas ajouter un <div class="planches"></div> vide).
@@ -102,6 +102,12 @@ QU'EST-CE QUE C'EST ?
 Un site pour reviser le cours d'anatomie : cartes de rappel actif, questions
 a choix multiples, planches a legender, tables musculaires a completer, et
 une "seance du jour" qui pioche automatiquement dans ce qui doit etre revu.
+
+PAR OU COMMENCER ?
+-------------------
+Ouvre un chapitre : il s'ouvre sur la FICHE, le cours a lire. Lis-la d'abord,
+puis teste-toi (planche, cartes, quiz...). La "seance du jour", sur la page
+d'accueil, te fait ensuite revenir sur ce que tu as deja vu.
 
 COMMENT L'OUVRIR ?
 -------------------

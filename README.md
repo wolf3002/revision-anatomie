@@ -27,6 +27,30 @@ Volumes réels (`contenu/cours.json`) : **403 items planifiables** — 172 carte
 `docs/superpowers/plans/2026-09-26-chapitres-2-a-7.md` et les rapports de tâche
 correspondants.
 
+## Parcours d'un chapitre : lire d'abord, se tester ensuite
+
+Le site repose sur le rappel actif (se tester plutôt que relire), juste pour une
+matière **déjà rencontrée** : on ne retrouve pas ce qu'on n'a jamais lu. Une page de
+chapitre s'ouvre donc sur la lecture, et les exercices viennent après. Deux groupes
+d'onglets numérotés, dans cet ordre :
+
+| Groupe | Onglets | Règle |
+|---|---|---|
+| **1 Apprendre** | Fiche · Pièges | Rien n'est masqué. La fiche est le cours à lire : plan, sections et points, planches **légendées** à l'endroit où la notion est traitée, pièges de la notion, et (ch. 5 à 7) la table musculaire en valeurs lisibles. |
+| **2 Se tester** | Planche · Cartes · Quiz · Muscles | « Aucune réponse avant tentative » : verso masqué, explication après réponse, planche **muette** à l'ouverture, muscles à compléter. |
+
+La séance du jour (accueil) est le troisième temps : elle fait revenir, espacés dans le
+temps, les items déjà vus. Une ligne en tête de la page d'accueil et de chaque chapitre
+le dit.
+
+La fiche ne repose sur aucune donnée de plus dans `cours.json` : planches et pièges
+sont rattachés à la dernière section dont le slide ne les dépasse pas
+(`outils/construire.py`, `_section_pour`). Elle ne partage avec les onglets de test ni
+classe ni identifiant qu'`interface.js` équipe (`.planche-fiche` et `.table-ref`, pas
+`.planche` et `.muscles`) : c'est ce qui la garde en lecture seule et évite que la
+séance du jour ne clone la fiche à la place d'un exercice. `tests/test_fiche_lecture.py`
+et `tests/test_parcours_navigateur.py` verrouillent ces deux points.
+
 ## Règle de fidélité au PDF source
 
 Le PDF du cours (`ANATOMIE _230831_213333.pdf`, 328 slides — non versionné dans ce

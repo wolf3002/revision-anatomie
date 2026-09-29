@@ -320,12 +320,50 @@ body {
 
 /* --- 5.2 Barre d'onglets ---------------------------------------------- */
 
-/* Les cinq onglets passent a la ligne plutot que de defiler : sous 400 px, une
- * barre defilante cachait « Le cours » hors de l'ecran, donc hors de vue. */
+/* Deux groupes numerotes, dans l'ordre ou on les parcourt : 1 Apprendre
+ * (rien n'y est masque), 2 Se tester (rien n'y est revele avant tentative).
+ * Une personne qui arrive doit voir sans explication ou commencer : le rang
+ * est un chiffre dans un cadre, pas une couleur -- la teinte est reservee aux
+ * trois plans (§1). Dans un groupe, les onglets passent a la ligne plutot que
+ * de defiler : sous 400 px, une barre defilante cachait un onglet hors de
+ * l'ecran, donc hors de vue. */
 .onglets {
+  display: grid;
+  gap: var(--pas-2);
+}
+
+.onglets__groupe {
   display: flex;
   flex-wrap: wrap;
   gap: 2px;
+}
+
+.onglets__groupe + .onglets__groupe {
+  padding-block-start: var(--pas-2);
+  border-block-start: 1px solid var(--trait);
+}
+
+.onglets__etiquette {
+  flex: 1 0 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--pas);
+  padding-block-end: var(--pas);
+  font-family: var(--police-mono);
+  font-size: var(--t-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--encre-doux);
+}
+
+.onglets__rang {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.75em;
+  padding: 1px 0.35em;
+  color: var(--encre);
+  border: 1px solid var(--encre);
+  border-radius: var(--rayon);
 }
 
 .onglet {
@@ -353,13 +391,27 @@ body {
 
 @media (min-width: 720px) {
   .onglets {
-    flex-direction: column;
-    flex-wrap: nowrap;
-    gap: 0;
+    gap: var(--pas-3);
     position: sticky;
     top: var(--pas-2);
     align-self: start;
     border-inline-start: 1px solid var(--trait);
+  }
+
+  .onglets__groupe {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+  }
+
+  .onglets__groupe + .onglets__groupe {
+    padding-block-start: 0;
+    border-block-start: none;
+  }
+
+  .onglets__etiquette {
+    flex: 0 0 auto;
+    padding-inline: var(--pas-2);
   }
 
   .onglet {
@@ -372,6 +424,24 @@ body {
   .onglet[aria-selected="true"] {
     background: var(--carte);
     box-shadow: inset 3px 0 0 0 var(--encre);
+  }
+}
+
+/* Une ligne en tete de page : quoi faire, dans quel ordre. Un trait de 3 px,
+ * pas une teinte. Sur la grille a deux pistes (>= 720 px), elle s'etend sur
+ * les deux comme l'en-tete, sinon elle serait rabattue dans le rail de 13rem. */
+.guide {
+  max-width: var(--mesure);
+  padding: var(--pas) var(--pas-2);
+  background: var(--carte);
+  border: 1px solid var(--trait);
+  border-inline-start: 3px solid var(--encre);
+  border-radius: var(--rayon);
+}
+
+@media (min-width: 720px) {
+  .guide {
+    grid-column: 1 / -1;
   }
 }
 
@@ -612,17 +682,22 @@ body {
   gap: var(--pas-3);
 }
 
-.planche {
+.planche,
+.planche-fiche {
   display: grid;
   gap: var(--pas-2);
   padding: var(--pas-3);
   background: var(--carte);
   border: 1px solid var(--trait);
   border-radius: var(--rayon);
+}
+
+.planche {
   counter-increment: planche;
 }
 
-.planche figcaption {
+.planche figcaption,
+.planche-fiche figcaption {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
@@ -639,7 +714,8 @@ body {
 
 /* Numerotation de planche, tenue par un compteur : aucune saisie a maintenir
  * dans le gabarit, aucun numero ne peut se desynchroniser. */
-.planche figcaption::before {
+.planche figcaption::before,
+.planche-fiche figcaption::before {
   content: "Pl. " counter(planche, decimal-leading-zero);
   font-family: var(--police-mono);
   font-size: var(--t-xs);
@@ -652,7 +728,14 @@ body {
   text-transform: none;
 }
 
-.planche svg {
+/* Dans la fiche, le numero est celui de la planche dans l'onglet Planche (pas
+ * un compteur : la fiche range les figures dans l'ordre du cours). */
+.planche-fiche figcaption::before {
+  content: "Pl. " attr(data-num);
+}
+
+.planche svg,
+.planche-fiche svg {
   display: block;
   width: 100%;
   height: auto;
@@ -758,30 +841,176 @@ body {
  * planche aux huit largeurs de reference. Si une future planche depasse
  * malgre tout, elle doit rester signalee, pas glisser sous le tapis. */
 
-/* --- 5.7 Le cours ------------------------------------------------------ */
+/* --- 5.7 La fiche (lecture) --------------------------------------------- */
 
-.notion {
-  display: grid;
-  gap: var(--pas);
-  padding: var(--pas-3);
+/* Le cours a lire, du haut vers le bas : un plan, puis des sections a plat
+ * (un titre numerote, ses points, sa ou ses planches legendees, ses pieges),
+ * puis la table musculaire en reference. Rien n'y est masque et aucune
+ * regle de ce bloc ne cible une classe qu'interface.js equipe (.planche,
+ * .muscles, .carte...) : les figures sont des .planche-fiche, la table une
+ * .table-ref, qui partagent seulement l'aspect (§5.6, §5.8). La fiche est le
+ * plus long contenu du site : pas de cadre par section, un simple filet, et
+ * les cartes sont reservees a ce qui n'est pas du texte (figure, table, piege). */
+
+.plan {
   background: var(--carte);
   border: 1px solid var(--trait);
   border-radius: var(--rayon);
 }
 
-.notion ul {
+.plan > summary {
+  display: flex;
+  align-items: center;
+  gap: var(--pas);
+  min-height: 44px;
+  padding: var(--pas) var(--pas-2);
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--police-titre);
+  font-size: var(--t-s);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.plan > summary::-webkit-details-marker {
+  display: none;
+}
+
+.plan > summary .mono {
+  margin-inline-start: auto;
+  color: var(--encre-doux);
+  font-weight: 400;
+}
+
+/* Etat replie / deplie dit par un signe, pas par une teinte. */
+.plan > summary::after {
+  content: "+";
+  font-family: var(--police-mono);
+  font-size: var(--t-l);
+  line-height: 1;
+}
+
+.plan[open] > summary::after {
+  content: "\2212";
+}
+
+.plan__liste {
+  padding: var(--pas) var(--pas-2) var(--pas-2);
+  border-block-start: 1px solid var(--trait);
+}
+
+/* Cible tactile de 44 px sur telephone ; au-dela, le plan reprend une densite
+ * de liste (deux colonnes) pour ne pas repousser la premiere section. */
+.plan__liste a {
+  display: flex;
+  align-items: baseline;
+  gap: var(--pas);
+  min-height: 44px;
+  padding-block: 0.6rem;
+  color: var(--encre);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.plan__liste a .mono {
+  flex: none;
+  color: var(--encre-doux);
+}
+
+.plan__liste a:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 720px) {
+  .plan__liste {
+    columns: 2 16rem;
+    column-gap: var(--pas-3);
+  }
+
+  .plan__liste li {
+    break-inside: avoid;
+    max-width: none;
+  }
+
+  .plan__liste a {
+    min-height: 0;
+    padding-block: 0.2rem;
+  }
+}
+
+.fiche-section {
+  display: grid;
+  gap: var(--pas-2);
+  min-width: 0;
+  padding-block-start: var(--pas-3);
+  border-block-start: 1px solid var(--trait);
+  scroll-margin-block-start: var(--pas-2);
+}
+
+.fiche-section__tete {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--pas) var(--pas-2);
+}
+
+.fiche-section__tete h2 {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: baseline;
+  gap: var(--pas);
+  min-width: 0;
+}
+
+.fiche-section__n {
+  flex: none;
+  padding: 1px 0.4em;
+  color: var(--encre-doux);
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+}
+
+.fiche-points {
   display: grid;
   gap: var(--pas);
 }
 
-.notion li {
+.fiche-points li {
   padding-inline-start: var(--pas-2);
   border-inline-start: 1px solid var(--trait);
 }
 
+/* Les planches d'une section cote a cote quand la place le permet, sans jamais
+ * s'etirer sur toute la largeur de lecture : une planche seule a 780 px serait
+ * un cliche de 1600 px de haut. La hauteur du trace est bornee pour la meme
+ * raison ; le rapport largeur/hauteur du viewBox est conserve. */
+.fiche-figures {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--pas-3);
+}
+
+.planche-fiche {
+  flex: 1 1 14rem;
+  max-width: 26rem;
+  min-width: 0;
+}
+
+.planche-fiche svg {
+  width: auto;
+  max-width: 100%;
+  max-height: 34rem;
+  margin-inline: auto;
+}
+
 /* --- 5.8 Tableau de muscles -------------------------------------------- */
 
-.muscles {
+/* .table-ref est la meme table en lecture (fiche) : meme aspect, meme bascule
+ * en fiches sous 720 px, mais aucune des regles de saisie du §5.8a. */
+
+:is(.muscles, .table-ref) {
   width: 100%;
   /* table-layout: auto laissait chaque colonne reclamer jusqu'a --mesure
    * (68ch) de large : avec un nom de muscle francais reel et sa police de
@@ -798,7 +1027,7 @@ body {
   font-size: var(--t-s);
 }
 
-.muscles caption {
+:is(.muscles, .table-ref) caption {
   text-align: start;
   font-family: var(--police-titre);
   font-size: var(--t-l);
@@ -807,7 +1036,7 @@ body {
   padding-block-end: var(--pas);
 }
 
-.muscles thead th {
+:is(.muscles, .table-ref) thead th {
   font-family: var(--police-mono);
   font-size: var(--t-xs);
   font-weight: 500;
@@ -817,8 +1046,8 @@ body {
   background: var(--creux);
 }
 
-.muscles th,
-.muscles td {
+:is(.muscles, .table-ref) th,
+:is(.muscles, .table-ref) td {
   text-align: start;
   vertical-align: top;
   padding: var(--pas) var(--pas-2);
@@ -833,7 +1062,7 @@ body {
   overflow-wrap: anywhere;
 }
 
-.muscles tbody th {
+:is(.muscles, .table-ref) tbody th {
   font-family: var(--police-titre);
   font-size: var(--t-m);
   font-weight: 600;
@@ -844,49 +1073,49 @@ body {
  * colonne. L'ordre des colonnes est fixe par le generateur
  * (origine, terminaison, action), d'ou le nth-of-type. */
 @media (max-width: 719px) {
-  .muscles,
-  .muscles caption,
-  .muscles tbody,
-  .muscles tr,
-  .muscles th,
-  .muscles td {
+  :is(.muscles, .table-ref),
+  :is(.muscles, .table-ref) caption,
+  :is(.muscles, .table-ref) tbody,
+  :is(.muscles, .table-ref) tr,
+  :is(.muscles, .table-ref) th,
+  :is(.muscles, .table-ref) td {
     display: block;
     max-width: none;
   }
 
   /* La table n'est plus un cadre : chaque ligne devient sa propre fiche. */
-  .muscles {
+  :is(.muscles, .table-ref) {
     background: none;
     border: none;
   }
 
-  .muscles thead {
+  :is(.muscles, .table-ref) thead {
     display: none;
   }
 
-  .muscles tr {
+  :is(.muscles, .table-ref) tr {
     margin-block-end: var(--pas-2);
     background: var(--carte);
     border: 1px solid var(--trait);
   }
 
-  .muscles tr:last-child {
+  :is(.muscles, .table-ref) tr:last-child {
     margin-block-end: 0;
   }
 
-  .muscles th,
-  .muscles td {
+  :is(.muscles, .table-ref) th,
+  :is(.muscles, .table-ref) td {
     border: none;
     border-block-start: 1px solid var(--trait);
   }
 
-  .muscles tbody th {
+  :is(.muscles, .table-ref) tbody th {
     border-block-start: none;
     background: var(--creux);
     white-space: normal;
   }
 
-  .muscles td::before {
+  :is(.muscles, .table-ref) td::before {
     display: block;
     font-family: var(--police-mono);
     font-size: var(--t-xs);
@@ -895,15 +1124,15 @@ body {
     color: var(--encre-doux);
   }
 
-  .muscles td:nth-of-type(1)::before {
+  :is(.muscles, .table-ref) td:nth-of-type(1)::before {
     content: "origine";
   }
 
-  .muscles td:nth-of-type(2)::before {
+  :is(.muscles, .table-ref) td:nth-of-type(2)::before {
     content: "terminaison";
   }
 
-  .muscles td:nth-of-type(3)::before {
+  :is(.muscles, .table-ref) td:nth-of-type(3)::before {
     content: "action";
   }
 }
@@ -1476,6 +1705,8 @@ body {
   .onglets,
   .reglages,
   .invite-date,
+  .guide,
+  .plan,
   [data-action="mode-planches"],
   [data-action="reglages-bascule"] {
     display: none;
@@ -1498,9 +1729,14 @@ body {
   }
 
   .planche,
+  .planche-fiche,
   .carte,
   .question,
-  .notion {
+  .piege {
     break-inside: avoid;
+  }
+
+  .fiche-section__tete {
+    break-after: avoid;
   }
 }

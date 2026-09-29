@@ -341,13 +341,33 @@ function demarrer(document, support) {
   const volets = Array.from(document.querySelectorAll('.volet'));
   const barreCarte = document.getElementById('actions-carte');
 
+  // Le premier onglet est toujours la fiche (outils/construire.py, GROUPES) :
+  // un chapitre s'ouvre sur le cours a lire, pas sur un exercice.
+  //
+  // Boutons de mode (planches, muscles) : ils pilotent un onglet de TEST et
+  // n'ont de sens que sur lui. Sur la fiche, les planches et la table sont en
+  // lecture seule, sans mode : un bouton qui n'y change rien serait un piege.
+  // `data-pret` est pose par la section qui equipe le bouton -- un bouton non
+  // equipe (page sans planche, sans table) reste cache quel que soit l'onglet.
+  const boutonsMode = Array.from(document.querySelectorAll('[data-visible-sur]'));
+  let ongletCourant = null;
+
+  function actualiserBoutonsMode() {
+    for (const bouton of boutonsMode) {
+      bouton.hidden = !(bouton.dataset.pret === 'oui'
+        && bouton.dataset.visibleSur === ongletCourant);
+    }
+  }
+
   function activerOnglet(cle, { focus = false } = {}) {
+    ongletCourant = cle;
     for (const bouton of boutonsOnglet) {
       bouton.setAttribute('aria-selected', bouton.dataset.onglet === cle ? 'true' : 'false');
     }
     for (const volet of volets) {
       volet.hidden = volet.dataset.volet !== cle;
     }
+    actualiserBoutonsMode();
     if (cle !== 'cartes') {
       carteActive = null;
       if (barreCarte) barreCarte.hidden = true;
@@ -364,10 +384,31 @@ function demarrer(document, support) {
     activerOnglet(boutonsOnglet[suivant].dataset.onglet, { focus: true });
   }
 
+  // Au clic (pas au chargement) : si on a lu la fiche jusqu'en bas, le contenu
+  // du nouvel onglet doit commencer a l'ecran, pas quelque part au milieu. Sur
+  // telephone la barre d'onglets est au-dessus du contenu : on s'arrete sur elle
+  // pour pouvoir rechanger d'onglet ; a partir de 720 px elle est collee a gauche
+  // (sticky), c'est le contenu qu'on ramene en haut.
+  function revenirEnHautDuContenu() {
+    const large = window.matchMedia('(min-width: 720px)').matches;
+    const cible = document.querySelector(large ? '.volets' : '.onglets');
+    if (cible && cible.getBoundingClientRect().top < 0) cible.scrollIntoView({ block: 'start' });
+  }
+
   for (const bouton of boutonsOnglet) {
-    bouton.addEventListener('click', () => activerOnglet(bouton.dataset.onglet));
+    bouton.addEventListener('click', () => {
+      activerOnglet(bouton.dataset.onglet);
+      revenirEnHautDuContenu();
+    });
   }
   if (boutonsOnglet.length) activerOnglet(boutonsOnglet[0].dataset.onglet);
+
+  // Plan de la fiche : ouvert a la construction quand il est court (voir
+  // outils/construire.py, PLAN_OUVERT_JUSQU_A) ; sur telephone, meme un plan court
+  // repousserait la premiere section hors de l'ecran -- on le replie, un appui
+  // le rouvre. Sans JavaScript il reste tel que construit, donc lisible.
+  const planFiche = document.querySelector('.plan');
+  if (planFiche && window.matchMedia('(max-width: 719px)').matches) planFiche.open = false;
 
   // --- Cartes --------------------------------------------------------------
 
@@ -529,8 +570,7 @@ function demarrer(document, support) {
     if (etat) etat.textContent = mode === 'muet' ? 'mode muet' : 'mode légendé';
   }
 
-  function basculerModePlanches() {
-    const nouveauMode = etatModePlanches() === 'muet' ? 'legende' : 'muet';
+  function appliquerModePlanches(nouveauMode) {
     for (const planche of planches) {
       planche.dataset.mode = nouveauMode;
       const liste = planche.querySelector('.legendes');
@@ -541,13 +581,26 @@ function demarrer(document, support) {
     actualiserBoutonMode();
   }
 
+  function basculerModePlanches() {
+    appliquerModePlanches(etatModePlanches() === 'muet' ? 'legende' : 'muet');
+  }
+
   if (planches.length) {
     for (const planche of planches) construireLegende(planche);
     actualiserBoutonMode();
     const boutonMode = document.querySelector('[data-action="mode-planches"]');
     if (boutonMode) {
-      boutonMode.hidden = false;
+      boutonMode.dataset.pret = 'oui';
       boutonMode.addEventListener('click', () => basculerModePlanches());
+      // L'onglet Planche est un onglet de test : il s'ouvre MUET (pastilles a
+      // remplir), la version legendee vivant desormais dans la fiche. La bascule
+      // reste la pour verifier apres tentative. Sans JavaScript, ce code ne
+      // tourne pas : les planches restent legendees, donc lisibles. Uniquement
+      // ou le bouton de mode existe (page de chapitre) : sur l'accueil de la
+      // variante autonome, les planches du reservoir de seance ne sont pas un
+      // onglet, la seance les met en muet elle-meme.
+      appliquerModePlanches('muet');
+      actualiserBoutonsMode();
     }
   }
 
@@ -667,7 +720,8 @@ function demarrer(document, support) {
       const boutonMode = document.querySelector('[data-action="mode-muscles"]');
       actualiserBoutonModeMuscles(table, boutonMode);
       if (boutonMode) {
-        boutonMode.hidden = false;
+        boutonMode.dataset.pret = 'oui';
+        actualiserBoutonsMode();
         boutonMode.addEventListener('click', () => basculerModeMuscles(table, boutonMode, boutonVerifier));
       }
     }
@@ -1156,7 +1210,9 @@ function demarrer(document, support) {
         break;
       case 'm':
       case 'M':
-        if (planches.length) basculerModePlanches();
+        // Seulement sur l'onglet Planche : sur la fiche ou ailleurs, la bascule
+        // changerait l'etat d'un onglet qu'on ne voit pas.
+        if (planches.length && ongletCourant === 'planche') basculerModePlanches();
         break;
       default:
         break;

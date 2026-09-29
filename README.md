@@ -1,10 +1,11 @@
 # UC1 — Anatomie : site de révision
 
 Site statique pour réviser le cours d'anatomie (UC1, ADJ Robichon) avant l'évaluation
-théorique. Cartes de rappel actif, QCM à distracteurs proches, planches muettes à
-légender, tables musculaires à compléter, et une séance du jour composée
-automatiquement par un planificateur d'espacement (répétition espacée, ~15 % du
-délai restant avant l'examen, cf. Cepeda et al. 2008).
+théorique : la fiche de chaque chapitre à lire, puis des exercices (cartes de rappel
+actif, QCM à distracteurs proches, planches muettes à légender, tables musculaires à
+compléter) et une séance du jour composée automatiquement par un planificateur
+d'espacement (répétition espacée, ~15 % du délai restant avant l'examen, cf. Cepeda et
+al. 2008).
 
 ## Contenu
 
@@ -27,41 +28,72 @@ Volumes réels (`contenu/cours.json`) : **403 items planifiables** — 172 carte
 `docs/superpowers/plans/2026-09-26-chapitres-2-a-7.md` et les rapports de tâche
 correspondants.
 
-## Parcours d'un chapitre : lire d'abord, se tester ensuite
+## Parcours d'un chapitre : lire d'abord, s'exercer ensuite
 
 Le site repose sur le rappel actif (se tester plutôt que relire), juste pour une
 matière **déjà rencontrée** : on ne retrouve pas ce qu'on n'a jamais lu. Une page de
-chapitre s'ouvre donc sur la lecture, et les exercices viennent après. Deux groupes
-d'onglets numérotés, dans cet ordre :
+chapitre s'ouvre donc sur la lecture, et les exercices viennent après. Deux onglets,
+pas un de plus — on n'a pas à deviner ce que contient chacun ni par où commencer :
 
-| Groupe | Onglets | Règle |
+| Onglet | Contenu | Règle |
 |---|---|---|
-| **1 Apprendre** | Fiche · Pièges | Rien n'est masqué. La fiche est le cours à lire : plan, sections et points, planches **légendées** à l'endroit où la notion est traitée, pièges de la notion, et (ch. 5 à 7) la table musculaire en valeurs lisibles. |
-| **2 Se tester** | Planche · Cartes · Quiz · Muscles | « Aucune réponse avant tentative » : verso masqué, explication après réponse, planche **muette** à l'ouverture, muscles à compléter. |
+| **Fiche** (par défaut) | Tout ce qui se lit, d'un seul tenant : le plan, les sections et leurs points, les planches **légendées** et les pièges à l'endroit où la notion est traitée, et (ch. 5 à 7) la table musculaire en valeurs lisibles. Un lien de fin de fiche mène aux exercices. | Rien n'est masqué. |
+| **S'exercer** | Un parcours unique, **un exercice à la fois** : cartes, questions, planches muettes et muscles mélangés. Ouvrir l'onglet suffit : la série démarre. | « Aucune réponse avant tentative » : verso masqué, explication et corrections après la réponse, planche **muette**, muscles à compléter. |
+
+Ce qu'on a perdu, en connaissance de cause : l'accès direct à un seul type d'exercice
+(les quatre onglets Planche / Cartes / Quiz / Muscles, l'onglet Pièges). Travailler un
+format d'affilée est moins efficace que les mélanger ; le gain de clarté vaut cette
+perte. La correction d'une planche ou d'un muscle, qu'on allait chercher avec un bouton
+de bascule, s'affiche désormais d'elle-même **après** « Vérifier » (libellés du tracé,
+« faux — attendu : … »), champs figés.
+
+**S'exercer réutilise la séance du jour, il n'en réécrit rien.** Le bloc
+`gabarits/seance.html` a les mêmes identifiants sur l'accueil et sur chaque page de
+chapitre ; `interface.js` le câble une seule fois. Seul l'attribut `data-chapitre` change
+ce qu'on en tire : `composerSeance` ne reçoit alors que les items de ce chapitre (mêmes
+échéances, même entrelacement des formats, mêmes verdicts, même écriture en stockage,
+mêmes anneaux de progression). Les modèles d'exercice sont dans un réservoir caché
+(`#reservoir-exercices`) placé **après** la zone d'exercice, que le script clone un à un
+(`[data-reservoir]`, `outils/construire.py`, `_rendre_reservoir_exercices`).
 
 La séance du jour (accueil) est le troisième temps : elle fait revenir, espacés dans le
-temps, les items déjà vus. Une ligne en tête de la page d'accueil et de chaque chapitre
-le dit.
+temps, les items déjà vus.
+
+L'accueil tient en une phrase (« Lis la fiche d'un chapitre, puis exerce-toi. »), le
+bouton de la séance du jour, et les chapitres : chacun a deux actions explicites
+(**Lire la fiche**, **S'exercer**). La date d'examen reste visible tant qu'elle n'est pas
+renseignée (elle commande l'espacement) ; ensuite, comme le thème, l'export, l'import et
+la réinitialisation, elle vit derrière un seul lien discret, « Réglages ». Une page de
+chapitre n'a pas de réglages : on y lit. La progression n'est plus un bloc à part de sept
+anneaux : chaque ligne de chapitre porte un petit anneau dont le centre est le numéro du
+chapitre, et une indication en toutes lettres (« 12 % su », « pas commencé »).
 
 La fiche ne repose sur aucune donnée de plus dans `cours.json` : planches et pièges
 sont rattachés à la dernière section dont le slide ne les dépasse pas
-(`outils/construire.py`, `_section_pour`). Elle ne partage avec les onglets de test ni
+(`outils/construire.py`, `_section_pour`). Elle ne partage avec les exercices ni
 classe ni identifiant qu'`interface.js` équipe (`.planche-fiche` et `.table-ref`, pas
 `.planche` et `.muscles`) : c'est ce qui la garde en lecture seule et évite que la
-séance du jour ne clone la fiche à la place d'un exercice. `tests/test_fiche_lecture.py`
+séance ne clone la fiche à la place d'un exercice. `tests/test_fiche_lecture.py`
 et `tests/test_parcours_navigateur.py` verrouillent ces deux points.
 
-Sans JavaScript (ou si le script ne s'exécute pas, ex. `site/` ouvert en `file://`), tous
-les volets se suivent et la barre d'onglets est inerte : chaque volet porte alors un titre
-(« Se tester · Cartes »), et Pièges, Planche et Muscles, qui ne feraient que répéter la
-fiche, sont retirés (`style.css` §5.2a ; `interface.js` pose la classe `js` sur `<html>`
-dès qu'il tourne). Fiche, Cartes et Quiz restent lisibles, chacun à un seul endroit.
+Sans JavaScript (ou si le script ne s'exécute pas, ex. `site/` ouvert en `file://`), la
+**fiche se lit telle quelle**, entière et sans rien de masqué. Les exercices ont besoin du
+script (révéler, corriger, mémoriser) : leur onglet, la barre d'onglets et les liens qui y
+mènent sont retirés, et une ligne le dit (`style.css` §5.2a ; `interface.js` pose la classe
+`js` sur `<html>` dès qu'il tourne).
 
-La variante autonome (`site-autonome/`, `outils/empaqueter.py`) ne cherche pas les pages de
-chapitre par `fetch` : la séance clone des modèles cachés (`#reservoir-seance`).
-`interface.js` ne les équipe donc jamais au chargement (`horsReservoir`) : seul le clone,
-au moment de son insertion en séance, reçoit champs, boutons et écouteurs.
-`tests/test_autonome_navigateur.py` le pilote en `file://`.
+La variante autonome (`site-autonome/`, `outils/empaqueter.py`) n'a pas de serveur : la
+page d'un chapitre porte déjà ses modèles, et l'accueil (séance du jour) un réservoir de
+tous les chapitres (`#reservoir-seance`). Aucune page n'est récupérée par `fetch`.
+`interface.js` n'équipe jamais un modèle du réservoir : seul le clone, au moment de son
+insertion, reçoit champs, boutons et écouteurs. `tests/test_autonome_navigateur.py` le
+pilote en `file://`.
+
+**Lecture.** La fiche est le contenu le plus long : une colonne centrée de 46 rem à toutes
+les largeurs (plus de rail latéral), une ligne bornée à ~70 caractères, des points en
+liste à puce carrée avec retrait suspendu, des titres de section à 24 px avec de l'air
+entre les sections, et Espace y fait défiler la page (il ne retourne une carte que s'il y
+en a une à l'écran).
 
 ## Règle de fidélité au PDF source
 
@@ -104,7 +136,8 @@ reconstruit tout le site. Le résultat est versionné dans `site/` (pas de build
 côté serveur : GitHub Pages sert des fichiers statiques déjà générés).
 
 Contrôle de mise en page mobile (8 largeurs, avec Chrome piloté par Playwright),
-sur les huit pages :
+sur les huit pages (sans script : la fiche et l'accueil ; les exercices, eux, sont
+contrôlés de 320 à 1920 px par `tests/test_parcours_navigateur.py`) :
 
 ```bash
 python3 outils/verifier_mobile.py site/index.html site/chapitre-*.html

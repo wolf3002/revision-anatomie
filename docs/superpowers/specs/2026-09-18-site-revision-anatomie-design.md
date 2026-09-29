@@ -157,6 +157,18 @@ L'onglet **Muscles** n'apparaît que pour les chapitres qui contiennent des tabl
 > Planche s'ouvre **muet** (le mode légendé est dans la fiche ; la bascule reste pour vérifier après
 > tentative), conformément à §3.3. Voir le README, « Parcours d'un chapitre ».
 
+> **Révision du 2026-09-29 (simplification, remplace les deux tableaux d'onglets ci-dessus).**
+> Six onglets demandaient de comprendre ce que chacun contenait avant de commencer. Il n'en
+> reste que deux : **Fiche** (par défaut ; tout ce qui se lit, y compris les pièges) et
+> **S'exercer** (un parcours unique, un exercice à la fois, qui mélange cartes, questions,
+> planches muettes et muscles). S'exercer est la séance du jour restreinte à un chapitre
+> (`composerSeance` filtré, même dérouleur, mêmes verdicts) — aucun second mécanisme.
+> L'accueil se réduit à une phrase, au bouton de séance et aux sept chapitres (deux actions
+> chacun : Lire la fiche, S'exercer) ; les réglages sont derrière un lien discret. Perte
+> assumée : l'accès direct à un seul type d'exercice. Raccourcis : `←` `→` changent d'onglet
+> quand un onglet a le focus, `M` n'existe plus (la correction d'une planche ou d'un muscle
+> s'affiche après « Vérifier »). Voir le README, « Parcours d'un chapitre ».
+
 ### 4.3 Moteur de planification
 
 État par item : `{ id, chapitre, type, derniereVue, statut, echecs }` avec

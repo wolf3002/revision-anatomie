@@ -186,12 +186,30 @@ def test_l_accueil_porte_un_reservoir_cache_avec_tous_les_chapitres():
             assert attendu in contenu, attendu
 
 
-def test_les_pages_de_chapitre_n_ont_pas_de_reservoir():
-    # Le reservoir n'a de sens que pour la seance du jour (accueil) -- les
-    # pages de chapitre gardent leur propre contenu, sans copie superflue.
+def test_les_pages_de_chapitre_portent_leur_propre_reservoir_et_pas_celui_du_cours():
+    # Le reservoir de l'accueil (#reservoir-seance) tient tous les chapitres pour
+    # la seance du jour. Une page de chapitre, elle, porte SEULEMENT les modeles de
+    # son chapitre (#reservoir-exercices) : S'exercer les clone sur place, sans
+    # rien recuperer -- c'est ce qui le fait marcher en file://.
     for chapitre in COURS["chapitres"]:
         page = (SORTIE / f"chapitre-{chapitre['num']}.html").read_text(encoding="utf-8")
         assert 'id="reservoir-seance"' not in page
+        m = re.search(
+            r'<div id="reservoir-exercices" data-reservoir hidden aria-hidden="true">(.*?)</div>\s*'
+            r'<div class="actions"',
+            page,
+            re.DOTALL,
+        )
+        assert m, chapitre["num"]
+        contenu = m.group(1)
+        assert contenu.count('class="carte"') == len(chapitre["cartes"])
+        assert contenu.count('class="question"') == len(chapitre["quiz"])
+        assert contenu.count('class="planche"') == len(chapitre["planches"])
+
+
+def test_le_reservoir_de_l_accueil_se_reconnait_au_script_comme_reservoir_local():
+    # interface.js cherche [data-reservoir] : les deux reservoirs le portent.
+    assert re.search(r'<div id="reservoir-seance" data-reservoir hidden', INDEX)
 
 
 def test_le_reservoir_est_masque_a_l_ecran_et_a_l_impression():

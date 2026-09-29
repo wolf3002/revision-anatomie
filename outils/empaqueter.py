@@ -49,7 +49,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 # carte/question/planche/table musculaire -- l'identite de rendu est garantie
 # par l'appel a la meme fonction, jamais par une resynchronisation a la main
 # entre deux gabarits.
-from outils.construire import construire, _rendre_volet  # noqa: E402
+from outils.construire import EXERCICES, construire, _rendre_volet  # noqa: E402
 
 # Ordre de dependance des modules ES de site/assets/ (verifie par lecture des
 # `import` de chaque fichier) : planificateur, stockage et exercices n'ont
@@ -81,17 +81,11 @@ BALISES_SCRIPT_CLASSIQUES = (
     '<script src="assets/app.js"></script>'
 )
 
-# Les seuls volets qui produisent des items planifiables (cf.
-# exercices.itemsDuCours) -- "pieges" et "fiche" (les volets de lecture) ne
-# sont jamais tires en seance, donc jamais recherches dans le reservoir.
-# cle -> attribut du chapitre a tester avant de rendre (chapitre sans
-# planches ne doit pas ajouter un <div class="planches"></div> vide).
-_CLES_RESERVOIR = (
-    ("cartes", "cartes"),
-    ("quiz", "quiz"),
-    ("planche", "planches"),
-    ("muscles", "muscles"),
-)
+# Les formats qui produisent des items planifiables (cf. exercices.itemsDuCours)
+# sont ceux de construire.EXERCICES -- la fiche et les pieges (les contenus de
+# lecture) ne sont jamais tires en seance, donc jamais recherches dans le
+# reservoir. Une seule liste, partagee avec le reservoir cache que chaque page
+# de chapitre porte deja (construire._rendre_reservoir_exercices).
 
 _LISEZ_MOI = """\
 Site de revision -- Anatomie
@@ -99,15 +93,15 @@ Site de revision -- Anatomie
 
 QU'EST-CE QUE C'EST ?
 ----------------------
-Un site pour reviser le cours d'anatomie : cartes de rappel actif, questions
-a choix multiples, planches a legender, tables musculaires a completer, et
-une "seance du jour" qui pioche automatiquement dans ce qui doit etre revu.
+Un site pour reviser le cours d'anatomie : la fiche de chaque chapitre a lire,
+puis des exercices (cartes, questions, planches a legender, muscles a completer)
+et une "seance du jour" qui pioche automatiquement dans ce qui doit etre revu.
 
 PAR OU COMMENCER ?
 -------------------
-Ouvre un chapitre : il s'ouvre sur la FICHE, le cours a lire. Lis-la d'abord,
-puis teste-toi (planche, cartes, quiz...). La "seance du jour", sur la page
-d'accueil, te fait ensuite revenir sur ce que tu as deja vu.
+Sur la page d'accueil, chaque chapitre a deux boutons : "Lire la fiche" (le
+cours, a lire d'abord) puis "S'exercer" (les exercices du chapitre, un a la
+fois). La "seance du jour" te fait ensuite revenir sur ce que tu as deja vu.
 
 COMMENT L'OUVRIR ?
 -------------------
@@ -123,7 +117,8 @@ importante :
   - si tu changes d'ordinateur, de telephone ou de navigateur, ta progression
     ne te suivra pas ;
   - si tu vides le cache / les donnees de navigation, elle est perdue.
-Le bouton "Exporter la progression", dans les reglages de chaque page,
+Le bouton "Exporter la progression", dans les "Reglages" (lien discret en bas
+de la page d'accueil),
 permet d'en garder une copie de secours dans un fichier, a reimporter plus
 tard (meme bouton, "Importer une progression").
 
@@ -271,11 +266,12 @@ _RE_CHARGER_COURS = re.compile(
     r"// Chemin relatif a la page.*?function chargerCours\(surSucces\) \{.*?\n\}",
     re.DOTALL,
 )
+# La recuperation d'une page de chapitre par fetch (accueil de site/ seulement) :
+# de `const pagesChapitre` a la fin de `chargerPageChapitre`.
 _RE_PAGE_CHAPITRE = re.compile(
-    r"    const pagesChapitre = new Map\(\);.*?if \(!page\) return null;\n",
+    r"    const pagesChapitre = new Map\(\);.*?return pagesChapitre\.get\(numero\);\n    \}\n",
     re.DOTALL,
 )
-_RE_GET_ELEMENT_BY_ID = re.compile(r"page\.getElementById\(idSource\)")
 
 _NOUVEAU_CHARGER_COURS = """\
 function chargerCours(surSucces) {
@@ -292,20 +288,16 @@ function chargerCours(surSucces) {
 }"""
 
 _NOUVEAU_PAGE_CHAPITRE = """\
-    // Variante autonome (outils/empaqueter.py) : plus de fetch de
-    // chapitre-N.html (impossible en file://) -- clone depuis
-    // #reservoir-seance, depose dans index.html a la construction avec
-    // EXACTEMENT le balisage que outils/construire.py (_rendre_volet) met
-    // dans chapitre-N.html pour ce meme chapitre. Meme fonctions de rendu :
-    // l'identite entre un item de seance et sa page de chapitre reste
-    // garantie par construction, pas par une copie a resynchroniser.
-    function reservoirSeance() {
-      return document.getElementById('reservoir-seance');
+    // Variante autonome (outils/empaqueter.py) : plus de page de chapitre a
+    // recuperer (impossible en file://). Les modeles d'exercice sont TOUJOURS
+    // dans un reservoir local ([data-reservoir]) : celui de la page d'un chapitre,
+    // ou #reservoir-seance sur l'accueil, depose a la construction avec
+    // EXACTEMENT le balisage que outils/construire.py (_rendre_volet) produit.
+    // Meme fonctions de rendu : l'identite entre un item de seance et sa page de
+    // chapitre reste garantie par construction, pas par une copie a resynchroniser.
+    function chargerPageChapitre() {
+      return Promise.resolve(null);
     }
-
-    async function elementPourItem(item) {
-      const page = reservoirSeance();
-      if (!page) return null;
 """
 
 
@@ -323,35 +315,9 @@ def _adapter_interface(corps: str) -> str:
     corps, n = _RE_PAGE_CHAPITRE.subn(_NOUVEAU_PAGE_CHAPITRE, corps, count=1)
     if n != 1:
         raise ValueError(
-            "empaqueter.py : bloc chargerPageChapitre/elementPourItem introuvable "
-            "dans interface.js -- le fichier source a change, ce module doit "
+            "empaqueter.py : bloc chargerPageChapitre introuvable dans "
+            "interface.js -- le fichier source a change, ce module doit "
             "etre mis a jour."
-        )
-
-    corps, n = _RE_GET_ELEMENT_BY_ID.subn(
-        "page.querySelector(`#${idSource}`)", corps, count=1
-    )
-    if n != 1:
-        raise ValueError(
-            "empaqueter.py : page.getElementById(idSource) introuvable dans "
-            "interface.js -- le fichier source a change, ce module doit etre "
-            "mis a jour."
-        )
-
-    # Le commentaire de tete de fichier (docstring du module) decrit lui
-    # aussi l'ancien mecanisme -- sans ce dernier remplacement, il resterait
-    # affirmer "recuperee par fetch" a cote d'un code qui ne fetch plus rien.
-    corps, n = re.subn(
-        r"concerne \(chapitre-N\.html, recuperee par fetch\) et le rejoue",
-        "concerne -- clone depuis #reservoir-seance, injecte dans index.html "
-        "par outils/empaqueter.py dans cette variante autonome -- et le rejoue",
-        corps,
-        count=1,
-    )
-    if n != 1:
-        raise ValueError(
-            "empaqueter.py : commentaire de tete de interface.js introuvable "
-            "-- le fichier source a change, ce module doit etre mis a jour."
         )
 
     return corps
@@ -382,11 +348,11 @@ def _rendre_reservoir(cours: dict) -> str:
     """
     morceaux = []
     for chapitre in cours["chapitres"]:
-        for cle, source in _CLES_RESERVOIR:
+        for cle, source in EXERCICES:
             if chapitre.get(source):
                 morceaux.append(_rendre_volet(cle, chapitre))
     return (
-        '<div id="reservoir-seance" hidden aria-hidden="true">'
+        '<div id="reservoir-seance" data-reservoir hidden aria-hidden="true">'
         + "".join(morceaux)
         + "</div>"
     )

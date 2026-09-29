@@ -169,8 +169,14 @@ def test_les_six_pieges_du_chapitre_1_sont_rendus_avec_leur_slide():
         assert f"slide {piege['slide']}" in PAGE
 
 
-def test_l_onglet_pieges_est_present():
-    assert 'data-onglet="pieges"' in PAGE
+def test_une_page_de_chapitre_n_a_que_deux_onglets_fiche_puis_s_exercer():
+    # Six onglets (fiche, pieges, planche, cartes, quiz, muscles) n'en font plus
+    # que deux : la fiche absorbe les pieges, S'exercer enchaine les quatre formats.
+    import re
+
+    assert re.findall(r'data-onglet="(\w+)"', PAGE) == ["fiche", "exercer"]
+    for ancien in ("pieges", "planche", "cartes", "quiz", "muscles"):
+        assert f'data-onglet="{ancien}"' not in PAGE, ancien
 
 
 def test_un_piege_n_est_pas_masque():
@@ -185,8 +191,10 @@ def test_un_piege_n_est_pas_masque():
     assert 'data-etat="cachee"' not in rendu
 
 
-def test_l_onglet_muscles_est_absent_quand_il_n_y_a_pas_de_muscle():
-    assert 'data-onglet="muscles"' not in PAGE
+def test_pas_de_table_de_muscles_quand_le_chapitre_n_en_a_pas():
+    # Ni table a lire dans la fiche, ni table a completer dans les exercices.
+    assert "table-ref" not in PAGE
+    assert 'class="muscles"' not in PAGE
 
 
 def test_le_contenu_du_cours_est_present_sans_javascript():
@@ -209,6 +217,24 @@ def test_l_accueil_propose_la_seance_du_jour():
 def test_l_accueil_liste_les_chapitres_disponibles():
     accueil = (RACINE / "site" / "index.html").read_text(encoding="utf-8")
     assert "chapitre-1.html" in accueil
+
+
+def test_chaque_chapitre_de_l_accueil_a_deux_actions_explicites():
+    import json
+    import re
+
+    accueil = (RACINE / "site" / "index.html").read_text(encoding="utf-8")
+    cours = json.loads((RACINE / "contenu" / "cours.json").read_text(encoding="utf-8"))
+    lignes = re.findall(r'<li class="chapitre".*?</li>', accueil, re.DOTALL)
+    assert len(lignes) == len(cours["chapitres"]) == 7
+    for ligne, chapitre in zip(lignes, cours["chapitres"]):
+        num = chapitre["num"]
+        assert f'<a class="action" href="chapitre-{num}.html">Lire la fiche</a>' in ligne
+        assert f'href="chapitre-{num}.html#exercer">S&#x27;exercer</a>' in ligne
+        # Une seule sobre indication de progression par chapitre, l'anneau
+        # portant le numero.
+        assert ligne.count('class="anneau__valeur') == 1
+        assert f'class="anneau__num" x="24" y="24">{num}</text>' in ligne
 
 
 def test_l_accueil_demande_la_date_d_examen():

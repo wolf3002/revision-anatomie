@@ -1,11 +1,12 @@
-"""La page d'un chapitre s'ouvre sur la fiche : on lit, puis on se teste.
+"""La page d'un chapitre s'ouvre sur la fiche : on lit, puis on s'exerce.
 
 Tout le site repose sur le rappel actif, juste pour une matiere deja
 rencontree : on ne retrouve pas ce qu'on n'a jamais lu. Ces tests fixent
-l'ordre lecture -> exercices, le contenu de la fiche (complet, rien de masque)
-et, surtout, que la fiche ne partage avec les onglets de test ni classe ni
-identifiant que le script equipe -- sans quoi elle en heriterait les champs de
-saisie ou serait clonee a leur place par la seance du jour.
+l'ordre lecture -> exercices (deux onglets : Fiche, S'exercer), le contenu de la
+fiche (complet, rien de masque : elle absorbe les pieges) et, surtout, que la
+fiche ne partage avec les exercices ni classe ni identifiant que le script
+equipe -- sans quoi elle en heriterait les champs de saisie ou serait clonee a
+leur place par le deroule d'exercices.
 """
 
 import html
@@ -18,7 +19,7 @@ RACINE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RACINE))
 
 from outils.construire import (  # noqa: E402
-    GROUPES,
+    EXERCICES,
     ONGLETS,
     _rendre_planche,
     _rendre_volet,
@@ -35,105 +36,180 @@ def _page(num):
     return (RACINE / "site" / f"chapitre-{num}.html").read_text(encoding="utf-8")
 
 
-def _volet(page, cle):
-    """Le contenu du <section class="volet" data-volet="cle">, sans dependance
-    a une bibliotheque HTML : les volets ne s'imbriquent pas."""
+def _fiche(page):
+    """Le contenu de la fiche (<div class="fiche">), sans le lien de fin de
+    fiche qui la suit : c'est la seule chose qu'elle doit contenir."""
+    m = re.search(r'<div class="fiche">(.*?)</div>\s*<p class="fiche-suite', page, re.DOTALL)
+    assert m, "fiche introuvable"
+    return m.group(1)
+
+
+def _reservoir(page):
+    """Le reservoir cache : les modeles d'exercice que le script clone un a un."""
     m = re.search(
-        rf'<section class="volet" data-volet="{cle}">(.*?)</section>\s*'
-        r'(?:<section class="volet"|</div>)',
+        r'<div id="reservoir-exercices" data-reservoir hidden aria-hidden="true">(.*?)</div>\s*'
+        r'<div class="actions"',
         page,
         re.DOTALL,
     )
-    assert m, f"volet {cle} introuvable"
+    assert m, "reservoir introuvable"
     return m.group(1)
 
 
 def _onglets(page):
-    return re.findall(r'<button class="onglet" data-onglet="(\w+)">', page)
+    return re.findall(r'<button class="onglet" data-onglet="(\w+)"', page)
 
 
 # --- L'ordre : lire d'abord, s'exercer ensuite --------------------------------
 
 
-def test_l_ordre_des_onglets_est_lecture_puis_exercices():
-    assert [cle for cle, _, _ in ONGLETS] == [
-        "fiche",
-        "pieges",
-        "planche",
-        "cartes",
-        "quiz",
-        "muscles",
+def test_deux_onglets_dans_l_ordre_lecture_puis_exercices():
+    assert [(cle, libelle) for cle, libelle in ONGLETS] == [
+        ("fiche", "Fiche"),
+        ("exercer", "S'exercer"),
     ]
 
 
-def test_les_onglets_sont_repartis_en_deux_groupes_nommes():
-    assert [(cle, libelle) for cle, libelle, _ in GROUPES] == [
-        ("apprendre", "Apprendre"),
-        ("tester", "Se tester"),
-    ]
-    apprendre, tester = (tuple(o[0] for o in onglets) for _, _, onglets in GROUPES)
-    assert apprendre == ("fiche", "pieges")
-    assert tester == ("planche", "cartes", "quiz", "muscles")
+def test_les_formats_d_exercice_sont_ceux_de_la_seance_du_jour():
+    # Les quatre formats que itemsDuCours sait planifier : cartes, questions,
+    # pastilles de planche, muscles. Aucun n'est perdu dans S'exercer.
+    assert [source for _, source in EXERCICES] == ["cartes", "quiz", "planches", "muscles"]
 
 
 def test_chaque_chapitre_s_ouvre_sur_la_fiche():
     # interface.js active le PREMIER onglet du DOM : la fiche doit donc l'etre.
     for chapitre in CHAPITRES:
-        assert _onglets(_page(chapitre["num"]))[0] == "fiche", chapitre["num"]
+        page = _page(chapitre["num"])
+        assert _onglets(page)[0] == "fiche", chapitre["num"]
+        assert (
+            '<button class="onglet" data-onglet="fiche" role="tab" id="onglet-fiche" '
+            'aria-controls="fiche" aria-selected="true">' in page
+        )
+        # Le volet des exercices est cache a la construction, la fiche non.
+        assert re.search(r'<section class="panneau" id="fiche" data-panneau="fiche" [^>]*>', page)
+        assert re.search(
+            r'<section class="panneau" id="exercer" data-panneau="exercer" [^>]* hidden>', page
+        )
 
 
-def test_les_onglets_d_un_chapitre_suivent_l_ordre_et_omettent_les_vides():
+def test_un_chapitre_n_a_que_les_deux_onglets():
     for chapitre in CHAPITRES:
-        attendu = ["fiche", "pieges", "planche", "cartes", "quiz"]
-        if chapitre["muscles"]:
-            attendu.append("muscles")
-        assert _onglets(_page(chapitre["num"])) == attendu, chapitre["num"]
+        assert _onglets(_page(chapitre["num"])) == ["fiche", "exercer"], chapitre["num"]
 
 
-def test_la_barre_distingue_les_deux_groupes_et_les_numerote():
-    page = _page(6)
-    groupes = re.findall(
-        r'<div class="onglets__groupe" data-groupe="(\w+)" role="group" '
-        r'aria-labelledby="(onglets-\w+)">'
-        r'<span class="onglets__etiquette" id="\2">'
-        r'<span class="onglets__rang mono">(\d)</span>([^<]+)</span>',
-        page,
-    )
-    assert groupes == [
-        ("apprendre", "onglets-apprendre", "1", "Apprendre"),
-        ("tester", "onglets-tester", "2", "Se tester"),
-    ]
-    # Les boutons sont dans le bon groupe : la fiche avant l'etiquette 2.
-    assert page.index('data-onglet="fiche"') < page.index('data-groupe="tester"')
-    assert page.index('data-groupe="tester"') < page.index('data-onglet="planche"')
-
-
-# --- Guider le premier passage -------------------------------------------------
-
-
-def test_chaque_chapitre_dit_quoi_faire_dans_quel_ordre():
+def test_la_fiche_mene_aux_exercices_par_un_lien_pas_par_un_bouton():
+    # Fin de fiche : « tout lu ? ». Un lien, hors de la fiche (qui reste sans
+    # bouton) et masque sans JavaScript, ou il ne ferait rien.
     for chapitre in CHAPITRES:
         page = _page(chapitre["num"])
-        m = re.search(r'<p class="guide">(.*?)</p>', page, re.DOTALL)
-        assert m, chapitre["num"]
-        texte = html.unescape(re.sub(r"<[^>]+>", "", m.group(1)))
-        assert "fiche" in texte and "teste-toi" in texte
-        # Une seule phrase : un seul point final.
-        assert texte.count(".") == 1, texte
-        # La ligne est AVANT la barre d'onglets : c'est ce qu'on lit en premier.
-        assert page.index('class="guide"') < page.index('class="onglets"')
+        assert (
+            '<p class="fiche-suite js-seulement">\n        '
+            '<a class="action action--majeure" href="#exercer" data-aller="exercer">'
+            "S&#x27;exercer sur ce chapitre</a>" in page
+        )
+        assert page.index('class="fiche"') < page.index('class="fiche-suite')
 
 
-def test_l_accueil_dit_de_lire_la_fiche_avant_la_seance():
+def test_le_lien_d_accueil_est_present_sur_chaque_chapitre():
+    for chapitre in CHAPITRES:
+        assert '<a class="retour" href="index.html">' in _page(chapitre["num"])
+
+
+# --- Un seul deroule d'exercices, le meme partout --------------------------------
+
+
+def test_s_exercer_reprend_le_bloc_de_la_seance_du_jour():
+    # Meme balisage, memes identifiants : interface.js cable le bloc une seule
+    # fois, et seul data-chapitre change ce qu'il en tire.
+    accueil = (RACINE / "site" / "index.html").read_text(encoding="utf-8")
+    identifiants = (
+        "seance",
+        "seance-message",
+        "seance-zone",
+        "seance-compte",
+        "seance-consolidation",
+        "seance-planche",
+        "seance-muscle",
+        "seance-suivant",
+        "seance-quitter",
+    )
+    for chapitre in CHAPITRES:
+        page = _page(chapitre["num"])
+        assert f'<section class="seance seance--chapitre" aria-label="Exercices du chapitre" data-chapitre="{chapitre["num"]}">' in page
+        for identifiant in identifiants:
+            assert f'id="{identifiant}"' in page, (chapitre["num"], identifiant)
+            assert f'id="{identifiant}"' in accueil, identifiant
+    # L'accueil, lui, n'est restreint a aucun chapitre.
+    assert "data-chapitre=" not in re.search(
+        r'<section class="seance[^>]*>', accueil
+    ).group(0)
+
+
+def test_le_reservoir_d_un_chapitre_porte_ses_exercices_et_eux_seuls():
+    for chapitre in CHAPITRES:
+        reservoir = _reservoir(_page(chapitre["num"]))
+        assert reservoir.count('class="carte"') == len(chapitre["cartes"])
+        assert reservoir.count('class="question"') == len(chapitre["quiz"])
+        assert reservoir.count('class="planche"') == len(chapitre["planches"])
+        assert reservoir.count('class="muscles"') == (1 if chapitre["muscles"] else 0)
+        for carte in chapitre["cartes"]:
+            assert f'id="{carte["id"]}"' in reservoir
+        for planche in chapitre["planches"]:
+            assert f'id="{planche["id"]}"' in reservoir
+        assert 'class="piege"' not in reservoir
+
+
+def test_le_reservoir_vient_apres_la_zone_d_exercice():
+    # Un <marker id="fleche"> ne se resout que sur le PREMIER id du document :
+    # celui du clone affiche, pas celui du modele masque.
+    for chapitre in CHAPITRES:
+        page = _page(chapitre["num"])
+        assert page.index('id="seance-zone"') < page.index('id="reservoir-exercices"')
+
+
+def test_l_accueil_tient_en_une_phrase_puis_la_seance_puis_les_chapitres():
     accueil = (RACINE / "site" / "index.html").read_text(encoding="utf-8")
     m = re.search(r'<p class="guide">(.*?)</p>', accueil, re.DOTALL)
     assert m
     texte = html.unescape(re.sub(r"<[^>]+>", "", m.group(1)))
-    assert "fiche" in texte and "séance du jour" in texte
-    assert texte.index("fiche") < texte.index("séance du jour")
-    assert texte.count(".") == 1
-    # Avant le bouton de la seance : un nouvel arrivant le voit d'abord.
-    assert accueil.index('class="guide"') < accueil.index('id="seance"')
+    assert "fiche" in texte and "exerce-toi" in texte
+    assert texte.index("fiche") < texte.index("exerce-toi")
+    # Une seule phrase : un seul point final.
+    assert texte.count(".") == 1, texte
+    # Dans l'ordre : la phrase, le bouton de seance, la liste des chapitres.
+    assert (
+        accueil.index('class="guide"')
+        < accueil.index('id="seance"')
+        < accueil.index('class="chapitres progression"')
+    )
+
+
+def test_les_reglages_sont_derriere_un_seul_lien_discret():
+    accueil = (RACINE / "site" / "index.html").read_text(encoding="utf-8")
+    liens = re.findall(r'data-action="reglages-bascule"', accueil)
+    assert len(liens) == 1
+    assert '<button type="button" class="lien-discret" data-action="reglages-bascule"' in accueil
+    panneau = re.search(r'<section id="reglages-panneau".*?</section>', accueil, re.DOTALL).group(0)
+    assert " hidden>" in panneau.split("\n", 1)[0]
+    # Tout ce qui etait eparpille est la, et seulement la.
+    for attendu in (
+        "data-theme-choix=",
+        'id="reglages-date-examen"',
+        'data-action="exporter"',
+        'id="reglages-import"',
+        'data-action="reinitialiser"',
+    ):
+        assert attendu in panneau, attendu
+    # Plus de reglages sur une page de chapitre : on y lit.
+    for chapitre in CHAPITRES:
+        assert "reglages" not in _page(chapitre["num"])
+
+
+def test_la_progression_ne_fait_plus_un_bloc_a_part():
+    accueil = (RACINE / "site" / "index.html").read_text(encoding="utf-8")
+    assert "progression-bloc" not in accueil and 'id="progression-titre"' not in accueil
+    # L'anneau vit dans la ligne du chapitre.
+    assert accueil.count('<svg class="anneau"') == 7
 
 
 # --- La fiche est complete -------------------------------------------------------
@@ -141,7 +217,7 @@ def test_l_accueil_dit_de_lire_la_fiche_avant_la_seance():
 
 def test_la_fiche_reprend_chaque_section_et_chaque_point():
     for chapitre in CHAPITRES:
-        fiche = _volet(_page(chapitre["num"]), "fiche")
+        fiche = _fiche(_page(chapitre["num"]))
         for section in chapitre["sections"]:
             assert html.escape(section["titre"]) in fiche, section["titre"]
             assert f"slide {section['slide']}" in fiche
@@ -151,7 +227,7 @@ def test_la_fiche_reprend_chaque_section_et_chaque_point():
 
 def test_la_fiche_a_un_plan_dont_chaque_entree_pointe_une_section():
     for chapitre in CHAPITRES:
-        fiche = _volet(_page(chapitre["num"]), "fiche")
+        fiche = _fiche(_page(chapitre["num"]))
         cibles = re.findall(r'<a href="#(fiche-[\w-]+)">', fiche)
         attendu = len(chapitre["sections"]) + (1 if chapitre["muscles"] else 0)
         assert len(cibles) == attendu, chapitre["num"]
@@ -167,7 +243,7 @@ def test_le_plan_est_replie_a_la_construction_quand_il_est_long():
 
 def test_chaque_planche_est_legendee_dans_la_fiche():
     for chapitre in CHAPITRES:
-        fiche = _volet(_page(chapitre["num"]), "fiche")
+        fiche = _fiche(_page(chapitre["num"]))
         assert fiche.count('<figure class="planche-fiche">') == len(
             chapitre["planches"]
         )
@@ -199,19 +275,22 @@ def test_une_planche_est_rattachee_a_la_section_qui_la_traite():
             )
 
 
-def test_les_pieges_sont_lus_dans_la_fiche_et_dans_leur_onglet():
+def test_les_pieges_sont_lus_dans_la_fiche_et_nulle_part_ailleurs():
+    # L'onglet Pieges est absorbe : chaque piege est lu ou sa notion est traitee,
+    # une seule fois dans la page.
     for chapitre in CHAPITRES:
         page = _page(chapitre["num"])
-        fiche = _volet(page, "fiche")
+        fiche = _fiche(page)
         assert fiche.count('<article class="piege">') == len(chapitre["pieges"])
-        assert _volet(page, "pieges").count('<article class="piege">') == len(
-            chapitre["pieges"]
-        )
+        assert page.count('<article class="piege">') == len(chapitre["pieges"])
+        for piege in chapitre["pieges"]:
+            assert html.escape(piege["titre"]) in fiche
+            assert f"slide {piege['slide']}" in fiche
 
 
 def test_la_table_musculaire_est_en_reference_pour_les_chapitres_5_a_7():
     for chapitre in CHAPITRES:
-        fiche = _volet(_page(chapitre["num"]), "fiche")
+        fiche = _fiche(_page(chapitre["num"]))
         if not chapitre["muscles"]:
             assert "table-ref" not in fiche
             continue
@@ -243,7 +322,7 @@ def test_les_sections_ne_dependent_pas_de_l_ordre_du_json():
 
 def test_la_fiche_ne_masque_rien_et_n_a_aucun_champ():
     for chapitre in CHAPITRES:
-        fiche = _volet(_page(chapitre["num"]), "fiche")
+        fiche = _fiche(_page(chapitre["num"]))
         assert 'data-etat="cachee"' not in fiche
         assert "hidden" not in fiche
         assert 'data-mode="muet"' not in fiche
@@ -258,7 +337,7 @@ def test_la_fiche_ne_partage_aucune_classe_que_le_script_equipe():
     # interface.js cible .planche, .muscles, .carte, .question : un seul de ces
     # noms dans la fiche lui ajouterait des champs de saisie et un mode muet.
     for chapitre in CHAPITRES:
-        fiche = _volet(_page(chapitre["num"]), "fiche")
+        fiche = _fiche(_page(chapitre["num"]))
         for interdit in (
             'class="planche"',
             'class="muscles"',
@@ -275,7 +354,7 @@ def test_aucun_identifiant_de_la_fiche_n_existe_ailleurs_dans_la_page():
     # la page du chapitre ; la fiche est le premier volet du DOM, elle gagnerait.
     for chapitre in CHAPITRES:
         page = _page(chapitre["num"])
-        fiche = _volet(page, "fiche")
+        fiche = _fiche(page)
         reste = page.replace(fiche, "")
         identifiants = re.findall(r"""\bid=['"]([^'"]+)['"]""", fiche)
         assert identifiants
@@ -289,11 +368,11 @@ def test_les_marqueurs_de_fleche_de_la_fiche_ont_leurs_propres_id():
     # Le trace porte <marker id='fleche'>, reference par url(#fleche). Deux
     # copies dans la page : le navigateur prend la PREMIERE -- celle de la
     # fiche, display:none sur un onglet de test -- et ne rend plus la pointe.
-    fiche = _volet(_page(1), "fiche")
+    fiche = _fiche(_page(1))
     assert "id='fleche'" not in fiche and "url(#fleche)" not in fiche
     assert "id='fiche-pl01-fleche'" in fiche and "url(#fiche-pl01-fleche)" in fiche
-    # L'onglet Planche garde l'identifiant d'origine.
-    assert "id='fleche'" in _volet(_page(1), "planche")
+    # Le modele du reservoir garde l'identifiant d'origine.
+    assert "id='fleche'" in _reservoir(_page(1))
 
 
 def test_le_rendu_des_onglets_de_test_et_des_pdf_est_inchange():
@@ -310,34 +389,28 @@ def test_le_rendu_des_onglets_de_test_et_des_pdf_est_inchange():
     assert '<table class="muscles">' in tableau and 'data-id="5#muscle#' in tableau
 
 
-# --- Les onglets de test gardent leur regle : aucune reponse avant tentative ----------
+# --- S'exercer garde sa regle : aucune reponse avant tentative -----------------------
 
 
-def test_les_onglets_de_test_restent_masques_a_la_construction():
+def test_les_modeles_d_exercice_restent_masques_a_la_construction():
     for chapitre in CHAPITRES:
-        page = _page(chapitre["num"])
-        cartes = _volet(page, "cartes")
-        assert cartes.count('data-etat="cachee"') == len(chapitre["cartes"])
-        quiz = _volet(page, "quiz")
-        assert quiz.count('class="question__expl" data-etat="cachee"') == len(
+        reservoir = _reservoir(_page(chapitre["num"]))
+        assert reservoir.count('<p class="carte__r" data-etat="cachee">') == len(
+            chapitre["cartes"]
+        )
+        assert reservoir.count('class="question__expl" data-etat="cachee"') == len(
             chapitre["quiz"]
         )
+        # Ni carte ni question ne sont montrees hors du reservoir : seul le clone
+        # que le script insere en zone d'exercice l'est, et il porte le meme masque.
+        reste = _page(chapitre["num"]).replace(reservoir, "")
+        assert 'class="carte"' not in reste and 'class="question"' not in reste
 
 
-def test_chaque_volet_porte_un_titre_pour_l_etat_sans_javascript():
+def test_sans_javascript_la_page_dit_que_les_exercices_en_ont_besoin():
     for chapitre in CHAPITRES:
         page = _page(chapitre["num"])
-        titres = re.findall(
-            r'<section class="volet" data-volet="(\w+)"><h2 class="volet__titre">([^<]+)</h2>', page
-        )
-        assert [cle for cle, _ in titres] == _onglets(page), chapitre["num"]
-        attendu = {
-            "fiche": "Apprendre · Fiche",
-            "pieges": "Apprendre · Pièges",
-            "planche": "Se tester · Planche",
-            "cartes": "Se tester · Cartes",
-            "quiz": "Se tester · Quiz",
-            "muscles": "Se tester · Muscles",
-        }
-        for cle, titre in titres:
-            assert html.unescape(titre) == attendu[cle]
+        assert '<p class="sans-js">Les exercices demandent JavaScript.' in page
+        # La barre d'onglets et les liens qui menent aux exercices se retirent
+        # sans script (style.css §5.2a).
+        assert '<div class="onglets js-seulement" role="tablist"' in page

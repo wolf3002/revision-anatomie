@@ -21,46 +21,36 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 # donc aucune derive possible entre ce qui est valide et ce qui est rendu.
 from contenu.schema import DECALAGE_LIBELLE  # noqa: E402
 
-# Deux groupes, dans l'ordre ou on les traverse : on ne peut pas retrouver en
-# memoire ce qu'on n'y a jamais mis, donc on LIT d'abord (Apprendre), on se
-# TESTE ensuite (Se tester). Le premier onglet du premier groupe est celui qui
-# s'ouvre : c'est la fiche, jamais un exercice.
+# Deux onglets, dans l'ordre ou on les traverse : on ne peut pas retrouver en
+# memoire ce qu'on n'y a jamais mis, donc on LIT d'abord (Fiche), on s'EXERCE
+# ensuite (S'exercer). Le premier onglet est celui qui s'ouvre : la fiche,
+# jamais un exercice.
 #
-# - Apprendre : rien n'y est masque. La fiche est le cours a lire, avec ses
-#   planches deja legendees et (ch. 5 a 7) la table musculaire en valeurs
-#   lisibles. Les pieges sont deja lus DANS la fiche, au moment ou la notion
-#   est traitee ; leur onglet les regroupe pour une relecture avant de se
-#   tester. Un piege n'est pas un exercice : contrairement a une carte ou a
-#   une explication de quiz, son contenu est affiche d'emblee, jamais masque
-#   -- lire un piege avant de se tromper a un sens, le "cacher" derriere une
-#   tentative n'en aurait aucun.
-# - Se tester : c'est la, et seulement la, que « aucune reponse avant
-#   tentative » s'applique (cartes, quiz, planches muettes, muscles a
-#   completer). L'ordre relatif de ces quatre exercices est celui d'avant.
-GROUPES = (
-    (
-        "apprendre",
-        "Apprendre",
-        (
-            ("fiche", "Fiche", "sections"),
-            ("pieges", "Pièges", "pieges"),
-        ),
-    ),
-    (
-        "tester",
-        "Se tester",
-        (
-            ("planche", "Planche", "planches"),
-            ("cartes", "Cartes", "cartes"),
-            ("quiz", "Quiz", "quiz"),
-            ("muscles", "Muscles", "muscles"),
-        ),
-    ),
+# - Fiche : tout ce qui se lit, d'un seul tenant et sans rien masquer : le cours
+#   et ses sections, les planches deja legendees et les pieges de la notion la
+#   ou elle est traitee, et (ch. 5 a 7) la table musculaire en valeurs lisibles.
+#   Un piege n'est pas un exercice : lire un piege avant de se tromper a un
+#   sens, le "cacher" derriere une tentative n'en aurait aucun.
+# - S'exercer : c'est la, et seulement la, que « aucune reponse avant
+#   tentative » s'applique. Un parcours unique, un exercice a la fois, monte par
+#   interface.js avec la MEME machinerie que la seance du jour (composerSeance
+#   restreint a ce chapitre) : cartes, questions, planches muettes et muscles
+#   melanges. Le balisage de ces exercices vit dans un reservoir cache de la
+#   page (voir _rendre_reservoir_exercices), pas dans un onglet.
+ONGLETS = (
+    ("fiche", "Fiche"),
+    ("exercer", "S'exercer"),
 )
 
-# Vue a plat des onglets, dans l'ordre d'affichage (cle, libelle, source) :
-# derivee de GROUPES, jamais redefinie a la main.
-ONGLETS = tuple(onglet for _, _, onglets in GROUPES for onglet in onglets)
+# Les formats d'exercice d'un chapitre (cle de _rendre_volet, source dans
+# cours.json), dans l'ordre du reservoir. Partage avec outils/empaqueter.py, qui
+# en tire le reservoir de la seance du jour de la variante autonome.
+EXERCICES = (
+    ("cartes", "cartes"),
+    ("quiz", "quiz"),
+    ("planche", "planches"),
+    ("muscles", "muscles"),
+)
 
 # Au-dela, le plan de la fiche est replie a la construction : 27 ou 44 entrees
 # ouvertes repoussent la premiere section d'un ecran entier.
@@ -73,6 +63,7 @@ def construire(racine: Path) -> list[Path]:
     base = (racine / "gabarits" / "base.html").read_text(encoding="utf-8")
     gabarit = (racine / "gabarits" / "chapitre.html").read_text(encoding="utf-8")
     gabarit_accueil = (racine / "gabarits" / "accueil.html").read_text(encoding="utf-8")
+    gabarit_seance = (racine / "gabarits" / "seance.html").read_text(encoding="utf-8")
 
     sortie = racine / "site"
     (sortie / "assets").mkdir(parents=True, exist_ok=True)
@@ -80,7 +71,7 @@ def construire(racine: Path) -> list[Path]:
 
     ecrits = []
 
-    corps_accueil = _rendre_accueil(gabarit_accueil, cours)
+    corps_accueil = _rendre_accueil(gabarit_accueil, gabarit_seance, cours)
     page_accueil = (
         base.replace("{{titre}}", html.escape(cours["meta"]["cours"]))
         .replace("{{racine}}", "")
@@ -91,7 +82,7 @@ def construire(racine: Path) -> list[Path]:
     ecrits.append(chemin_accueil)
 
     for chapitre in cours["chapitres"]:
-        corps = _rendre_chapitre(gabarit, chapitre)
+        corps = _rendre_chapitre(gabarit, gabarit_seance, chapitre)
         page = (
             base.replace(
                 "{{titre}}",
@@ -106,111 +97,124 @@ def construire(racine: Path) -> list[Path]:
     return ecrits
 
 
-def _rendre_accueil(gabarit, cours):
+def _rendre_seance(gabarit, *, libelle, intro, bouton, chapitre=None):
+    """Le bloc qui deroule les exercices, un a la fois : le MEME balisage (memes
+    identifiants) sur l'accueil (seance du jour, tous les chapitres) et sur la
+    page d'un chapitre (S'exercer, ce chapitre seul). interface.js le cable une
+    seule fois et ne differe que par le filtre de chapitre (data-chapitre)."""
+    return (
+        gabarit.replace(
+            "{{seance_classe}}",
+            # Sans JavaScript, le bouton de la seance du jour ne ferait rien.
+            " js-seulement" if chapitre is None else " seance--chapitre",
+        )
+        .replace("{{seance_libelle}}", html.escape(libelle))
+        .replace(
+            "{{seance_attributs}}",
+            "" if chapitre is None else f' data-chapitre="{chapitre}"',
+        )
+        .replace("{{seance_intro}}", html.escape(intro))
+        .replace("{{seance_bouton}}", html.escape(bouton))
+    )
+
+
+def _rendre_accueil(gabarit, gabarit_seance, cours):
     chapitres = cours["chapitres"]
-    progression = "".join(_rendre_anneau(c) for c in chapitres)
-    liste = "".join(_rendre_lien_chapitre(c) for c in chapitres)
-    # Le titre annonce le compte REEL de chapitres publies dans cours.json,
-    # jamais "les sept" en dur : tant que les chapitres 2 a 7 ne sont pas
-    # ecrits (et leurs bornes de slides verifiees dans le PDF -- cf. l'audit
-    # du chapitre 1, qui a corrige [7,45] en [7,43]), un titre qui promettrait
-    # sept entrees pour une seule affichee se lirait comme un bug.
-    titre_chapitres = (
-        "Chapitre disponible"
-        if len(chapitres) == 1
-        else f"Les {len(chapitres)} chapitres disponibles"
+    liste = "".join(_rendre_ligne_chapitre(c) for c in chapitres)
+    seance = _rendre_seance(
+        gabarit_seance,
+        libelle="Séance du jour",
+        intro="Environ 20 minutes sur ce qui est à revoir, tous chapitres mélangés.",
+        bouton="Démarrer la séance du jour",
     )
     return (
         gabarit.replace("{{cours}}", html.escape(cours["meta"]["cours"]))
-        .replace("{{titre_chapitres}}", titre_chapitres)
-        .replace("{{progression}}", progression)
+        .replace("{{seance}}", seance)
+        .replace("{{titre_chapitres}}", "Chapitres" if len(chapitres) > 1 else "Chapitre")
         .replace("{{chapitres}}", liste)
     )
 
 
-def _rendre_anneau(chapitre):
-    # Valeurs par defaut cote build : "jamais ouvert" (part=0, dashed). La
-    # vraie proportion depend du localStorage -- interface.js la recalcule au
-    # chargement et a chaque verdict, en ciblant ce <li> par data-chapitre.
-    num = chapitre["num"]
-    titre = html.escape(chapitre["titre"])
-    return (
-        f'<li data-chapitre="{num}" data-etat="vide">'
-        '<svg class="anneau" style="--part: 0" viewBox="0 0 48 48" role="img" '
-        f'aria-label="Chapitre {num}, {titre} : jamais ouvert">'
-        '<circle class="anneau__fond" cx="24" cy="24" r="20" pathLength="100"/>'
-        '<circle class="anneau__part" cx="24" cy="24" r="20" pathLength="100"/>'
-        "</svg>"
-        f'<span class="progression__titre">Ch. {num}</span>'
-        '<span class="anneau__valeur mono">jamais ouvert</span>'
-        "</li>"
-    )
+def _rendre_ligne_chapitre(chapitre):
+    """Une ligne = un chapitre, deux actions explicites (lire, s'exercer) et une
+    indication de progression sobre : l'anneau porte le numero du chapitre, il ne
+    coute donc aucune place de plus.
 
-
-def _rendre_lien_chapitre(chapitre):
+    Valeurs par defaut cote build : « pas commence » (part=0, pointille). La
+    vraie proportion depend du localStorage -- interface.js la recalcule au
+    chargement et a chaque verdict, en ciblant ce <li> par data-chapitre."""
     num = chapitre["num"]
     titre = html.escape(chapitre["titre"])
     debut, fin = chapitre["slides"]
     return (
-        "<li>"
-        f'<a class="chapitre-lien" href="chapitre-{num}.html">'
-        f'<span class="chapitre-lien__num mono">{num}</span>'
-        f'<span class="chapitre-lien__titre">{titre}</span>'
-        f'<span class="chapitre-lien__slides mono">slides {debut}–{fin}</span>'
-        "</a></li>"
+        f'<li class="chapitre" data-chapitre="{num}" data-etat="vide">'
+        '<svg class="anneau" style="--part: 0" viewBox="0 0 48 48" role="img" '
+        f'aria-label="Chapitre {num}, {titre} : pas commencé">'
+        '<circle class="anneau__fond" cx="24" cy="24" r="20" pathLength="100"/>'
+        '<circle class="anneau__part" cx="24" cy="24" r="20" pathLength="100"/>'
+        f'<text class="anneau__num" x="24" y="24">{num}</text>'
+        "</svg>"
+        '<div class="chapitre__texte">'
+        f'<h3 class="chapitre__titre">{titre}</h3>'
+        '<p class="chapitre__meta">'
+        f'<span class="src">slides {debut}–{fin}</span>'
+        '<span class="anneau__valeur mono">pas commencé</span></p></div>'
+        '<div class="chapitre__actions">'
+        f'<a class="action" href="chapitre-{num}.html">Lire la fiche</a>'
+        f'<a class="action js-seulement" href="chapitre-{num}.html#exercer">S&#x27;exercer</a>'
+        "</div></li>"
     )
 
 
-def _onglets_actifs(chapitre):
-    return [(cle, libelle) for cle, libelle, source in ONGLETS if chapitre.get(source)]
-
-
 def _rendre_barre_onglets(chapitre):
-    """Les onglets, en groupes numerotes (1 Apprendre, 2 Se tester).
-
-    Un groupe sans onglet actif n'est pas affiche, et la numerotation suit ce
-    qui reste : « 1 » est toujours le premier groupe visible.
-    """
-    rendu = ""
-    rang = 0
-    for cle_groupe, libelle_groupe, onglets in GROUPES:
-        actifs = [(cle, lib) for cle, lib, source in onglets if chapitre.get(source)]
-        if not actifs:
-            continue
-        rang += 1
-        identifiant = f"onglets-{cle_groupe}"
-        boutons = "".join(
-            f'<button class="onglet" data-onglet="{cle}">{html.escape(libelle)}</button>'
-            for cle, libelle in actifs
-        )
-        rendu += (
-            f'<div class="onglets__groupe" data-groupe="{cle_groupe}" role="group" '
-            f'aria-labelledby="{identifiant}">'
-            f'<span class="onglets__etiquette" id="{identifiant}">'
-            f'<span class="onglets__rang mono">{rang}</span>'
-            f"{html.escape(libelle_groupe)}</span>"
-            f"{boutons}</div>"
-        )
-    return rendu
+    """Les deux onglets. « S'exercer » n'est proposé que si le chapitre a de
+    quoi s'exercer ; la fiche, elle, est toujours la."""
+    actifs = [
+        (cle, libelle)
+        for cle, libelle in ONGLETS
+        if cle == "fiche" or any(chapitre.get(source) for _, source in EXERCICES)
+    ]
+    return "".join(
+        f'<button class="onglet" data-onglet="{cle}" role="tab" id="onglet-{cle}" '
+        f'aria-controls="{cle}" aria-selected="{"true" if cle == "fiche" else "false"}">'
+        f"{html.escape(libelle)}</button>"
+        for cle, libelle in actifs
+    )
 
 
-def _rendre_volet_titre(cle, libelle):
-    """Titre du volet, visible SEULEMENT quand le script n'a pas tourne.
+def _rendre_reservoir_exercices(chapitre):
+    """Le balisage des exercices du chapitre : cartes, questions, planches,
+    table de muscles, tels que _rendre_volet les produit (une seule fabrication,
+    partagee avec la seance du jour et la variante autonome).
 
-    Sans JavaScript (ou script qui echoue, ex. site/ ouvert en file:// : les
-    modules ES n'y sont pas executes), tous les volets se suivent dans la page
-    sans que la barre d'onglets, inerte, dise lequel est lequel. Le titre nomme
-    chaque section ; interface.js pose la classe `js` sur <html> et le masque, la
-    barre d'onglets faisant alors ce travail (voir style.css, §5.2a)."""
-    groupe = next(g for _, g, onglets in GROUPES if any(c == cle for c, _, _ in onglets))
-    return f'<h2 class="volet__titre">{html.escape(groupe)} · {html.escape(libelle)}</h2>'
+    Il vit dans un reservoir CACHE (`hidden`, tout en bas de la page) : ce sont
+    des MODELES que la seance clone un a un, jamais des exercices affiches --
+    voir interface.js, `horsReservoir`. Le reservoir est place APRES la zone
+    d'exercice : les <marker id="fleche"> d'un trace ne se resolvent que sur le
+    premier id du document, il faut donc que ce soit celui du clone visible, pas
+    celui d'un sous-arbre masque (voir _isoler_ids)."""
+    return "".join(
+        _rendre_volet(cle, chapitre) for cle, source in EXERCICES if chapitre.get(source)
+    )
 
 
-def _rendre_chapitre(gabarit, chapitre):
-    sections = "".join(
-        f'<section class="volet" data-volet="{cle}">'
-        f"{_rendre_volet_titre(cle, libelle)}{_rendre_volet(cle, chapitre)}</section>"
-        for cle, libelle in _onglets_actifs(chapitre)
+def _phrase_exercices(chapitre):
+    formats = ["des cartes", "des questions", "des planches à légender"]
+    if chapitre.get("muscles"):
+        formats.append("des muscles à compléter")
+    return (
+        f"{', '.join(formats[:-1])} et {formats[-1]}, "
+        "mélangés, un exercice à la fois."
+    ).capitalize()
+
+
+def _rendre_chapitre(gabarit, gabarit_seance, chapitre):
+    seance = _rendre_seance(
+        gabarit_seance,
+        libelle="Exercices du chapitre",
+        intro=_phrase_exercices(chapitre),
+        bouton="Commencer",
+        chapitre=chapitre["num"],
     )
     return (
         gabarit.replace("{{num}}", str(chapitre["num"]))
@@ -219,7 +223,9 @@ def _rendre_chapitre(gabarit, chapitre):
             "{{slides}}", f"slides {chapitre['slides'][0]}–{chapitre['slides'][1]}"
         )
         .replace("{{onglets}}", _rendre_barre_onglets(chapitre))
-        .replace("{{volets}}", sections)
+        .replace("{{fiche}}", _rendre_fiche(chapitre))
+        .replace("{{seance}}", seance)
+        .replace("{{reservoir}}", _rendre_reservoir_exercices(chapitre))
     )
 
 

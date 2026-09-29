@@ -189,3 +189,43 @@ def test_les_verdicts_de_planche_et_de_muscle_sont_enregistres_et_survivent_au_r
     }
     assert apres_rechargement == apres
     assert not page.erreurs
+
+
+def test_s_exercer_marche_en_file_sur_une_page_de_chapitre(accueil_autonome):
+    # Le site autonome n'a pas de serveur : la page d'un chapitre ne peut rien
+    # recuperer. S'exercer clone ses modeles depuis le reservoir de la page.
+    # Chapitre 6 : les quatre formats.
+    chapitre = (RACINE / "site-autonome" / "chapitre-6.html").as_uri() + "#exercer"
+    page = _obtenir_navigateur().new_page(viewport={"width": 1280, "height": 900})
+    erreurs = []
+    page.on("pageerror", lambda erreur: erreurs.append(str(erreur)))
+    page.route("https://**", lambda route: route.abort())
+    try:
+        page.goto(chapitre, wait_until="load")
+        page.wait_for_selector("#seance-zone .carte")
+        # Un chapitre a la fois, sans reseau : cartes, questions, planches, muscles.
+        vus = set()
+        for _ in range(8):
+            for type_, selecteur in (
+                ("carte", "#seance-zone .carte"),
+                ("quiz", "#seance-zone .question"),
+                ("planche", "#seance-planche figure"),
+                ("muscle", "#seance-muscle tbody tr"),
+            ):
+                if page.locator(selecteur).count():
+                    vus.add(type_)
+            page.click("#seance-suivant")
+            page.wait_for_timeout(80)
+        assert vus == {"carte", "quiz", "planche", "muscle"}, vus
+
+        page.click("#seance-quitter")
+        page.click("#seance")
+        page.wait_for_selector("#seance-zone .carte")
+        identifiant = page.evaluate("document.querySelector('#seance-zone .carte').id")
+        assert identifiant.startswith("c6-")
+        page.keyboard.press("Space")
+        page.keyboard.press("3")
+        assert _stockage(page)["items"][identifiant]["statut"] == "su"
+        assert not erreurs
+    finally:
+        page.close()

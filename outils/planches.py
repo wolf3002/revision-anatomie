@@ -23,6 +23,14 @@ _DEFS_FLECHE = (
     "<path d='M0 0 L10 5 L0 10 Z' fill='currentColor'/></marker></defs>"
 )
 
+# Decalage d'un trace tel quel, sans en toucher une coordonnee : enveloppe <g transform>.
+# Sert a redonner de la place a des libelles qui debordaient du viewBox (voir
+# contenu/schema.py, emprise du texte) sans redessiner : on decale le trace ET les
+# pastilles de la meme quantite, et on elargit le viewBox de ce qui manquait.
+def _translater(dessin, dx, dy=0):
+    return f"<g transform='translate({dx} {dy})'>{dessin}</g>"
+
+
 # Les trois plans (ronde de correction 1, puis éclatés en planches séparées en ronde de
 # correction 4) : une seule vue de face avec trois traits tiretés superposés se lisait
 # comme "trois lignes identiques" et faisait chevaucher les libellés. Puis un unique
@@ -409,9 +417,11 @@ PLANCHES = {
     "os-long-coupe": {
         "id": "os-long-coupe",
         "titre": "L'os long en coupe",
-        "vb": "0 0 420 460",
-        "dessin": _DEFS_FLECHE + _DESSIN_OS_LONG,
-        "pastilles": _PASTILLES_OS_LONG,
+        "vb": "0 0 430 460",
+        # Decale de 10 unites vers la droite : « Os spongieux » (pastille 7, ancre
+        # « end ») butait a 1,6 unite du bord gauche du viewBox.
+        "dessin": _DEFS_FLECHE + _translater(_DESSIN_OS_LONG, 10),
+        "pastilles": [{**q, "x": q["x"] + 10} for q in _PASTILLES_OS_LONG],
     },
     "squelette-axial-appendiculaire": {
         "id": "squelette-axial-appendiculaire",
@@ -1035,8 +1045,8 @@ _DESSIN_ENVELOPPES_MUSCLE = (
 _PASTILLES_ENVELOPPES_MUSCLE = [
     {
         "n": 1,
-        "x": 231,
-        "y": 59,
+        "x": 222,
+        "y": 50,
         "t": "Épimysium",
         "ancre": "start",
         "indice": "gaine externe, autour du muscle entier",
@@ -1434,7 +1444,7 @@ PLANCHES["deltoide-trois-faisceaux"] = {
         {
             "n": 2,
             "x": 150,
-            "y": 132,
+            "y": 56,
             "t": "Acromial",
             "ancre": "middle",
             "indice": "faisceau intermédiaire, origine sur l'acromion",
@@ -1497,15 +1507,60 @@ PLANCHES["coiffe-rotateurs-vue-postero-laterale"] = {
         },
     ],
 }
+# --- Chapitre 7 : le membre inferieur ----------------------------------------------
+#
+# Reprise « emprise du texte » (contenu/schema.py) : douze libelles de trois planches
+# depassaient du viewBox et etaient rognes -- « Tete de la fibula » a 77 %. Les
+# planches gardent leur trace ; on leur redonne de la place, sans jamais depasser
+# 310 unites de large (regle du chapitre, 320 au plus : le libelle reste a ~12 px
+# sur un telephone de 320 px, alors qu'a 352 unites il tomberait a ~10 px).
+#
+# - quadriceps, ischio-jambiers : trace decale (_translater), viewBox elargi a 300 / 310.
+#   Les ancres qui ne tenaient pas meme ainsi changent de place ou de cote (voir
+#   chaque planche).
+# - squelette du membre inferieur : deux libelles ne peuvent pas cohabiter dans
+#   300 unites avec le genou entre eux (« Tibio-femorale » a gauche, 102 unites ;
+#   « Tibio-fibulaire proximale » a droite, 170 unites : il faudrait 352). La
+#   planche est donc DECOUPEE en deux, comme les trois plans (ch. 1) et les sept
+#   diarthroses (ch. 3) : bassin-hanche-genou d'un cote, jambe-cheville de l'autre.
+#   Le nombre total de pastilles (6) est inchange.
+
+# Tracé commun aux deux moities du squelette du membre inferieur (coordonnees de
+# la planche d'origine ; chaque moitie le decale et le rogne a sa fenetre).
+_OS_MEMBRE_INFERIEUR_HAUT = (
+    "<g class='os' fill='none' stroke='currentColor' stroke-width='2'>"
+    "<path d='M90,20 L190,20 L175,95 L105,95 Z'/>"
+    "<circle cx='140' cy='95' r='7'/>"
+    "<path d='M120,85 Q140,72 160,85' stroke-width='2'/>"
+    "<path d='M140,95 L128,380' stroke-width='11' stroke-linecap='round'/>"
+    "<circle cx='128' cy='390' r='9'/>"
+    # Amorces du tibia et de la fibula : la planche s'arrete sous le genou.
+    "<path d='M128,400 L126,430' stroke-width='9' stroke-linecap='round'/>"
+    "<path d='M150,405 L149,430' stroke-width='5' stroke-linecap='round'/>"
+    "</g>"
+)
+_OS_MEMBRE_INFERIEUR_BAS = (
+    "<g class='os' fill='none' stroke='currentColor' stroke-width='2'>"
+    # Amorce du femur et genou, au ras du bord haut : repere pour situer la jambe.
+    "<path d='M129,372 L128,381' stroke-width='11' stroke-linecap='round'/>"
+    "<circle cx='128' cy='390' r='9'/>"
+    "<path d='M128,400 L120,560' stroke-width='9' stroke-linecap='round'/>"
+    "<path d='M150,405 L145,555' stroke-width='5' stroke-linecap='round'/>"
+    "<path d='M120,560 L80,585 L135,598 Z'/>"
+    "</g>"
+)
+
 PLANCHES["squelette-membre-inferieur-articulations"] = {
     "id": "squelette-membre-inferieur-articulations",
-    "titre": "Le squelette du membre inférieur et ses articulations",
-    "vb": "0 0 260 620",
-    "dessin": "<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M90,20 L190,20 L175,95 L105,95 Z'/><circle cx='140' cy='95' r='7'/><path d='M120,85 Q140,72 160,85' stroke-width='2'/><path d='M140,95 L128,380' stroke-width='11' stroke-linecap='round'/><circle cx='128' cy='390' r='9'/><path d='M128,400 L120,560' stroke-width='9' stroke-linecap='round'/><path d='M150,405 L145,555' stroke-width='5' stroke-linecap='round'/><path d='M120,560 L80,585 L135,598 Z'/></g>",
+    "titre": "Le squelette du membre inférieur : bassin, hanche et genou",
+    # Decale de 14 : « Tibio-femorale » (ancre « end », a gauche du genou) butait sur
+    # le bord gauche ; « Femoro-patellaire » (a droite) borne la largeur a 290.
+    "vb": "0 0 290 445",
+    "dessin": _translater(_OS_MEMBRE_INFERIEUR_HAUT, 14),
     "pastilles": [
         {
             "n": 1,
-            "x": 150,
+            "x": 164,
             "y": 30,
             "t": "Sacro-iliaque",
             "ancre": "middle",
@@ -1513,7 +1568,7 @@ PLANCHES["squelette-membre-inferieur-articulations"] = {
         },
         {
             "n": 2,
-            "x": 140,
+            "x": 154,
             "y": 95,
             "t": "Coxo-fémorale",
             "ancre": "middle",
@@ -1521,7 +1576,7 @@ PLANCHES["squelette-membre-inferieur-articulations"] = {
         },
         {
             "n": 3,
-            "x": 128,
+            "x": 142,
             "y": 390,
             "t": "Fémoro-patellaire",
             "ancre": "start",
@@ -1529,24 +1584,35 @@ PLANCHES["squelette-membre-inferieur-articulations"] = {
         },
         {
             "n": 4,
-            "x": 110,
+            "x": 124,
             "y": 398,
             "t": "Tibio-fémorale",
             "ancre": "end",
             "indice": "genou ; entre les 2 os longs",
         },
+    ],
+}
+PLANCHES["squelette-membre-inferieur-jambe-cheville"] = {
+    "id": "squelette-membre-inferieur-jambe-cheville",
+    "titre": "Le squelette du membre inférieur : jambe et cheville",
+    # Fenetre sur le bas du meme trace (decalage -48 en x, -376 en y) : la fibula est
+    # a droite du tibia, et « Tibio-fibulaire proximale » (170 unites) s'etend vers la
+    # droite ; le trace est pousse a gauche pour que cela tienne dans 296.
+    "vb": "0 0 296 236",
+    "dessin": _translater(_OS_MEMBRE_INFERIEUR_BAS, -48, -376),
+    "pastilles": [
         {
-            "n": 5,
-            "x": 150,
-            "y": 408,
+            "n": 1,
+            "x": 102,
+            "y": 32,
             "t": "Tibio-fibulaire proximale",
             "ancre": "start",
             "indice": "juste sous le genou, côté fibula",
         },
         {
-            "n": 6,
-            "x": 122,
-            "y": 560,
+            "n": 2,
+            "x": 74,
+            "y": 184,
             "t": "Talo-crurale",
             "ancre": "middle",
             "indice": "cheville ; tibia + fibula + talus",
@@ -1556,12 +1622,15 @@ PLANCHES["squelette-membre-inferieur-articulations"] = {
 PLANCHES["os-coxal-trois-parties"] = {
     "id": "os-coxal-trois-parties",
     "titre": "L'os coxal, vue latérale : ses 3 parties",
-    "vb": "0 0 220 300",
-    "dessin": "<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M115,130 Q60,40 90,15 Q160,5 175,55 Q170,100 145,132 Z'/><path d='M112,168 Q60,190 55,240 Q65,270 100,260 Q130,240 128,175 Z'/><path d='M148,168 Q195,185 200,225 Q195,255 160,250 Q132,235 132,175 Z'/><circle cx='130' cy='150' r='22'/></g>",
+    # Decale de 10 : l'etiquette « Acetabulum » passe a gauche de l'anneau (pastille
+    # sur son bord gauche, ancre « end »). Sous l'anneau, elle recouvrait a 19 % le
+    # contour de l'anneau et le haut de l'ischium et du pubis.
+    "vb": "0 0 230 300",
+    "dessin": _translater("<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M115,130 Q60,40 90,15 Q160,5 175,55 Q170,100 145,132 Z'/><path d='M112,168 Q60,190 55,240 Q65,270 100,260 Q130,240 128,175 Z'/><path d='M148,168 Q195,185 200,225 Q195,255 160,250 Q132,235 132,175 Z'/><circle cx='130' cy='150' r='22'/></g>", 10),
     "pastilles": [
         {
             "n": 1,
-            "x": 120,
+            "x": 130,
             "y": 40,
             "t": "Ilium",
             "ancre": "middle",
@@ -1569,15 +1638,15 @@ PLANCHES["os-coxal-trois-parties"] = {
         },
         {
             "n": 2,
-            "x": 130,
+            "x": 118,
             "y": 150,
             "t": "Acétabulum",
-            "ancre": "middle",
+            "ancre": "end",
             "indice": "anneau central ; reçoit la tête fémorale (coxo-fémorale)",
         },
         {
             "n": 3,
-            "x": 80,
+            "x": 90,
             "y": 245,
             "t": "Ischium",
             "ancre": "middle",
@@ -1585,7 +1654,7 @@ PLANCHES["os-coxal-trois-parties"] = {
         },
         {
             "n": 4,
-            "x": 175,
+            "x": 185,
             "y": 235,
             "t": "Pubis",
             "ancre": "middle",
@@ -1596,12 +1665,14 @@ PLANCHES["os-coxal-trois-parties"] = {
 PLANCHES["quadriceps-quatre-chefs"] = {
     "id": "quadriceps-quatre-chefs",
     "titre": "Le quadriceps fémoral : ses 4 chefs, une terminaison commune",
-    "vb": "0 0 220 400",
-    "dessin": "<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M118,22 L118,300' stroke-width='9' stroke-linecap='round'/><circle cx='75' cy='16' r='6'/><circle cx='118' cy='308' r='10'/><path d='M118,318 L112,360' stroke-width='6' stroke-linecap='round'/><path d='M112,360 L108,390' stroke-width='8' stroke-linecap='round'/></g><g class='muscle' fill='none' stroke='currentColor' stroke-width='1.6'><path d='M75,18 L118,306'/><path d='M85,160 L118,306'/><path d='M155,190 L118,306'/><path d='M126,88 L126,298' stroke-dasharray='4 3'/></g>",
+    # Trace decale de 17, viewBox 220 -> 300 : « Droit femoral » (a gauche) et « Vaste
+    # intermediaire » (a droite, 135 unites) depassaient chacun d'un cote.
+    "vb": "0 0 300 400",
+    "dessin": _translater("<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M118,22 L118,300' stroke-width='9' stroke-linecap='round'/><circle cx='75' cy='16' r='6'/><circle cx='118' cy='308' r='10'/><path d='M118,318 L112,360' stroke-width='6' stroke-linecap='round'/><path d='M112,360 L108,390' stroke-width='8' stroke-linecap='round'/></g><g class='muscle' fill='none' stroke='currentColor' stroke-width='1.6'><path d='M75,18 L118,306'/><path d='M85,160 L118,306'/><path d='M155,190 L118,306'/><path d='M126,88 L126,298' stroke-dasharray='4 3'/></g>", 17),
     "pastilles": [
         {
             "n": 1,
-            "x": 96,
+            "x": 113,
             "y": 162,
             "t": "Droit fémoral",
             "ancre": "end",
@@ -1609,7 +1680,7 @@ PLANCHES["quadriceps-quatre-chefs"] = {
         },
         {
             "n": 2,
-            "x": 101,
+            "x": 118,
             "y": 233,
             "t": "Vaste latéral",
             "ancre": "end",
@@ -1617,7 +1688,7 @@ PLANCHES["quadriceps-quatre-chefs"] = {
         },
         {
             "n": 3,
-            "x": 136,
+            "x": 153,
             "y": 248,
             "t": "Vaste médial",
             "ancre": "start",
@@ -1625,7 +1696,7 @@ PLANCHES["quadriceps-quatre-chefs"] = {
         },
         {
             "n": 4,
-            "x": 126,
+            "x": 143,
             "y": 88,
             "t": "Vaste intermédiaire",
             "ancre": "start",
@@ -1633,7 +1704,7 @@ PLANCHES["quadriceps-quatre-chefs"] = {
         },
         {
             "n": 5,
-            "x": 114,
+            "x": 131,
             "y": 335,
             "t": "Ligament patellaire",
             "ancre": "middle",
@@ -1644,12 +1715,24 @@ PLANCHES["quadriceps-quatre-chefs"] = {
 PLANCHES["ischio-jambiers-trois-terminaisons"] = {
     "id": "ischio-jambiers-trois-terminaisons",
     "titre": "Les ischio-jambiers : une origine commune, 3 terminaisons",
-    "vb": "0 0 220 400",
-    "dessin": "<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M130,28 L122,280' stroke-width='2' stroke-dasharray='2 3'/><circle cx='130' cy='20' r='8'/><circle cx='180' cy='320' r='7'/><circle cx='100' cy='345' r='7'/><path d='M65,280 L95,280' stroke-width='4' stroke-linecap='round'/></g><g class='muscle' fill='none' stroke='currentColor' stroke-width='1.6'><path d='M130,20 L180,320'/><path d='M130,20 L100,345'/><path d='M130,20 L80,280'/></g>",
+    # Trace decale de 43, viewBox 220 -> 310, et des ancres deplacees : les libelles
+    # de 90 a 130 unites ne tenaient d'aucun cote d'un trace de 120 unites de large.
+    # Chaque pastille reste sur SON trajet, a au moins 11 unites des deux autres
+    # (le muet doit rester lisible sans libelle) :
+    #   - Biceps femoral : remonte de y=170 a y=95 sur son trajet (il croisait le
+    #     libelle du semi-tendineux, 12 unites plus bas) ;
+    #   - Semi-membraneux : descendu a y=128 sur son trajet, ou les trois trajets sont
+    #     assez ecartes, et libelle a gauche (ancre « end ») : 133 unites de texte
+    #     n'ont de place que la, decalage de 43 compris ;
+    #   - Tete de la fibula : libelle SOUS la pastille (ancre « middle ») ;
+    #   - Plateau tibial : pastille sur l'extremite gauche de la barre, pour que le
+    #     libelle (a gauche, ancre « end ») ne recouvre pas la barre.
+    "vb": "0 0 310 400",
+    "dessin": _translater("<g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M130,28 L122,280' stroke-width='2' stroke-dasharray='2 3'/><circle cx='130' cy='20' r='8'/><circle cx='180' cy='320' r='7'/><circle cx='100' cy='345' r='7'/><path d='M65,280 L95,280' stroke-width='4' stroke-linecap='round'/></g><g class='muscle' fill='none' stroke='currentColor' stroke-width='1.6'><path d='M130,20 L180,320'/><path d='M130,20 L100,345'/><path d='M130,20 L80,280'/></g>", 43),
     "pastilles": [
         {
             "n": 1,
-            "x": 130,
+            "x": 173,
             "y": 20,
             "t": "Tubérosité ischiatique",
             "ancre": "middle",
@@ -1657,15 +1740,15 @@ PLANCHES["ischio-jambiers-trois-terminaisons"] = {
         },
         {
             "n": 2,
-            "x": 155,
-            "y": 170,
+            "x": 185,
+            "y": 95,
             "t": "Biceps fémoral",
             "ancre": "start",
             "indice": "le trajet le plus latéral (vers la droite)",
         },
         {
             "n": 3,
-            "x": 115,
+            "x": 158,
             "y": 182,
             "t": "Semi-tendineux",
             "ancre": "start",
@@ -1673,23 +1756,23 @@ PLANCHES["ischio-jambiers-trois-terminaisons"] = {
         },
         {
             "n": 4,
-            "x": 96,
-            "y": 150,
+            "x": 152,
+            "y": 128,
             "t": "Semi-membraneux",
             "ancre": "end",
             "indice": "trajet médial, le plus court (s'arrête au niveau du genou)",
         },
         {
             "n": 5,
-            "x": 180,
+            "x": 223,
             "y": 320,
             "t": "Tête de la fibula",
-            "ancre": "start",
+            "ancre": "middle",
             "indice": "terminaison latérale, du biceps fémoral",
         },
         {
             "n": 6,
-            "x": 100,
+            "x": 143,
             "y": 345,
             "t": "Patte d'oie",
             "ancre": "middle",
@@ -1697,7 +1780,7 @@ PLANCHES["ischio-jambiers-trois-terminaisons"] = {
         },
         {
             "n": 7,
-            "x": 80,
+            "x": 112,
             "y": 280,
             "t": "Plateau tibial",
             "ancre": "end",

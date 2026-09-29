@@ -21,7 +21,7 @@ Les **sept chapitres** du cours sont construits :
 | 7 | Le membre inférieur | 268–328 |
 
 Volumes réels (`contenu/cours.json`) : **403 items planifiables** — 172 cartes,
-81 questions de QCM, 116 pastilles de planche réparties sur 27 planches, et
+81 questions de QCM, 116 pastilles de planche réparties sur 28 planches, et
 **34 muscles** (origine/terminaison/action) sur les chapitres 5 à 7 — plus 30 pièges
 (mises en garde, hors séance). Le détail par chapitre est dans
 `docs/superpowers/plans/2026-09-26-chapitres-2-a-7.md` et les rapports de tâche

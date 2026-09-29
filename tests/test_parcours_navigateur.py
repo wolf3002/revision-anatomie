@@ -186,3 +186,80 @@ def test_la_seance_du_jour_tire_toujours_des_items_masques(ouvrir):
     assert page.evaluate(verso) == "hidden"
     page.keyboard.press("Space")
     assert page.evaluate(verso) == "visible"
+
+
+def test_aucun_defaut_de_mise_en_page_sur_chaque_onglet_avec_javascript(ouvrir):
+    # outils/verifier_mobile.py tourne en file:// : les modules ES n'y sont pas
+    # executes, il ne voit donc que la page SANS script -- fiche, cartes et quiz
+    # (les volets de simple relecture y sont retires, style.css §5.2a). Ce test
+    # reprend ses controles, page par page, onglet par onglet, sur la page telle
+    # qu'elle s'affiche AVEC le script : planche muette et ses champs, table de
+    # muscles a completer, boutons de mode. Trois largeurs : telephone, juste
+    # au-dessus du seuil de 720 px (rail lateral), grand ecran.
+    from outils.verifier_mobile import _SCRIPT_ANALYSE
+
+    config = {"cibleMin": 44, "largeurMax": 768}
+    defauts = []
+    for num in range(1, 8):
+        for largeur in (320, 768, 1280):
+            page = ouvrir(f"chapitre-{num}.html", largeur)
+            for onglet in page.eval_on_selector_all(
+                ".onglet", "els => els.map(e => e.dataset.onglet)"
+            ):
+                page.click(f'.onglet[data-onglet="{onglet}"]')
+                if onglet == "fiche":
+                    page.evaluate("document.querySelector('.plan').open = true")
+                for defaut in page.evaluate(_SCRIPT_ANALYSE, config):
+                    defauts.append(
+                        f"ch.{num} [{largeur}px] {onglet} : {defaut['selecteur']} "
+                        f"{defaut['detail']}"
+                    )
+    assert defauts == []
+
+
+def test_sans_javascript_chaque_volet_est_nomme_et_rien_n_est_lu_deux_fois(url):
+    # Script absent : tous les volets se suivent, la barre d'onglets est inerte.
+    # La fiche, les cartes et le quiz restent, chacun sous son titre ; Pieges,
+    # Planche et Muscles, qui ne font que repeter la fiche, sont retires --
+    # sinon la table de 17 muscles du chapitre 7 se lirait deux fois.
+    contexte = _obtenir_navigateur().new_context(
+        java_script_enabled=False, viewport={"width": 1280, "height": 900}
+    )
+    try:
+        page = contexte.new_page()
+        page.route("https://**", lambda route: route.abort())
+        page.goto(url + "chapitre-7.html", wait_until="load")
+        visibles = {
+            cle: page.locator(f'.volet[data-volet="{cle}"]').is_visible()
+            for cle in ("fiche", "pieges", "planche", "cartes", "quiz", "muscles")
+        }
+        assert visibles == {
+            "fiche": True,
+            "pieges": False,
+            "planche": False,
+            "cartes": True,
+            "quiz": True,
+            "muscles": False,
+        }
+        titres = page.locator(".volet__titre:visible").all_inner_texts()
+        assert [t.lower() for t in titres] == [
+            "apprendre · fiche",
+            "se tester · cartes",
+            "se tester · quiz",
+        ]
+        tables = [
+            t for t in page.locator("table").all() if t.is_visible()
+        ]
+        assert len(tables) == 1  # la table de lecture de la fiche, une seule fois
+    finally:
+        contexte.close()
+
+
+def test_avec_javascript_les_titres_de_volet_disparaissent(ouvrir):
+    page = ouvrir("chapitre-7.html")
+    assert page.evaluate("document.documentElement.classList.contains('js')")
+    assert page.locator(".volet__titre:visible").count() == 0
+    # Les trois volets retires sans script redeviennent des onglets a part entiere.
+    for cle in ("pieges", "planche", "muscles"):
+        page.click(f'.onglet[data-onglet="{cle}"]')
+        assert _volets_visibles(page) == [cle]

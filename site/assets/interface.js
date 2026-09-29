@@ -60,6 +60,12 @@ function estDansUnChamp(cible) {
 }
 
 export function demarrer(document, support) {
+  // Premiere instruction : tant qu'elle n'a pas tourne, la page est dans son etat
+  // sans JavaScript (titres de volet visibles, volets de simple relecture masques
+  // -- style.css §5.2a). Un module qui ne se charge pas (file://) la laisse donc
+  // absente, ce qui est voulu.
+  document.documentElement.classList.add('js');
+
   const stockage = creerStockage(support);
 
   // Donnees brutes du cours (bonne reponse de quiz, forme canonique d'un
@@ -262,7 +268,17 @@ export function demarrer(document, support) {
 
   // --- Planches (legende / muet) ---------------------------------------------
 
-  const planches = Array.from(document.querySelectorAll('.planche'));
+  // Le reservoir de seance (#reservoir-seance) n'existe que dans la variante
+  // autonome (outils/empaqueter.py) : il tient, dans le DOM de l'accueil, la place
+  // des pages de chapitre que la seance va chercher par fetch dans site/. Ce sont
+  // des MODELES a cloner, pas des exercices affiches : les equiper au chargement
+  // les fait cloner deja equipes -- un second jeu de champs (muscles) ou un bouton
+  // Verifier sans ecouteur (planches : importNode ne copie pas les ecouteurs),
+  // donc mort. Un modele reste nu ; la seance equipe le CLONE au moment de
+  // l'inserer (voir afficherEtapeCourante), comme elle le fait avec site/.
+  const horsReservoir = (element) => !element.closest('#reservoir-seance');
+
+  const planches = Array.from(document.querySelectorAll('.planche')).filter(horsReservoir);
 
   function construireLegende(planche) {
     const pastilles = Array.from(planche.querySelectorAll('.pastille'));
@@ -476,7 +492,7 @@ export function demarrer(document, support) {
     return boutonVerifier;
   }
 
-  const tablesMuscles = Array.from(document.querySelectorAll('.muscles'));
+  const tablesMuscles = Array.from(document.querySelectorAll('.muscles')).filter(horsReservoir);
   if (tablesMuscles.length) {
     // Une seule table par page de chapitre (l'onglet Muscles n'apparait que
     // si le chapitre en a) : la boucle documente qu'aucune limite n'est

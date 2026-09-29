@@ -322,3 +322,22 @@ def test_les_onglets_de_test_restent_masques_a_la_construction():
         assert quiz.count('class="question__expl" data-etat="cachee"') == len(
             chapitre["quiz"]
         )
+
+
+def test_chaque_volet_porte_un_titre_pour_l_etat_sans_javascript():
+    for chapitre in CHAPITRES:
+        page = _page(chapitre["num"])
+        titres = re.findall(
+            r'<section class="volet" data-volet="(\w+)"><h2 class="volet__titre">([^<]+)</h2>', page
+        )
+        assert [cle for cle, _ in titres] == _onglets(page), chapitre["num"]
+        attendu = {
+            "fiche": "Apprendre · Fiche",
+            "pieges": "Apprendre · Pièges",
+            "planche": "Se tester · Planche",
+            "cartes": "Se tester · Cartes",
+            "quiz": "Se tester · Quiz",
+            "muscles": "Se tester · Muscles",
+        }
+        for cle, titre in titres:
+            assert html.unescape(titre) == attendu[cle]

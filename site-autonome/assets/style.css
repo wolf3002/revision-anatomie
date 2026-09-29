@@ -445,6 +445,38 @@ body {
   }
 }
 
+/* --- 5.2a Sans JavaScript ------------------------------------------------ */
+
+/* Etat par defaut = script absent ou en echec (site/ ouvert en file://, ou
+ * JavaScript desactive) : tous les volets se suivent dans la page, la barre
+ * d'onglets est inerte. Deux garde-fous pour que ce soit LISIBLE, sans exiger
+ * qu'il soit elegant :
+ *   - chaque volet porte un titre qui le nomme (« Se tester · Cartes ») ;
+ *   - les trois volets qui ne font que REPETER la fiche sont retires : Pieges (les
+ *     pieges sont deja lus dans la fiche, a leur notion), Planche et Muscles (la
+ *     fiche montre les memes planches legendees et la meme table en lecture, et
+ *     sans script il n'y a rien a completer). Sinon on lirait deux fois la meme
+ *     table de 17 muscles. Cartes et Quiz, eux, n'existent qu'a un endroit.
+ * interface.js pose la classe `js` sur <html> avant toute autre chose : les
+ * titres disparaissent (la barre d'onglets nomme alors le volet affiche) et les
+ * trois volets redeviennent des onglets a part entiere. */
+.volet__titre {
+  padding-block-end: var(--pas);
+  border-block-end: 2px solid var(--encre);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+html.js .volet__titre {
+  display: none;
+}
+
+html:not(.js) .volet[data-volet="pieges"],
+html:not(.js) .volet[data-volet="planche"],
+html:not(.js) .volet[data-volet="muscles"] {
+  display: none;
+}
+
 /* --- 5.3 Les trois plans ---------------------------------------------- */
 
 /* Chaque plan pose sa teinte ET son libelle. Les deux vivent dans la meme

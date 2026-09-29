@@ -51,6 +51,18 @@ classe ni identifiant qu'`interface.js` équipe (`.planche-fiche` et `.table-ref
 séance du jour ne clone la fiche à la place d'un exercice. `tests/test_fiche_lecture.py`
 et `tests/test_parcours_navigateur.py` verrouillent ces deux points.
 
+Sans JavaScript (ou si le script ne s'exécute pas, ex. `site/` ouvert en `file://`), tous
+les volets se suivent et la barre d'onglets est inerte : chaque volet porte alors un titre
+(« Se tester · Cartes »), et Pièges, Planche et Muscles, qui ne feraient que répéter la
+fiche, sont retirés (`style.css` §5.2a ; `interface.js` pose la classe `js` sur `<html>`
+dès qu'il tourne). Fiche, Cartes et Quiz restent lisibles, chacun à un seul endroit.
+
+La variante autonome (`site-autonome/`, `outils/empaqueter.py`) ne cherche pas les pages de
+chapitre par `fetch` : la séance clone des modèles cachés (`#reservoir-seance`).
+`interface.js` ne les équipe donc jamais au chargement (`horsReservoir`) : seul le clone,
+au moment de son insertion en séance, reçoit champs, boutons et écouteurs.
+`tests/test_autonome_navigateur.py` le pilote en `file://`.
+
 ## Règle de fidélité au PDF source
 
 Le PDF du cours (`ANATOMIE _230831_213333.pdf`, 328 slides — non versionné dans ce

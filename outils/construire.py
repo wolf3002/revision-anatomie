@@ -194,10 +194,23 @@ def _rendre_barre_onglets(chapitre):
     return rendu
 
 
+def _rendre_volet_titre(cle, libelle):
+    """Titre du volet, visible SEULEMENT quand le script n'a pas tourne.
+
+    Sans JavaScript (ou script qui echoue, ex. site/ ouvert en file:// : les
+    modules ES n'y sont pas executes), tous les volets se suivent dans la page
+    sans que la barre d'onglets, inerte, dise lequel est lequel. Le titre nomme
+    chaque section ; interface.js pose la classe `js` sur <html> et le masque, la
+    barre d'onglets faisant alors ce travail (voir style.css, §5.2a)."""
+    groupe = next(g for _, g, onglets in GROUPES if any(c == cle for c, _, _ in onglets))
+    return f'<h2 class="volet__titre">{html.escape(groupe)} · {html.escape(libelle)}</h2>'
+
+
 def _rendre_chapitre(gabarit, chapitre):
     sections = "".join(
-        f'<section class="volet" data-volet="{cle}">{_rendre_volet(cle, chapitre)}</section>'
-        for cle, _ in _onglets_actifs(chapitre)
+        f'<section class="volet" data-volet="{cle}">'
+        f"{_rendre_volet_titre(cle, libelle)}{_rendre_volet(cle, chapitre)}</section>"
+        for cle, libelle in _onglets_actifs(chapitre)
     )
     return (
         gabarit.replace("{{num}}", str(chapitre["num"]))

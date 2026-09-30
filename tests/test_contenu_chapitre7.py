@@ -449,3 +449,13 @@ def test_les_dix_sept_tables_musculaires_du_chapitre_7_sont_intactes():
     assert muscles["Gastrocnémien"]["actions"] == ["fléchisseur de la jambe", "fléchisseur plantaire du pied"]
     assert muscles["Soléaire"]["actions"] == ["fléchisseur plantaire du pied"]
     assert all(isinstance(m["slide"], int) for m in CHAPITRE_7["muscles"])
+
+
+def test_q7_08_n_a_plus_de_distracteur_qui_s_elimine_par_addition():
+    # 7 + 5 + 15 = 27 pour un pied de 26 os : l'option se refutait sans le cours. Les
+    # quatre options totalisent 26, la question se joue sur la repartition.
+    question = _question("q7-08")
+    for option in question["choix"]:
+        chiffres = [int(mot) for mot in option.split() if mot.isdigit()]
+        assert sum(chiffres) == 26, option
+    assert question["choix"][question["bonne"]] == "7 tarsiens, 5 métatarsiens, 14 phalanges"

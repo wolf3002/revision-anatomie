@@ -265,6 +265,10 @@ def test_la_section_de_la_slide_214_ne_donne_plus_l_olecrane_a_la_radio_ulnaire_
         assert legende in texte
     assert "incisure radiale" in texte and "slide 210" in texte
     assert "huméro-ulnaire" in texte and "slide 205" in texte
+    # La slide 205 ne nomme que l'incisure trochleaire : le cours ne rattache l'olecrane a
+    # aucune articulation (il n'apparait qu'aux slides 213, 214 et 261).
+    assert "ne rattache l'olécrane à aucune articulation" in texte
+    assert "relèvent de l'articulation huméro-ulnaire" not in texte
 
 
 def test_q6_05_ne_dit_plus_seule():
@@ -330,3 +334,12 @@ def test_les_onze_tables_musculaires_du_chapitre_6_sont_intactes():
     assert muscles["Biceps brachial"]["terminaison"] == ["tubérosité radiale"]
     assert muscles["Triceps brachial"]["terminaison"] == ["olécrane"]
     assert all(isinstance(m["slide"], int) for m in CHAPITRE_6["muscles"])
+
+
+def test_aucune_affirmation_de_frequence_n_est_laissee_au_chapitre_6():
+    # « La confusion la plus frequente », « piege frequent » : ni le cours ni aucune source ne
+    # dit quelle confusion est la plus frequente (retire aux chapitres 1, 5 et 7).
+    prose = _prose(CHAPITRE_6).lower()
+    assert "fréquent" not in prose
+    assert "le piège est d'y ajouter le deltoïde" in prose.replace("\u00a0", " ")
+    assert "n'en font pas partie." in _question("q6-10")["expl"].lower()

@@ -3646,7 +3646,7 @@
           "points": [
             "La slide 214 ne contient aucune phrase : c'est une figure légendée (titre « Articulation radio-ulnaire proximale »). Légendes : tête radiale, olécrane, incisure trochléaire, épiphyse proximale de l'ulna, radius, ulna.",
             "La paire articulaire est écrite à la slide 210 : le radius s'articule avec l'ulna au niveau de l'incisure radiale (articulation radio-ulnaire proximale). La tête radiale est le repère du radius (slide 211) ; l'incisure radiale, celui de l'ulna (slide 213), que cette figure ne légende pas.",
-            "L'olécrane et l'incisure trochléaire, légendés ici, sont d'autres repères de l'épiphyse proximale de l'ulna : ils relèvent de l'articulation huméro-ulnaire (incisure trochléaire : slide 205), pas de la radio-ulnaire proximale."
+            "La slide 205 rattache l'incisure trochléaire (légendée ici) à l'articulation huméro-ulnaire, pas à la radio-ulnaire proximale. Le cours ne rattache l'olécrane à aucune articulation : il le nomme comme repère de l'ulna (slide 213) et comme terminaison du triceps brachial (slide 261)."
           ]
         },
         {
@@ -4054,7 +4054,7 @@
             "médial"
           ],
           "bonne": 1,
-          "expl": "Le radius est latéral, l'ulna est médial. C'est la confusion la plus fréquente sur l'avant-bras.",
+          "expl": "Le radius est latéral, l'ulna est médial.",
           "slide": 210
         },
         {
@@ -4067,7 +4067,7 @@
             "l'ulna et le lunatum"
           ],
           "bonne": 2,
-          "expl": "Radius + scaphoïde + lunatum. L'ulna ne participe PAS directement à l'articulation radio-carpienne — piège fréquent.",
+          "expl": "Radius + scaphoïde + lunatum. L'ulna ne participe PAS directement à l'articulation radio-carpienne.",
           "slide": 222
         },
         {
@@ -4147,7 +4147,7 @@
             "supra-épineux, infra-épineux, petit rond, subscapulaire"
           ],
           "bonne": 3,
-          "expl": "La coiffe des rotateurs, ce sont le supra-épineux, l'infra-épineux, le petit rond et le subscapulaire. Le deltoïde et le grand rond n'en font PAS partie : c'est le piège le plus fréquent sur cette notion.",
+          "expl": "La coiffe des rotateurs, ce sont le supra-épineux, l'infra-épineux, le petit rond et le subscapulaire. Le deltoïde et le grand rond n'en font PAS partie.",
           "slide": 251
         },
         {
@@ -4365,7 +4365,7 @@
       "pieges": [
         {
           "titre": "La coiffe des rotateurs ne compte QUE 4 muscles précis",
-          "texte": "Supra-épineux, infra-épineux, petit rond, subscapulaire — pas un de plus. Le piège le plus fréquent est d'y ajouter le DELTOÏDE ou le GRAND ROND : ce sont bien des muscles de l'épaule (slide 245 : 6 muscles), mais ils ne figurent pas dans la coiffe (slide 251 : 4 muscles). L'articulation scapulo-humérale est mobile donc instable par nature : ces muscles agissent comme des ligaments actifs qui la maintiennent.",
+          "texte": "Supra-épineux, infra-épineux, petit rond, subscapulaire — pas un de plus. Le piège est d'y ajouter le DELTOÏDE ou le GRAND ROND : ce sont bien des muscles de l'épaule (slide 245 : 6 muscles), mais ils ne figurent pas dans la coiffe (slide 251 : 4 muscles). L'articulation scapulo-humérale est mobile donc instable par nature : ces muscles agissent comme des ligaments actifs qui la maintiennent.",
           "slide": 251
         },
         {
@@ -4380,7 +4380,7 @@
         },
         {
           "titre": "Le poignet (radio-carpienne) : radius + scaphoïde + lunatum — PAS l'ulna",
-          "texte": "L'articulation radio-carpienne (le poignet) est formée par 3 os : le radius (seul os de l'avant-bras impliqué) + 2 os du carpe, le scaphoïde et le lunatum. L'ulna, pourtant présent dans l'avant-bras jusqu'au poignet, n'entre PAS directement dans cette articulation : c'est un piège fréquent de l'y inclure.",
+          "texte": "L'articulation radio-carpienne (le poignet) est formée par 3 os : le radius (seul os de l'avant-bras impliqué) + 2 os du carpe, le scaphoïde et le lunatum. L'ulna, pourtant présent dans l'avant-bras jusqu'au poignet, n'entre PAS directement dans cette articulation : ne pas l'y inclure.",
           "slide": 222
         },
         {
@@ -5227,7 +5227,7 @@
             "8 tarsiens, 5 métatarsiens, 13 phalanges",
             "7 tarsiens, 6 métatarsiens, 13 phalanges",
             "7 tarsiens, 5 métatarsiens, 14 phalanges",
-            "7 tarsiens, 5 métatarsiens, 15 phalanges"
+            "6 tarsiens, 5 métatarsiens, 15 phalanges"
           ],
           "bonne": 2,
           "expl": "7 (tarse) + 5 (métatarse) + 14 (phalanges : 3 par orteil sauf le gros orteil qui n'en a que 2, soit 3×4+2=14) = 26.",

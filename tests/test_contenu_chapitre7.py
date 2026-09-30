@@ -240,9 +240,13 @@ def test_les_notions_cles_du_chapitre_sont_couvertes():
 
 def test_les_pieges_couvrent_les_confusions_signalees_par_le_plan():
     texte = json.dumps(CHAPITRE_7["pieges"], ensure_ascii=False).lower()
+    # « franchit » n'est plus exige : le cours n'enonce jamais ce principe (audit exhaustif du
+    # 2026-09-30). Les pieges du quadriceps et du triceps sural portent desormais le fait
+    # du cours (quel chef, quel muscle est AUSSI fléchisseur), pas la deduction.
     for notion in (
         "droit fémoral",
-        "franchit",
+        "fléchisseur de la cuisse",
+        "fléchisseur de la jambe",
         "ischio-jambiers",
         "tête de la fibula",
         "patte d'oie",
@@ -251,3 +255,197 @@ def test_les_pieges_couvrent_les_confusions_signalees_par_le_plan():
         "soléaire",
     ):
         assert notion in texte, f"piege attendu absent : {notion}"
+
+
+# --- Corrections de l'audit de verification exhaustive (2026-09-30) ---------------------
+def _prose(chapitre):
+    """Texte lisible du chapitre, hors trace SVG."""
+    donnees = {cle: chapitre[cle] for cle in ("sections", "cartes", "quiz", "pieges")}
+    donnees["pastilles"] = [p["pastilles"] for p in chapitre["planches"]]
+    return json.dumps(donnees, ensure_ascii=False)
+
+
+def _section(slide):
+    return next(s for s in CHAPITRE_7["sections"] if slides_de(s)[0] == slide)
+
+
+def _carte(identifiant):
+    return next(c for c in CHAPITRE_7["cartes"] if c["id"] == identifiant)
+
+
+def _question(identifiant):
+    return next(q for q in CHAPITRE_7["quiz"] if q["id"] == identifiant)
+
+
+def _piege(debut):
+    return next(p for p in CHAPITRE_7["pieges"] if p["titre"].startswith(debut))
+
+
+def _planche(identifiant):
+    return next(p for p in CHAPITRE_7["planches"] if p["id"] == identifiant)
+
+
+def test_c7_06_seul_l_acetabulum_est_a_la_jonction_des_trois_parties():
+    # Slide 278 : les 3 parties colorees se rejoignent dans l'acetabulum ; le foramen
+    # obturé n'est borde que par l'ischium et le pubis.
+    reponse = _carte("c7-06")["r"]
+    assert "L'acétabulum et le foramen obturé sont" not in reponse
+    assert "acétabulum" in reponse and "à la jonction des 3 parties" in reponse
+    assert "n'est bordé que par l'ischium et le pubis" in reponse
+    assert slides_de(_carte("c7-06")) == [278, 279]
+
+
+def test_les_ischio_jambiers_ne_partagent_ni_la_meme_origine_ni_les_memes_actions():
+    # Le chef court du biceps naît de la ligne apre (slide 319) ; seul son chef long
+    # étend la cuisse.
+    prose = _prose(CHAPITRE_7)
+    for expression in (
+        "partagent la même origine",
+        "partagent origine et actions",
+        "même origine et les mêmes actions",
+        "origine commune",
+        "Tous les 3 s'originent",
+    ):
+        assert expression not in prose, expression
+    piege = _piege("Les ischio-jambiers")["texte"]
+    assert "semi-tendineux et le semi-membraneux naissent de la tubérosité ischiatique" in piege
+    assert "un seul y naît" in piege and "ligne âpre" in piege
+    assert "réserve cette action au chef long" in piege
+    for texte in (_carte("c7-22")["r"], _question("q7-03")["expl"]):
+        assert "un seul" in texte and "chef long" in texte
+    # La planche ne dit plus « origine commune » non plus.
+    planche = _planche("ischio-jambiers-trois-terminaisons")
+    assert "origine commune" not in planche["titre"]
+    assert "chef long" in planche["pastilles"][0]["indice"]
+
+
+def test_la_hanche_n_est_plus_attribuee_a_la_ceinture_pelvienne():
+    # Slide 275 : la ceinture pelvienne compte 4 articulations, sans la coxo-fémorale.
+    reponse = _carte("c7-02")["r"]
+    assert "Ceinture pelvienne : sacrum + os coxal ; articulations sacro-iliaque et coxo-fémorale" not in reponse
+    assert "en aval de la cheville" not in _prose(CHAPITRE_7)
+    assert "slide 275" in reponse
+    assert "pas comptée parmi les 4 articulations de la ceinture pelvienne" in reponse
+    point = _section(271)["points"][0]
+    assert "et articulation coxo-fémorale (hanche)" not in point
+    assert "ne fait pas partie des 4 articulations de la ceinture pelvienne (slide 275)" in point
+    # ... et la question du même chapitre reste d'accord.
+    assert "n'appartient PAS à la ceinture pelvienne" in _question("q7-06")["expl"]
+
+
+def test_le_cours_n_enonce_jamais_le_principe_franchit_et_le_sens_vient_de_la_slide():
+    # Aucune entree sourcee ne deduit le sens d'une action de « franchit ». Le principe
+    # dit « peut agir sur », jamais « dans quel sens » : le sens est celui de la slide.
+    prose = _prose(CHAPITRE_7).lower()
+    assert "franchi" not in prose
+    for identifiant, texte, action in (
+        ("q7-01", _question("q7-01")["expl"], "la flexion de la cuisse"),
+        ("q7-05", _question("q7-05")["expl"], "la flexion de la jambe"),
+        ("c7-25", _carte("c7-25")["r"], "la flexion de la jambe"),
+    ):
+        assert "le cours lui donne" in texte, identifiant
+        assert action in texte, identifiant
+        assert "donc il la fléchit" not in texte and "donc il le fléchit" not in texte, identifiant
+    assert "il agit donc aussi sur la cuisse" in _question("q7-01")["expl"]
+    assert "il agit donc aussi sur le genou" in _carte("c7-25")["r"]
+
+
+def test_les_quatre_entrees_a_principe_valide_sont_reformulees_avec_les_mots_du_cours():
+    # c7-20, c7-22, pieges du quadriceps et du triceps sural : plus de « pourquoi »
+    # ni de « ne franchit que ». Le fait est donne tel que le cours l'ecrit.
+    assert not _carte("c7-20")["q"].startswith("Pourquoi")
+    assert "le cours lui donne" in _carte("c7-20")["r"]
+    quadriceps = _piege("Le quadriceps")
+    assert "franchit" not in quadriceps["titre"]
+    assert "le cours ne leur donne que l'extension du genou" in quadriceps["texte"]
+    sural = _piege("Triceps sural")
+    assert "franchit" not in sural["titre"]
+    assert "le cours ne lui donne que la flexion plantaire du pied" in sural["texte"]
+    for entree in (quadriceps, sural):
+        assert "hors_cours" not in entree and slides_de(entree)
+
+
+def test_q7_05_pose_une_question_d_origine_a_une_seule_bonne_reponse():
+    question = _question("q7-05")
+    assert not question["q"].startswith("Pourquoi")
+    assert question["choix"][question["bonne"]] == (
+        "le gastrocnémien s'origine sur le fémur, le soléaire sur le tibia et la fibula"
+    )
+    assert len(set(question["choix"])) == 4
+
+
+def test_les_renvois_du_chapitre_7_citent_toutes_les_slides_qui_portent_leur_contenu():
+    attendus_cartes = {
+        "c7-03": [273, 275],
+        "c7-07": [282, 284],
+        "c7-08": [288, 289],
+        "c7-11": [294, 295],
+        "c7-14": [300, 301],
+        "c7-19": [310, 311],
+        "c7-21": [312, 313, 314, 315],
+        "c7-22": [319, 320],
+        "c7-23": [309, 316, 320],
+        "c7-24": [324, 325],
+        "c7-25": [327, 328],
+    }
+    for identifiant, slides in attendus_cartes.items():
+        assert slides_de(_carte(identifiant)) == slides, identifiant
+    attendus_questions = {
+        "q7-02": [319, 320],  # la terminaison du biceps est en 319, celles des semi- en 320
+        "q7-03": [319, 320],
+        "q7-04": [309, 316, 320],
+        "q7-12": [277, 282],
+    }
+    for identifiant, slides in attendus_questions.items():
+        assert slides_de(_question(identifiant)) == slides, identifiant
+    assert slides_de(_piege("Les ischio-jambiers")) == [319, 320]
+    assert slides_de(_piege("La patte d'oie")) == [309, 316, 320]
+    assert slides_de(_planche("ischio-jambiers-trois-terminaisons")) == [319, 320]
+    # Les pastilles n'ont pas de slide propre : le libelle est sur la slide de la planche.
+    # « Tibio-fibulaire proximale » n'est ecrit qu'en 288 et 289 (pas en 271) ; « Acétabulum »
+    # n'est legende qu'en 279 (pas en 277).
+    assert slides_de(_planche("squelette-membre-inferieur-jambe-cheville")) == [289]
+    assert slides_de(_planche("os-coxal-trois-parties")) == [277, 279]
+
+
+def test_la_patte_d_oie_dit_que_le_cours_ne_reunit_jamais_ses_trois_muscles():
+    texte = _piege("La patte d'oie")["texte"]
+    assert "sur une même slide" in texte
+    for muscle_et_slide in ("sartorius à la slide 309", "gracile à la 316", "semi-tendineux à la 320"):
+        assert muscle_et_slide in texte
+
+
+def test_les_qualificatifs_non_sources_sont_retires_du_chapitre_7():
+    # « superficiel » / « profond » pour la patte d'oie et le plateau tibial, « (pas
+    # rotateur) », « profond, caché sous le droit fémoral », « le piège le plus fréquent ».
+    prose = _prose(CHAPITRE_7).lower()
+    for expression in (
+        "médial, superficiel",
+        "médial, profond",
+        "médiale superficielle",
+        "médiale profonde",
+        "plus profondément",
+        "pas rotateur",
+        "caché sous le droit fémoral",
+        "le piège le plus fréquent",
+        "voisin du semi-tendineux",
+    ):
+        assert expression not in prose, expression
+    assert "profond" not in json.dumps(CHAPITRE_7["pieges"], ensure_ascii=False)
+    assert "superficiel" not in json.dumps(CHAPITRE_7["pieges"], ensure_ascii=False)
+
+
+def test_les_dix_sept_tables_musculaires_du_chapitre_7_sont_intactes():
+    # 68 controles sans defaut a l'audit : les renvois des tables ne bougent pas non plus.
+    muscles = {m["nom"]: m for m in CHAPITRE_7["muscles"]}
+    assert len(muscles) == 17
+    assert muscles["Biceps fémoral"]["origine"] == [
+        "chef long : tubérosité ischiatique",
+        "chef court : ligne âpre du fémur",
+    ]
+    assert muscles["Biceps fémoral"]["terminaison"] == ["tête de la fibula"]
+    assert muscles["Semi-tendineux"]["terminaison"] == ["patte d'oie"]
+    assert muscles["Semi-membraneux"]["terminaison"] == ["plateau tibial"]
+    assert muscles["Gastrocnémien"]["actions"] == ["fléchisseur de la jambe", "fléchisseur plantaire du pied"]
+    assert muscles["Soléaire"]["actions"] == ["fléchisseur plantaire du pied"]
+    assert all(isinstance(m["slide"], int) for m in CHAPITRE_7["muscles"])

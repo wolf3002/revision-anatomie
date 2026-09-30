@@ -224,3 +224,109 @@ def test_les_pieges_couvrent_les_confusions_signalees_par_le_plan():
         "lunatum",
     ):
         assert notion in texte, f"piege attendu absent : {notion}"
+
+
+# --- Corrections de l'audit de verification exhaustive (2026-09-30) ---------------------
+def _prose(chapitre):
+    """Texte lisible du chapitre, hors trace SVG."""
+    donnees = {cle: chapitre[cle] for cle in ("sections", "cartes", "quiz", "pieges")}
+    donnees["pastilles"] = [p["pastilles"] for p in chapitre["planches"]]
+    return json.dumps(donnees, ensure_ascii=False)
+
+
+def _section(slide):
+    return next(s for s in CHAPITRE_6["sections"] if slides_de(s)[0] == slide)
+
+
+def _carte(identifiant):
+    return next(c for c in CHAPITRE_6["cartes"] if c["id"] == identifiant)
+
+
+def _question(identifiant):
+    return next(q for q in CHAPITRE_6["quiz"] if q["id"] == identifiant)
+
+
+def _piege(debut):
+    return next(p for p in CHAPITRE_6["pieges"] if p["titre"].startswith(debut))
+
+
+def _planche(identifiant):
+    return next(p for p in CHAPITRE_6["planches"] if p["id"] == identifiant)
+
+
+def test_la_section_de_la_slide_214_ne_donne_plus_l_olecrane_a_la_radio_ulnaire_proximale():
+    # La slide 214 est une figure legendee, sans phrase. La face ulnaire de la radio-ulnaire
+    # proximale est l'incisure radiale (slides 210 et 213) ; l'olecrane et l'incisure
+    # trochleaire relevent de l'huméro-ulnaire (slide 205).
+    texte = " ".join(_section(214)["points"])
+    assert "Formée par l'olécrane" not in texte
+    assert "aucune phrase" in texte
+    for legende in ("tête radiale", "olécrane", "incisure trochléaire", "épiphyse proximale de l'ulna"):
+        assert legende in texte
+    assert "incisure radiale" in texte and "slide 210" in texte
+    assert "huméro-ulnaire" in texte and "slide 205" in texte
+
+
+def test_q6_05_ne_dit_plus_seule():
+    # La radio-ulnaire distale participe aussi a la prono-supination : le cours ne dit pas
+    # « seule ». La reponse reste la meme, presentee comme celle que le cours associe.
+    question = _question("q6-05")
+    assert "seule" not in question["expl"].lower()
+    assert "ne permettent que" not in question["expl"]
+    assert "Le cours associe" in question["expl"]
+    assert question["choix"][question["bonne"]] == "la radio-ulnaire proximale, trochoïde"
+
+
+def test_les_renvois_du_chapitre_6_citent_toutes_les_slides_qui_portent_leur_contenu():
+    assert slides_de(_carte("c6-07")) == [205, 206]
+    assert slides_de(_carte("c6-08")) == [210, 212]
+
+
+def test_la_tabatiere_n_est_plus_decrite_hors_cours():
+    # Le cours ne donne que la legende de la slide 224.
+    texte = " ".join(_section(224)["points"])
+    assert "creux" not in texte
+    assert "pouce" not in texte
+    assert "Palpation du scaphoïde dans la tabatière anatomique" in texte
+    assert "creux visible" not in _prose(CHAPITRE_6)
+
+
+def test_le_piege_de_la_coiffe_n_ajoute_rien_au_cours():
+    texte = _piege("La coiffe des rotateurs")["texte"]
+    for ajout in ("profond stabilisateur", "et eux seuls", "voisin du petit rond"):
+        assert ajout not in texte, ajout
+    # Le deltoide et le grand rond sont des muscles de l'epaule (245), pas de la coiffe (251).
+    assert "slide 245" in texte and "slide 251" in texte
+
+
+def test_aucune_pastille_ne_donne_a_l_infra_epineux_la_plus_grande_surface():
+    # Trompeur : dans la coiffe, c'est le subscapulaire le plus volumineux. Le cours ne
+    # compare pas les surfaces.
+    coiffe = {p["t"]: p["indice"] for p in _planche("coiffe-rotateurs-vue-postero-laterale")["pastilles"]}
+    assert coiffe["Infra-épineux"] == "sous l'épine"
+    assert "bande étroite" not in coiffe["Petit rond"]
+    assert "costale" not in coiffe["Subscapulaire"]
+    assert "plus grande surface" not in _prose(CHAPITRE_6)
+
+
+def test_q6_06_n_a_plus_de_distracteur_qui_s_elimine_par_addition():
+    # 8 + 5 + 15 = 28 : l'option se refutait sans le cours. Les quatre totalisent 27.
+    question = _question("q6-06")
+    for option in question["choix"]:
+        chiffres = [int(mot) for mot in option.split() if mot.isdigit()]
+        assert sum(chiffres) == 27, option
+    assert question["choix"][question["bonne"]] == "8 carpiens, 5 métacarpiens, 14 phalanges"
+
+
+def test_les_onze_tables_musculaires_du_chapitre_6_sont_intactes():
+    # 33 colonnes sur 33 exactes a l'audit : rien ne bouge.
+    muscles = {m["nom"]: m for m in CHAPITRE_6["muscles"]}
+    assert len(muscles) == 11
+    assert muscles["Deltoïde"]["origine"] == [
+        "clavicule (faisceau claviculaire ou antérieur)",
+        "acromion (faisceau acromial ou intermédiaire)",
+        "épine de la scapula (faisceau épineux ou postérieur)",
+    ]
+    assert muscles["Biceps brachial"]["terminaison"] == ["tubérosité radiale"]
+    assert muscles["Triceps brachial"]["terminaison"] == ["olécrane"]
+    assert all(isinstance(m["slide"], int) for m in CHAPITRE_6["muscles"])

@@ -1528,7 +1528,7 @@ PLANCHES["coiffe-rotateurs-vue-postero-laterale"] = {
             "y": 180,
             "t": "Infra-épineux",
             "ancre": "middle",
-            "indice": "sous l'épine ; la plus grande surface",
+            "indice": "sous l'épine",
         },
         {
             "n": 3,
@@ -1536,7 +1536,7 @@ PLANCHES["coiffe-rotateurs-vue-postero-laterale"] = {
             "y": 268,
             "t": "Petit rond",
             "ancre": "middle",
-            "indice": "bande étroite, bord latéral, sous l'infra-épineux",
+            "indice": "bord latéral, sous l'infra-épineux",
         },
         {
             "n": 4,
@@ -1544,7 +1544,7 @@ PLANCHES["coiffe-rotateurs-vue-postero-laterale"] = {
             "y": 308,
             "t": "Subscapulaire",
             "ancre": "middle",
-            "indice": "face antérieure (costale) ; non visible de dos, figuré en pointillé",
+            "indice": "face antérieure ; non visible de dos, figuré en pointillé",
         },
     ],
 }
@@ -1741,7 +1741,7 @@ PLANCHES["quadriceps-quatre-chefs"] = {
             "y": 88,
             "t": "Vaste intermédiaire",
             "ancre": "start",
-            "indice": "trait pointillé, tout contre le fémur : profond, caché sous le droit fémoral",
+            "indice": "trait pointillé, tout contre le fémur ; origine : face antérieure du fémur",
         },
         {
             "n": 5,
@@ -1755,7 +1755,7 @@ PLANCHES["quadriceps-quatre-chefs"] = {
 }
 PLANCHES["ischio-jambiers-trois-terminaisons"] = {
     "id": "ischio-jambiers-trois-terminaisons",
-    "titre": "Les ischio-jambiers : une origine commune, 3 terminaisons",
+    "titre": "Les ischio-jambiers : 3 terminaisons différentes",
     # Trace decale de 43, viewBox 220 -> 310, et des ancres deplacees : les libelles
     # de 90 a 130 unites ne tenaient d'aucun cote d'un trace de 120 unites de large.
     # Chaque pastille reste sur SON trajet, a au moins 11 unites des deux autres
@@ -1777,7 +1777,7 @@ PLANCHES["ischio-jambiers-trois-terminaisons"] = {
             "y": 20,
             "t": "Tubérosité ischiatique",
             "ancre": "middle",
-            "indice": "origine commune des 3 muscles, en haut",
+            "indice": "origine du semi-tendineux, du semi-membraneux et du chef long du biceps, en haut",
         },
         {
             "n": 2,
@@ -1785,7 +1785,7 @@ PLANCHES["ischio-jambiers-trois-terminaisons"] = {
             "y": 95,
             "t": "Biceps fémoral",
             "ancre": "start",
-            "indice": "le trajet le plus latéral (vers la droite)",
+            "indice": "le trajet le plus latéral (vers la droite) ; tracé du chef long",
         },
         {
             "n": 3,
@@ -1817,7 +1817,7 @@ PLANCHES["ischio-jambiers-trois-terminaisons"] = {
             "y": 345,
             "t": "Patte d'oie",
             "ancre": "middle",
-            "indice": "terminaison médiale superficielle, du semi-tendineux",
+            "indice": "terminaison médiale, du semi-tendineux",
         },
         {
             "n": 7,
@@ -1825,7 +1825,7 @@ PLANCHES["ischio-jambiers-trois-terminaisons"] = {
             "y": 280,
             "t": "Plateau tibial",
             "ancre": "end",
-            "indice": "terminaison médiale profonde, du semi-membraneux, au niveau du genou",
+            "indice": "terminaison médiale, du semi-membraneux, au niveau du genou",
         },
     ],
 }

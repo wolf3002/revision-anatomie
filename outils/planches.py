@@ -46,7 +46,7 @@ def _translater(dessin, dx, dy=0):
 #                 suggère mieux l'horizontale qu'un simple segment), flèche de rotation.
 # Les tracés eux-mêmes sont inchangés (validés en ronde 1) : seul cx change, puisque
 # chaque planche recentre sa silhouette dans son propre viewBox de 240 px de large.
-_CX = 120
+_CX = 70
 
 
 def _panel_frontal(cx):
@@ -106,13 +106,31 @@ def _panel_transversal(cx):
     return corps + plan
 
 
-# Correction ronde 2 : le rendu du site decale un libelle "middle" de (0, +24) --
-# il est pose SOUS la pastille, pas centre dessus (formule DECALAGE_LIBELLE du front).
-# Les deux pastilles empilees sous chaque panneau doivent donc laisser 24 px plus la
-# hauteur du texte entre elles, et le viewBox doit laisser cette place sous la seconde.
-# D'ou une hauteur de viewBox agrandie (320 -> 360) et des pastilles remontees.
+# Pastilles des plans (audit de verification exhaustive, 2026-09-30).
+#
+# Deux defauts corriges ensemble.
+#
+# 1. Ce qu'on demande doit etre ce qu'on accepte. La pastille « mouvements » attendait
+#    « Abduction, adduction » (ou « Flexion, extension »...) alors que le cours donne
+#    TROIS mouvements au plan frontal (slide 18, avec l'inclinaison laterale) et QUATRE
+#    couples au plan sagittal (slide 23) : verifierPastille compare par egalite exacte
+#    apres normalisation, si bien qu'une reponse complete et juste etait notee fausse.
+#    Une liste de trois a huit termes ne se retape de toute facon pas a l'identique
+#    (ordre, virgules), et elle ne tiendrait pas dans le cadre. La pastille designe donc
+#    UN seul mouvement, celui que la fleche du trace dessine -- indice « le mouvement
+#    fleche » -- et attend son nom : « Abduction » (bras, plan frontal), « Flexion »
+#    (genou, plan sagittal), « Rotation » (plan transversal). Les listes completes
+#    restent au programme des cartes c1-05, c1-09 et c1-16.
+#
+# 2. Elle est posee contre sa fleche. Les deux pastilles etaient empilees sous les
+#    pieds du personnage, a ~200 unites de la fleche qu'elles designaient. La silhouette
+#    est decalee vers la gauche (_CX) pour laisser a droite la place du libelle le plus
+#    long (« Abduction », ~70 unites) sans elargir le viewBox ; la pastille du nom du plan
+#    reste sous le cadre du plan. Le viewBox perd la hauteur qu'il gardait pour la
+#    seconde pastille empilee (360 -> 312).
 _Y_NOM = 268
-_Y_MOUVEMENTS = 308
+_VB_PLAN = "0 0 240 312"
+_INDICE_MOUVEMENT = "le mouvement fléché"
 
 # --- Chapitre 2 : l'os long en coupe (slides 65-66) ---------------------
 #
@@ -339,7 +357,7 @@ PLANCHES = {
     "plan-frontal": {
         "id": "plan-frontal",
         "titre": "Le plan frontal",
-        "vb": "0 0 240 360",
+        "vb": _VB_PLAN,
         "dessin": _DEFS_FLECHE + _panel_frontal(_CX),
         "pastilles": [
             {
@@ -353,19 +371,19 @@ PLANCHES = {
             },
             {
                 "n": 2,
-                "x": _CX,
-                "y": _Y_MOUVEMENTS,
-                "t": "Abduction, adduction",
-                "ancre": "middle",
+                "x": _CX + 76,
+                "y": 92,
+                "t": "Abduction",
+                "ancre": "start",
                 "plan": "frontal",
-                "indice": "mouvements de ce plan",
+                "indice": _INDICE_MOUVEMENT,
             },
         ],
     },
     "plan-sagittal": {
         "id": "plan-sagittal",
         "titre": "Le plan sagittal",
-        "vb": "0 0 240 360",
+        "vb": _VB_PLAN,
         "dessin": _DEFS_FLECHE + _panel_sagittal(_CX),
         "pastilles": [
             {
@@ -379,19 +397,19 @@ PLANCHES = {
             },
             {
                 "n": 2,
-                "x": _CX,
-                "y": _Y_MOUVEMENTS,
-                "t": "Flexion, extension",
-                "ancre": "middle",
+                "x": _CX + 58,
+                "y": 214,
+                "t": "Flexion",
+                "ancre": "start",
                 "plan": "sagittal",
-                "indice": "mouvements de ce plan",
+                "indice": _INDICE_MOUVEMENT,
             },
         ],
     },
     "plan-transversal": {
         "id": "plan-transversal",
         "titre": "Le plan transversal",
-        "vb": "0 0 240 360",
+        "vb": _VB_PLAN,
         "dessin": _DEFS_FLECHE + _panel_transversal(_CX),
         "pastilles": [
             {
@@ -405,12 +423,12 @@ PLANCHES = {
             },
             {
                 "n": 2,
-                "x": _CX,
-                "y": _Y_MOUVEMENTS,
-                "t": "Rotation, pronation, supination",
-                "ancre": "middle",
+                "x": _CX + 72,
+                "y": 108,
+                "t": "Rotation",
+                "ancre": "start",
                 "plan": "transversal",
-                "indice": "mouvements de ce plan",
+                "indice": _INDICE_MOUVEMENT,
             },
         ],
     },
@@ -438,11 +456,15 @@ PLANCHES = {
             _DEFS_FLECHE
             + _SILHOUETTE_FACE
             + "<g class='reperes' fill='none' stroke='currentColor' stroke-width='1.5'>"
-            # Crânial / Caudal : axe vertical proche du corps (correction ronde 1 : l'axe
-            # flottait trop loin à gauche, sans rapport visuel avec le tronc). Chaque
-            # flèche pointe vers le pôle qu'elle nomme, pas vers le centre du corps.
-            "<path d='M112 90 L112 34' marker-end='url(#fleche)'/>"
-            "<path d='M112 250 L112 304' marker-end='url(#fleche)'/>"
+            # Crânial / Caudal (audit de verification exhaustive, 2026-09-30) : le cours dit
+            # « extremite superieure / inferieure DU TRONC » (slide 38). La fleche caudale
+            # longeait la jambe -- la meme region que « distal », ce qui rendait les deux
+            # indiscernables en mode muet. Les deux fleches sont a present a gauche du tronc
+            # (x = 160), l'une en haut (epaules, cou), l'autre en bas (bassin) ; chacune
+            # pointe vers le pole qu'elle nomme. Elles sont placees hors de l'aisselle : le
+            # bras gauche coupe x = 128 vers y = 127 et se termine en (104, 150).
+            "<path d='M128 112 L128 76' marker-end='url(#fleche)'/>"
+            "<path d='M134 152 L134 198' marker-end='url(#fleche)'/>"
             # Proximal / Distal : le long de la jambe droite (décalé pour rester lisible),
             # la flèche proximale pointe vers le tronc (la hanche), la flèche distale
             # pointe vers l'extrémité du membre (le pied) — donc loin du tronc.
@@ -450,20 +472,20 @@ PLANCHES = {
             "<path d='M194 249 L206 282' marker-end='url(#fleche)'/>"
             # Médial / Latéral : décalées verticalement (correction ronde 1 : à la même
             # hauteur, les deux flèches se lisaient comme une seule flèche continue), et
-            # toutes deux logées entre les bras et les hanches pour ne toucher ni les bras
-            # ni la jambe droite. La flèche médiale pointe vers le plan médian, la
-            # latérale s'en éloigne.
-            "<path d='M120 158 L152 158' marker-end='url(#fleche)'/>"
-            "<path d='M170 183 L202 183' marker-end='url(#fleche)'/>"
+            # toutes deux logées à droite du tronc, entre le bras et la hanche (la gauche est
+            # a present prise par les fleches cranio-caudales). La flèche médiale pointe vers
+            # le plan médian, la latérale s'en éloigne.
+            "<path d='M194 163 L168 163' marker-end='url(#fleche)'/>"
+            "<path d='M170 188 L202 188' marker-end='url(#fleche)'/>"
             "</g>"
         ),
         "pastilles": [
-            {"n": 1, "x": 108, "y": 24, "t": "Crânial", "ancre": "end"},
-            {"n": 2, "x": 108, "y": 316, "t": "Caudal", "ancre": "end"},
+            {"n": 1, "x": 114, "y": 94, "t": "Crânial", "ancre": "end"},
+            {"n": 2, "x": 120, "y": 176, "t": "Caudal", "ancre": "end"},
             {"n": 3, "x": 196, "y": 215, "t": "Proximal", "ancre": "start"},
             {"n": 4, "x": 214, "y": 270, "t": "Distal", "ancre": "start"},
-            {"n": 5, "x": 150, "y": 178, "t": "Médial", "ancre": "end"},
-            {"n": 6, "x": 204, "y": 167, "t": "Latéral", "ancre": "start"},
+            {"n": 5, "x": 208, "y": 163, "t": "Médial", "ancre": "start"},
+            {"n": 6, "x": 216, "y": 188, "t": "Latéral", "ancre": "start"},
         ],
     },
 }
@@ -478,7 +500,8 @@ PLANCHES = {
 # raison). Le test du mode muet porte ici sur la GEOMETRIE seule : sphère
 # pleine dans sphère creuse, ellipse dans ellipse, surface ondulée en selle,
 # charnière à goupille, tige tournant dans un anneau, deux condyles sur un
-# plateau quasi plat, deux plans qui glissent — sept silhouettes volontai-
+# plateau (le cours dit « une paire de condyles plane », slide 92), deux plans qui
+# glissent — sept silhouettes volontai-
 # rement DIFFERENTES entre elles (pas de recyclage de la même paire de
 # cercles pour deux types), vérifiées une à une en rendant chaque planche
 # sans ses pastilles (rsvg-convert) avant d'écrire ce module.
@@ -488,9 +511,14 @@ PLANCHES = {
 # sagittal/transversal mais sur la forme des surfaces ; forcer un mouvement à
 # 2 axes (ellipsoïde, selle) dans un seul plan aurait été inexact.
 #
-# Aucun exemple anatomique n'est donné dans le cours pour l'ellipsoïde (slide
-# 84 s'arrête aux 2 axes de mouvement) : sa planche n'a donc que 2 pastilles,
-# pas 3 -- inventer un "Ex :" aurait violé la règle "ne pas deviner".
+# L'ellipsoïde a bien un exemple : la légende de la figure de la slide 84 dit
+# « Articulation ellipsoïdale entre l'extrémité distale du radius, le scaphoïde et le
+# semi-lunaire du carpe (poignet) ». C'est du texte DANS l'image, invisible à
+# pdftotext : un audit précédent avait conclu à tort que le cours n'en donnait pas
+# (rectifié par la vérification exhaustive du 2026-09-30, slides rendues en image).
+# Sa planche porte donc quatre pastilles (type, deux axes, exemple), comme la selle,
+# et le même viewBox haut de 380. Le libellé reprend le mot du cours, « le poignet » :
+# le cours n'emploie pas « radio-carpienne » ici.
 _VB_DIARTHROSE = "0 0 220 345"
 _Y_TYPE = 245
 _Y_AXES = 278
@@ -548,7 +576,7 @@ PLANCHES.update(
         "diarthrose-ellipsoide": {
             "id": "diarthrose-ellipsoide",
             "titre": "L'ellipsoïde (condylienne)",
-            "vb": _VB_DIARTHROSE,
+            "vb": "0 0 220 380",
             # Meme grammaire que la sphéroïde (nesting concentrique, col qui
             # sort par le sommet) mais avec des ELLIPSES, nettement plus
             # larges que hautes : la silhouette entière est plus plate et plus
@@ -586,6 +614,13 @@ PLANCHES.update(
                     "x": 110,
                     "y": _Y_EXEMPLE,
                     "t": "Abduction, adduction",
+                    "ancre": "middle",
+                },
+                {
+                    "n": 4,
+                    "x": 110,
+                    "y": _Y_EXEMPLE + 33,
+                    "t": "Ex : le poignet",
                     "ancre": "middle",
                 },
             ],
@@ -758,7 +793,7 @@ PLANCHES.update(
             "vb": _VB_DIARTHROSE,
             # Seule planche a deux bosses SEPAREES (une tige qui se separe en
             # deux, chacune vers son propre condyle) posees sur un unique
-            # plateau presque plat : le compte ("deux" ronds, pas un ni deux
+            # plateau (le cours : « une paire de condyles plane ») : le compte ("deux" ronds, pas un ni deux
             # anneaux) est ce qui la distingue sans ambiguite de la sphéroïde/
             # ellipsoïde (une seule piece emboitee) et de la plane ci-dessous
             # (aucune bosse).
@@ -785,7 +820,7 @@ PLANCHES.update(
                     "y": _Y_TYPE,
                     "t": "Bicondylienne",
                     "ancre": "middle",
-                    "indice": "une paire de condyles convexes sur une surface plane",
+                    "indice": "une paire de condyles convexes face à une paire de condyles plane",
                 },
                 {
                     "n": 2,
@@ -864,25 +899,32 @@ PLANCHES.update(
 # ni ligament. Le schema qui porte reellement 5 des 6 reperes de CETTE
 # planche (membrane fibreuse, membrane synoviale, cartilage articulaire,
 # cavite articulaire, menisque) est celui de la slide 102, "Menisque
-# articulaire (coupe longitudinale d'une articulation)" -- desormais le slide
-# cite. Seul le ligament (le 6e repere) n'a pas de schema qui le montre : il
-# reste purement textuel, slide 104 (cf. plus bas). Les elements dessines
-# rassemblent des faits repartis sur plusieurs slides textuelles (77 : sur-
+# articulaire (coupe longitudinale d'une articulation)". Le ligament (le 6e
+# repere) n'y figure pas, mais il a bien un schema : la slide 100 montre le
+# « ligament articulaire » de l'articulation mobile, et la slide 104 le definit
+# (correction de l'audit exhaustif du 2026-09-30 : l'affirmation precedente,
+# « aucun schema », etait fausse). Les elements dessines
+# rassemblent des faits repartis sur plusieurs slides (77 : sur-
 # faces + cavite + capsule a deux membranes ; 99 : cartilage ; 102 : menisque ;
-# 104 : ligament), verifies un a un contre le texte extrait (pdftotext) et
-# contre les deux schemas-images du cours (slides 100 et 109, rendus en PNG
+# 100 et 104 : ligament), verifies un a un contre le texte extrait (pdftotext) et
+# contre les schemas-images du cours (slides 100, 102 et 109, rendus en PNG
 # et lus) avant d'etre traduits en traits. Deux os en vis-a-vis (rectangles),
 # chacun coiffe d'un arc plus epais (cartilage articulaire) ; entre eux, la
 # cavite articulaire (l'espace vide central, ou loge le liquide synovial) et
-# un coin (le menisque, ancre a la capsule interne cote gauche, conformement
-# au texte "face adherente a la capsule") ; autour, DEUX enveloppes en poin-
+# le menisque (un anneau de fibrocartilage, ici vu en coupe, ancre a la capsule
+# interne cote gauche, conformement au texte "face adherente a la capsule") ;
+# autour, DEUX enveloppes en poin-
 # tilles concentriques (la capsule : fibreuse=exterieure, synoviale=interieu-
-# re) ; a l'exterieur de la capsule, un trait plein continu (le ligament) --
-# sa position, dehors, est la piece spatiale que ce schema doit faire
-# passer : le ligament n'est PAS a l'interieur de la capsule.
+# re) ; a l'exterieur de la capsule, un trait plein continu : un ligament
+# EXTRACAPSULAIRE (comme les lateraux du genou, slide 104). Ce n'est qu'une des
+# deux sortes de ligaments : le cours distingue aussi les ligaments
+# INTRACAPSULAIRES (les croises du genou), a l'interieur de la capsule -- d'ou le
+# libelle « Ligament extracapsulaire », qui dit ce que le trace montre.
 #
-# Viewbox large (620x460) et libelles courts (<=22 caracteres, meme plafond
-# que "Cartilage articulaire" sur os-long-coupe) : une premiere version avec
+# Viewbox large (620x460) et libelles courts (~22 caracteres, meme plafond
+# que "Cartilage articulaire" sur os-long-coupe ; « Ligament extracapsulaire » en
+# compte 24 mais tient : ~180 unites estimees pour 214 disponibles a droite de
+# l'ancre) : une premiere version avec
 # "Capsule : membrane fibreuse" et "Cavité articulaire (liquide synovial)"
 # debordait du cadre une fois decalee par son ancre (~7 px/caractere a cette
 # echelle, cf. le calcul de marge d'os-long-coupe) -- verifie par rendu reel
@@ -918,7 +960,7 @@ _DESSIN_ARTICULATION_SYNOVIALE = (
     "<path d='M254,268 L188,318' marker-end='url(#fleche)'/>"
     "<path d='M303,182 L372,150' marker-end='url(#fleche)'/>"
     "<path d='M290,228 L372,230' marker-end='url(#fleche)'/>"
-    "<path d='M328,232 L372,318' marker-end='url(#fleche)'/>"
+    "<path d='M335,270 L372,318' marker-end='url(#fleche)'/>"
     "</g>"
 )
 
@@ -937,7 +979,7 @@ _PASTILLES_ARTICULATION_SYNOVIALE = [
         "y": 230,
         "t": "Ménisque",
         "ancre": "end",
-        "indice": "coin de fibrocartilage, adhérent à la capsule",
+        "indice": "anneau de fibrocartilage, adhérent à la capsule",
     },
     {
         "n": 3,
@@ -967,9 +1009,9 @@ _PASTILLES_ARTICULATION_SYNOVIALE = [
         "n": 6,
         "x": 390,
         "y": 320,
-        "t": "Ligament",
+        "t": "Ligament extracapsulaire",
         "ancre": "start",
-        "indice": "hors de la capsule, relie les deux os",
+        "indice": "relie les deux os, ici hors de la capsule",
     },
 ]
 

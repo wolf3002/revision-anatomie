@@ -16,7 +16,7 @@ def test_le_contenu_est_conforme_au_schema():
 
 
 def test_le_chapitre_2_couvre_le_volume_cible():
-    assert 18 <= len(CHAPITRE_2["cartes"]) <= 25
+    assert 18 <= len(CHAPITRE_2["cartes"]) <= 30
     assert 8 <= len(CHAPITRE_2["quiz"]) <= 12
     assert 2 <= len(CHAPITRE_2["pieges"]) <= 4
     assert 1 <= len(CHAPITRE_2["planches"]) <= 3
@@ -125,3 +125,66 @@ def test_les_pieges_couvrent_les_confusions_signalees_par_le_plan():
         "organiques",
     ):
         assert notion in texte, f"piege attendu absent : {notion}"
+
+
+# --- Corrections de l'audit de verification exhaustive (2026-09-30) ---------------------
+
+
+def _texte(entrees):
+    return json.dumps(entrees, ensure_ascii=False)
+
+
+def _prose(chapitre):
+    """Tout le texte lisible du chapitre, hors trace SVG (dont les coordonnees contiennent
+    n'importe quel nombre)."""
+    return _texte(
+        {cle: chapitre[cle] for cle in ("sections", "cartes", "quiz", "pieges")}
+        | {"pastilles": [p["pastilles"] for p in chapitre["planches"]]}
+    )
+
+
+def test_la_slide_48_est_reprise_par_des_cartes():
+    # La legende de la slide 48 (rouge = elastique, bleu = hyalin, vert = fibreux) et ses huit
+    # localisations n'etaient reprises nulle part.
+    cartes = [c for c in CHAPITRE_2["cartes"] if c["slide"] == 48]
+    assert len(cartes) >= 1
+    texte = _texte(cartes).lower()
+    for terme in (
+        "rouge", "bleu", "vert", "élastique", "hyalin", "fibreux",
+        "auriculaire", "trompe auditive", "épiglottique", "laryngé",
+        "nez", "trachée", "costaux", "disque intervertébral", "symphyse pubienne",
+    ):
+        assert terme in texte, terme
+
+
+def test_q2_02_ne_pretend_plus_que_le_cours_ne_localise_pas_le_cartilage_elastique():
+    question = next(q for q in CHAPITRE_2["quiz"] if q["id"] == "q2-02")
+    assert "aucune localisation" not in question["expl"]
+    assert "auriculaire" in question["expl"]
+    assert 48 in slides_de(question)
+
+
+def test_le_vocabulaire_absent_du_cours_n_est_pas_employe():
+    # « maxillaire » n'apparait nulle part dans le cours (« mâchoire supérieure »), le
+    # chiffre 33 non plus (le cours ne compte pas les vertebres du sacrum ni du coccyx).
+    texte = _prose(CHAPITRE_2)
+    assert "maxillaire" not in texte.lower()
+    assert "33" not in texte
+    assert "cicatrise" not in texte
+    assert "Sur les 21 os de la tête, un seul" not in texte
+
+
+def test_q2_06_ne_propose_que_des_repartitions_de_la_colonne_mobile():
+    # L'enonce demande la colonne MOBILE : aucun distracteur ne doit y ajouter la fixe.
+    question = next(q for q in CHAPITRE_2["quiz"] if q["id"] == "q2-06")
+    assert question["choix"][question["bonne"]] == "7 cervicales, 12 thoraciques, 5 lombaires"
+    for choix in question["choix"]:
+        assert "sacrum" not in choix and "coccyx" not in choix, choix
+
+
+def test_c2_10_ne_designe_pas_le_mauvais_squelette():
+    # « ce dernier » designait grammaticalement le squelette appendiculaire, alors que la
+    # reponse decrit l'axial.
+    carte = next(c for c in CHAPITRE_2["cartes"] if c["id"] == "c2-10")
+    assert "ce dernier" not in carte["q"]
+    assert "squelette axial" in carte["q"]

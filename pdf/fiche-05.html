@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<title>Fiche 05 — Le tronc</title>
+<style>
+/* Feuille de style de la fiche PDF imprimable -- entierement autonome
+ * (aucune police distante, aucun script) : contrairement a gabarits/base.html,
+ * cette page est convertie hors-ligne par Chrome headless (outils/pdf.py) et ne
+ * doit dependre d'aucune requete reseau pour rester fidele d'une machine a
+ * l'autre.
+ *
+ * Regle d'impression du projet (site/assets/style.css, section 8) : les trois
+ * plans anatomiques ne sont JAMAIS distingues par la seule teinte. Ici la
+ * regle est appliquee au plus simple : aucune couleur nulle part, seulement du
+ * noir, du gris de texte et des traits -- le plan s'ecrit toujours en toutes
+ * lettres (".fiche-plan", "::after" des pastilles de plan).
+ */
+* { box-sizing: border-box; }
+
+@page {
+  size: A4;
+  margin: 15mm 14mm 18mm;
+}
+
+body {
+  margin: 0;
+  color: #000;
+  background: #fff;
+  font-family: "Noto Sans", "Liberation Sans", Arial, sans-serif;
+  font-size: 10.3pt;
+  line-height: 1.35;
+}
+
+h1, h2, h3 {
+  font-family: "Noto Sans", "Liberation Sans", Arial, sans-serif;
+  margin: 0 0 3mm 0;
+  break-after: avoid;
+}
+
+h1 { font-size: 15pt; }
+h2 { font-size: 12.5pt; border-bottom: 1pt solid #000; padding-bottom: 1mm; margin-top: 6mm; }
+h3 { font-size: 10.8pt; margin-top: 4mm; }
+
+p { margin: 0 0 1.5mm 0; }
+
+/* --- En-tete de fiche ---------------------------------------------- */
+
+.fiche-entete {
+  display: flex;
+  align-items: baseline;
+  gap: 4mm;
+  border-bottom: 1.5pt solid #000;
+  padding-bottom: 2mm;
+  margin-bottom: 4mm;
+}
+
+.fiche-entete__num {
+  font-family: "Liberation Mono", monospace;
+  font-weight: bold;
+  font-size: 13pt;
+}
+
+.fiche-entete h1 { flex: 1; }
+
+.fiche-entete__slides {
+  font-family: "Liberation Mono", monospace;
+  font-size: 9pt;
+  color: #333;
+}
+
+/* --- Renvoi de slide (reutilise le contenu de outils.construire._src) --- */
+
+.src {
+  display: inline-block;
+  font-family: "Liberation Mono", monospace;
+  font-size: 8pt;
+  color: #333;
+  border: 0.75pt solid #666;
+  border-radius: 2pt;
+  padding: 0.3mm 1.3mm;
+  margin-top: 1mm;
+}
+
+.src--hors { border-style: dashed; }
+
+/* --- Plan anatomique, toujours ecrit --------------------------------- */
+
+.fiche-plan {
+  display: inline-block;
+  font-family: "Liberation Mono", monospace;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 0.75pt solid #000;
+  border-radius: 2pt;
+  padding: 0.3mm 1.3mm;
+  margin: 0 2mm 1.5mm 0;
+}
+
+/* --- 1. Planches en mode muet ---------------------------------------- */
+
+.fiche-planche {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 5mm;
+  border: 0.75pt solid #999;
+  border-radius: 2pt;
+  padding: 3mm;
+  margin-bottom: 4mm;
+  break-inside: avoid;
+}
+
+.fiche-planche__figure { flex: 0 0 auto; }
+
+.fiche-planche figcaption {
+  font-weight: bold;
+  font-size: 9.5pt;
+  margin-bottom: 1.5mm;
+}
+
+.fiche-planche svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pastille circle {
+  fill: #fff;
+  stroke: #000;
+  stroke-width: 1.5;
+}
+
+.pastille__n {
+  fill: #000;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Les libelles n'existent plus dans le DOM du mode muet (voir
+ * outils/fiches.py, _rendre_planche_muette) : rien a masquer ici. Dans le
+ * corrige, la meme classe redevient un texte normal, noir, sans mise en
+ * forme particuliere -- la reponse s'y affiche en clair, comme il se doit. */
+.pastille__t {
+  fill: #000;
+  font-size: 14px;
+}
+
+.fiche-legende {
+  flex: 1 1 60mm;
+  min-width: 55mm;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: none;
+}
+
+.fiche-legende li {
+  display: flex;
+  align-items: baseline;
+  gap: 2mm;
+  padding: 1.2mm 0;
+  border-bottom: 0.5pt dotted #999;
+}
+
+.fiche-legende__n {
+  font-family: "Liberation Mono", monospace;
+  font-weight: bold;
+  min-width: 4mm;
+}
+
+.fiche-legende__indice {
+  color: #444;
+  font-size: 8.6pt;
+  white-space: nowrap;
+}
+
+.fiche-legende__trait {
+  flex: 1 1 auto;
+  min-width: 20mm;
+}
+
+/* --- 2. Questions : cartes et QCM ------------------------------------- */
+
+.fiche-carte,
+.fiche-quiz {
+  border: 0.75pt solid #999;
+  border-radius: 2pt;
+  padding: 3mm;
+  margin-bottom: 3mm;
+  break-inside: avoid;
+}
+
+.fiche-carte__q,
+.fiche-quiz__q {
+  font-weight: bold;
+  font-size: 10.6pt;
+  margin-bottom: 1.5mm;
+}
+
+.fiche-carte__reponse-trait {
+  border-bottom: 0.5pt dotted #999;
+  height: 7mm;
+  margin-top: 2mm;
+}
+
+.fiche-quiz__choix {
+  margin: 0 0 1.5mm 0;
+  padding-left: 6mm;
+}
+
+.fiche-quiz__choix li { padding: 0.6mm 0; }
+
+/* --- 3. Table musculaire a completer ---------------------------------- */
+
+table.fiche-muscles,
+table.muscles {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 4mm;
+  font-size: 9.6pt;
+}
+
+table.fiche-muscles caption,
+table.muscles caption {
+  text-align: left;
+  font-weight: bold;
+  font-size: 10.5pt;
+  margin-bottom: 1.5mm;
+}
+
+table.fiche-muscles th,
+table.fiche-muscles td,
+table.muscles th,
+table.muscles td {
+  border: 0.75pt solid #666;
+  padding: 1.3mm 1.8mm;
+  vertical-align: top;
+  text-align: left;
+}
+
+table.fiche-muscles thead th,
+table.muscles thead th {
+  background: #eee;
+  font-size: 9pt;
+}
+
+table.fiche-muscles tbody th,
+table.muscles tbody th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+table.fiche-muscles tr,
+table.muscles tr { break-inside: avoid; }
+
+.fiche-muscle__case {
+  height: 15mm;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 4.6mm,
+    #ccc 4.6mm,
+    #ccc 4.8mm
+  );
+}
+
+.muscle__valeur { font-size: 9.6pt; }
+
+/* --- 4. Pieges : affiches en clair -------------------------------------- */
+
+.fiche-piege {
+  border: 1pt solid #000;
+  border-radius: 2pt;
+  padding: 3mm;
+  margin-bottom: 3mm;
+  break-inside: avoid;
+}
+
+.fiche-piege__etiquette {
+  display: inline-block;
+  font-family: "Liberation Mono", monospace;
+  font-weight: bold;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border: 1pt solid #000;
+  border-radius: 2pt;
+  padding: 0.3mm 1.6mm;
+  margin-bottom: 1.5mm;
+}
+
+.fiche-piege__titre {
+  font-weight: bold;
+  font-size: 10.4pt;
+}
+
+/* --- 5. Corrige : en fin de document, jamais en regard ------------------ */
+
+.fiche-corrige {
+  break-before: page;
+}
+
+.fiche-corrige__titre {
+  font-size: 16pt;
+  border-bottom: 2pt solid #000;
+  padding-bottom: 2mm;
+}
+
+.fiche-corrige__bloc { margin-bottom: 5mm; }
+
+.fiche-corrige__carte,
+.fiche-corrige__quiz {
+  border-bottom: 0.5pt solid #ccc;
+  padding: 2mm 0;
+  break-inside: avoid;
+}
+
+.fiche-corrige__q {
+  font-weight: bold;
+  margin-bottom: 1mm;
+}
+
+.fiche-corrige__r { margin-bottom: 1mm; }
+
+.fiche-corrige__quiz ol { margin: 1mm 0 1.5mm 0; padding-left: 6mm; }
+
+.fiche-corrige__bonne {
+  font-weight: bold;
+}
+
+.fiche-corrige__bonne::after {
+  content: " — bonne réponse";
+  font-weight: normal;
+  font-style: italic;
+}
+
+.fiche-corrige__expl {
+  color: #222;
+  font-size: 9.6pt;
+}
+
+.fiche-corrige__planches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5mm;
+  margin-bottom: 4mm;
+}
+
+.fiche-corrige__planche {
+  display: inline-block;
+  vertical-align: top;
+  border: 0.75pt dashed #999;
+  border-radius: 2pt;
+  padding: 2mm;
+  break-inside: avoid;
+}
+
+.fiche-corrige__planche figcaption {
+  font-weight: bold;
+  font-size: 9.5pt;
+  margin-bottom: 1.5mm;
+}
+
+.fiche-corrige__planche svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+</style>
+</head>
+<body>
+<header class="fiche-entete"><span class="fiche-entete__num">Ch. 5</span><h1>Le tronc</h1><span class="fiche-entete__slides">slides 136–189</span></header><section class="fiche-section" data-section="planches"><h2>Planches (mode muet)</h2><div class="fiche-planche"><div class="fiche-planche__figure" style="width:45mm"><figure class="planche" id="rachis-courbures-regions" data-mode="muet"><figcaption>Les 4 courbures du rachis, de haut en bas <span class="src">slide 142</span></figcaption><svg viewBox="0 0 280 560" role="img"><g fill='none' stroke='currentColor'><circle cx='140' cy='18' r='7' stroke-width='2'/><path d='M140,25 C180,55 180,120 140,150 C100,180 100,245 140,275 C180,305 180,370 140,400 C100,430 100,495 122,525 L127,543' stroke-width='5' stroke-linecap='round'/><path d='M40,150 L235,150 M40,275 L235,275 M40,400 L235,400' stroke-width='1' stroke-dasharray='4 4'/></g><g class="pastille" data-n="1" data-plan="" data-indice="1re courbure, en haut"><circle cx="172" cy="90" r="9"/><text class="pastille__n" x="172" y="94" text-anchor="middle">1</text></g><g class="pastille" data-n="2" data-plan="" data-indice="2e courbure"><circle cx="108" cy="215" r="9"/><text class="pastille__n" x="108" y="219" text-anchor="middle">2</text></g><g class="pastille" data-n="3" data-plan="" data-indice="3e courbure"><circle cx="172" cy="340" r="9"/><text class="pastille__n" x="172" y="344" text-anchor="middle">3</text></g><g class="pastille" data-n="4" data-plan="" data-indice="4e courbure ; sacrum et coccyx soudés"><circle cx="108" cy="465" r="9"/><text class="pastille__n" x="108" y="469" text-anchor="middle">4</text></g></svg></figure></div><ol class="fiche-legende"><li><span class="fiche-legende__n">1.</span><span class="fiche-legende__indice">(1re courbure, en haut)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">2.</span><span class="fiche-legende__indice">(2e courbure)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">3.</span><span class="fiche-legende__indice">(3e courbure)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">4.</span><span class="fiche-legende__indice">(4e courbure ; sacrum et coccyx soudés)</span><span class="fiche-legende__trait"></span></li></ol></div><div class="fiche-planche"><div class="fiche-planche__figure" style="width:66mm"><figure class="planche" id="vertebre-vue-superieure" data-mode="muet"><figcaption>La vertèbre type, vue de dessus <span class="src">slides 145 et 147</span></figcaption><svg viewBox="0 0 320 330" role="img"><g fill='none' stroke='currentColor' stroke-width='2.4' stroke-linecap='round'><circle cx='160' cy='55' r='38'/><path d='M135,88 L110,145'/><path d='M185,88 L210,145'/><path d='M110,145 Q120,190 160,220'/><path d='M210,145 Q200,190 160,220'/><path d='M160,220 L160,270'/><path d='M112,142 L35,175'/><path d='M208,142 L285,175'/></g><circle cx='160' cy='180' r='32' fill='none' stroke='currentColor' stroke-width='1.2' stroke-dasharray='3 3'/><g class="pastille" data-n="1" data-plan="" data-indice="partie antérieure, cylindrique"><circle cx="160" cy="55" r="9"/><text class="pastille__n" x="160" y="59" text-anchor="middle">1</text></g><g class="pastille" data-n="2" data-plan="" data-indice="×2 ; passage des nerfs rachidiens"><circle cx="130" cy="100" r="9"/><text class="pastille__n" x="130" y="104" text-anchor="middle">2</text></g><g class="pastille" data-n="3" data-plan="" data-indice="×2, latéral"><circle cx="35" cy="175" r="9"/><text class="pastille__n" x="35" y="179" text-anchor="middle">3</text></g><g class="pastille" data-n="4" data-plan="" data-indice="passage de la moelle épinière"><circle cx="160" cy="200" r="9"/><text class="pastille__n" x="160" y="204" text-anchor="middle">4</text></g><g class="pastille" data-n="5" data-plan="" data-indice="×1, médian postérieur"><circle cx="160" cy="270" r="9"/><text class="pastille__n" x="160" y="274" text-anchor="middle">5</text></g></svg></figure></div><ol class="fiche-legende"><li><span class="fiche-legende__n">1.</span><span class="fiche-legende__indice">(partie antérieure, cylindrique)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">2.</span><span class="fiche-legende__indice">(×2 ; passage des nerfs rachidiens)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">3.</span><span class="fiche-legende__indice">(×2, latéral)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">4.</span><span class="fiche-legende__indice">(passage de la moelle épinière)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">5.</span><span class="fiche-legende__indice">(×1, médian postérieur)</span><span class="fiche-legende__trait"></span></li></ol></div><div class="fiche-planche"><div class="fiche-planche__figure" style="width:45mm"><figure class="planche" id="fibres-abdominales-orientation" data-mode="muet"><figcaption>Orientation des fibres des 4 muscles abdominaux <span class="src">slides 185, 186, 187 et 188</span></figcaption><svg viewBox="0 0 300 700" role="img"><g fill='none' stroke='currentColor' stroke-width='2'><rect x='30' y='20' width='240' height='100' rx='6'/><path d='M45,35 L255,35'/><path d='M45,52 L255,52'/><path d='M45,69 L255,69'/><path d='M45,86 L255,86'/><path d='M45,103 L255,103'/></g><g fill='none' stroke='currentColor' stroke-width='2'><rect x='30' y='190' width='240' height='100' rx='6'/><path d='M150,290 L60,190'/><path d='M150,290 L90,190'/><path d='M150,290 L120,190'/><path d='M150,290 L150,190'/><path d='M150,290 L180,190'/><path d='M150,290 L210,190'/><path d='M150,290 L240,190'/></g><g fill='none' stroke='currentColor' stroke-width='2'><rect x='30' y='360' width='240' height='100' rx='6'/><path d='M70,360 L30,460'/><path d='M105,360 L65,460'/><path d='M140,360 L100,460'/><path d='M175,360 L135,460'/><path d='M210,360 L170,460'/><path d='M245,360 L205,460'/></g><g fill='none' stroke='currentColor' stroke-width='2'><rect x='30' y='530' width='240' height='100' rx='6'/><path d='M80,540 L80,620'/><path d='M100,540 L100,620'/><path d='M120,540 L120,620'/><path d='M180,540 L180,620'/><path d='M200,540 L200,620'/><path d='M220,540 L220,620'/><path d='M75,560 L125,560 M175,560 L225,560'/><path d='M75,590 L125,590 M175,590 L225,590'/><path d='M150,528 L150,632' stroke-dasharray='3 3'/></g><g class="pastille" data-n="1" data-plan="" data-indice="le plus profond ; fibres transversales"><circle cx="150" cy="138" r="9"/><text class="pastille__n" x="150" y="142" text-anchor="middle">1</text></g><g class="pastille" data-n="2" data-plan="" data-indice="fibres en éventail vers le haut"><circle cx="150" cy="308" r="9"/><text class="pastille__n" x="150" y="312" text-anchor="middle">2</text></g><g class="pastille" data-n="3" data-plan="" data-indice="fibres obliques vers le bas"><circle cx="150" cy="478" r="9"/><text class="pastille__n" x="150" y="482" text-anchor="middle">3</text></g><g class="pastille" data-n="4" data-plan="" data-indice="de part et d&#x27;autre de la ligne blanche ; fibres verticales"><circle cx="150" cy="648" r="9"/><text class="pastille__n" x="150" y="652" text-anchor="middle">4</text></g></svg></figure></div><ol class="fiche-legende"><li><span class="fiche-legende__n">1.</span><span class="fiche-legende__indice">(le plus profond ; fibres transversales)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">2.</span><span class="fiche-legende__indice">(fibres en éventail vers le haut)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">3.</span><span class="fiche-legende__indice">(fibres obliques vers le bas)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">4.</span><span class="fiche-legende__indice">(de part et d&#x27;autre de la ligne blanche ; fibres verticales)</span><span class="fiche-legende__trait"></span></li></ol></div></section><section class="fiche-section" data-section="questions"><h2>Questions</h2><article class="fiche-carte" id="c5-01"><p class="fiche-carte__q">Combien de vertèbres composent la colonne vertébrale MOBILE, comment se répartissent-elles, et quels noms particuliers portent C1 et C2 ?</p><span class="src">slide 139</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-02"><p class="fiche-carte__q">Qu&#x27;est-ce que la colonne vertébrale FIXE, et de combien de vertèbres soudées se compose-t-elle ?</p><span class="src">slide 139</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-03"><p class="fiche-carte__q">À quel ensemble squelettique le rachis appartient-il, et comment son volume évolue-t-il le long de la colonne ?</p><span class="src">slide 140</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-04"><p class="fiche-carte__q">Dans quel plan le rachis est-il rectiligne, et quelles sont ses 4 courbures dans le plan sagittal, de haut en bas ?</p><span class="src">slide 142</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-05"><p class="fiche-carte__q">Qu&#x27;est-ce qu&#x27;une scoliose ?</p><span class="fiche-plan">plan frontal</span><span class="src">slide 143</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-06"><p class="fiche-carte__q">Que désigne une cypho-lordose ?</p><span class="fiche-plan">plan sagittal</span><span class="src">slide 143</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-07"><p class="fiche-carte__q">Quelles sont les 2 parties principales d&#x27;une vertèbre, et qu&#x27;est-ce qu&#x27;elles délimitent ensemble ?</p><span class="src">slide 145</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-08"><p class="fiche-carte__q">Comment s&#x27;appellent les 2 faces du corps vertébral, et par quoi sont-elles recouvertes ?</p><span class="src">slide 146</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-09"><p class="fiche-carte__q">Quels 5 éléments composent l&#x27;arc postérieur d&#x27;une vertèbre ?</p><span class="src">slide 147</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-10"><p class="fiche-carte__q">Où commencent et se terminent les ligaments longitudinaux antérieur et postérieur de la colonne ?</p><span class="src">slide 148</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-11"><p class="fiche-carte__q">Quelles sont les 2 parties du disque intervertébral, et leur consistance respective ?</p><span class="src">slide 151</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-12"><p class="fiche-carte__q">Combien de disques intervertébraux compte la colonne vertébrale, et à quel niveau n&#x27;y en a-t-il pas ?</p><span class="src">slide 152</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-13"><p class="fiche-carte__q">Par quel mécanisme se forme une hernie discale, à partir de quel rôle normal du disque intervertébral ?</p><span class="src">slide 154</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-14"><p class="fiche-carte__q">Quels sont les 4 mouvements possibles du rachis ?</p><span class="src">slide 156</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-15"><p class="fiche-carte__q">Que distingue-t-on entre les côtes 1 à 10 et les côtes 11 et 12 ?</p><span class="src">slide 161</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-16"><p class="fiche-carte__q">Quelles sont les 3 parties du sternum ?</p><span class="src">slide 164</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-17"><p class="fiche-carte__q">Que se passe-t-il quand les muscles dorsaux et les muscles ventraux du tronc se contractent en synergie ?</p><span class="src">slide 168</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-18"><p class="fiche-carte__q">Nommez les 6 groupes de muscles profonds du dos.</p><span class="src">slide 171</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-19"><p class="fiche-carte__q">Quelle action produit une contraction bilatérale des muscles profonds du dos, et quelle action produit une contraction unilatérale ?</p><span class="src">slide 173</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-20"><p class="fiche-carte__q">Quels 2 faisceaux composent l&#x27;ilio-psoas, et lequel des deux est un muscle du tronc ?</p><span class="src">slide 180</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-21"><p class="fiche-carte__q">Pourquoi le transverse de l&#x27;abdomen est-il qualifié de muscle &#x27;le plus profond&#x27; de la paroi abdominale, et quelle est l&#x27;orientation de ses fibres ?</p><span class="src">slide 185</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-22"><p class="fiche-carte__q">Vers quel côté l&#x27;oblique interne et l&#x27;oblique externe font-ils tourner le tronc (contraction unilatérale), et quelle orientation de fibres le cours donne-t-il à chacun ?</p><span class="src">slides 186 et 187</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c5-23"><p class="fiche-carte__q">Quelle est l&#x27;orientation des fibres du droit de l&#x27;abdomen, et quelle est son action ?</p><span class="src">slide 188</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-quiz" id="q5-01"><p class="fiche-quiz__q">Combien de vertèbres composent la colonne vertébrale MOBILE ?</p><ol class="fiche-quiz__choix" type="A"><li>24</li><li>19</li><li>22</li><li>29</li></ol><span class="src">slide 139</span></article><article class="fiche-quiz" id="q5-02"><p class="fiche-quiz__q">C1 et C2 portent des noms particuliers. Dans quel ordre ?</p><ol class="fiche-quiz__choix" type="A"><li>Atlas puis Axis</li><li>Atlas puis Odontoïde</li><li>Axis puis Atlas</li><li>Axis puis Sacrum</li></ol><span class="src">slide 139</span></article><article class="fiche-quiz" id="q5-03"><p class="fiche-quiz__q">Quelle courbure occupe la région thoracique (dorsale) du rachis ?</p><ol class="fiche-quiz__choix" type="A"><li>Scoliose dorsale</li><li>Cyphose dorsale</li><li>Courbure sacro-coccygienne</li><li>Lordose dorsale</li></ol><span class="fiche-plan">plan sagittal</span><span class="src">slide 142</span></article><article class="fiche-quiz" id="q5-04"><p class="fiche-quiz__q">Dans le plan frontal, une déviation latérale du rachis en C ou en S s&#x27;appelle...</p><ol class="fiche-quiz__choix" type="A"><li>une scoliose</li><li>une hypercyphose</li><li>une cypho-lordose</li><li>une hyperlordose</li></ol><span class="fiche-plan">plan frontal</span><span class="src">slide 143</span></article><article class="fiche-quiz" id="q5-05"><p class="fiche-quiz__q">Combien de processus (apophyses) articulaires compte l&#x27;arc postérieur d&#x27;une vertèbre ?</p><ol class="fiche-quiz__choix" type="A"><li>4</li><li>1</li><li>2</li><li>6</li></ol><span class="src">slide 147</span></article><article class="fiche-quiz" id="q5-06"><p class="fiche-quiz__q">Quel ligament relie deux lames vertébrales consécutives ?</p><ol class="fiche-quiz__choix" type="A"><li>le ligament inter-transverse</li><li>le ligament jaune</li><li>le ligament inter-épineux</li><li>le ligament supra-épineux</li></ol><span class="src">slide 149</span></article><article class="fiche-quiz" id="q5-07"><p class="fiche-quiz__q">Quelle est la partie centrale et molle du disque intervertébral ?</p><ol class="fiche-quiz__choix" type="A"><li>le plateau vertébral</li><li>le nucleus pulposus (noyau pulpeux)</li><li>le ligament capsulaire</li><li>l&#x27;anneau fibreux</li></ol><span class="src">slide 151</span></article><article class="fiche-quiz" id="q5-08"><p class="fiche-quiz__q">Entre quels deux niveaux ne trouve-t-on PAS de disque intervertébral ?</p><ol class="fiche-quiz__choix" type="A"><li>L5 et le sacrum</li><li>C7 et T1</li><li>l&#x27;occiput et l&#x27;atlas</li><li>T12 et L1</li></ol><span class="src">slide 152</span></article><article class="fiche-quiz" id="q5-09"><p class="fiche-quiz__q">Quelles côtes sont dites &#x27;flottantes&#x27; ?</p><ol class="fiche-quiz__choix" type="A"><li>les côtes 1 et 2</li><li>les côtes 6 et 7</li><li>les côtes 8 à 10</li><li>les côtes 11 et 12</li></ol><span class="src">slide 161</span></article><article class="fiche-quiz" id="q5-10"><p class="fiche-quiz__q">Quelle est l&#x27;orientation des fibres du transverse de l&#x27;abdomen ?</p><ol class="fiche-quiz__choix" type="A"><li>oblique vers le bas</li><li>verticale</li><li>en éventail vers le haut</li><li>transversale (horizontale)</li></ol><span class="src">slide 185</span></article><article class="fiche-quiz" id="q5-11"><p class="fiche-quiz__q">Une contraction UNILATÉRALE de l&#x27;oblique INTERNE fait tourner le tronc...</p><ol class="fiche-quiz__choix" type="A"><li>du côté opposé à la contraction</li><li>dans les deux sens à la fois</li><li>il n&#x27;y a pas de rotation, seulement une inclinaison</li><li>du côté contracté</li></ol><span class="src">slide 186</span></article><article class="fiche-quiz" id="q5-12"><p class="fiche-quiz__q">Une contraction UNILATÉRALE de l&#x27;oblique EXTERNE fait tourner le tronc...</p><ol class="fiche-quiz__choix" type="A"><li>du côté contracté</li><li>uniquement en extension</li><li>du côté opposé à la contraction</li><li>il n&#x27;y a pas de rotation possible</li></ol><span class="src">slide 187</span></article></section><section class="fiche-section" data-section="muscles"><h2>Table musculaire à compléter</h2><table class="fiche-muscles"><caption>Table musculaire</caption><thead><tr><th scope="col">Muscle</th><th scope="col">Origine</th><th scope="col">Terminaison</th><th scope="col">Action</th></tr></thead><tbody><tr><th>Carré des lombes <span class="src">slide 179</span></th><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td></tr><tr><th>Ilio-psoas <span class="src">slide 180</span></th><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td></tr><tr><th>Transverse de l&#x27;abdomen <span class="src">slide 185</span></th><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td></tr><tr><th>Oblique interne <span class="src">slide 186</span></th><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td></tr><tr><th>Oblique externe <span class="src">slide 187</span></th><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td></tr><tr><th>Droit de l&#x27;abdomen <span class="src">slide 188</span></th><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td></tr></tbody></table></section><section class="fiche-section" data-section="pieges"><h2>Pièges</h2><article class="fiche-piege"><span class="fiche-piege__etiquette">Piège</span><p class="fiche-piege__titre">L&#x27;oblique interne tourne du côté contracté, l&#x27;oblique externe du côté opposé</p><p>Les deux muscles obliques ont des rotations OPPOSÉES en contraction unilatérale, et des orientations de fibres différentes. L&#x27;oblique INTERNE (fibres en éventail vers le haut) fait tourner le tronc du côté CONTRACTÉ. L&#x27;oblique EXTERNE (fibres obliques vers le bas) le fait tourner du côté OPPOSÉ à la contraction. Ne pas les intervertir : vérifier lequel des deux muscles est en jeu avant de répondre.</p><span class="src">slides 186 et 187</span></article><article class="fiche-piege"><span class="fiche-piege__etiquette">Piège</span><p class="fiche-piege__titre">L&#x27;ilio-psoas n&#x27;est pas un muscle unique</p><p>Le cours présente l&#x27;ilio-psoas comme composé de 2 faisceaux : le grand psoas (muscle latéral du TRONC) et l&#x27;iliaque (muscle de la HANCHE). L&#x27;origine qu&#x27;il donne (processus transverses de L1 à L5, corps vertébraux de T12 à L5) est vertébrale : c&#x27;est celle du grand psoas seul ; le cours ne la rattache pas à un faisceau par écrit et ne donne pas d&#x27;origine pour l&#x27;iliaque. La terminaison (petit trochanter du fémur) et l&#x27;action (fléchisseur de la cuisse) sont données pour l&#x27;ilio-psoas dans son ensemble, pas pour un seul faisceau.</p><span class="src">slide 180</span></article><article class="fiche-piege"><span class="fiche-piege__etiquette">Piège</span><p class="fiche-piege__titre">Le cours ne distingue que 2 catégories de côtes</p><p>Le cours retient deux catégories : les vraies côtes (côtes 1 à 10, unies au sternum par l&#x27;intermédiaire des cartilages costaux) et les côtes flottantes (côtes 11 et 12, qui se terminent avant d&#x27;arriver au sternum). Il ne nomme aucune catégorie intermédiaire.</p><span class="src">slide 161</span></article><article class="fiche-piege"><span class="fiche-piege__etiquette">Piège</span><p class="fiche-piege__titre">La nomenclature usuelle des côtes n&#x27;est pas celle du cours</p><p>Hors cours : en anatomie usuelle, les vraies côtes sont les côtes 1 à 7, les fausses côtes les côtes 8 à 10, et les côtes flottantes les côtes 11 et 12. Le cours écrit « vraies côtes 1 à 10 » (slides 161 et 162) : pour lui, les côtes 8 à 10 sont des vraies côtes. Le site reproduit la formulation du cours.</p><span class="src src--hors">[hors cours]</span></article><article class="fiche-piege"><span class="fiche-piege__etiquette">Piège</span><p class="fiche-piege__titre">Il n&#x27;y a pas de disque intervertébral à chaque niveau</p><p>La colonne vertébrale compte 23 disques intervertébraux, et le cours précise « sauf entre l&#x27;occiput et l&#x27;atlas » (C1). C&#x27;est la seule exception qu&#x27;il signale : ne pas en déduire un disque à ce niveau-là.</p><span class="src">slide 152</span></article></section><section class="fiche-corrige" data-section="corrige"><h2 class="fiche-corrige__titre">Corrigé</h2><h3>Planches</h3><div class="fiche-corrige__planches"><div class="fiche-corrige__planche" style="width:48mm"><figure class="planche" id="rachis-courbures-regions" data-mode="legende"><figcaption>Les 4 courbures du rachis, de haut en bas <span class="src">slide 142</span></figcaption><svg viewBox="0 0 280 560" role="img"><g fill='none' stroke='currentColor'><circle cx='140' cy='18' r='7' stroke-width='2'/><path d='M140,25 C180,55 180,120 140,150 C100,180 100,245 140,275 C180,305 180,370 140,400 C100,430 100,495 122,525 L127,543' stroke-width='5' stroke-linecap='round'/><path d='M40,150 L235,150 M40,275 L235,275 M40,400 L235,400' stroke-width='1' stroke-dasharray='4 4'/></g><g class="pastille" data-n="1" data-plan="" data-indice="1re courbure, en haut"><circle cx="172" cy="90" r="9"/><text class="pastille__n" x="172" y="94" text-anchor="middle">1</text><text class="pastille__t" x="172" y="114" text-anchor="middle">Lordose cervicale</text></g><g class="pastille" data-n="2" data-plan="" data-indice="2e courbure"><circle cx="108" cy="215" r="9"/><text class="pastille__n" x="108" y="219" text-anchor="middle">2</text><text class="pastille__t" x="108" y="239" text-anchor="middle">Cyphose dorsale</text></g><g class="pastille" data-n="3" data-plan="" data-indice="3e courbure"><circle cx="172" cy="340" r="9"/><text class="pastille__n" x="172" y="344" text-anchor="middle">3</text><text class="pastille__t" x="172" y="364" text-anchor="middle">Lordose lombaire</text></g><g class="pastille" data-n="4" data-plan="" data-indice="4e courbure ; sacrum et coccyx soudés"><circle cx="108" cy="465" r="9"/><text class="pastille__n" x="108" y="469" text-anchor="middle">4</text><text class="pastille__t" x="108" y="489" text-anchor="middle">Courbure sacro-coccygienne</text></g></svg></figure></div><div class="fiche-corrige__planche" style="width:92mm"><figure class="planche" id="vertebre-vue-superieure" data-mode="legende"><figcaption>La vertèbre type, vue de dessus <span class="src">slides 145 et 147</span></figcaption><svg viewBox="0 0 320 330" role="img"><g fill='none' stroke='currentColor' stroke-width='2.4' stroke-linecap='round'><circle cx='160' cy='55' r='38'/><path d='M135,88 L110,145'/><path d='M185,88 L210,145'/><path d='M110,145 Q120,190 160,220'/><path d='M210,145 Q200,190 160,220'/><path d='M160,220 L160,270'/><path d='M112,142 L35,175'/><path d='M208,142 L285,175'/></g><circle cx='160' cy='180' r='32' fill='none' stroke='currentColor' stroke-width='1.2' stroke-dasharray='3 3'/><g class="pastille" data-n="1" data-plan="" data-indice="partie antérieure, cylindrique"><circle cx="160" cy="55" r="9"/><text class="pastille__n" x="160" y="59" text-anchor="middle">1</text><text class="pastille__t" x="160" y="79" text-anchor="middle">Corps vertébral</text></g><g class="pastille" data-n="2" data-plan="" data-indice="×2 ; passage des nerfs rachidiens"><circle cx="130" cy="100" r="9"/><text class="pastille__n" x="130" y="104" text-anchor="middle">2</text><text class="pastille__t" x="116" y="104" text-anchor="end">Pédicule</text></g><g class="pastille" data-n="3" data-plan="" data-indice="×2, latéral"><circle cx="35" cy="175" r="9"/><text class="pastille__n" x="35" y="179" text-anchor="middle">3</text><text class="pastille__t" x="49" y="179" text-anchor="start">Processus transverse</text></g><g class="pastille" data-n="4" data-plan="" data-indice="passage de la moelle épinière"><circle cx="160" cy="200" r="9"/><text class="pastille__n" x="160" y="204" text-anchor="middle">4</text><text class="pastille__t" x="160" y="224" text-anchor="middle">Canal rachidien</text></g><g class="pastille" data-n="5" data-plan="" data-indice="×1, médian postérieur"><circle cx="160" cy="270" r="9"/><text class="pastille__n" x="160" y="274" text-anchor="middle">5</text><text class="pastille__t" x="160" y="294" text-anchor="middle">Processus épineux</text></g></svg></figure></div><div class="fiche-corrige__planche" style="width:45mm"><figure class="planche" id="fibres-abdominales-orientation" data-mode="legende"><figcaption>Orientation des fibres des 4 muscles abdominaux <span class="src">slides 185, 186, 187 et 188</span></figcaption><svg viewBox="0 0 300 700" role="img"><g fill='none' stroke='currentColor' stroke-width='2'><rect x='30' y='20' width='240' height='100' rx='6'/><path d='M45,35 L255,35'/><path d='M45,52 L255,52'/><path d='M45,69 L255,69'/><path d='M45,86 L255,86'/><path d='M45,103 L255,103'/></g><g fill='none' stroke='currentColor' stroke-width='2'><rect x='30' y='190' width='240' height='100' rx='6'/><path d='M150,290 L60,190'/><path d='M150,290 L90,190'/><path d='M150,290 L120,190'/><path d='M150,290 L150,190'/><path d='M150,290 L180,190'/><path d='M150,290 L210,190'/><path d='M150,290 L240,190'/></g><g fill='none' stroke='currentColor' stroke-width='2'><rect x='30' y='360' width='240' height='100' rx='6'/><path d='M70,360 L30,460'/><path d='M105,360 L65,460'/><path d='M140,360 L100,460'/><path d='M175,360 L135,460'/><path d='M210,360 L170,460'/><path d='M245,360 L205,460'/></g><g fill='none' stroke='currentColor' stroke-width='2'><rect x='30' y='530' width='240' height='100' rx='6'/><path d='M80,540 L80,620'/><path d='M100,540 L100,620'/><path d='M120,540 L120,620'/><path d='M180,540 L180,620'/><path d='M200,540 L200,620'/><path d='M220,540 L220,620'/><path d='M75,560 L125,560 M175,560 L225,560'/><path d='M75,590 L125,590 M175,590 L225,590'/><path d='M150,528 L150,632' stroke-dasharray='3 3'/></g><g class="pastille" data-n="1" data-plan="" data-indice="le plus profond ; fibres transversales"><circle cx="150" cy="138" r="9"/><text class="pastille__n" x="150" y="142" text-anchor="middle">1</text><text class="pastille__t" x="150" y="162" text-anchor="middle">Transverse de l&#x27;abdomen</text></g><g class="pastille" data-n="2" data-plan="" data-indice="fibres en éventail vers le haut"><circle cx="150" cy="308" r="9"/><text class="pastille__n" x="150" y="312" text-anchor="middle">2</text><text class="pastille__t" x="150" y="332" text-anchor="middle">Oblique interne</text></g><g class="pastille" data-n="3" data-plan="" data-indice="fibres obliques vers le bas"><circle cx="150" cy="478" r="9"/><text class="pastille__n" x="150" y="482" text-anchor="middle">3</text><text class="pastille__t" x="150" y="502" text-anchor="middle">Oblique externe</text></g><g class="pastille" data-n="4" data-plan="" data-indice="de part et d&#x27;autre de la ligne blanche ; fibres verticales"><circle cx="150" cy="648" r="9"/><text class="pastille__n" x="150" y="652" text-anchor="middle">4</text><text class="pastille__t" x="150" y="672" text-anchor="middle">Droit de l&#x27;abdomen</text></g></svg></figure></div></div><h3>Cartes</h3><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Combien de vertèbres composent la colonne vertébrale MOBILE, comment se répartissent-elles, et quels noms particuliers portent C1 et C2 ?</p><p class="fiche-corrige__r">24 vertèbres : 7 cervicales (C1 à C7), 12 thoraciques (T1 à T12), 5 lombaires (L1 à L5) ; C1 est l&#x27;Atlas, C2 est l&#x27;Axis. Le total 24 est écrit à la slide 58 (chapitre 2) ; la slide 139 donne les trois nombres.</p><span class="src">slide 139</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Qu&#x27;est-ce que la colonne vertébrale FIXE, et de combien de vertèbres soudées se compose-t-elle ?</p><p class="fiche-corrige__r">Le sacrum (5 vertèbres sacrées soudées) et le coccyx (4 vertèbres coccygiennes soudées).</p><span class="src">slide 139</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">À quel ensemble squelettique le rachis appartient-il, et comment son volume évolue-t-il le long de la colonne ?</p><p class="fiche-corrige__r">Il fait partie du squelette axial, sur lequel se fixe le squelette appendiculaire ; le volume des vertèbres augmente progressivement de la région cervicale à la région lombaire, avec l&#x27;augmentation des contraintes.</p><span class="src">slide 140</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Dans quel plan le rachis est-il rectiligne, et quelles sont ses 4 courbures dans le plan sagittal, de haut en bas ?</p><p class="fiche-corrige__r">Rectiligne dans le plan frontal. Dans le plan sagittal, de haut en bas : lordose cervicale, cyphose dorsale, lordose lombaire, courbure sacro-coccygienne.</p><span class="src">slide 142</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Qu&#x27;est-ce qu&#x27;une scoliose ?</p><p class="fiche-corrige__r">Une déformation latérale du rachis, en C ou en S, observée dans le plan frontal.</p><span class="fiche-plan">plan frontal</span><span class="src">slide 143</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Que désigne une cypho-lordose ?</p><p class="fiche-corrige__r">Une augmentation associée de la cyphose dorsale et de la lordose lombaire, dans le plan sagittal.</p><span class="fiche-plan">plan sagittal</span><span class="src">slide 143</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quelles sont les 2 parties principales d&#x27;une vertèbre, et qu&#x27;est-ce qu&#x27;elles délimitent ensemble ?</p><p class="fiche-corrige__r">Le corps vertébral (partie antérieure) et l&#x27;arc postérieur (partie postérieure) ; ensemble, ils délimitent le canal rachidien, passage de la moelle épinière.</p><span class="src">slide 145</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Comment s&#x27;appellent les 2 faces du corps vertébral, et par quoi sont-elles recouvertes ?</p><p class="fiche-corrige__r">Les plateaux vertébraux, recouverts de cartilage hyalin (amphiarthrose) ; ils s&#x27;articulent entre eux par l&#x27;intermédiaire des disques intervertébraux.</p><span class="src">slide 146</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quels 5 éléments composent l&#x27;arc postérieur d&#x27;une vertèbre ?</p><p class="fiche-corrige__r">2 pédicules, 4 processus articulaires, 2 processus transverses, 2 lames, 1 processus épineux.</p><span class="src">slide 147</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Où commencent et se terminent les ligaments longitudinaux antérieur et postérieur de la colonne ?</p><p class="fiche-corrige__r">Le ligament longitudinal antérieur va de l&#x27;occiput / l&#x27;atlas (C1) jusqu&#x27;au sacrum ; le ligament longitudinal postérieur va de l&#x27;axis (C2) jusqu&#x27;au sacrum.</p><span class="src">slide 148</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quelles sont les 2 parties du disque intervertébral, et leur consistance respective ?</p><p class="fiche-corrige__r">L&#x27;anneau fibreux : dur, périphérique, fait de lamelles concentriques de fibrocartilage. Le nucleus pulposus (noyau pulpeux) : mou, central, liquide gélatineux hydraté.</p><span class="src">slide 151</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Combien de disques intervertébraux compte la colonne vertébrale, et à quel niveau n&#x27;y en a-t-il pas ?</p><p class="fiche-corrige__r">23 disques intervertébraux ; il n&#x27;y en a pas entre l&#x27;occiput et l&#x27;atlas.</p><span class="src">slide 152</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Par quel mécanisme se forme une hernie discale, à partir de quel rôle normal du disque intervertébral ?</p><p class="fiche-corrige__r">Le DIV amortit les pressions ; des contraintes répétées et inappropriées rompent progressivement son anneau fibreux, ce qui provoque un glissement du liquide du noyau — ce glissement comprime les éléments nerveux du canal rachidien.</p><span class="src">slide 154</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quels sont les 4 mouvements possibles du rachis ?</p><p class="fiche-corrige__r">L&#x27;inclinaison latérale, la rotation, la flexion et l&#x27;extension.</p><span class="src">slide 156</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Que distingue-t-on entre les côtes 1 à 10 et les côtes 11 et 12 ?</p><p class="fiche-corrige__r">Les côtes 1 à 10 (vraies côtes) s&#x27;unissent au sternum par l&#x27;intermédiaire des cartilages costaux ; les côtes 11 et 12 (côtes flottantes) se terminent avant d&#x27;atteindre le sternum.</p><span class="src">slide 161</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quelles sont les 3 parties du sternum ?</p><p class="fiche-corrige__r">Le manubrium, le corps, le processus xiphoïde.</p><span class="src">slide 164</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Que se passe-t-il quand les muscles dorsaux et les muscles ventraux du tronc se contractent en synergie ?</p><p class="fiche-corrige__r">Leurs actions opposées (extension côté dorsal, flexion côté ventral) s&#x27;annulent, ce qui renforce considérablement la rigidité du rachis.</p><span class="src">slide 168</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Nommez les 6 groupes de muscles profonds du dos.</p><p class="fiche-corrige__r">Le dentelé postérieur, les splénius, les érecteurs du rachis, les transverso-épineux, les interépineux et intertransversaires, les élévateurs des côtes.</p><span class="src">slide 171</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quelle action produit une contraction bilatérale des muscles profonds du dos, et quelle action produit une contraction unilatérale ?</p><p class="fiche-corrige__r">Bilatérale : extension de la colonne vertébrale (et de la tête). Unilatérale : inclinaison latérale et rotation du rachis (et de la tête).</p><span class="src">slide 173</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quels 2 faisceaux composent l&#x27;ilio-psoas, et lequel des deux est un muscle du tronc ?</p><p class="fiche-corrige__r">Le grand psoas (muscle latéral du tronc) et l&#x27;iliaque (muscle de la hanche) ; seul le grand psoas est un muscle du tronc, l&#x27;iliaque est un muscle de la hanche.</p><span class="src">slide 180</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Pourquoi le transverse de l&#x27;abdomen est-il qualifié de muscle &#x27;le plus profond&#x27; de la paroi abdominale, et quelle est l&#x27;orientation de ses fibres ?</p><p class="fiche-corrige__r">C&#x27;est la couche musculaire la plus interne de la paroi abdominale ; ses fibres sont orientées transversalement (horizontalement).</p><span class="src">slide 185</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Vers quel côté l&#x27;oblique interne et l&#x27;oblique externe font-ils tourner le tronc (contraction unilatérale), et quelle orientation de fibres le cours donne-t-il à chacun ?</p><p class="fiche-corrige__r">Oblique interne : fibres en éventail vers le haut, rotation du côté contracté. Oblique externe : fibres obliques vers le bas, rotation du côté opposé à la contraction. Le cours donne ces deux informations côte à côte, sans écrire que l&#x27;une explique l&#x27;autre.</p><span class="src">slides 186 et 187</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quelle est l&#x27;orientation des fibres du droit de l&#x27;abdomen, et quelle est son action ?</p><p class="fiche-corrige__r">Verticale, vers le bas ; il est fléchisseur du tronc.</p><span class="src">slide 188</span></article><h3>Quiz</h3><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Combien de vertèbres composent la colonne vertébrale MOBILE ?</p><ol type="A"><li class="fiche-corrige__bonne">24</li><li>19</li><li>22</li><li>29</li></ol><p class="fiche-corrige__expl">24 vertèbres mobiles : 7 cervicales + 12 thoraciques + 5 lombaires (la slide 139 donne les trois nombres ; le total 24 est écrit à la slide 58, chapitre 2). Le sacrum (5) et le coccyx (4) sont soudés : ils forment la colonne FIXE, pas la colonne mobile.</p><span class="src">slide 139</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">C1 et C2 portent des noms particuliers. Dans quel ordre ?</p><ol type="A"><li class="fiche-corrige__bonne">Atlas puis Axis</li><li>Atlas puis Odontoïde</li><li>Axis puis Atlas</li><li>Axis puis Sacrum</li></ol><p class="fiche-corrige__expl">C1 est l&#x27;Atlas (qui porte le crâne), C2 est l&#x27;Axis (autour duquel l&#x27;Atlas pivote). &#x27;Odontoïde&#x27; et &#x27;Sacrum&#x27; ne sont pas des noms de vertèbres cervicales.</p><span class="src">slide 139</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Quelle courbure occupe la région thoracique (dorsale) du rachis ?</p><ol type="A"><li>Scoliose dorsale</li><li class="fiche-corrige__bonne">Cyphose dorsale</li><li>Courbure sacro-coccygienne</li><li>Lordose dorsale</li></ol><p class="fiche-corrige__expl">La région dorsale porte une cyphose. Les lordoses sont cervicale et lombaire ; la scoliose est une déformation pathologique, pas une courbure normale ; la courbure sacro-coccygienne est plus bas.</p><span class="fiche-plan">plan sagittal</span><span class="src">slide 142</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Dans le plan frontal, une déviation latérale du rachis en C ou en S s&#x27;appelle...</p><ol type="A"><li class="fiche-corrige__bonne">une scoliose</li><li>une hypercyphose</li><li>une cypho-lordose</li><li>une hyperlordose</li></ol><p class="fiche-corrige__expl">La scoliose est la déformation du plan frontal. La cypho-lordose, l&#x27;hyperlordose et l&#x27;hypercyphose sont des déformations du plan SAGITTAL.</p><span class="fiche-plan">plan frontal</span><span class="src">slide 143</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Combien de processus (apophyses) articulaires compte l&#x27;arc postérieur d&#x27;une vertèbre ?</p><ol type="A"><li class="fiche-corrige__bonne">4</li><li>1</li><li>2</li><li>6</li></ol><p class="fiche-corrige__expl">4 processus articulaires, qui s&#x27;articulent avec ceux des vertèbres sus- et sous-jacentes. Il y a 2 pédicules et 1 seul processus épineux : ne pas confondre les comptes.</p><span class="src">slide 147</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Quel ligament relie deux lames vertébrales consécutives ?</p><ol type="A"><li>le ligament inter-transverse</li><li class="fiche-corrige__bonne">le ligament jaune</li><li>le ligament inter-épineux</li><li>le ligament supra-épineux</li></ol><p class="fiche-corrige__expl">Le ligament jaune relie 2 lames. L&#x27;inter-épineux relie 2 processus épineux, le supra-épineux rejoint le sommet de tous les processus épineux, l&#x27;inter-transverse relie 2 processus transverses.</p><span class="src">slide 149</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Quelle est la partie centrale et molle du disque intervertébral ?</p><ol type="A"><li>le plateau vertébral</li><li class="fiche-corrige__bonne">le nucleus pulposus (noyau pulpeux)</li><li>le ligament capsulaire</li><li>l&#x27;anneau fibreux</li></ol><p class="fiche-corrige__expl">Le nucleus pulposus est la zone hydratée centrale. L&#x27;anneau fibreux est la partie périphérique et DURE ; le plateau vertébral appartient au corps vertébral ; le ligament capsulaire relie des processus articulaires.</p><span class="src">slide 151</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Entre quels deux niveaux ne trouve-t-on PAS de disque intervertébral ?</p><ol type="A"><li>L5 et le sacrum</li><li>C7 et T1</li><li class="fiche-corrige__bonne">l&#x27;occiput et l&#x27;atlas</li><li>T12 et L1</li></ol><p class="fiche-corrige__expl">Le cours compte 23 disques intervertébraux et écrit : « sauf entre l&#x27;occiput et l&#x27;atlas ». C&#x27;est la seule exception qu&#x27;il donne ; il n&#x27;en signale aucune entre C7 et T1, entre T12 et L1, ni entre L5 et le sacrum.</p><span class="src">slide 152</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Quelles côtes sont dites &#x27;flottantes&#x27; ?</p><ol type="A"><li>les côtes 1 et 2</li><li>les côtes 6 et 7</li><li>les côtes 8 à 10</li><li class="fiche-corrige__bonne">les côtes 11 et 12</li></ol><p class="fiche-corrige__expl">Les côtes 11 et 12 se terminent avant d&#x27;atteindre le sternum : ce sont les côtes flottantes. Les côtes 1 à 10 sont les vraies côtes, unies au sternum par un cartilage costal.</p><span class="src">slide 161</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Quelle est l&#x27;orientation des fibres du transverse de l&#x27;abdomen ?</p><ol type="A"><li>oblique vers le bas</li><li>verticale</li><li>en éventail vers le haut</li><li class="fiche-corrige__bonne">transversale (horizontale)</li></ol><p class="fiche-corrige__expl">Le transverse doit son nom à ses fibres transversales (horizontales). Verticale = droit de l&#x27;abdomen ; oblique vers le bas = oblique externe ; éventail vers le haut = oblique interne.</p><span class="src">slide 185</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Une contraction UNILATÉRALE de l&#x27;oblique INTERNE fait tourner le tronc...</p><ol type="A"><li>du côté opposé à la contraction</li><li>dans les deux sens à la fois</li><li>il n&#x27;y a pas de rotation, seulement une inclinaison</li><li class="fiche-corrige__bonne">du côté contracté</li></ol><p class="fiche-corrige__expl">L&#x27;oblique interne (fibres en éventail vers le haut) tourne le tronc du côté CONTRACTÉ. C&#x27;est l&#x27;oblique externe qui tourne du côté opposé : les deux muscles ont des effets de rotation opposés.</p><span class="src">slide 186</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Une contraction UNILATÉRALE de l&#x27;oblique EXTERNE fait tourner le tronc...</p><ol type="A"><li>du côté contracté</li><li>uniquement en extension</li><li class="fiche-corrige__bonne">du côté opposé à la contraction</li><li>il n&#x27;y a pas de rotation possible</li></ol><p class="fiche-corrige__expl">L&#x27;oblique externe (fibres obliques vers le bas) tourne le tronc du côté OPPOSÉ à la contraction — l&#x27;inverse de l&#x27;oblique interne. En bilatéral, il fléchit le tronc.</p><span class="src">slide 187</span></article><table class="muscles"><caption>Table musculaire</caption><thead><tr><th scope="col">Muscle</th><th scope="col">Origine</th><th scope="col">Terminaison</th><th scope="col">Action</th></tr></thead><tbody><tr data-id="5#muscle#Carré des lombes"><th>Carré des lombes <span class="src">slide 179</span></th><td><span class="muscle__valeur">dernière côte</span></td><td><span class="muscle__valeur">crête iliaque ; processus transverses de L1 à L5</span></td><td><span class="muscle__valeur">inclinateur du tronc</span></td></tr><tr data-id="5#muscle#Ilio-psoas"><th>Ilio-psoas <span class="src">slide 180</span></th><td><span class="muscle__valeur">processus transverses de L1 à L5 ; corps vertébraux de T12 à L5</span></td><td><span class="muscle__valeur">petit trochanter du fémur</span></td><td><span class="muscle__valeur">fléchisseur de la cuisse</span></td></tr><tr data-id="5#muscle#Transverse de l&#x27;abdomen"><th>Transverse de l&#x27;abdomen <span class="src">slide 185</span></th><td><span class="muscle__valeur">face profonde des côtes 7 à 12 ; processus transverses de L1 à L5 ; crête iliaque</span></td><td><span class="muscle__valeur">ligne blanche, par une aponévrose (du processus xiphoïde au pubis)</span></td><td><span class="muscle__valeur">expirateur (rentre le ventre)</span></td></tr><tr data-id="5#muscle#Oblique interne"><th>Oblique interne <span class="src">slide 186</span></th><td><span class="muscle__valeur">crête iliaque ; aponévrose lombale</span></td><td><span class="muscle__valeur">côtes 9 à 12 ; ligne blanche, par une aponévrose</span></td><td><span class="muscle__valeur">rotateur et inclinateur du tronc, du côté contracté</span></td></tr><tr data-id="5#muscle#Oblique externe"><th>Oblique externe <span class="src">slide 187</span></th><td><span class="muscle__valeur">côtes 6 à 12</span></td><td><span class="muscle__valeur">crête iliaque ; ligne blanche, par une aponévrose</span></td><td><span class="muscle__valeur">flexion du tronc (contraction bilatérale) ; rotateur du tronc, du côté opposé à la contraction (contraction unilatérale)</span></td></tr><tr data-id="5#muscle#Droit de l&#x27;abdomen"><th>Droit de l&#x27;abdomen <span class="src">slide 188</span></th><td><span class="muscle__valeur">côtes 5 à 7 ; processus xiphoïde</span></td><td><span class="muscle__valeur">pubis</span></td><td><span class="muscle__valeur">fléchisseur du tronc</span></td></tr></tbody></table></section>
+</body>
+</html>

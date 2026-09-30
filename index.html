@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="fr" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>UC1 — Anatomie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;700&family=Saira+Condensed:wght@600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="accueil">
+  <header class="accueil__entete">
+    <h1 class="accueil__titre">UC1 — Anatomie</h1>
+    <p class="guide">Lis la fiche d&#x27;un chapitre, puis exerce-toi.</p>
+  </header>
+
+  <section id="invite-date-examen" class="invite-date" aria-label="Date d&#x27;examen" hidden>
+    <p class="invite-date__texte">
+      <strong>Quand est ton examen&nbsp;?</strong> Cette date règle l&#x27;espacement de tes
+      révisions (facultatif).
+    </p>
+    <div class="invite-date__champ">
+      <label for="invite-date-examen-saisie">Date d&#x27;examen</label>
+      <input type="date" id="invite-date-examen-saisie" class="champ">
+    </div>
+  </section>
+
+  <section class="seance js-seulement" aria-label="Séance du jour">
+  <div class="seance__debut" data-seance-debut>
+    <p class="seance__intro">Environ 20 minutes sur ce qui est à revoir, tous chapitres mélangés.</p>
+    <button type="button" id="seance" class="action action--majeure seance__bouton">Démarrer la séance du jour</button>
+  </div>
+  <p id="seance-message" class="mono" aria-live="polite"></p>
+
+  <section id="seance-zone" aria-label="Exercice en cours" hidden>
+    <p id="seance-compte" class="mono" aria-live="polite"></p>
+    <p id="seance-consolidation" class="seance__consolidation" hidden>
+      Rien n&#x27;est dû aujourd&#x27;hui&nbsp;: séance de consolidation sur les items les plus fragiles.
+    </p>
+    <div class="volets">
+      <section class="volet" data-volet="cartes" hidden></section>
+      <section class="volet" data-volet="quiz" hidden></section>
+      <div class="planches" id="seance-planche" hidden></div>
+      <div id="seance-muscle" hidden></div>
+    </div>
+    <div class="seance__nav">
+      <button type="button" class="action action--discrete" id="seance-suivant">
+        Suivant
+      </button>
+      <button type="button" class="action" id="seance-quitter">
+        Terminer
+      </button>
+    </div>
+  </section>
+</section>
+
+
+  <section class="chapitres-bloc" aria-labelledby="chapitres-titre">
+    <h2 id="chapitres-titre">Chapitres</h2>
+    <ul class="chapitres progression">
+      <li class="chapitre" data-chapitre="1" data-etat="vide"><svg class="anneau" style="--part: 0" viewBox="0 0 48 48" role="img" aria-label="Chapitre 1, Terminologie anatomique : pas commencé"><circle class="anneau__fond" cx="24" cy="24" r="20" pathLength="100"/><circle class="anneau__part" cx="24" cy="24" r="20" pathLength="100"/><text class="anneau__num" x="24" y="24">1</text></svg><div class="chapitre__texte"><h3 class="chapitre__titre">Terminologie anatomique</h3><p class="chapitre__meta"><span class="src">slides 7–43</span><span class="anneau__valeur mono">pas commencé</span></p></div><div class="chapitre__actions"><a class="action" href="chapitre-1.html">Lire la fiche</a><a class="action js-seulement" href="chapitre-1.html#exercer">S&#x27;exercer</a></div></li><li class="chapitre" data-chapitre="2" data-etat="vide"><svg class="anneau" style="--part: 0" viewBox="0 0 48 48" role="img" aria-label="Chapitre 2, Le système squelettique : pas commencé"><circle class="anneau__fond" cx="24" cy="24" r="20" pathLength="100"/><circle class="anneau__part" cx="24" cy="24" r="20" pathLength="100"/><text class="anneau__num" x="24" y="24">2</text></svg><div class="chapitre__texte"><h3 class="chapitre__titre">Le système squelettique</h3><p class="chapitre__meta"><span class="src">slides 45–70</span><span class="anneau__valeur mono">pas commencé</span></p></div><div class="chapitre__actions"><a class="action" href="chapitre-2.html">Lire la fiche</a><a class="action js-seulement" href="chapitre-2.html#exercer">S&#x27;exercer</a></div></li><li class="chapitre" data-chapitre="3" data-etat="vide"><svg class="anneau" style="--part: 0" viewBox="0 0 48 48" role="img" aria-label="Chapitre 3, Le système articulaire : pas commencé"><circle class="anneau__fond" cx="24" cy="24" r="20" pathLength="100"/><circle class="anneau__part" cx="24" cy="24" r="20" pathLength="100"/><text class="anneau__num" x="24" y="24">3</text></svg><div class="chapitre__texte"><h3 class="chapitre__titre">Le système articulaire</h3><p class="chapitre__meta"><span class="src">slides 72–109</span><span class="anneau__valeur mono">pas commencé</span></p></div><div class="chapitre__actions"><a class="action" href="chapitre-3.html">Lire la fiche</a><a class="action js-seulement" href="chapitre-3.html#exercer">S&#x27;exercer</a></div></li><li class="chapitre" data-chapitre="4" data-etat="vide"><svg class="anneau" style="--part: 0" viewBox="0 0 48 48" role="img" aria-label="Chapitre 4, Le système musculaire : pas commencé"><circle class="anneau__fond" cx="24" cy="24" r="20" pathLength="100"/><circle class="anneau__part" cx="24" cy="24" r="20" pathLength="100"/><text class="anneau__num" x="24" y="24">4</text></svg><div class="chapitre__texte"><h3 class="chapitre__titre">Le système musculaire</h3><p class="chapitre__meta"><span class="src">slides 111–134</span><span class="anneau__valeur mono">pas commencé</span></p></div><div class="chapitre__actions"><a class="action" href="chapitre-4.html">Lire la fiche</a><a class="action js-seulement" href="chapitre-4.html#exercer">S&#x27;exercer</a></div></li><li class="chapitre" data-chapitre="5" data-etat="vide"><svg class="anneau" style="--part: 0" viewBox="0 0 48 48" role="img" aria-label="Chapitre 5, Le tronc : pas commencé"><circle class="anneau__fond" cx="24" cy="24" r="20" pathLength="100"/><circle class="anneau__part" cx="24" cy="24" r="20" pathLength="100"/><text class="anneau__num" x="24" y="24">5</text></svg><div class="chapitre__texte"><h3 class="chapitre__titre">Le tronc</h3><p class="chapitre__meta"><span class="src">slides 136–189</span><span class="anneau__valeur mono">pas commencé</span></p></div><div class="chapitre__actions"><a class="action" href="chapitre-5.html">Lire la fiche</a><a class="action js-seulement" href="chapitre-5.html#exercer">S&#x27;exercer</a></div></li><li class="chapitre" data-chapitre="6" data-etat="vide"><svg class="anneau" style="--part: 0" viewBox="0 0 48 48" role="img" aria-label="Chapitre 6, Le membre supérieur : pas commencé"><circle class="anneau__fond" cx="24" cy="24" r="20" pathLength="100"/><circle class="anneau__part" cx="24" cy="24" r="20" pathLength="100"/><text class="anneau__num" x="24" y="24">6</text></svg><div class="chapitre__texte"><h3 class="chapitre__titre">Le membre supérieur</h3><p class="chapitre__meta"><span class="src">slides 191–266</span><span class="anneau__valeur mono">pas commencé</span></p></div><div class="chapitre__actions"><a class="action" href="chapitre-6.html">Lire la fiche</a><a class="action js-seulement" href="chapitre-6.html#exercer">S&#x27;exercer</a></div></li><li class="chapitre" data-chapitre="7" data-etat="vide"><svg class="anneau" style="--part: 0" viewBox="0 0 48 48" role="img" aria-label="Chapitre 7, Le membre inférieur : pas commencé"><circle class="anneau__fond" cx="24" cy="24" r="20" pathLength="100"/><circle class="anneau__part" cx="24" cy="24" r="20" pathLength="100"/><text class="anneau__num" x="24" y="24">7</text></svg><div class="chapitre__texte"><h3 class="chapitre__titre">Le membre inférieur</h3><p class="chapitre__meta"><span class="src">slides 268–328</span><span class="anneau__valeur mono">pas commencé</span></p></div><div class="chapitre__actions"><a class="action" href="chapitre-7.html">Lire la fiche</a><a class="action js-seulement" href="chapitre-7.html#exercer">S&#x27;exercer</a></div></li>
+    </ul>
+  </section>
+
+  <div class="reglages-zone">
+    <button type="button" class="lien-discret" data-action="reglages-bascule"
+      aria-expanded="false" aria-controls="reglages-panneau" hidden>
+      Réglages
+    </button>
+    <section id="reglages-panneau" class="reglages" aria-label="Réglages" hidden>
+      <div class="reglages__bloc">
+        <span class="reglages__label">Thème</span>
+        <div class="reglages__groupe" role="group" aria-label="Thème">
+          <button type="button" class="action" data-theme-choix="auto" aria-pressed="false">Auto</button>
+          <button type="button" class="action" data-theme-choix="clair" aria-pressed="false">Clair</button>
+          <button type="button" class="action" data-theme-choix="sombre" aria-pressed="false">Sombre</button>
+        </div>
+      </div>
+      <div class="reglages__bloc">
+        <label for="reglages-date-examen">Date d&#x27;examen</label>
+        <input type="date" id="reglages-date-examen" class="champ">
+        <span id="reglages-intervalle" class="mono"></span>
+      </div>
+      <div class="reglages__bloc">
+        <button type="button" class="action" data-action="exporter">Exporter la progression</button>
+      </div>
+      <div class="reglages__bloc">
+        <label for="reglages-import">Importer une progression (JSON)</label>
+        <input type="file" id="reglages-import" class="champ" accept="application/json">
+        <p id="reglages-statut" class="mono" aria-live="polite"></p>
+      </div>
+      <div class="reglages__bloc">
+        <button type="button" class="action" data-action="reinitialiser">
+          Réinitialiser la progression
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <div class="actions" id="actions-carte" hidden>
+    <button type="button" class="action action--majeure" data-action="retourner">
+      Retourner <span class="touche">Espace</span>
+    </button>
+    <button type="button" class="action" data-verdict="rate">Raté <span class="touche">1</span></button>
+    <button type="button" class="action" data-verdict="difficile">Difficile <span class="touche">2</span></button>
+    <button type="button" class="action" data-verdict="su">Su <span class="touche">3</span></button>
+  </div>
+</div>
+
+<script type="module" src="assets/app.js"></script>
+</body>
+</html>

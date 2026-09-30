@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<title>Fiche 01 — Terminologie anatomique</title>
+<style>
+/* Feuille de style de la fiche PDF imprimable -- entierement autonome
+ * (aucune police distante, aucun script) : contrairement a gabarits/base.html,
+ * cette page est convertie hors-ligne par Chrome headless (outils/pdf.py) et ne
+ * doit dependre d'aucune requete reseau pour rester fidele d'une machine a
+ * l'autre.
+ *
+ * Regle d'impression du projet (site/assets/style.css, section 8) : les trois
+ * plans anatomiques ne sont JAMAIS distingues par la seule teinte. Ici la
+ * regle est appliquee au plus simple : aucune couleur nulle part, seulement du
+ * noir, du gris de texte et des traits -- le plan s'ecrit toujours en toutes
+ * lettres (".fiche-plan", "::after" des pastilles de plan).
+ */
+* { box-sizing: border-box; }
+
+@page {
+  size: A4;
+  margin: 15mm 14mm 18mm;
+}
+
+body {
+  margin: 0;
+  color: #000;
+  background: #fff;
+  font-family: "Noto Sans", "Liberation Sans", Arial, sans-serif;
+  font-size: 10.3pt;
+  line-height: 1.35;
+}
+
+h1, h2, h3 {
+  font-family: "Noto Sans", "Liberation Sans", Arial, sans-serif;
+  margin: 0 0 3mm 0;
+  break-after: avoid;
+}
+
+h1 { font-size: 15pt; }
+h2 { font-size: 12.5pt; border-bottom: 1pt solid #000; padding-bottom: 1mm; margin-top: 6mm; }
+h3 { font-size: 10.8pt; margin-top: 4mm; }
+
+p { margin: 0 0 1.5mm 0; }
+
+/* --- En-tete de fiche ---------------------------------------------- */
+
+.fiche-entete {
+  display: flex;
+  align-items: baseline;
+  gap: 4mm;
+  border-bottom: 1.5pt solid #000;
+  padding-bottom: 2mm;
+  margin-bottom: 4mm;
+}
+
+.fiche-entete__num {
+  font-family: "Liberation Mono", monospace;
+  font-weight: bold;
+  font-size: 13pt;
+}
+
+.fiche-entete h1 { flex: 1; }
+
+.fiche-entete__slides {
+  font-family: "Liberation Mono", monospace;
+  font-size: 9pt;
+  color: #333;
+}
+
+/* --- Renvoi de slide (reutilise le contenu de outils.construire._src) --- */
+
+.src {
+  display: inline-block;
+  font-family: "Liberation Mono", monospace;
+  font-size: 8pt;
+  color: #333;
+  border: 0.75pt solid #666;
+  border-radius: 2pt;
+  padding: 0.3mm 1.3mm;
+  margin-top: 1mm;
+}
+
+.src--hors { border-style: dashed; }
+
+/* --- Plan anatomique, toujours ecrit --------------------------------- */
+
+.fiche-plan {
+  display: inline-block;
+  font-family: "Liberation Mono", monospace;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 0.75pt solid #000;
+  border-radius: 2pt;
+  padding: 0.3mm 1.3mm;
+  margin: 0 2mm 1.5mm 0;
+}
+
+/* --- 1. Planches en mode muet ---------------------------------------- */
+
+.fiche-planche {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 5mm;
+  border: 0.75pt solid #999;
+  border-radius: 2pt;
+  padding: 3mm;
+  margin-bottom: 4mm;
+  break-inside: avoid;
+}
+
+.fiche-planche__figure { flex: 0 0 auto; }
+
+.fiche-planche figcaption {
+  font-weight: bold;
+  font-size: 9.5pt;
+  margin-bottom: 1.5mm;
+}
+
+.fiche-planche svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pastille circle {
+  fill: #fff;
+  stroke: #000;
+  stroke-width: 1.5;
+}
+
+.pastille__n {
+  fill: #000;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Les libelles n'existent plus dans le DOM du mode muet (voir
+ * outils/fiches.py, _rendre_planche_muette) : rien a masquer ici. Dans le
+ * corrige, la meme classe redevient un texte normal, noir, sans mise en
+ * forme particuliere -- la reponse s'y affiche en clair, comme il se doit. */
+.pastille__t {
+  fill: #000;
+  font-size: 14px;
+}
+
+.fiche-legende {
+  flex: 1 1 60mm;
+  min-width: 55mm;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: none;
+}
+
+.fiche-legende li {
+  display: flex;
+  align-items: baseline;
+  gap: 2mm;
+  padding: 1.2mm 0;
+  border-bottom: 0.5pt dotted #999;
+}
+
+.fiche-legende__n {
+  font-family: "Liberation Mono", monospace;
+  font-weight: bold;
+  min-width: 4mm;
+}
+
+.fiche-legende__indice {
+  color: #444;
+  font-size: 8.6pt;
+  white-space: nowrap;
+}
+
+.fiche-legende__trait {
+  flex: 1 1 auto;
+  min-width: 20mm;
+}
+
+/* --- 2. Questions : cartes et QCM ------------------------------------- */
+
+.fiche-carte,
+.fiche-quiz {
+  border: 0.75pt solid #999;
+  border-radius: 2pt;
+  padding: 3mm;
+  margin-bottom: 3mm;
+  break-inside: avoid;
+}
+
+.fiche-carte__q,
+.fiche-quiz__q {
+  font-weight: bold;
+  font-size: 10.6pt;
+  margin-bottom: 1.5mm;
+}
+
+.fiche-carte__reponse-trait {
+  border-bottom: 0.5pt dotted #999;
+  height: 7mm;
+  margin-top: 2mm;
+}
+
+.fiche-quiz__choix {
+  margin: 0 0 1.5mm 0;
+  padding-left: 6mm;
+}
+
+.fiche-quiz__choix li { padding: 0.6mm 0; }
+
+/* --- 3. Table musculaire a completer ---------------------------------- */
+
+table.fiche-muscles,
+table.muscles {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 4mm;
+  font-size: 9.6pt;
+}
+
+table.fiche-muscles caption,
+table.muscles caption {
+  text-align: left;
+  font-weight: bold;
+  font-size: 10.5pt;
+  margin-bottom: 1.5mm;
+}
+
+table.fiche-muscles th,
+table.fiche-muscles td,
+table.muscles th,
+table.muscles td {
+  border: 0.75pt solid #666;
+  padding: 1.3mm 1.8mm;
+  vertical-align: top;
+  text-align: left;
+}
+
+table.fiche-muscles thead th,
+table.muscles thead th {
+  background: #eee;
+  font-size: 9pt;
+}
+
+table.fiche-muscles tbody th,
+table.muscles tbody th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+table.fiche-muscles tr,
+table.muscles tr { break-inside: avoid; }
+
+.fiche-muscle__case {
+  height: 15mm;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 4.6mm,
+    #ccc 4.6mm,
+    #ccc 4.8mm
+  );
+}
+
+.muscle__valeur { font-size: 9.6pt; }
+
+/* --- 4. Pieges : affiches en clair -------------------------------------- */
+
+.fiche-piege {
+  border: 1pt solid #000;
+  border-radius: 2pt;
+  padding: 3mm;
+  margin-bottom: 3mm;
+  break-inside: avoid;
+}
+
+.fiche-piege__etiquette {
+  display: inline-block;
+  font-family: "Liberation Mono", monospace;
+  font-weight: bold;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border: 1pt solid #000;
+  border-radius: 2pt;
+  padding: 0.3mm 1.6mm;
+  margin-bottom: 1.5mm;
+}
+
+.fiche-piege__titre {
+  font-weight: bold;
+  font-size: 10.4pt;
+}
+
+/* --- 5. Corrige : en fin de document, jamais en regard ------------------ */
+
+.fiche-corrige {
+  break-before: page;
+}
+
+.fiche-corrige__titre {
+  font-size: 16pt;
+  border-bottom: 2pt solid #000;
+  padding-bottom: 2mm;
+}
+
+.fiche-corrige__bloc { margin-bottom: 5mm; }
+
+.fiche-corrige__carte,
+.fiche-corrige__quiz {
+  border-bottom: 0.5pt solid #ccc;
+  padding: 2mm 0;
+  break-inside: avoid;
+}
+
+.fiche-corrige__q {
+  font-weight: bold;
+  margin-bottom: 1mm;
+}
+
+.fiche-corrige__r { margin-bottom: 1mm; }
+
+.fiche-corrige__quiz ol { margin: 1mm 0 1.5mm 0; padding-left: 6mm; }
+
+.fiche-corrige__bonne {
+  font-weight: bold;
+}
+
+.fiche-corrige__bonne::after {
+  content: " — bonne réponse";
+  font-weight: normal;
+  font-style: italic;
+}
+
+.fiche-corrige__expl {
+  color: #222;
+  font-size: 9.6pt;
+}
+
+.fiche-corrige__planches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5mm;
+  margin-bottom: 4mm;
+}
+
+.fiche-corrige__planche {
+  display: inline-block;
+  vertical-align: top;
+  border: 0.75pt dashed #999;
+  border-radius: 2pt;
+  padding: 2mm;
+  break-inside: avoid;
+}
+
+.fiche-corrige__planche figcaption {
+  font-weight: bold;
+  font-size: 9.5pt;
+  margin-bottom: 1.5mm;
+}
+
+.fiche-corrige__planche svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+</style>
+</head>
+<body>
+<header class="fiche-entete"><span class="fiche-entete__num">Ch. 1</span><h1>Terminologie anatomique</h1><span class="fiche-entete__slides">slides 7–43</span></header><section class="fiche-section" data-section="planches"><h2>Planches (mode muet)</h2><div class="fiche-planche"><div class="fiche-planche__figure" style="width:52mm"><figure class="planche" id="plan-frontal" data-mode="muet"><figcaption>Le plan frontal <span class="src">slides 15 et 18</span></figcaption><svg viewBox="0 0 240 312" role="img"><defs><marker id='fleche' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0 0 L10 5 L0 10 Z' fill='currentColor'/></marker></defs><g class='corps' fill='none' stroke='currentColor' stroke-width='2'><circle cx='70' cy='40' r='20'/><path d='M70 60 L70 160'/><path d='M70 78 L32 122 M70 78 L108 122'/><path d='M70 160 L40 248 M70 160 L100 248'/></g><g class='plan plan--frontal' fill='none' stroke='currentColor'><path d='M25 15 L115 15 L115 255 L25 255 Z' stroke-dasharray='5 4' stroke-width='1.5'/><path d='M108 122 Q136 96 130 74' stroke-width='2' marker-end='url(#fleche)'/></g><g class="pastille" data-n="1" data-plan="frontal" data-indice="nom du plan"><circle cx="70" cy="268" r="9"/><text class="pastille__n" x="70" y="272" text-anchor="middle">1</text></g><g class="pastille" data-n="2" data-plan="frontal" data-indice="le mouvement fléché"><circle cx="146" cy="92" r="9"/><text class="pastille__n" x="146" y="96" text-anchor="middle">2</text></g></svg></figure></div><ol class="fiche-legende"><li><span class="fiche-legende__n">1.</span><span class="fiche-legende__indice">(nom du plan)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">2.</span><span class="fiche-legende__indice">(le mouvement fléché)</span><span class="fiche-legende__trait"></span></li></ol></div><div class="fiche-planche"><div class="fiche-planche__figure" style="width:52mm"><figure class="planche" id="plan-sagittal" data-mode="muet"><figcaption>Le plan sagittal <span class="src">slides 15 et 23</span></figcaption><svg viewBox="0 0 240 312" role="img"><defs><marker id='fleche' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0 0 L10 5 L0 10 Z' fill='currentColor'/></marker></defs><g class='corps' fill='none' stroke='currentColor' stroke-width='2'><circle cx='70' cy='40' r='18'/><path d='M70 58 L70 150'/><path d='M70 80 L98 118'/><path d='M70 150 L82 205 L55 232'/></g><g class='plan plan--sagittal' fill='none' stroke='currentColor'><path d='M45 15 L112 15 L112 255 L45 255 Z' stroke-dasharray='5 4' stroke-width='1.5'/><path d='M90 197 Q108 215 84 233' stroke-width='2' marker-end='url(#fleche)'/></g><g class="pastille" data-n="1" data-plan="sagittal" data-indice="nom du plan"><circle cx="70" cy="268" r="9"/><text class="pastille__n" x="70" y="272" text-anchor="middle">1</text></g><g class="pastille" data-n="2" data-plan="sagittal" data-indice="le mouvement fléché"><circle cx="128" cy="214" r="9"/><text class="pastille__n" x="128" y="218" text-anchor="middle">2</text></g></svg></figure></div><ol class="fiche-legende"><li><span class="fiche-legende__n">1.</span><span class="fiche-legende__indice">(nom du plan)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">2.</span><span class="fiche-legende__indice">(le mouvement fléché)</span><span class="fiche-legende__trait"></span></li></ol></div><div class="fiche-planche"><div class="fiche-planche__figure" style="width:52mm"><figure class="planche" id="plan-transversal" data-mode="muet"><figcaption>Le plan transversal <span class="src">slides 15 et 31</span></figcaption><svg viewBox="0 0 240 312" role="img"><defs><marker id='fleche' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0 0 L10 5 L0 10 Z' fill='currentColor'/></marker></defs><g class='corps' fill='none' stroke='currentColor' stroke-width='2'><circle cx='70' cy='40' r='20'/><path d='M70 60 L70 160'/><path d='M70 78 L32 122 M70 78 L108 122'/><path d='M70 160 L40 248 M70 160 L100 248'/></g><g class='plan plan--transversal' fill='none' stroke='currentColor'><ellipse cx='70' cy='112' rx='55' ry='16' stroke-dasharray='5 4' stroke-width='1.5'/><path d='M110 106 A44 15 0 0 1 30 106' stroke-width='2' marker-end='url(#fleche)'/></g><g class="pastille" data-n="1" data-plan="transversal" data-indice="nom du plan"><circle cx="70" cy="268" r="9"/><text class="pastille__n" x="70" y="272" text-anchor="middle">1</text></g><g class="pastille" data-n="2" data-plan="transversal" data-indice="le mouvement fléché"><circle cx="142" cy="108" r="9"/><text class="pastille__n" x="142" y="112" text-anchor="middle">2</text></g></svg></figure></div><ol class="fiche-legende"><li><span class="fiche-legende__n">1.</span><span class="fiche-legende__indice">(nom du plan)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">2.</span><span class="fiche-legende__indice">(le mouvement fléché)</span><span class="fiche-legende__trait"></span></li></ol></div><div class="fiche-planche"><div class="fiche-planche__figure" style="width:64mm"><figure class="planche" id="termes-localisation" data-mode="muet"><figcaption>Les termes de localisation <span class="src">slide 37</span></figcaption><svg viewBox="0 0 320 340" role="img"><defs><marker id='fleche' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0 0 L10 5 L0 10 Z' fill='currentColor'/></marker></defs><g class='corps' fill='none' stroke='currentColor' stroke-width='2'><circle cx='160' cy='48' r='26'/><path d='M160 74 L160 196'/><path d='M160 96 L104 150 M160 96 L216 150'/><path d='M160 196 L128 292 M160 196 L192 292'/></g><g class='reperes' fill='none' stroke='currentColor' stroke-width='1.5'><path d='M128 112 L128 76' marker-end='url(#fleche)'/><path d='M134 152 L134 198' marker-end='url(#fleche)'/><path d='M193 244 L180 205' marker-end='url(#fleche)'/><path d='M194 249 L206 282' marker-end='url(#fleche)'/><path d='M194 163 L168 163' marker-end='url(#fleche)'/><path d='M170 188 L202 188' marker-end='url(#fleche)'/></g><g class="pastille" data-n="1" data-plan=""><circle cx="114" cy="94" r="9"/><text class="pastille__n" x="114" y="98" text-anchor="middle">1</text></g><g class="pastille" data-n="2" data-plan=""><circle cx="120" cy="176" r="9"/><text class="pastille__n" x="120" y="180" text-anchor="middle">2</text></g><g class="pastille" data-n="3" data-plan=""><circle cx="196" cy="215" r="9"/><text class="pastille__n" x="196" y="219" text-anchor="middle">3</text></g><g class="pastille" data-n="4" data-plan=""><circle cx="214" cy="270" r="9"/><text class="pastille__n" x="214" y="274" text-anchor="middle">4</text></g><g class="pastille" data-n="5" data-plan=""><circle cx="208" cy="163" r="9"/><text class="pastille__n" x="208" y="167" text-anchor="middle">5</text></g><g class="pastille" data-n="6" data-plan=""><circle cx="216" cy="188" r="9"/><text class="pastille__n" x="216" y="192" text-anchor="middle">6</text></g></svg></figure></div><ol class="fiche-legende"><li><span class="fiche-legende__n">1.</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">2.</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">3.</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">4.</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">5.</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">6.</span><span class="fiche-legende__trait"></span></li></ol></div></section><section class="fiche-section" data-section="questions"><h2>Questions</h2><article class="fiche-carte" id="c1-01"><p class="fiche-carte__q">Énonce la définition conventionnelle de la position anatomique.</p><span class="src">slide 9</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-02"><p class="fiche-carte__q">Par quels points passe l&#x27;axe du corps ?</p><span class="src">slide 11</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-03"><p class="fiche-carte__q">Quel doigt porte l&#x27;axe de la main ? Quel orteil porte l&#x27;axe du pied ?</p><span class="src">slide 13</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-04"><p class="fiche-carte__q">Le plan frontal : quels mouvements y sont visibles, et en quoi divise-t-il le corps ?</p><span class="fiche-plan">plan frontal</span><span class="src">slide 17</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-05"><p class="fiche-carte__q">Cite les mouvements observés dans le plan frontal.</p><span class="fiche-plan">plan frontal</span><span class="src">slide 18</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-06"><p class="fiche-carte__q">Abduction ou adduction : lequel écarte le membre de l&#x27;axe du corps ?</p><span class="fiche-plan">plan frontal</span><span class="src">slide 19</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-07"><p class="fiche-carte__q">L&#x27;inclinaison latérale concerne quelles parties du corps, et comment la nomme-t-on ?</p><span class="fiche-plan">plan frontal</span><span class="src">slide 20</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-08"><p class="fiche-carte__q">Le plan sagittal : quels mouvements y sont visibles, en quoi divise-t-il le corps, et quand parle-t-on de plan médian ?</p><span class="fiche-plan">plan sagittal</span><span class="src">slide 22</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-09"><p class="fiche-carte__q">Cite les quatre couples de mouvements observés dans le plan sagittal.</p><span class="fiche-plan">plan sagittal</span><span class="src">slide 23</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-10"><p class="fiche-carte__q">Définis la flexion en termes d&#x27;angle articulaire.</p><span class="fiche-plan">plan sagittal</span><span class="src">slide 24</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-11"><p class="fiche-carte__q">Définis l&#x27;extension en termes d&#x27;angle articulaire.</p><span class="fiche-plan">plan sagittal</span><span class="src">slide 25</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-12"><p class="fiche-carte__q">Antépulsion et rétropulsion : de quelle articulation s&#x27;agit-il, et que font-elles ?</p><span class="fiche-plan">plan sagittal</span><span class="src">slide 26</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-13"><p class="fiche-carte__q">Antéversion et rétroversion : quelle articulation, et quel effet sur le dos ?</p><span class="fiche-plan">plan sagittal</span><span class="src">slide 27</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-14"><p class="fiche-carte__q">Flexion dorsale et flexion plantaire : quelle articulation, et à quel mouvement chacune correspond-elle ?</p><span class="fiche-plan">plan sagittal</span><span class="src">slide 28</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-15"><p class="fiche-carte__q">Le plan transversal : d&#x27;où les mouvements y sont-ils visibles, et en quoi divise-t-il le corps ?</p><span class="fiche-plan">plan transversal</span><span class="src">slide 30</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-16"><p class="fiche-carte__q">Cite les mouvements observés dans le plan transversal.</p><span class="fiche-plan">plan transversal</span><span class="src">slide 31</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-17"><p class="fiche-carte__q">Définis la rotation, puis dis quel vocabulaire s&#x27;applique à la tête et au tronc, et lequel s&#x27;applique aux membres.</p><span class="fiche-plan">plan transversal</span><span class="src">slide 32</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-18"><p class="fiche-carte__q">Pronation et supination : définis-les, et dis où se trouve le radius dans chaque cas.</p><span class="fiche-plan">plan transversal</span><span class="src">slide 33</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-19"><p class="fiche-carte__q">Quels os la pronation et la supination mettent-elles en jeu ?</p><span class="fiche-plan">plan transversal</span><span class="src">slide 34</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-20"><p class="fiche-carte__q">Qu&#x27;est-ce que la circumduction ?</p><span class="src">slide 35</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-21"><p class="fiche-carte__q">Crânial et caudal : quelle région du corps concernent-ils, et que signifient-ils ?</p><span class="src">slide 38</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-22"><p class="fiche-carte__q">Proximal et distal : quelle région du corps concernent-ils, et quel est le repère ?</p><span class="src">slide 39</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-23"><p class="fiche-carte__q">Médial et latéral : quel est le repère, et quels sont leurs synonymes ?</p><span class="src">slide 40</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-24"><p class="fiche-carte__q">Superficiel et profond : que signifient-ils ?</p><span class="src">slide 41</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c1-25"><p class="fiche-carte__q">Antérieur / postérieur, ventral / dorsal, palmaire, plantaire : à quoi chaque terme s&#x27;applique-t-il ?</p><span class="src">slide 42</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-quiz" id="q1-01"><p class="fiche-quiz__q">Dans quel plan s&#x27;effectue une inclinaison latérale du tronc ?</p><ol class="fiche-quiz__choix" type="A"><li>Le plan sagittal</li><li>Le plan frontal</li><li>Le plan transversal</li></ol><span class="fiche-plan">plan frontal</span><span class="src">slide 20</span></article><article class="fiche-quiz" id="q1-02"><p class="fiche-quiz__q">Dans la position anatomique, comment sont placés les membres supérieurs et les mains ?</p><ol class="fiche-quiz__choix" type="A"><li>Allongés le long du corps, la paume tournée vers la cuisse</li><li>En abduction d&#x27;épaule à 90°, la paume tournée en avant</li><li>Allongés le long du corps, la paume tournée en arrière</li><li>Allongés le long du corps, la paume tournée en avant</li></ol><span class="src">slide 9</span></article><article class="fiche-quiz" id="q1-03"><p class="fiche-quiz__q">À quelle condition un plan sagittal est-il un plan médian ?</p><ol class="fiche-quiz__choix" type="A"><li>Quand il sépare une face antérieure d&#x27;une face postérieure</li><li>Dès qu&#x27;il sépare une partie droite d&#x27;une partie gauche</li><li>Quand il est situé sur la ligne médiane et que les deux parties sont symétriques et égales</li><li>Quand il sépare une partie supérieure d&#x27;une partie inférieure</li></ol><span class="fiche-plan">plan sagittal</span><span class="src">slide 22</span></article><article class="fiche-quiz" id="q1-04"><p class="fiche-quiz__q">Pour un membre, par rapport à quel repère le cours définit-il l&#x27;abduction et l&#x27;adduction ?</p><ol class="fiche-quiz__choix" type="A"><li>Par rapport à la surface du corps</li><li>Par rapport au tronc</li><li>Par rapport à l&#x27;axe du corps</li><li>Par rapport au plan médian</li></ol><span class="fiche-plan">plan frontal</span><span class="src">slides 13 et 19</span></article><article class="fiche-quiz" id="q1-05"><p class="fiche-quiz__q">Le bassin part vers l&#x27;avant, le dos se creuse. De quel mouvement s&#x27;agit-il, et à quelle articulation ?</p><ol class="fiche-quiz__choix" type="A"><li>Une rétroversion, à l&#x27;articulation coxo-fémorale</li><li>Une antéversion, à l&#x27;articulation coxo-fémorale</li><li>Une antéversion, à l&#x27;articulation talo-crurale</li><li>Une antépulsion, à l&#x27;articulation scapulo-humérale</li></ol><span class="fiche-plan">plan sagittal</span><span class="src">slide 27</span></article><article class="fiche-quiz" id="q1-06"><p class="fiche-quiz__q">Des deux mouvements de la talo-crurale décrits par le cours, lequel correspond à une extension du pied ?</p><ol class="fiche-quiz__choix" type="A"><li>Les deux : au pied, « flexion » désigne un sens de mouvement et non une fermeture d&#x27;angle</li><li>La flexion dorsale</li><li>La flexion plantaire</li><li>Aucun des deux : ce sont deux flexions, l&#x27;une vers le dos du pied, l&#x27;autre vers la plante</li></ol><span class="fiche-plan">plan sagittal</span><span class="src">slide 28</span></article><article class="fiche-quiz" id="q1-07"><p class="fiche-quiz__q">Un patient tourne la tête vers la droite. Quel terme le cours impose-t-il ?</p><ol class="fiche-quiz__choix" type="A"><li>Inclinaison latérale droite</li><li>Rotation droite</li><li>Rotation médiale</li><li>Rotation latérale</li></ol><span class="fiche-plan">plan transversal</span><span class="src">slide 32</span></article><article class="fiche-quiz" id="q1-08"><p class="fiche-quiz__q">Pendant une supination, quelle est la position du radius ?</p><ol class="fiche-quiz__choix" type="A"><li>Parallèle à l&#x27;ulna</li><li>Immobile : c&#x27;est l&#x27;ulna qui tourne autour de lui</li><li>Croisé sur l&#x27;ulna</li></ol><span class="fiche-plan">plan transversal</span><span class="src">slide 33</span></article><article class="fiche-quiz" id="q1-09"><p class="fiche-quiz__q">Selon le couple de termes que le cours associe aux membres, l&#x27;épiphyse de l&#x27;humérus la plus proche de l&#x27;épaule est dite…</p><ol class="fiche-quiz__choix" type="A"><li>Distale</li><li>Proximale</li><li>Supérieure</li><li>Crâniale</li></ol><span class="src">slides 38 et 39</span></article><article class="fiche-quiz" id="q1-10"><p class="fiche-quiz__q">Dans la jambe, le tibia est l&#x27;os médial et la fibula l&#x27;os latéral. Sur quel critère ?</p><ol class="fiche-quiz__choix" type="A"><li>Le tibia est plus près de la surface du corps que la fibula</li><li>Le tibia est plus près de l&#x27;axe du pied que la fibula</li><li>Le tibia est plus près du tronc que la fibula</li><li>Le tibia est plus près du plan médian que la fibula</li></ol><span class="src">slide 40</span></article><article class="fiche-quiz" id="q1-11"><p class="fiche-quiz__q">Pour qualifier la face avant du sternum, quel terme le cours privilégie-t-il ?</p><ol class="fiche-quiz__choix" type="A"><li>Antérieur</li><li>Crânial</li><li>Palmaire</li><li>Ventral</li></ol><span class="src">slide 42</span></article><article class="fiche-quiz" id="q1-12"><p class="fiche-quiz__q">Comment le cours situe-t-il la circumduction par rapport aux trois plans ?</p><ol class="fiche-quiz__choix" type="A"><li>Dans le plan frontal, avec l&#x27;abduction et l&#x27;adduction</li><li>Dans le plan transversal, avec la rotation</li><li>Dans le plan sagittal, avec la flexion et l&#x27;extension</li><li>Il ne la range dans aucun des trois : il la présente à part, comme mouvement particulier</li></ol><span class="src">slide 35</span></article></section><section class="fiche-section" data-section="pieges"><h2>Pièges</h2><article class="fiche-piege"><span class="fiche-piege__etiquette">Piège</span><p class="fiche-piege__titre">Le plan sagittal ne coupe pas toujours au milieu</p><p>Un plan sagittal sépare une partie droite d&#x27;une partie gauche, sans qu&#x27;elles soient forcément égales. Ce n&#x27;est que lorsqu&#x27;il passe par la ligne médiane, avec deux parties symétriques, qu&#x27;on parle de plan sagittal médian.</p><span class="src">slide 22</span></article><article class="fiche-piege"><span class="fiche-piege__etiquette">Piège</span><p class="fiche-piege__titre">Flexion plantaire est une extension</p><p>La flexion plantaire du pied correspond anatomiquement à une extension. Le cours est littéral : c&#x27;est l&#x27;action d&#x27;effectuer une extension du pied, alors que la flexion dorsale est l&#x27;action d&#x27;effectuer une flexion du pied.</p><span class="src">slide 28</span></article><article class="fiche-piege"><span class="fiche-piege__etiquette">Piège</span><p class="fiche-piege__titre">Rotation droite/gauche contre latérale/médiale</p><p>Pour la tête et le tronc, on dit rotation droite ou gauche. Pour les membres, on dit rotation latérale (externe) ou médiale (interne). Le cours réserve chaque vocabulaire à sa région du corps : on n&#x27;emploie pas l&#x27;un pour l&#x27;autre.</p><span class="src">slide 32</span></article><article class="fiche-piege"><span class="fiche-piege__etiquette">Piège</span><p class="fiche-piege__titre">Antépulsion n&#x27;est pas antéversion</p><p>Quatre mots se ressemblent, et deux articulations seulement les portent. Antépulsion et rétropulsion se situent à la scapulo-humérale : elles ouvrent ou ferment l&#x27;angle bras-tronc. Antéversion et rétroversion se situent à la coxo-fémorale : elles amènent le bassin vers l&#x27;avant (« dos creux ») ou vers l&#x27;arrière (« dos plat »).</p><span class="src">slide 26</span></article><article class="fiche-piege"><span class="fiche-piege__etiquette">Piège</span><p class="fiche-piege__titre">Crânial et proximal ne s&#x27;emploient pas sur la même région</p><p>Crânial et caudal concernent essentiellement le tronc, et se repèrent sur ses extrémités. Proximal et distal concernent essentiellement les membres, et se repèrent par rapport au tronc. On ne dit donc pas qu&#x27;une épiphyse d&#x27;humérus est crâniale, ni qu&#x27;un manubrium est proximal. Note le mot « essentiellement » employé par le cours : il laisse la porte ouverte à des exceptions qu&#x27;il ne nomme pas, donc à l&#x27;examen tiens-t&#x27;en au partage tronc / membres.</p><span class="src">slides 38 et 39</span></article><article class="fiche-piege"><span class="fiche-piege__etiquette">Piège</span><p class="fiche-piege__titre">Le support n&#x27;accentue pas ces termes de la même façon partout</p><p>Le support n&#x27;accentue pas ces termes de la même façon d&#x27;une slide à l&#x27;autre : slides 31 et 33, il écrit « LATERALE » et « MEDIALE » sans accent ; slides 32 et 40, « LATÉRALE » et « MÉDIAL » avec leurs accents ; slide 38, « CRÂNIAL et CAUDAL ». La graphie de référence est celle des slides définitionnelles, 38 et 40 : médial, latéral, crânial, caudal. Deux détails d&#x27;orthographe à retenir : crânial prend un accent circonflexe, et caudal n&#x27;en prend aucun. Les graphies sans accent recopiées des slides 31 et 33 sont des coquilles du support, pas des variantes admises.</p><span class="src">slide 40</span></article></section><section class="fiche-corrige" data-section="corrige"><h2 class="fiche-corrige__titre">Corrigé</h2><h3>Planches</h3><div class="fiche-corrige__planches"><div class="fiche-corrige__planche" style="width:73mm"><figure class="planche" id="plan-frontal" data-mode="legende"><figcaption>Le plan frontal <span class="src">slides 15 et 18</span></figcaption><svg viewBox="0 0 240 312" role="img"><defs><marker id='fleche' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0 0 L10 5 L0 10 Z' fill='currentColor'/></marker></defs><g class='corps' fill='none' stroke='currentColor' stroke-width='2'><circle cx='70' cy='40' r='20'/><path d='M70 60 L70 160'/><path d='M70 78 L32 122 M70 78 L108 122'/><path d='M70 160 L40 248 M70 160 L100 248'/></g><g class='plan plan--frontal' fill='none' stroke='currentColor'><path d='M25 15 L115 15 L115 255 L25 255 Z' stroke-dasharray='5 4' stroke-width='1.5'/><path d='M108 122 Q136 96 130 74' stroke-width='2' marker-end='url(#fleche)'/></g><g class="pastille" data-n="1" data-plan="frontal" data-indice="nom du plan"><circle cx="70" cy="268" r="9"/><text class="pastille__n" x="70" y="272" text-anchor="middle">1</text><text class="pastille__t" x="70" y="292" text-anchor="middle">Plan frontal</text></g><g class="pastille" data-n="2" data-plan="frontal" data-indice="le mouvement fléché"><circle cx="146" cy="92" r="9"/><text class="pastille__n" x="146" y="96" text-anchor="middle">2</text><text class="pastille__t" x="160" y="96" text-anchor="start">Abduction</text></g></svg></figure></div><div class="fiche-corrige__planche" style="width:73mm"><figure class="planche" id="plan-sagittal" data-mode="legende"><figcaption>Le plan sagittal <span class="src">slides 15 et 23</span></figcaption><svg viewBox="0 0 240 312" role="img"><defs><marker id='fleche' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0 0 L10 5 L0 10 Z' fill='currentColor'/></marker></defs><g class='corps' fill='none' stroke='currentColor' stroke-width='2'><circle cx='70' cy='40' r='18'/><path d='M70 58 L70 150'/><path d='M70 80 L98 118'/><path d='M70 150 L82 205 L55 232'/></g><g class='plan plan--sagittal' fill='none' stroke='currentColor'><path d='M45 15 L112 15 L112 255 L45 255 Z' stroke-dasharray='5 4' stroke-width='1.5'/><path d='M90 197 Q108 215 84 233' stroke-width='2' marker-end='url(#fleche)'/></g><g class="pastille" data-n="1" data-plan="sagittal" data-indice="nom du plan"><circle cx="70" cy="268" r="9"/><text class="pastille__n" x="70" y="272" text-anchor="middle">1</text><text class="pastille__t" x="70" y="292" text-anchor="middle">Plan sagittal</text></g><g class="pastille" data-n="2" data-plan="sagittal" data-indice="le mouvement fléché"><circle cx="128" cy="214" r="9"/><text class="pastille__n" x="128" y="218" text-anchor="middle">2</text><text class="pastille__t" x="142" y="218" text-anchor="start">Flexion</text></g></svg></figure></div><div class="fiche-corrige__planche" style="width:73mm"><figure class="planche" id="plan-transversal" data-mode="legende"><figcaption>Le plan transversal <span class="src">slides 15 et 31</span></figcaption><svg viewBox="0 0 240 312" role="img"><defs><marker id='fleche' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0 0 L10 5 L0 10 Z' fill='currentColor'/></marker></defs><g class='corps' fill='none' stroke='currentColor' stroke-width='2'><circle cx='70' cy='40' r='20'/><path d='M70 60 L70 160'/><path d='M70 78 L32 122 M70 78 L108 122'/><path d='M70 160 L40 248 M70 160 L100 248'/></g><g class='plan plan--transversal' fill='none' stroke='currentColor'><ellipse cx='70' cy='112' rx='55' ry='16' stroke-dasharray='5 4' stroke-width='1.5'/><path d='M110 106 A44 15 0 0 1 30 106' stroke-width='2' marker-end='url(#fleche)'/></g><g class="pastille" data-n="1" data-plan="transversal" data-indice="nom du plan"><circle cx="70" cy="268" r="9"/><text class="pastille__n" x="70" y="272" text-anchor="middle">1</text><text class="pastille__t" x="70" y="292" text-anchor="middle">Plan transversal</text></g><g class="pastille" data-n="2" data-plan="transversal" data-indice="le mouvement fléché"><circle cx="142" cy="108" r="9"/><text class="pastille__n" x="142" y="112" text-anchor="middle">2</text><text class="pastille__t" x="156" y="112" text-anchor="start">Rotation</text></g></svg></figure></div><div class="fiche-corrige__planche" style="width:89mm"><figure class="planche" id="termes-localisation" data-mode="legende"><figcaption>Les termes de localisation <span class="src">slide 37</span></figcaption><svg viewBox="0 0 320 340" role="img"><defs><marker id='fleche' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0 0 L10 5 L0 10 Z' fill='currentColor'/></marker></defs><g class='corps' fill='none' stroke='currentColor' stroke-width='2'><circle cx='160' cy='48' r='26'/><path d='M160 74 L160 196'/><path d='M160 96 L104 150 M160 96 L216 150'/><path d='M160 196 L128 292 M160 196 L192 292'/></g><g class='reperes' fill='none' stroke='currentColor' stroke-width='1.5'><path d='M128 112 L128 76' marker-end='url(#fleche)'/><path d='M134 152 L134 198' marker-end='url(#fleche)'/><path d='M193 244 L180 205' marker-end='url(#fleche)'/><path d='M194 249 L206 282' marker-end='url(#fleche)'/><path d='M194 163 L168 163' marker-end='url(#fleche)'/><path d='M170 188 L202 188' marker-end='url(#fleche)'/></g><g class="pastille" data-n="1" data-plan=""><circle cx="114" cy="94" r="9"/><text class="pastille__n" x="114" y="98" text-anchor="middle">1</text><text class="pastille__t" x="100" y="98" text-anchor="end">Crânial</text></g><g class="pastille" data-n="2" data-plan=""><circle cx="120" cy="176" r="9"/><text class="pastille__n" x="120" y="180" text-anchor="middle">2</text><text class="pastille__t" x="106" y="180" text-anchor="end">Caudal</text></g><g class="pastille" data-n="3" data-plan=""><circle cx="196" cy="215" r="9"/><text class="pastille__n" x="196" y="219" text-anchor="middle">3</text><text class="pastille__t" x="210" y="219" text-anchor="start">Proximal</text></g><g class="pastille" data-n="4" data-plan=""><circle cx="214" cy="270" r="9"/><text class="pastille__n" x="214" y="274" text-anchor="middle">4</text><text class="pastille__t" x="228" y="274" text-anchor="start">Distal</text></g><g class="pastille" data-n="5" data-plan=""><circle cx="208" cy="163" r="9"/><text class="pastille__n" x="208" y="167" text-anchor="middle">5</text><text class="pastille__t" x="222" y="167" text-anchor="start">Médial</text></g><g class="pastille" data-n="6" data-plan=""><circle cx="216" cy="188" r="9"/><text class="pastille__n" x="216" y="192" text-anchor="middle">6</text><text class="pastille__t" x="230" y="192" text-anchor="start">Latéral</text></g></svg></figure></div></div><h3>Cartes</h3><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Énonce la définition conventionnelle de la position anatomique.</p><p class="fiche-corrige__r">Corps humain, vivant, debout, les membres supérieurs allongés le long du corps, la paume des mains tournée en avant, le regard droit et horizontal. Toutes les descriptions anatomiques se réfèrent à cette position.</p><span class="src">slide 9</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Par quels points passe l&#x27;axe du corps ?</p><p class="fiche-corrige__r">C&#x27;est la verticale partant d&#x27;un point situé au sommet du crâne (vertex) et passant par le centre de gravité du corps, situé dans le pelvis (bassin osseux).</p><span class="src">slide 11</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quel doigt porte l&#x27;axe de la main ? Quel orteil porte l&#x27;axe du pied ?</p><p class="fiche-corrige__r">L&#x27;axe de la main est l&#x27;axe longitudinal passant par le 3e doigt. L&#x27;axe du pied est l&#x27;axe longitudinal passant par le 2e orteil.</p><span class="src">slide 13</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Le plan frontal : quels mouvements y sont visibles, et en quoi divise-t-il le corps ?</p><p class="fiche-corrige__r">C&#x27;est le plan des mouvements visibles de face. Il divise le corps en 2 faces : une antérieure (ventrale) et une postérieure (dorsale).</p><span class="fiche-plan">plan frontal</span><span class="src">slide 17</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Cite les mouvements observés dans le plan frontal.</p><p class="fiche-corrige__r">Abduction et adduction ; inclinaison latérale, droite ou gauche.</p><span class="fiche-plan">plan frontal</span><span class="src">slide 18</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Abduction ou adduction : lequel écarte le membre de l&#x27;axe du corps ?</p><p class="fiche-corrige__r">L&#x27;abduction écarte un membre de l&#x27;axe du corps (exemple : abduction d&#x27;épaule). L&#x27;adduction rapproche un membre de l&#x27;axe du corps (exemple : adduction de hanche).</p><span class="fiche-plan">plan frontal</span><span class="src">slide 19</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">L&#x27;inclinaison latérale concerne quelles parties du corps, et comment la nomme-t-on ?</p><p class="fiche-corrige__r">Elle concerne les mouvements de la tête et du tronc, dans le plan frontal. On parle d&#x27;inclinaison latérale gauche ou droite (exemple : inclinaison latérale droite du tronc).</p><span class="fiche-plan">plan frontal</span><span class="src">slide 20</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Le plan sagittal : quels mouvements y sont visibles, en quoi divise-t-il le corps, et quand parle-t-on de plan médian ?</p><p class="fiche-corrige__r">C&#x27;est le plan des mouvements visibles de profil. Il divise le corps en 2 parties, droite et gauche. Quand il est situé sur la ligne médiane et que les parties sont symétriques et égales, on parle de plan (sagittal) médian.</p><span class="fiche-plan">plan sagittal</span><span class="src">slide 22</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Cite les quatre couples de mouvements observés dans le plan sagittal.</p><p class="fiche-corrige__r">Flexion / extension ; antépulsion / rétropulsion ; antéversion / rétroversion ; flexion dorsale / flexion plantaire.</p><span class="fiche-plan">plan sagittal</span><span class="src">slide 23</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Définis la flexion en termes d&#x27;angle articulaire.</p><p class="fiche-corrige__r">Mouvement de repli qui diminue l&#x27;angle de l&#x27;articulation et rapproche deux segments osseux l&#x27;un de l&#x27;autre (exemples : flexion du poignet, flexion de hanche).</p><span class="fiche-plan">plan sagittal</span><span class="src">slide 24</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Définis l&#x27;extension en termes d&#x27;angle articulaire.</p><p class="fiche-corrige__r">C&#x27;est le mouvement inverse de la flexion : il augmente l&#x27;angle de l&#x27;articulation et éloigne deux segments osseux l&#x27;un de l&#x27;autre (exemple : extension de la hanche).</p><span class="fiche-plan">plan sagittal</span><span class="src">slide 25</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Antépulsion et rétropulsion : de quelle articulation s&#x27;agit-il, et que font-elles ?</p><p class="fiche-corrige__r">L&#x27;articulation scapulo-humérale. L&#x27;antépulsion est une ouverture bras-tronc, la rétropulsion une fermeture bras-tronc.</p><span class="fiche-plan">plan sagittal</span><span class="src">slide 26</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Antéversion et rétroversion : quelle articulation, et quel effet sur le dos ?</p><p class="fiche-corrige__r">L&#x27;articulation coxo-fémorale. L&#x27;antéversion amène le bassin vers l&#x27;avant (« dos creux »), la rétroversion amène le bassin vers l&#x27;arrière (« dos plat »).</p><span class="fiche-plan">plan sagittal</span><span class="src">slide 27</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Flexion dorsale et flexion plantaire : quelle articulation, et à quel mouvement chacune correspond-elle ?</p><p class="fiche-corrige__r">L&#x27;articulation talo-crurale. La flexion dorsale est l&#x27;action d&#x27;effectuer une flexion du pied ; la flexion plantaire est l&#x27;action d&#x27;effectuer une extension du pied.</p><span class="fiche-plan">plan sagittal</span><span class="src">slide 28</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Le plan transversal : d&#x27;où les mouvements y sont-ils visibles, et en quoi divise-t-il le corps ?</p><p class="fiche-corrige__r">Les mouvements y sont visibles d&#x27;en haut ou d&#x27;en bas. Il divise le corps en 2 parties : une inférieure et une supérieure.</p><span class="fiche-plan">plan transversal</span><span class="src">slide 30</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Cite les mouvements observés dans le plan transversal.</p><p class="fiche-corrige__r">La rotation (droite / gauche, ou latérale / médiale) ; la pronation et la supination.</p><span class="fiche-plan">plan transversal</span><span class="src">slide 31</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Définis la rotation, puis dis quel vocabulaire s&#x27;applique à la tête et au tronc, et lequel s&#x27;applique aux membres.</p><p class="fiche-corrige__r">La rotation est le mouvement d&#x27;un segment sur un axe. Pour la tête et le tronc : rotation droite ou gauche. Pour les membres : rotation latérale (externe) ou médiale (interne).</p><span class="fiche-plan">plan transversal</span><span class="src">slide 32</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Pronation et supination : définis-les, et dis où se trouve le radius dans chaque cas.</p><p class="fiche-corrige__r">Pronation : rotation médiale de l&#x27;avant-bras, le radius croise l&#x27;ulna. Supination : rotation latérale de l&#x27;avant-bras, le radius est parallèle à l&#x27;ulna.</p><span class="fiche-plan">plan transversal</span><span class="src">slide 33</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quels os la pronation et la supination mettent-elles en jeu ?</p><p class="fiche-corrige__r">Elles ne désignent que des mouvements du radius autour de l&#x27;ulna.</p><span class="fiche-plan">plan transversal</span><span class="src">slide 34</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Qu&#x27;est-ce que la circumduction ?</p><p class="fiche-corrige__r">Le mouvement au cours duquel le membre décrit un cône dans l&#x27;espace (exemple : circumduction du bras). Le cours la présente comme un mouvement particulier, à part des trois plans.</p><span class="src">slide 35</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Crânial et caudal : quelle région du corps concernent-ils, et que signifient-ils ?</p><p class="fiche-corrige__r">Ces termes concernent essentiellement le tronc. Une partie est crâniale lorsqu&#x27;elle est plus proche de l&#x27;extrémité supérieure du tronc, caudale lorsqu&#x27;elle est plus proche de l&#x27;extrémité inférieure. On utilise également supérieur et inférieur. Exemple sur le sternum : le manubrium est crânial, le processus xyphoïde est caudal.</p><span class="src">slide 38</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Proximal et distal : quelle région du corps concernent-ils, et quel est le repère ?</p><p class="fiche-corrige__r">Ces termes concernent essentiellement les membres, et le repère est le tronc : une partie est proximale lorsqu&#x27;elle est plus proche du tronc, distale lorsqu&#x27;elle en est plus distante. Exemple sur l&#x27;humérus : épiphyse proximale et épiphyse distale.</p><span class="src">slide 39</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Médial et latéral : quel est le repère, et quels sont leurs synonymes ?</p><p class="fiche-corrige__r">Le repère est le plan médian. Un élément est médial (interne) lorsqu&#x27;il est situé plus près du plan médian, latéral (externe) lorsqu&#x27;il en est plus loin. Exemple à la jambe : le tibia est l&#x27;os médial, la fibula l&#x27;os latéral.</p><span class="src">slide 40</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Superficiel et profond : que signifient-ils ?</p><p class="fiche-corrige__r">Un élément est superficiel lorsqu&#x27;il est plus proche de la surface externe du corps, profond lorsqu&#x27;il est situé vers l&#x27;intérieur du corps. Exemple : la peau est superficielle, le muscle est profond.</p><span class="src">slide 41</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Antérieur / postérieur, ventral / dorsal, palmaire, plantaire : à quoi chaque terme s&#x27;applique-t-il ?</p><p class="fiche-corrige__r">Antérieur (ventral) : situé en avant. Postérieur (dorsal) : situé en arrière. Antérieur et postérieur sont plus spécifiques pour la tête et les membres, ventral et dorsal pour le tronc. Pour la main, palmaire signifie antérieur, le dos de la main étant la face postérieure. Pour le pied, on utilise les termes plantaire et dorsal.</p><span class="src">slide 42</span></article><h3>Quiz</h3><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Dans quel plan s&#x27;effectue une inclinaison latérale du tronc ?</p><ol type="A"><li>Le plan sagittal</li><li class="fiche-corrige__bonne">Le plan frontal</li><li>Le plan transversal</li></ol><p class="fiche-corrige__expl">L&#x27;inclinaison latérale concerne la tête et le tronc, dans le plan frontal : c&#x27;est un mouvement visible de face. Le plan sagittal tente parce que c&#x27;est lui qui sépare la droite de la gauche — mais séparer droite et gauche n&#x27;est pas porter les mouvements qui vont vers la droite ou vers la gauche : le sagittal porte ce qui se voit de profil (flexion, extension). Le plan transversal porte lui aussi un mouvement du tronc vers la droite ou vers la gauche, mais c&#x27;est la rotation, pas l&#x27;inclinaison.</p><span class="fiche-plan">plan frontal</span><span class="src">slide 20</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Dans la position anatomique, comment sont placés les membres supérieurs et les mains ?</p><ol type="A"><li>Allongés le long du corps, la paume tournée vers la cuisse</li><li>En abduction d&#x27;épaule à 90°, la paume tournée en avant</li><li>Allongés le long du corps, la paume tournée en arrière</li><li class="fiche-corrige__bonne">Allongés le long du corps, la paume tournée en avant</li></ol><p class="fiche-corrige__expl">La convention impose la paume tournée en avant. « Paume vers la cuisse » est la posture debout spontanée, celle qu&#x27;on se représente dès qu&#x27;on cesse de réciter la définition ; « paume en arrière » en est la version poussée d&#x27;un cran. Les bras écartés ne sont pas la position anatomique : le cours les dit allongés le long du corps. L&#x27;erreur n&#x27;est pas cosmétique : le cours précise que toutes les descriptions se réfèrent à cette position, donc une main mal orientée fausse ensuite tout ce qui est dit d&#x27;antérieur, de postérieur, de médial et de latéral.</p><span class="src">slide 9</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">À quelle condition un plan sagittal est-il un plan médian ?</p><ol type="A"><li>Quand il sépare une face antérieure d&#x27;une face postérieure</li><li>Dès qu&#x27;il sépare une partie droite d&#x27;une partie gauche</li><li class="fiche-corrige__bonne">Quand il est situé sur la ligne médiane et que les deux parties sont symétriques et égales</li><li>Quand il sépare une partie supérieure d&#x27;une partie inférieure</li></ol><p class="fiche-corrige__expl">Le cours réserve « médian » à un cas particulier : sur la ligne médiane, avec deux parties symétriques et égales. « Dès qu&#x27;il sépare une partie droite d&#x27;une partie gauche » décrit n&#x27;importe quel plan sagittal — et c&#x27;est exactement la confusion visée : tout plan sagittal sépare une droite d&#x27;une gauche, sans que les deux moitiés soient égales. Les deux autres options ne sont pas des inventions : ce sont les divisions des plans voisins, supérieure / inférieure pour le transversal, antérieure / postérieure pour le frontal.</p><span class="fiche-plan">plan sagittal</span><span class="src">slide 22</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Pour un membre, par rapport à quel repère le cours définit-il l&#x27;abduction et l&#x27;adduction ?</p><ol type="A"><li>Par rapport à la surface du corps</li><li>Par rapport au tronc</li><li class="fiche-corrige__bonne">Par rapport à l&#x27;axe du corps</li><li>Par rapport au plan médian</li></ol><p class="fiche-corrige__expl">Le cours écrit : mouvement qui écarte (abduction) ou rapproche (adduction) un membre de l&#x27;axe du corps (slide 19). Les autres repères servent à autre chose : le plan médian définit médial et latéral (slide 40), le tronc définit proximal et distal (slide 39), et la surface du corps définit superficiel et profond (slide 41). L&#x27;axe de la main (3e doigt) et l&#x27;axe du pied (2e orteil) forment un repère à part, défini à la slide 13 : la figure de cette slide légende d&#x27;ailleurs « abduction » et « adduction » autour de l&#x27;axe du pied (axe de M2), pour les orteils. Ce n&#x27;est pas la définition que le cours donne pour un membre, d&#x27;où la précision « pour un membre » dans l&#x27;énoncé.</p><span class="fiche-plan">plan frontal</span><span class="src">slides 13 et 19</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Le bassin part vers l&#x27;avant, le dos se creuse. De quel mouvement s&#x27;agit-il, et à quelle articulation ?</p><ol type="A"><li>Une rétroversion, à l&#x27;articulation coxo-fémorale</li><li class="fiche-corrige__bonne">Une antéversion, à l&#x27;articulation coxo-fémorale</li><li>Une antéversion, à l&#x27;articulation talo-crurale</li><li>Une antépulsion, à l&#x27;articulation scapulo-humérale</li></ol><p class="fiche-corrige__expl">C&#x27;est l&#x27;antéversion, à la coxo-fémorale : le cours associe explicitement « dos creux » à ce mouvement. L&#x27;antépulsion n&#x27;en est pas un synonyme malgré la ressemblance des mots : elle se situe à la scapulo-humérale et ouvre l&#x27;angle bras-tronc — la proposition est vraie en elle-même, elle ne parle simplement pas du bassin. La rétroversion est le mouvement antagoniste à la bonne articulation : elle amène le bassin vers l&#x27;arrière, « dos plat ». La talo-crurale est la cheville, et elle ne porte que la flexion dorsale et la flexion plantaire.</p><span class="fiche-plan">plan sagittal</span><span class="src">slide 27</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Des deux mouvements de la talo-crurale décrits par le cours, lequel correspond à une extension du pied ?</p><ol type="A"><li>Les deux : au pied, « flexion » désigne un sens de mouvement et non une fermeture d&#x27;angle</li><li>La flexion dorsale</li><li class="fiche-corrige__bonne">La flexion plantaire</li><li>Aucun des deux : ce sont deux flexions, l&#x27;une vers le dos du pied, l&#x27;autre vers la plante</li></ol><p class="fiche-corrige__expl">Le cours est littéral : la flexion plantaire est l&#x27;action d&#x27;effectuer une extension du pied, la flexion dorsale l&#x27;action d&#x27;effectuer une flexion. Le piège tient au nom, qui contient le mot flexion alors que le mouvement ouvre l&#x27;angle. « Aucun des deux » est la lecture naïve des deux intitulés, précisément celle que la slide contredit ; « les deux » est la tentative de sauver cette lecture en redéfinissant le mot flexion, ce que le cours ne fait pas ; « la flexion dorsale » est la simple inversion du couple.</p><span class="fiche-plan">plan sagittal</span><span class="src">slide 28</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Un patient tourne la tête vers la droite. Quel terme le cours impose-t-il ?</p><ol type="A"><li>Inclinaison latérale droite</li><li class="fiche-corrige__bonne">Rotation droite</li><li>Rotation médiale</li><li>Rotation latérale</li></ol><p class="fiche-corrige__expl">Le cours réserve rotation droite et rotation gauche à la tête et au tronc, rotation latérale (externe) et médiale (interne) aux membres. « Rotation latérale » et « rotation médiale » sont donc du vocabulaire juste appliqué à la mauvaise région du corps — et non des termes faux. « Inclinaison latérale droite » est l&#x27;autre façon de porter la tête vers la droite, mais elle la penche sur le côté dans le plan frontal, alors que la rotation la fait pivoter sur son axe dans le plan transversal.</p><span class="fiche-plan">plan transversal</span><span class="src">slide 32</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Pendant une supination, quelle est la position du radius ?</p><ol type="A"><li class="fiche-corrige__bonne">Parallèle à l&#x27;ulna</li><li>Immobile : c&#x27;est l&#x27;ulna qui tourne autour de lui</li><li>Croisé sur l&#x27;ulna</li></ol><p class="fiche-corrige__expl">En supination — rotation latérale de l&#x27;avant-bras — le radius est parallèle à l&#x27;ulna. Le radius croisé sur l&#x27;ulna décrit la pronation : l&#x27;erreur consiste à inverser le couple. L&#x27;option « Immobile : c&#x27;est l&#x27;ulna qui tourne autour de lui » est plus retorse, car elle garde la bonne image du croisement mais attribue le mouvement au mauvais os ; le cours consacre une slide entière à l&#x27;écarter (slide 34) : pronation et supination ne désignent que des mouvements du radius autour de l&#x27;ulna.</p><span class="fiche-plan">plan transversal</span><span class="src">slide 33</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Selon le couple de termes que le cours associe aux membres, l&#x27;épiphyse de l&#x27;humérus la plus proche de l&#x27;épaule est dite…</p><ol type="A"><li>Distale</li><li class="fiche-corrige__bonne">Proximale</li><li>Supérieure</li><li>Crâniale</li></ol><p class="fiche-corrige__expl">Proximale : le cours associe proximal et distal aux membres, avec le tronc pour repère (slide 39), et proximal désigne ce qui en est le plus proche. « Crâniale » et « supérieure » disent bien l&#x27;idée « vers le haut » — le cours donne d&#x27;ailleurs supérieur et inférieur comme équivalents de crânial et caudal (slide 38) — mais ce couple concerne essentiellement le tronc, pas les membres : c&#x27;est pourquoi l&#x27;énoncé précise le couple des membres. « Distale » est l&#x27;antonyme exact : c&#x27;est l&#x27;épiphyse du côté du coude. Le partage à retenir : crânial et caudal pour le tronc, proximal et distal pour les membres.</p><span class="src">slides 38 et 39</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Dans la jambe, le tibia est l&#x27;os médial et la fibula l&#x27;os latéral. Sur quel critère ?</p><ol type="A"><li>Le tibia est plus près de la surface du corps que la fibula</li><li>Le tibia est plus près de l&#x27;axe du pied que la fibula</li><li>Le tibia est plus près du tronc que la fibula</li><li class="fiche-corrige__bonne">Le tibia est plus près du plan médian que la fibula</li></ol><p class="fiche-corrige__expl">Médial et latéral se mesurent par rapport au plan médian, et par rapport à rien d&#x27;autre. Les trois autres critères sont ceux des autres couples du chapitre, appliqués au mauvais endroit : la distance au tronc définit proximal et distal, la distance à la surface définit superficiel et profond, et l&#x27;axe du pied (2e orteil) est un repère longitudinal du pied. Tibia et fibula étant côte à côte sur la même portion de membre, seule leur position par rapport au plan médian peut les départager.</p><span class="src">slide 40</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Pour qualifier la face avant du sternum, quel terme le cours privilégie-t-il ?</p><ol type="A"><li>Antérieur</li><li>Crânial</li><li>Palmaire</li><li class="fiche-corrige__bonne">Ventral</li></ol><p class="fiche-corrige__expl">Le sternum appartient au tronc, et le cours précise que ventral et dorsal sont plus spécifiques pour le tronc, antérieur et postérieur pour la tête et les membres. « Antérieur » n&#x27;est donc pas faux sur le fond — le cours donne antérieur et ventral comme équivalents — mais c&#x27;est le terme moins spécifique ici, et la slide suivante tranche en légendant « sternum : os ventral du thorax ». « Palmaire » est bien un synonyme d&#x27;antérieur, mais réservé à la main. « Crânial » concerne lui aussi le tronc, mais sur l&#x27;autre axe : haut et bas, pas avant et arrière.</p><span class="src">slide 42</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Comment le cours situe-t-il la circumduction par rapport aux trois plans ?</p><ol type="A"><li>Dans le plan frontal, avec l&#x27;abduction et l&#x27;adduction</li><li>Dans le plan transversal, avec la rotation</li><li>Dans le plan sagittal, avec la flexion et l&#x27;extension</li><li class="fiche-corrige__bonne">Il ne la range dans aucun des trois : il la présente à part, comme mouvement particulier</li></ol><p class="fiche-corrige__expl">Le cours ouvre une rubrique distincte, « mouvement particulier », pour la circumduction : le membre y décrit un cône dans l&#x27;espace. Le plan transversal est le distracteur le plus tentant, parce qu&#x27;un cône se trace en tournant et qu&#x27;on pense aussitôt à la rotation — mais la rotation est définie comme le mouvement d&#x27;un segment sur un axe, pas comme la description d&#x27;un cône. Les deux autres plans tentent pour la raison inverse : chacun porte une paire de mouvements du membre, et on cherche spontanément à y caser celui-ci ; le cours, lui, le laisse hors des trois plans.</p><span class="src">slide 35</span></article></section>
+</body>
+</html>

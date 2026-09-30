@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<title>Fiche 06 — Le membre supérieur</title>
+<style>
+/* Feuille de style de la fiche PDF imprimable -- entierement autonome
+ * (aucune police distante, aucun script) : contrairement a gabarits/base.html,
+ * cette page est convertie hors-ligne par Chrome headless (outils/pdf.py) et ne
+ * doit dependre d'aucune requete reseau pour rester fidele d'une machine a
+ * l'autre.
+ *
+ * Regle d'impression du projet (site/assets/style.css, section 8) : les trois
+ * plans anatomiques ne sont JAMAIS distingues par la seule teinte. Ici la
+ * regle est appliquee au plus simple : aucune couleur nulle part, seulement du
+ * noir, du gris de texte et des traits -- le plan s'ecrit toujours en toutes
+ * lettres (".fiche-plan", "::after" des pastilles de plan).
+ */
+* { box-sizing: border-box; }
+
+@page {
+  size: A4;
+  margin: 15mm 14mm 18mm;
+}
+
+body {
+  margin: 0;
+  color: #000;
+  background: #fff;
+  font-family: "Noto Sans", "Liberation Sans", Arial, sans-serif;
+  font-size: 10.3pt;
+  line-height: 1.35;
+}
+
+h1, h2, h3 {
+  font-family: "Noto Sans", "Liberation Sans", Arial, sans-serif;
+  margin: 0 0 3mm 0;
+  break-after: avoid;
+}
+
+h1 { font-size: 15pt; }
+h2 { font-size: 12.5pt; border-bottom: 1pt solid #000; padding-bottom: 1mm; margin-top: 6mm; }
+h3 { font-size: 10.8pt; margin-top: 4mm; }
+
+p { margin: 0 0 1.5mm 0; }
+
+/* --- En-tete de fiche ---------------------------------------------- */
+
+.fiche-entete {
+  display: flex;
+  align-items: baseline;
+  gap: 4mm;
+  border-bottom: 1.5pt solid #000;
+  padding-bottom: 2mm;
+  margin-bottom: 4mm;
+}
+
+.fiche-entete__num {
+  font-family: "Liberation Mono", monospace;
+  font-weight: bold;
+  font-size: 13pt;
+}
+
+.fiche-entete h1 { flex: 1; }
+
+.fiche-entete__slides {
+  font-family: "Liberation Mono", monospace;
+  font-size: 9pt;
+  color: #333;
+}
+
+/* --- Renvoi de slide (reutilise le contenu de outils.construire._src) --- */
+
+.src {
+  display: inline-block;
+  font-family: "Liberation Mono", monospace;
+  font-size: 8pt;
+  color: #333;
+  border: 0.75pt solid #666;
+  border-radius: 2pt;
+  padding: 0.3mm 1.3mm;
+  margin-top: 1mm;
+}
+
+.src--hors { border-style: dashed; }
+
+/* --- Plan anatomique, toujours ecrit --------------------------------- */
+
+.fiche-plan {
+  display: inline-block;
+  font-family: "Liberation Mono", monospace;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 0.75pt solid #000;
+  border-radius: 2pt;
+  padding: 0.3mm 1.3mm;
+  margin: 0 2mm 1.5mm 0;
+}
+
+/* --- 1. Planches en mode muet ---------------------------------------- */
+
+.fiche-planche {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 5mm;
+  border: 0.75pt solid #999;
+  border-radius: 2pt;
+  padding: 3mm;
+  margin-bottom: 4mm;
+  break-inside: avoid;
+}
+
+.fiche-planche__figure { flex: 0 0 auto; }
+
+.fiche-planche figcaption {
+  font-weight: bold;
+  font-size: 9.5pt;
+  margin-bottom: 1.5mm;
+}
+
+.fiche-planche svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pastille circle {
+  fill: #fff;
+  stroke: #000;
+  stroke-width: 1.5;
+}
+
+.pastille__n {
+  fill: #000;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Les libelles n'existent plus dans le DOM du mode muet (voir
+ * outils/fiches.py, _rendre_planche_muette) : rien a masquer ici. Dans le
+ * corrige, la meme classe redevient un texte normal, noir, sans mise en
+ * forme particuliere -- la reponse s'y affiche en clair, comme il se doit. */
+.pastille__t {
+  fill: #000;
+  font-size: 14px;
+}
+
+.fiche-legende {
+  flex: 1 1 60mm;
+  min-width: 55mm;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: none;
+}
+
+.fiche-legende li {
+  display: flex;
+  align-items: baseline;
+  gap: 2mm;
+  padding: 1.2mm 0;
+  border-bottom: 0.5pt dotted #999;
+}
+
+.fiche-legende__n {
+  font-family: "Liberation Mono", monospace;
+  font-weight: bold;
+  min-width: 4mm;
+}
+
+.fiche-legende__indice {
+  color: #444;
+  font-size: 8.6pt;
+  white-space: nowrap;
+}
+
+.fiche-legende__trait {
+  flex: 1 1 auto;
+  min-width: 20mm;
+}
+
+/* --- 2. Questions : cartes et QCM ------------------------------------- */
+
+.fiche-carte,
+.fiche-quiz {
+  border: 0.75pt solid #999;
+  border-radius: 2pt;
+  padding: 3mm;
+  margin-bottom: 3mm;
+  break-inside: avoid;
+}
+
+.fiche-carte__q,
+.fiche-quiz__q {
+  font-weight: bold;
+  font-size: 10.6pt;
+  margin-bottom: 1.5mm;
+}
+
+.fiche-carte__reponse-trait {
+  border-bottom: 0.5pt dotted #999;
+  height: 7mm;
+  margin-top: 2mm;
+}
+
+.fiche-quiz__choix {
+  margin: 0 0 1.5mm 0;
+  padding-left: 6mm;
+}
+
+.fiche-quiz__choix li { padding: 0.6mm 0; }
+
+/* --- 3. Table musculaire a completer ---------------------------------- */
+
+table.fiche-muscles,
+table.muscles {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 4mm;
+  font-size: 9.6pt;
+}
+
+table.fiche-muscles caption,
+table.muscles caption {
+  text-align: left;
+  font-weight: bold;
+  font-size: 10.5pt;
+  margin-bottom: 1.5mm;
+}
+
+table.fiche-muscles th,
+table.fiche-muscles td,
+table.muscles th,
+table.muscles td {
+  border: 0.75pt solid #666;
+  padding: 1.3mm 1.8mm;
+  vertical-align: top;
+  text-align: left;
+}
+
+table.fiche-muscles thead th,
+table.muscles thead th {
+  background: #eee;
+  font-size: 9pt;
+}
+
+table.fiche-muscles tbody th,
+table.muscles tbody th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+table.fiche-muscles tr,
+table.muscles tr { break-inside: avoid; }
+
+.fiche-muscle__case {
+  height: 15mm;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 4.6mm,
+    #ccc 4.6mm,
+    #ccc 4.8mm
+  );
+}
+
+.muscle__valeur { font-size: 9.6pt; }
+
+/* --- 4. Pieges : affiches en clair -------------------------------------- */
+
+.fiche-piege {
+  border: 1pt solid #000;
+  border-radius: 2pt;
+  padding: 3mm;
+  margin-bottom: 3mm;
+  break-inside: avoid;
+}
+
+.fiche-piege__etiquette {
+  display: inline-block;
+  font-family: "Liberation Mono", monospace;
+  font-weight: bold;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border: 1pt solid #000;
+  border-radius: 2pt;
+  padding: 0.3mm 1.6mm;
+  margin-bottom: 1.5mm;
+}
+
+.fiche-piege__titre {
+  font-weight: bold;
+  font-size: 10.4pt;
+}
+
+/* --- 5. Corrige : en fin de document, jamais en regard ------------------ */
+
+.fiche-corrige {
+  break-before: page;
+}
+
+.fiche-corrige__titre {
+  font-size: 16pt;
+  border-bottom: 2pt solid #000;
+  padding-bottom: 2mm;
+}
+
+.fiche-corrige__bloc { margin-bottom: 5mm; }
+
+.fiche-corrige__carte,
+.fiche-corrige__quiz {
+  border-bottom: 0.5pt solid #ccc;
+  padding: 2mm 0;
+  break-inside: avoid;
+}
+
+.fiche-corrige__q {
+  font-weight: bold;
+  margin-bottom: 1mm;
+}
+
+.fiche-corrige__r { margin-bottom: 1mm; }
+
+.fiche-corrige__quiz ol { margin: 1mm 0 1.5mm 0; padding-left: 6mm; }
+
+.fiche-corrige__bonne {
+  font-weight: bold;
+}
+
+.fiche-corrige__bonne::after {
+  content: " — bonne réponse";
+  font-weight: normal;
+  font-style: italic;
+}
+
+.fiche-corrige__expl {
+  color: #222;
+  font-size: 9.6pt;
+}
+
+.fiche-corrige__planches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5mm;
+  margin-bottom: 4mm;
+}
+
+.fiche-corrige__planche {
+  display: inline-block;
+  vertical-align: top;
+  border: 0.75pt dashed #999;
+  border-radius: 2pt;
+  padding: 2mm;
+  break-inside: avoid;
+}
+
+.fiche-corrige__planche figcaption {
+  font-weight: bold;
+  font-size: 9.5pt;
+  margin-bottom: 1.5mm;
+}
+
+.fiche-corrige__planche svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+</style>
+</head>
+<body>
+<header class="fiche-entete"><span class="fiche-entete__num">Ch. 6</span><h1>Le membre supérieur</h1><span class="fiche-entete__slides">slides 191–266</span></header><section class="fiche-section" data-section="planches"><h2>Planches (mode muet)</h2><div class="fiche-planche"><div class="fiche-planche__figure" style="width:45mm"><figure class="planche" id="squelette-membre-superieur-articulations" data-mode="muet"><figcaption>Le squelette du membre supérieur et ses articulations <span class="src">slide 194</span></figcaption><svg viewBox="0 0 300 640" role="img"><g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M70,45 Q105,32 150,58' stroke-width='6' stroke-linecap='round'/><path d='M150,58 L150,140'/><path d='M150,145 L150,325' stroke-width='11' stroke-linecap='round'/><path d='M150,325 L70,345'/><path d='M150,325 L230,345'/><path d='M70,350 L92,515' stroke-width='8' stroke-linecap='round'/><path d='M230,350 L198,540' stroke-width='8' stroke-linecap='round'/><path d='M78,522 L142,540 L128,600 Q108,612 88,598 Z' stroke-width='2'/></g><g class="pastille" data-n="1" data-plan="" data-indice="extrémité médiale (sternale) de la clavicule"><circle cx="70" cy="45" r="9"/><text class="pastille__n" x="70" y="49" text-anchor="middle">1</text></g><g class="pastille" data-n="2" data-plan="" data-indice="extrémité latérale (acromiale) de la clavicule"><circle cx="150" cy="58" r="9"/><text class="pastille__n" x="150" y="62" text-anchor="middle">2</text></g><g class="pastille" data-n="3" data-plan="" data-indice="cavité glénoïdale + tête humérale"><circle cx="150" cy="143" r="9"/><text class="pastille__n" x="150" y="147" text-anchor="middle">3</text></g><g class="pastille" data-n="4" data-plan="" data-indice="coude, côté médial (ulna)"><circle cx="70" cy="345" r="9"/><text class="pastille__n" x="70" y="349" text-anchor="middle">4</text></g><g class="pastille" data-n="5" data-plan="" data-indice="coude, côté latéral (radius)"><circle cx="230" cy="345" r="9"/><text class="pastille__n" x="230" y="349" text-anchor="middle">5</text></g><g class="pastille" data-n="6" data-plan="" data-indice="entre radius et ulna, juste sous le coude"><circle cx="150" cy="395" r="9"/><text class="pastille__n" x="150" y="399" text-anchor="middle">6</text></g><g class="pastille" data-n="7" data-plan="" data-indice="poignet ; radius + scaphoïde + lunatum"><circle cx="198" cy="545" r="9"/><text class="pastille__n" x="198" y="549" text-anchor="middle">7</text></g><g class="pastille" data-n="8" data-plan="" data-indice="entre radius et ulna, côté médial du poignet"><circle cx="92" cy="515" r="9"/><text class="pastille__n" x="92" y="519" text-anchor="middle">8</text></g></svg></figure></div><ol class="fiche-legende"><li><span class="fiche-legende__n">1.</span><span class="fiche-legende__indice">(extrémité médiale (sternale) de la clavicule)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">2.</span><span class="fiche-legende__indice">(extrémité latérale (acromiale) de la clavicule)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">3.</span><span class="fiche-legende__indice">(cavité glénoïdale + tête humérale)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">4.</span><span class="fiche-legende__indice">(coude, côté médial (ulna))</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">5.</span><span class="fiche-legende__indice">(coude, côté latéral (radius))</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">6.</span><span class="fiche-legende__indice">(entre radius et ulna, juste sous le coude)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">7.</span><span class="fiche-legende__indice">(poignet ; radius + scaphoïde + lunatum)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">8.</span><span class="fiche-legende__indice">(entre radius et ulna, côté médial du poignet)</span><span class="fiche-legende__trait"></span></li></ol></div><div class="fiche-planche"><div class="fiche-planche__figure" style="width:64mm"><figure class="planche" id="scapula-reperes" data-mode="muet"><figcaption>La scapula, vue postérieure : ses repères <span class="src">slide 202</span></figcaption><svg viewBox="0 0 300 320" role="img"><g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M75,55 L215,92 L108,300 Z'/><path d='M92,92 L202,113' stroke-width='4'/><path d='M202,113 Q223,100 228,78' stroke-width='4' stroke-linecap='round'/><path d='M192,78 Q183,50 206,44' stroke-width='4' stroke-linecap='round'/><ellipse cx='207' cy='122' rx='15' ry='11'/></g><g class="pastille" data-n="1" data-plan="" data-indice="crochet à l&#x27;avant, lieu d&#x27;insertions musculaires"><circle cx="202" cy="47" r="9"/><text class="pastille__n" x="202" y="51" text-anchor="middle">1</text></g><g class="pastille" data-n="2" data-plan="" data-indice="crête qui traverse la face postérieure"><circle cx="140" cy="100" r="9"/><text class="pastille__n" x="140" y="104" text-anchor="middle">2</text></g><g class="pastille" data-n="3" data-plan="" data-indice="extrémité latérale de l&#x27;épine ; articulation acromio-claviculaire"><circle cx="228" cy="78" r="9"/><text class="pastille__n" x="228" y="82" text-anchor="middle">3</text></g><g class="pastille" data-n="4" data-plan="" data-indice="reçoit la tête humérale"><circle cx="207" cy="122" r="9"/><text class="pastille__n" x="207" y="126" text-anchor="middle">4</text></g></svg></figure></div><ol class="fiche-legende"><li><span class="fiche-legende__n">1.</span><span class="fiche-legende__indice">(crochet à l&#x27;avant, lieu d&#x27;insertions musculaires)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">2.</span><span class="fiche-legende__indice">(crête qui traverse la face postérieure)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">3.</span><span class="fiche-legende__indice">(extrémité latérale de l&#x27;épine ; articulation acromio-claviculaire)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">4.</span><span class="fiche-legende__indice">(reçoit la tête humérale)</span><span class="fiche-legende__trait"></span></li></ol></div><div class="fiche-planche"><div class="fiche-planche__figure" style="width:68mm"><figure class="planche" id="deltoide-trois-faisceaux" data-mode="muet"><figcaption>Le deltoïde, vue latérale : ses 3 faisceaux <span class="src">slide 247</span></figcaption><svg viewBox="0 0 300 300" role="img"><g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M65,40 Q105,26 148,46'/><path d='M152,46 Q195,42 235,58'/><circle cx='150' cy='46' r='4' fill='currentColor' stroke='none'/><path d='M150,88 L150,335' stroke-width='11' stroke-linecap='round'/></g><g class='faisceau' fill='none' stroke='currentColor' stroke-width='1.4'><path d='M65,40 L128,180'/><path d='M65,40 L140,196'/><path d='M65,40 L150,212'/><path d='M150,46 L144,180'/><path d='M150,46 L150,196'/><path d='M150,46 L156,212'/><path d='M235,58 L172,180'/><path d='M235,58 L160,196'/><path d='M235,58 L150,212'/></g><g class="pastille" data-n="1" data-plan="" data-indice="faisceau antérieur, origine sur la clavicule"><circle cx="78" cy="100" r="9"/><text class="pastille__n" x="78" y="104" text-anchor="middle">1</text></g><g class="pastille" data-n="2" data-plan="" data-indice="faisceau intermédiaire, origine sur l&#x27;acromion"><circle cx="150" cy="56" r="9"/><text class="pastille__n" x="150" y="60" text-anchor="middle">2</text></g><g class="pastille" data-n="3" data-plan="" data-indice="faisceau postérieur, origine sur l&#x27;épine de la scapula"><circle cx="222" cy="100" r="9"/><text class="pastille__n" x="222" y="104" text-anchor="middle">3</text></g><g class="pastille" data-n="4" data-plan="" data-indice="insertion commune des 3 faisceaux, sur l&#x27;humérus"><circle cx="150" cy="228" r="9"/><text class="pastille__n" x="150" y="232" text-anchor="middle">4</text></g></svg></figure></div><ol class="fiche-legende"><li><span class="fiche-legende__n">1.</span><span class="fiche-legende__indice">(faisceau antérieur, origine sur la clavicule)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">2.</span><span class="fiche-legende__indice">(faisceau intermédiaire, origine sur l&#x27;acromion)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">3.</span><span class="fiche-legende__indice">(faisceau postérieur, origine sur l&#x27;épine de la scapula)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">4.</span><span class="fiche-legende__indice">(insertion commune des 3 faisceaux, sur l&#x27;humérus)</span><span class="fiche-legende__trait"></span></li></ol></div><div class="fiche-planche"><div class="fiche-planche__figure" style="width:60mm"><figure class="planche" id="coiffe-rotateurs-vue-postero-laterale" data-mode="muet"><figcaption>La coiffe des rotateurs, vue postéro-latérale <span class="src">slide 251</span></figcaption><svg viewBox="0 0 300 340" role="img"><g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M100,40 L240,90 L130,340 Z'/><path d='M115,95 L225,115' stroke-width='3'/><path d='M225,115 Q245,100 250,80' stroke-width='3' stroke-linecap='round'/><circle cx='255' cy='150' r='26'/></g><g class='muscle' fill='none' stroke='currentColor' stroke-width='1.3'><path d='M130,60 L235,128'/><path d='M150,70 L238,138'/><path d='M170,80 L236,148'/><path d='M130,150 L232,158'/><path d='M140,190 L228,165'/><path d='M150,230 L224,172'/><path d='M150,260 L220,180'/><path d='M155,285 L216,186'/><path d='M150,300 L214,192' stroke-dasharray='3 3'/><path d='M155,320 L212,198' stroke-dasharray='3 3'/></g><g class="pastille" data-n="1" data-plan="" data-indice="au-dessus de l&#x27;épine ; le plus fragile de la coiffe"><circle cx="150" cy="68" r="9"/><text class="pastille__n" x="150" y="72" text-anchor="middle">1</text></g><g class="pastille" data-n="2" data-plan="" data-indice="sous l&#x27;épine"><circle cx="165" cy="180" r="9"/><text class="pastille__n" x="165" y="184" text-anchor="middle">2</text></g><g class="pastille" data-n="3" data-plan="" data-indice="bord latéral, sous l&#x27;infra-épineux"><circle cx="158" cy="268" r="9"/><text class="pastille__n" x="158" y="272" text-anchor="middle">3</text></g><g class="pastille" data-n="4" data-plan="" data-indice="face antérieure ; non visible de dos, figuré en pointillé"><circle cx="152" cy="308" r="9"/><text class="pastille__n" x="152" y="312" text-anchor="middle">4</text></g></svg></figure></div><ol class="fiche-legende"><li><span class="fiche-legende__n">1.</span><span class="fiche-legende__indice">(au-dessus de l&#x27;épine ; le plus fragile de la coiffe)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">2.</span><span class="fiche-legende__indice">(sous l&#x27;épine)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">3.</span><span class="fiche-legende__indice">(bord latéral, sous l&#x27;infra-épineux)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">4.</span><span class="fiche-legende__indice">(face antérieure ; non visible de dos, figuré en pointillé)</span><span class="fiche-legende__trait"></span></li></ol></div></section><section class="fiche-section" data-section="questions"><h2>Questions</h2><article class="fiche-carte" id="c6-01"><p class="fiche-carte__q">Quels sont les 4 segments du squelette du membre supérieur ?</p><span class="src">slide 193</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-02"><p class="fiche-carte__q">Quels 2 os composent la ceinture scapulaire, en plus du sternum ?</p><span class="src">slide 196</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-03"><p class="fiche-carte__q">Quelle est la forme de la clavicule, et avec quels 2 os s&#x27;articule-t-elle ?</p><span class="src">slide 198</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-04"><p class="fiche-carte__q">Sur la clavicule, quelle extrémité est dite « acromiale » et laquelle est dite « sternale » ?</p><span class="src">slide 199</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-05"><p class="fiche-carte__q">Où est située la scapula, et avec quels 2 os s&#x27;articule-t-elle ?</p><span class="src">slide 200</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-06"><p class="fiche-carte__q">Où se trouvent l&#x27;acromion, le processus coracoïde, l&#x27;épine et la cavité glénoïdale sur la scapula ?</p><span class="src">slide 202</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-07"><p class="fiche-carte__q">Avec quels os l&#x27;humérus s&#x27;articule-t-il, et quels repères se trouvent à ses 2 extrémités ?</p><span class="src">slides 205 et 206</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-08"><p class="fiche-carte__q">Le radius et l&#x27;ulna : lequel est latéral, lequel est médial, et avec quels os chacun s&#x27;articule-t-il ?</p><span class="src">slides 210 et 212</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-09"><p class="fiche-carte__q">L&#x27;articulation du coude comprend 3 articulations synoviales dans une même capsule : lesquelles, de quel type chacune, et quels mouvements permettent-elles ?</p><span class="src">slide 218</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-10"><p class="fiche-carte__q">Combien d&#x27;os compte la main, et comment se répartissent-ils en 3 groupes ?</p><span class="src">slide 221</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-11"><p class="fiche-carte__q">Quels 3 os forment l&#x27;articulation radio-carpienne (le poignet) ?</p><span class="src">slide 222</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-12"><p class="fiche-carte__q">Quels sont les 4 mouvements du poignet ?</p><span class="src">slide 223</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-13"><p class="fiche-carte__q">Où se palpe le scaphoïde ?</p><span class="src">slide 224</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-14"><p class="fiche-carte__q">Quels muscles unissent le membre supérieur à la colonne vertébrale, en groupe superficiel et en groupe profond ?</p><span class="src">slide 226</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-15"><p class="fiche-carte__q">Quelle est la différence d&#x27;origine et de terminaison entre le petit et le grand rhomboïde ?</p><span class="src">slide 229</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-16"><p class="fiche-carte__q">Le trapèze se termine par 3 faisceaux : lesquels, et sur quelle structure chacun s&#x27;insère-t-il ?</p><span class="src">slide 231</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-17"><p class="fiche-carte__q">Quelles sont les actions du grand dorsal sur le bras et sur la scapula ?</p><span class="src">slide 234</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-18"><p class="fiche-carte__q">Quels sont les 4 muscles qui unissent le membre supérieur au thorax ?</p><span class="src">slide 237</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-19"><p class="fiche-carte__q">Quelles sont l&#x27;origine, la terminaison et l&#x27;action du grand pectoral ?</p><span class="src">slide 240</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-20"><p class="fiche-carte__q">Quelle est l&#x27;action du dentelé antérieur sur la scapula ?</p><span class="src">slide 242</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-21"><p class="fiche-carte__q">Quels sont les 6 muscles de l&#x27;épaule ?</p><span class="src">slide 245</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-22"><p class="fiche-carte__q">Le deltoïde a 3 faisceaux : quelle est l&#x27;origine de chacun, et où s&#x27;insèrent-ils tous ?</p><span class="fiche-plan">plan frontal</span><span class="src">slide 247</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-23"><p class="fiche-carte__q">Le deltoïde n&#x27;a qu&#x27;une seule terminaison mais 3 actions différentes selon le faisceau : lesquelles ?</p><span class="src">slide 247</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-24"><p class="fiche-carte__q">Quels 4 muscles forment la coiffe des rotateurs, et pourquoi le cours les compare-t-il à des « ligaments actifs » ?</p><span class="src">slide 251</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c6-25"><p class="fiche-carte__q">Quels sont les 2 groupes de muscles du bras, et quels muscles chacun contient-il ?</p><span class="src">slide 254</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-quiz" id="q6-01"><p class="fiche-quiz__q">L&#x27;articulation du coude comprend 3 articulations dans une seule capsule. Laquelle est de type trochoïde et permet la prono-supination ?</p><ol class="fiche-quiz__choix" type="A"><li>l&#x27;articulation huméro-radiale</li><li>l&#x27;articulation huméro-ulnaire</li><li>l&#x27;articulation radio-ulnaire proximale</li><li>l&#x27;articulation radio-ulnaire distale</li></ol><span class="src">slide 218</span></article><article class="fiche-quiz" id="q6-02"><p class="fiche-quiz__q">Sur la clavicule, l&#x27;extrémité latérale (celle qui forme l&#x27;articulation acromio-claviculaire) se nomme extrémité...</p><ol class="fiche-quiz__choix" type="A"><li>glénoïdale</li><li>coracoïde</li><li>sternale</li><li>acromiale</li></ol><span class="src">slide 199</span></article><article class="fiche-quiz" id="q6-03"><p class="fiche-quiz__q">Le radius est l&#x27;os ... de l&#x27;avant-bras.</p><ol class="fiche-quiz__choix" type="A"><li>postérieur</li><li>latéral</li><li>antérieur</li><li>médial</li></ol><span class="src">slide 210</span></article><article class="fiche-quiz" id="q6-04"><p class="fiche-quiz__q">L&#x27;articulation radio-carpienne (le poignet) est formée par le radius et 2 os du carpe. Lesquels ?</p><ol class="fiche-quiz__choix" type="A"><li>le scaphoïde et l&#x27;ulna</li><li>le scaphoïde, le lunatum et l&#x27;ulna</li><li>le scaphoïde et le lunatum</li><li>l&#x27;ulna et le lunatum</li></ol><span class="src">slide 222</span></article><article class="fiche-quiz" id="q6-05"><p class="fiche-quiz__q">D&#x27;après le cours, le mouvement de prono-supination de l&#x27;avant-bras est associé à quelle articulation, de quel type ?</p><ol class="fiche-quiz__choix" type="A"><li>la huméro-radiale, sphéroïde</li><li>la scapulo-humérale, sphéroïde</li><li>la huméro-ulnaire, ginglyme</li><li>la radio-ulnaire proximale, trochoïde</li></ol><span class="fiche-plan">plan transversal</span><span class="src">slide 218</span></article><article class="fiche-quiz" id="q6-06"><p class="fiche-quiz__q">La main compte 27 os. Comment se répartissent-ils ?</p><ol class="fiche-quiz__choix" type="A"><li>7 carpiens, 5 métacarpiens, 15 phalanges</li><li>8 carpiens, 5 métacarpiens, 14 phalanges</li><li>8 carpiens, 6 métacarpiens, 13 phalanges</li><li>9 carpiens, 5 métacarpiens, 13 phalanges</li></ol><span class="src">slide 221</span></article><article class="fiche-quiz" id="q6-07"><p class="fiche-quiz__q">Le faisceau intermédiaire du trapèze se termine sur...</p><ol class="fiche-quiz__choix" type="A"><li>l&#x27;acromion</li><li>la clavicule</li><li>le processus coracoïde</li><li>l&#x27;épine de la scapula</li></ol><span class="src">slide 231</span></article><article class="fiche-quiz" id="q6-08"><p class="fiche-quiz__q">Le faisceau acromial (intermédiaire) du deltoïde est...</p><ol class="fiche-quiz__choix" type="A"><li>adducteur du bras</li><li>extenseur et rotateur latéral du bras</li><li>fléchisseur et rotateur médial du bras</li><li>abducteur du bras</li></ol><span class="fiche-plan">plan frontal</span><span class="src">slide 247</span></article><article class="fiche-quiz" id="q6-09"><p class="fiche-quiz__q">Le faisceau épineux (postérieur) du deltoïde est...</p><ol class="fiche-quiz__choix" type="A"><li>extenseur (rétropulsion) et rotateur latéral du bras</li><li>fléchisseur (antépulsion) et rotateur médial du bras</li><li>abducteur du bras</li><li>adducteur du bras</li></ol><span class="src">slide 247</span></article><article class="fiche-quiz" id="q6-10"><p class="fiche-quiz__q">Quels sont les 4 muscles de la coiffe des rotateurs ?</p><ol class="fiche-quiz__choix" type="A"><li>supra-épineux, infra-épineux, grand rond, subscapulaire</li><li>deltoïde, infra-épineux, petit rond, grand rond</li><li>supra-épineux, infra-épineux, deltoïde, subscapulaire</li><li>supra-épineux, infra-épineux, petit rond, subscapulaire</li></ol><span class="src">slide 251</span></article><article class="fiche-quiz" id="q6-11"><p class="fiche-quiz__q">Le biceps brachial a 2 chefs. Où est l&#x27;origine de chacun ?</p><ol class="fiche-quiz__choix" type="A"><li>chef long : tubercule infra-glénoïdal ; chef court : processus coracoïde</li><li>chef long et chef court : tubercule supra-glénoïdal</li><li>chef long : tubercule supra-glénoïdal ; chef court : processus coracoïde</li><li>chef long : processus coracoïde ; chef court : tubercule supra-glénoïdal</li></ol><span class="src">slide 255</span></article><article class="fiche-quiz" id="q6-12"><p class="fiche-quiz__q">Parmi les 3 chefs du triceps brachial, lequel est aussi adducteur et agent de la rétropulsion du bras (en plus d&#x27;être extenseur de l&#x27;avant-bras) ?</p><ol class="fiche-quiz__choix" type="A"><li>les 3 chefs à égalité</li><li>le chef médial</li><li>le chef long</li><li>le chef latéral</li></ol><span class="src">slide 261</span></article></section><section class="fiche-section" data-section="muscles"><h2>Table musculaire à compléter</h2><table class="fiche-muscles"><caption>Table musculaire</caption><thead><tr><th scope="col">Muscle</th><th scope="col">Origine</th><th scope="col">Terminaison</th><th scope="col">Action</th></tr></thead><tbody><tr><th>Petit rhomboïde <span class="src">slide 229</span></th><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td></tr><tr><th>Grand rhomboïde <span class="src">slide 229</span></th><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td></tr><tr><th>Trapèze <span class="src">slide 231</span></th><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td></tr><tr><th>Grand dorsal <span class="src">slide 234</span></th><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td></tr><tr><th>Grand pectoral <span class="src">slide 240</span></th><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td></tr><tr><th>Dentelé antérieur <span class="src">slide 242</span></th><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td></tr><tr><th>Deltoïde <span class="src">slide 247</span></th><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td></tr><tr><th>Biceps brachial <span class="src">slide 255</span></th><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td></tr><tr><th>Coraco-brachial <span class="src">slide 258</span></th><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td></tr><tr><th>Brachial <span class="src">slide 258</span></th><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td></tr><tr><th>Triceps brachial <span class="src">slide 261</span></th><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td><td class="fiche-muscle__case"></td></tr></tbody></table></section><section class="fiche-section" data-section="pieges"><h2>Pièges</h2><article class="fiche-piege"><span class="fiche-piege__etiquette">Piège</span><p class="fiche-piege__titre">La coiffe des rotateurs ne compte QUE 4 muscles précis</p><p>Supra-épineux, infra-épineux, petit rond, subscapulaire — pas un de plus. Le piège est d&#x27;y ajouter le DELTOÏDE ou le GRAND ROND : ce sont bien des muscles de l&#x27;épaule (slide 245 : 6 muscles), mais ils ne figurent pas dans la coiffe (slide 251 : 4 muscles). L&#x27;articulation scapulo-humérale est mobile donc instable par nature : ces muscles agissent comme des ligaments actifs qui la maintiennent.</p><span class="src">slide 251</span></article><article class="fiche-piege"><span class="fiche-piege__etiquette">Piège</span><p class="fiche-piege__titre">Le deltoïde : un seul muscle, trois faisceaux, trois actions contradictoires</p><p>Le deltoïde a une terminaison UNIQUE (tubérosité deltoïdienne) mais 3 faisceaux d&#x27;origine différente dont les actions s&#x27;opposent selon celui qui se contracte. Faisceau claviculaire (antérieur) : fléchisseur et rotateur MÉDIAL du bras. Faisceau épineux (postérieur) : extenseur et rotateur LATÉRAL du bras — l&#x27;exact opposé. Faisceau acromial (intermédiaire) : abducteur. Ne jamais répondre « le deltoïde fait X » sans préciser le faisceau.</p><span class="src">slide 247</span></article><article class="fiche-piege"><span class="fiche-piege__etiquette">Piège</span><p class="fiche-piege__titre">Le coude : 3 articulations, 3 types, mais 1 seule capsule</p><p>L&#x27;articulation du coude n&#x27;est pas une seule articulation synoviale : elle en réunit 3, de 3 types différents, dans une même cavité articulaire (une seule capsule). Huméro-ulnaire (ginglyme) et huméro-radiale (sphéroïde) font la flexion-extension. Radio-ulnaire proximale (trochoïde) fait la prono-supination — un type et un mouvement complètement différents, dans la même capsule que les deux premières.</p><span class="src">slide 218</span></article><article class="fiche-piege"><span class="fiche-piege__etiquette">Piège</span><p class="fiche-piege__titre">Le poignet (radio-carpienne) : radius + scaphoïde + lunatum — PAS l&#x27;ulna</p><p>L&#x27;articulation radio-carpienne (le poignet) est formée par 3 os : le radius (seul os de l&#x27;avant-bras impliqué) + 2 os du carpe, le scaphoïde et le lunatum. L&#x27;ulna, pourtant présent dans l&#x27;avant-bras jusqu&#x27;au poignet, n&#x27;entre PAS directement dans cette articulation : ne pas l&#x27;y inclure.</p><span class="src">slide 222</span></article><article class="fiche-piege"><span class="fiche-piege__etiquette">Piège</span><p class="fiche-piege__titre">L&#x27;ulna (slide 212) dit « tubérosité radiale » — le cours se trompe lui-même</p><p>La slide 212 écrit que l&#x27;ulna s&#x27;articule avec le radius « latéralement et en haut, au niveau de la tubérosité radiale » pour former l&#x27;articulation radio-ulnaire proximale. C&#x27;est une erreur du cours : le repère qui forme réellement cette articulation est la TÊTE RADIALE (elle tourne dans l&#x27;incisure radiale de l&#x27;ulna) — la tubérosité radiale est un repère distinct et plus distal, l&#x27;insertion du biceps, que la slide 211 liste séparément, juste à côté de la tête radiale sur le même os. Si l&#x27;évaluation reprend la formulation exacte de la slide 212, « tubérosité radiale » est la réponse attendue à l&#x27;examen ; anatomiquement, c&#x27;est la tête radiale. Deux mots voisins, deux repères différents du même os : ne pas les confondre est justement ce que ce piège teste.</p><span class="src">slide 212</span></article></section><section class="fiche-corrige" data-section="corrige"><h2 class="fiche-corrige__titre">Corrigé</h2><h3>Planches</h3><div class="fiche-corrige__planches"><div class="fiche-corrige__planche" style="width:45mm"><figure class="planche" id="squelette-membre-superieur-articulations" data-mode="legende"><figcaption>Le squelette du membre supérieur et ses articulations <span class="src">slide 194</span></figcaption><svg viewBox="0 0 300 640" role="img"><g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M70,45 Q105,32 150,58' stroke-width='6' stroke-linecap='round'/><path d='M150,58 L150,140'/><path d='M150,145 L150,325' stroke-width='11' stroke-linecap='round'/><path d='M150,325 L70,345'/><path d='M150,325 L230,345'/><path d='M70,350 L92,515' stroke-width='8' stroke-linecap='round'/><path d='M230,350 L198,540' stroke-width='8' stroke-linecap='round'/><path d='M78,522 L142,540 L128,600 Q108,612 88,598 Z' stroke-width='2'/></g><g class="pastille" data-n="1" data-plan="" data-indice="extrémité médiale (sternale) de la clavicule"><circle cx="70" cy="45" r="9"/><text class="pastille__n" x="70" y="49" text-anchor="middle">1</text><text class="pastille__t" x="70" y="69" text-anchor="middle">Sterno-claviculaire</text></g><g class="pastille" data-n="2" data-plan="" data-indice="extrémité latérale (acromiale) de la clavicule"><circle cx="150" cy="58" r="9"/><text class="pastille__n" x="150" y="62" text-anchor="middle">2</text><text class="pastille__t" x="150" y="82" text-anchor="middle">Acromio-claviculaire</text></g><g class="pastille" data-n="3" data-plan="" data-indice="cavité glénoïdale + tête humérale"><circle cx="150" cy="143" r="9"/><text class="pastille__n" x="150" y="147" text-anchor="middle">3</text><text class="pastille__t" x="150" y="167" text-anchor="middle">Scapulo-humérale</text></g><g class="pastille" data-n="4" data-plan="" data-indice="coude, côté médial (ulna)"><circle cx="70" cy="345" r="9"/><text class="pastille__n" x="70" y="349" text-anchor="middle">4</text><text class="pastille__t" x="70" y="369" text-anchor="middle">Huméro-ulnaire</text></g><g class="pastille" data-n="5" data-plan="" data-indice="coude, côté latéral (radius)"><circle cx="230" cy="345" r="9"/><text class="pastille__n" x="230" y="349" text-anchor="middle">5</text><text class="pastille__t" x="230" y="369" text-anchor="middle">Huméro-radiale</text></g><g class="pastille" data-n="6" data-plan="" data-indice="entre radius et ulna, juste sous le coude"><circle cx="150" cy="395" r="9"/><text class="pastille__n" x="150" y="399" text-anchor="middle">6</text><text class="pastille__t" x="150" y="419" text-anchor="middle">Radio-ulnaire proximale</text></g><g class="pastille" data-n="7" data-plan="" data-indice="poignet ; radius + scaphoïde + lunatum"><circle cx="198" cy="545" r="9"/><text class="pastille__n" x="198" y="549" text-anchor="middle">7</text><text class="pastille__t" x="198" y="569" text-anchor="middle">Radio-carpienne</text></g><g class="pastille" data-n="8" data-plan="" data-indice="entre radius et ulna, côté médial du poignet"><circle cx="92" cy="515" r="9"/><text class="pastille__n" x="92" y="519" text-anchor="middle">8</text><text class="pastille__t" x="92" y="539" text-anchor="middle">Radio-ulnaire distale</text></g></svg></figure></div><div class="fiche-corrige__planche" style="width:89mm"><figure class="planche" id="scapula-reperes" data-mode="legende"><figcaption>La scapula, vue postérieure : ses repères <span class="src">slide 202</span></figcaption><svg viewBox="0 0 300 320" role="img"><g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M75,55 L215,92 L108,300 Z'/><path d='M92,92 L202,113' stroke-width='4'/><path d='M202,113 Q223,100 228,78' stroke-width='4' stroke-linecap='round'/><path d='M192,78 Q183,50 206,44' stroke-width='4' stroke-linecap='round'/><ellipse cx='207' cy='122' rx='15' ry='11'/></g><g class="pastille" data-n="1" data-plan="" data-indice="crochet à l&#x27;avant, lieu d&#x27;insertions musculaires"><circle cx="202" cy="47" r="9"/><text class="pastille__n" x="202" y="51" text-anchor="middle">1</text><text class="pastille__t" x="202" y="71" text-anchor="middle">Processus coracoïde</text></g><g class="pastille" data-n="2" data-plan="" data-indice="crête qui traverse la face postérieure"><circle cx="140" cy="100" r="9"/><text class="pastille__n" x="140" y="104" text-anchor="middle">2</text><text class="pastille__t" x="140" y="124" text-anchor="middle">Épine</text></g><g class="pastille" data-n="3" data-plan="" data-indice="extrémité latérale de l&#x27;épine ; articulation acromio-claviculaire"><circle cx="228" cy="78" r="9"/><text class="pastille__n" x="228" y="82" text-anchor="middle">3</text><text class="pastille__t" x="228" y="102" text-anchor="middle">Acromion</text></g><g class="pastille" data-n="4" data-plan="" data-indice="reçoit la tête humérale"><circle cx="207" cy="122" r="9"/><text class="pastille__n" x="207" y="126" text-anchor="middle">4</text><text class="pastille__t" x="207" y="146" text-anchor="middle">Cavité glénoïdale</text></g></svg></figure></div><div class="fiche-corrige__planche" style="width:95mm"><figure class="planche" id="deltoide-trois-faisceaux" data-mode="legende"><figcaption>Le deltoïde, vue latérale : ses 3 faisceaux <span class="src">slide 247</span></figcaption><svg viewBox="0 0 300 300" role="img"><g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M65,40 Q105,26 148,46'/><path d='M152,46 Q195,42 235,58'/><circle cx='150' cy='46' r='4' fill='currentColor' stroke='none'/><path d='M150,88 L150,335' stroke-width='11' stroke-linecap='round'/></g><g class='faisceau' fill='none' stroke='currentColor' stroke-width='1.4'><path d='M65,40 L128,180'/><path d='M65,40 L140,196'/><path d='M65,40 L150,212'/><path d='M150,46 L144,180'/><path d='M150,46 L150,196'/><path d='M150,46 L156,212'/><path d='M235,58 L172,180'/><path d='M235,58 L160,196'/><path d='M235,58 L150,212'/></g><g class="pastille" data-n="1" data-plan="" data-indice="faisceau antérieur, origine sur la clavicule"><circle cx="78" cy="100" r="9"/><text class="pastille__n" x="78" y="104" text-anchor="middle">1</text><text class="pastille__t" x="78" y="124" text-anchor="middle">Claviculaire</text></g><g class="pastille" data-n="2" data-plan="" data-indice="faisceau intermédiaire, origine sur l&#x27;acromion"><circle cx="150" cy="56" r="9"/><text class="pastille__n" x="150" y="60" text-anchor="middle">2</text><text class="pastille__t" x="150" y="80" text-anchor="middle">Acromial</text></g><g class="pastille" data-n="3" data-plan="" data-indice="faisceau postérieur, origine sur l&#x27;épine de la scapula"><circle cx="222" cy="100" r="9"/><text class="pastille__n" x="222" y="104" text-anchor="middle">3</text><text class="pastille__t" x="222" y="124" text-anchor="middle">Épineux</text></g><g class="pastille" data-n="4" data-plan="" data-indice="insertion commune des 3 faisceaux, sur l&#x27;humérus"><circle cx="150" cy="228" r="9"/><text class="pastille__n" x="150" y="232" text-anchor="middle">4</text><text class="pastille__t" x="150" y="252" text-anchor="middle">Tubérosité deltoïdienne</text></g></svg></figure></div><div class="fiche-corrige__planche" style="width:84mm"><figure class="planche" id="coiffe-rotateurs-vue-postero-laterale" data-mode="legende"><figcaption>La coiffe des rotateurs, vue postéro-latérale <span class="src">slide 251</span></figcaption><svg viewBox="0 0 300 340" role="img"><g class='os' fill='none' stroke='currentColor' stroke-width='2'><path d='M100,40 L240,90 L130,340 Z'/><path d='M115,95 L225,115' stroke-width='3'/><path d='M225,115 Q245,100 250,80' stroke-width='3' stroke-linecap='round'/><circle cx='255' cy='150' r='26'/></g><g class='muscle' fill='none' stroke='currentColor' stroke-width='1.3'><path d='M130,60 L235,128'/><path d='M150,70 L238,138'/><path d='M170,80 L236,148'/><path d='M130,150 L232,158'/><path d='M140,190 L228,165'/><path d='M150,230 L224,172'/><path d='M150,260 L220,180'/><path d='M155,285 L216,186'/><path d='M150,300 L214,192' stroke-dasharray='3 3'/><path d='M155,320 L212,198' stroke-dasharray='3 3'/></g><g class="pastille" data-n="1" data-plan="" data-indice="au-dessus de l&#x27;épine ; le plus fragile de la coiffe"><circle cx="150" cy="68" r="9"/><text class="pastille__n" x="150" y="72" text-anchor="middle">1</text><text class="pastille__t" x="150" y="92" text-anchor="middle">Supra-épineux</text></g><g class="pastille" data-n="2" data-plan="" data-indice="sous l&#x27;épine"><circle cx="165" cy="180" r="9"/><text class="pastille__n" x="165" y="184" text-anchor="middle">2</text><text class="pastille__t" x="165" y="204" text-anchor="middle">Infra-épineux</text></g><g class="pastille" data-n="3" data-plan="" data-indice="bord latéral, sous l&#x27;infra-épineux"><circle cx="158" cy="268" r="9"/><text class="pastille__n" x="158" y="272" text-anchor="middle">3</text><text class="pastille__t" x="158" y="292" text-anchor="middle">Petit rond</text></g><g class="pastille" data-n="4" data-plan="" data-indice="face antérieure ; non visible de dos, figuré en pointillé"><circle cx="152" cy="308" r="9"/><text class="pastille__n" x="152" y="312" text-anchor="middle">4</text><text class="pastille__t" x="152" y="332" text-anchor="middle">Subscapulaire</text></g></svg></figure></div></div><h3>Cartes</h3><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quels sont les 4 segments du squelette du membre supérieur ?</p><p class="fiche-corrige__r">La ceinture scapulaire, le bras, l&#x27;avant-bras et la main.</p><span class="src">slide 193</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quels 2 os composent la ceinture scapulaire, en plus du sternum ?</p><p class="fiche-corrige__r">La clavicule et la scapula (omoplate).</p><span class="src">slide 196</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quelle est la forme de la clavicule, et avec quels 2 os s&#x27;articule-t-elle ?</p><p class="fiche-corrige__r">Un os long en forme de « S » ; elle s&#x27;articule médialement avec le sternum (manubrium, articulation sterno-claviculaire) et latéralement avec la scapula (articulation acromio-claviculaire).</p><span class="src">slide 198</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Sur la clavicule, quelle extrémité est dite « acromiale » et laquelle est dite « sternale » ?</p><p class="fiche-corrige__r">L&#x27;extrémité latérale = extrémité acromiale (vers l&#x27;articulation acromio-claviculaire) ; l&#x27;extrémité médiale = extrémité sternale (vers l&#x27;articulation sterno-claviculaire).</p><span class="src">slide 199</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Où est située la scapula, et avec quels 2 os s&#x27;articule-t-elle ?</p><p class="fiche-corrige__r">Os plat et triangulaire situé sur la face postérieure du thorax ; elle s&#x27;articule avec la clavicule (au niveau de l&#x27;acromion, articulation acromio-claviculaire) et avec l&#x27;humérus (au niveau de la cavité glénoïdale, articulation scapulo-humérale).</p><span class="src">slide 200</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Où se trouvent l&#x27;acromion, le processus coracoïde, l&#x27;épine et la cavité glénoïdale sur la scapula ?</p><p class="fiche-corrige__r">L&#x27;épine traverse la face postérieure et se termine par l&#x27;acromion (qui forme l&#x27;articulation acromio-claviculaire) ; le processus coracoïde est à l&#x27;avant (insertions musculaires) ; la cavité glénoïdale reçoit la tête humérale (articulation scapulo-humérale).</p><span class="src">slide 202</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Avec quels os l&#x27;humérus s&#x27;articule-t-il, et quels repères se trouvent à ses 2 extrémités ?</p><p class="fiche-corrige__r">En haut avec la scapula (scapulo-humérale) ; en bas latéralement avec le radius (huméro-radiale) et médialement avec l&#x27;ulna (huméro-ulnaire). Extrémité proximale : tête humérale, tubercules majeur et mineur. Extrémité distale : capitulum, trochlée, épicondyles médial et latéral, fosse olécranienne.</p><span class="src">slides 205 et 206</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Le radius et l&#x27;ulna : lequel est latéral, lequel est médial, et avec quels os chacun s&#x27;articule-t-il ?</p><p class="fiche-corrige__r">Le radius est LATÉRAL : il s&#x27;articule avec l&#x27;humérus (capitulum → huméro-radiale), avec le carpe (scaphoïde + lunatum → radio-carpienne), et avec l&#x27;ulna (→ radio-ulnaire proximale en haut, radio-ulnaire distale en bas). L&#x27;ulna est MÉDIALE : elle s&#x27;articule avec l&#x27;humérus (trochlée → huméro-ulnaire) et avec le radius (radio-ulnaire proximale et distale).</p><span class="src">slides 210 et 212</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">L&#x27;articulation du coude comprend 3 articulations synoviales dans une même capsule : lesquelles, de quel type chacune, et quels mouvements permettent-elles ?</p><p class="fiche-corrige__r">Huméro-ulnaire (ginglyme) et huméro-radiale (sphéroïde) : flexion-extension de l&#x27;avant-bras sur le bras. Radio-ulnaire proximale (trochoïde) : prono-supination de l&#x27;avant-bras.</p><span class="src">slide 218</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Combien d&#x27;os compte la main, et comment se répartissent-ils en 3 groupes ?</p><p class="fiche-corrige__r">27 os : le carpe (8 os), le métacarpe (5 métacarpiens), les phalanges (3 par doigt, sauf le pouce qui n&#x27;en a que 2 : proximales, intermédiaires, distales).</p><span class="src">slide 221</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quels 3 os forment l&#x27;articulation radio-carpienne (le poignet) ?</p><p class="fiche-corrige__r">1 os de l&#x27;avant-bras, le radius, + 2 os du carpe : le scaphoïde et le lunatum. L&#x27;ulna n&#x27;y participe PAS directement.</p><span class="src">slide 222</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quels sont les 4 mouvements du poignet ?</p><p class="fiche-corrige__r">Abduction, adduction, flexion, extension.</p><span class="src">slide 223</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Où se palpe le scaphoïde ?</p><p class="fiche-corrige__r">Dans la tabatière anatomique, au niveau du poignet.</p><span class="src">slide 224</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quels muscles unissent le membre supérieur à la colonne vertébrale, en groupe superficiel et en groupe profond ?</p><p class="fiche-corrige__r">Groupe superficiel : trapèze, grand dorsal. Groupe profond : élévateur de la scapula, petit rhomboïde, grand rhomboïde.</p><span class="src">slide 226</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quelle est la différence d&#x27;origine et de terminaison entre le petit et le grand rhomboïde ?</p><p class="fiche-corrige__r">Petit rhomboïde : origine processus épineux C7 et T1, terminaison au bord médial de la scapula au niveau de l&#x27;épine. Grand rhomboïde : origine processus épineux T2 à T5, terminaison au bord médial de la scapula sous l&#x27;épine.</p><span class="src">slide 229</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Le trapèze se termine par 3 faisceaux : lesquels, et sur quelle structure chacun s&#x27;insère-t-il ?</p><p class="fiche-corrige__r">Faisceau supérieur → clavicule ; faisceau intermédiaire → acromion ; faisceau inférieur → épine de la scapula.</p><span class="src">slide 231</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quelles sont les actions du grand dorsal sur le bras et sur la scapula ?</p><p class="fiche-corrige__r">Sur le bras : adducteur, rotateur médial, agent de la rétropulsion. Sur la scapula : adducteur, abaisseur.</p><span class="src">slide 234</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quels sont les 4 muscles qui unissent le membre supérieur au thorax ?</p><p class="fiche-corrige__r">Le grand pectoral, le dentelé antérieur, le petit pectoral et le subclavier.</p><span class="src">slide 237</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quelles sont l&#x27;origine, la terminaison et l&#x27;action du grand pectoral ?</p><p class="fiche-corrige__r">Origine : clavicule, sternum, côtes 2 à 6, aponévrose du grand droit de l&#x27;abdomen. Terminaison : crête du tubercule majeur de l&#x27;humérus. Action : adducteur, rotateur médial et agent de l&#x27;antépulsion du bras.</p><span class="src">slide 240</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quelle est l&#x27;action du dentelé antérieur sur la scapula ?</p><p class="fiche-corrige__r">Abducteur, abaisseur, rotateur médial et fixateur de la scapula.</p><span class="src">slide 242</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quels sont les 6 muscles de l&#x27;épaule ?</p><p class="fiche-corrige__r">Le deltoïde, le supra-épineux, l&#x27;infra-épineux, le petit rond, le grand rond, le subscapulaire.</p><span class="src">slide 245</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Le deltoïde a 3 faisceaux : quelle est l&#x27;origine de chacun, et où s&#x27;insèrent-ils tous ?</p><p class="fiche-corrige__r">Faisceau claviculaire (antérieur) : clavicule. Faisceau acromial (intermédiaire) : acromion. Faisceau épineux (postérieur) : épine de la scapula. Les 3 s&#x27;insèrent ensemble sur la tubérosité deltoïdienne de l&#x27;humérus.</p><span class="fiche-plan">plan frontal</span><span class="src">slide 247</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Le deltoïde n&#x27;a qu&#x27;une seule terminaison mais 3 actions différentes selon le faisceau : lesquelles ?</p><p class="fiche-corrige__r">Faisceau claviculaire : fléchisseur (antépulsion) et rotateur médial du bras. Faisceau acromial : abducteur du bras. Faisceau épineux : extenseur (rétropulsion) et rotateur latéral du bras — l&#x27;exact opposé du faisceau claviculaire.</p><span class="src">slide 247</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quels 4 muscles forment la coiffe des rotateurs, et pourquoi le cours les compare-t-il à des « ligaments actifs » ?</p><p class="fiche-corrige__r">Le supra-épineux (le plus fragile), l&#x27;infra-épineux, le petit rond et le subscapulaire. L&#x27;articulation scapulo-humérale est mobile donc instable par nature : ces 4 muscles agissent comme des ligaments actifs qui la maintiennent.</p><span class="src">slide 251</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quels sont les 2 groupes de muscles du bras, et quels muscles chacun contient-il ?</p><p class="fiche-corrige__r">Groupe antérieur (fléchisseur) : biceps brachial, coraco-brachial, brachial. Groupe postérieur (extenseur) : triceps brachial, anconé.</p><span class="src">slide 254</span></article><h3>Quiz</h3><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">L&#x27;articulation du coude comprend 3 articulations dans une seule capsule. Laquelle est de type trochoïde et permet la prono-supination ?</p><ol type="A"><li>l&#x27;articulation huméro-radiale</li><li>l&#x27;articulation huméro-ulnaire</li><li class="fiche-corrige__bonne">l&#x27;articulation radio-ulnaire proximale</li><li>l&#x27;articulation radio-ulnaire distale</li></ol><p class="fiche-corrige__expl">La radio-ulnaire proximale (trochoïde) permet la prono-supination. L&#x27;huméro-ulnaire (ginglyme) et l&#x27;huméro-radiale (sphéroïde) permettent la flexion-extension. La radio-ulnaire distale n&#x27;appartient pas à la capsule du coude.</p><span class="src">slide 218</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Sur la clavicule, l&#x27;extrémité latérale (celle qui forme l&#x27;articulation acromio-claviculaire) se nomme extrémité...</p><ol type="A"><li>glénoïdale</li><li>coracoïde</li><li>sternale</li><li class="fiche-corrige__bonne">acromiale</li></ol><p class="fiche-corrige__expl">Extrémité latérale = acromiale (vers l&#x27;acromion de la scapula). Extrémité médiale = sternale (vers le sternum). Coracoïde et glénoïdale ne sont pas des extrémités de la clavicule.</p><span class="src">slide 199</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Le radius est l&#x27;os ... de l&#x27;avant-bras.</p><ol type="A"><li>postérieur</li><li class="fiche-corrige__bonne">latéral</li><li>antérieur</li><li>médial</li></ol><p class="fiche-corrige__expl">Le radius est latéral, l&#x27;ulna est médial.</p><span class="src">slide 210</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">L&#x27;articulation radio-carpienne (le poignet) est formée par le radius et 2 os du carpe. Lesquels ?</p><ol type="A"><li>le scaphoïde et l&#x27;ulna</li><li>le scaphoïde, le lunatum et l&#x27;ulna</li><li class="fiche-corrige__bonne">le scaphoïde et le lunatum</li><li>l&#x27;ulna et le lunatum</li></ol><p class="fiche-corrige__expl">Radius + scaphoïde + lunatum. L&#x27;ulna ne participe PAS directement à l&#x27;articulation radio-carpienne.</p><span class="src">slide 222</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">D&#x27;après le cours, le mouvement de prono-supination de l&#x27;avant-bras est associé à quelle articulation, de quel type ?</p><ol type="A"><li>la huméro-radiale, sphéroïde</li><li>la scapulo-humérale, sphéroïde</li><li>la huméro-ulnaire, ginglyme</li><li class="fiche-corrige__bonne">la radio-ulnaire proximale, trochoïde</li></ol><p class="fiche-corrige__expl">Le cours associe la prono-supination à l&#x27;articulation radio-ulnaire proximale, de type trochoïde (slide 218). Il associe la flexion-extension de l&#x27;avant-bras sur le bras aux articulations huméro-ulnaire (ginglyme) et huméro-radiale (sphéroïde).</p><span class="fiche-plan">plan transversal</span><span class="src">slide 218</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">La main compte 27 os. Comment se répartissent-ils ?</p><ol type="A"><li>7 carpiens, 5 métacarpiens, 15 phalanges</li><li class="fiche-corrige__bonne">8 carpiens, 5 métacarpiens, 14 phalanges</li><li>8 carpiens, 6 métacarpiens, 13 phalanges</li><li>9 carpiens, 5 métacarpiens, 13 phalanges</li></ol><p class="fiche-corrige__expl">8 (carpe) + 5 (métacarpe) + 14 (phalanges : 3 par doigt sauf le pouce qui n&#x27;en a que 2, soit 3×4+2=14) = 27.</p><span class="src">slide 221</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Le faisceau intermédiaire du trapèze se termine sur...</p><ol type="A"><li class="fiche-corrige__bonne">l&#x27;acromion</li><li>la clavicule</li><li>le processus coracoïde</li><li>l&#x27;épine de la scapula</li></ol><p class="fiche-corrige__expl">Faisceau supérieur → clavicule ; faisceau intermédiaire → acromion ; faisceau inférieur → épine de la scapula.</p><span class="src">slide 231</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Le faisceau acromial (intermédiaire) du deltoïde est...</p><ol type="A"><li>adducteur du bras</li><li>extenseur et rotateur latéral du bras</li><li>fléchisseur et rotateur médial du bras</li><li class="fiche-corrige__bonne">abducteur du bras</li></ol><p class="fiche-corrige__expl">Le faisceau acromial est abducteur du bras — c&#x27;est ce mouvement, dans le plan frontal, qui donne au deltoïde son rôle le plus connu. Le faisceau claviculaire est fléchisseur/rotateur médial, le faisceau épineux est extenseur/rotateur latéral.</p><span class="fiche-plan">plan frontal</span><span class="src">slide 247</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Le faisceau épineux (postérieur) du deltoïde est...</p><ol type="A"><li class="fiche-corrige__bonne">extenseur (rétropulsion) et rotateur latéral du bras</li><li>fléchisseur (antépulsion) et rotateur médial du bras</li><li>abducteur du bras</li><li>adducteur du bras</li></ol><p class="fiche-corrige__expl">Le faisceau épineux est extenseur et rotateur latéral : l&#x27;exact opposé du faisceau claviculaire (fléchisseur et rotateur médial). Un seul muscle, trois faisceaux, des actions contradictoires.</p><span class="src">slide 247</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Quels sont les 4 muscles de la coiffe des rotateurs ?</p><ol type="A"><li>supra-épineux, infra-épineux, grand rond, subscapulaire</li><li>deltoïde, infra-épineux, petit rond, grand rond</li><li>supra-épineux, infra-épineux, deltoïde, subscapulaire</li><li class="fiche-corrige__bonne">supra-épineux, infra-épineux, petit rond, subscapulaire</li></ol><p class="fiche-corrige__expl">La coiffe des rotateurs, ce sont le supra-épineux, l&#x27;infra-épineux, le petit rond et le subscapulaire. Le deltoïde et le grand rond n&#x27;en font PAS partie.</p><span class="src">slide 251</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Le biceps brachial a 2 chefs. Où est l&#x27;origine de chacun ?</p><ol type="A"><li>chef long : tubercule infra-glénoïdal ; chef court : processus coracoïde</li><li>chef long et chef court : tubercule supra-glénoïdal</li><li class="fiche-corrige__bonne">chef long : tubercule supra-glénoïdal ; chef court : processus coracoïde</li><li>chef long : processus coracoïde ; chef court : tubercule supra-glénoïdal</li></ol><p class="fiche-corrige__expl">Chef long → tubercule supra-glénoïdal ; chef court → processus coracoïde. Les deux se terminent sur la tubérosité radiale.</p><span class="src">slide 255</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Parmi les 3 chefs du triceps brachial, lequel est aussi adducteur et agent de la rétropulsion du bras (en plus d&#x27;être extenseur de l&#x27;avant-bras) ?</p><ol type="A"><li>les 3 chefs à égalité</li><li>le chef médial</li><li class="fiche-corrige__bonne">le chef long</li><li>le chef latéral</li></ol><p class="fiche-corrige__expl">Le chef long, seul, part du tubercule infra-glénoïdal (donc de la scapula) : il agit aussi sur le bras (adducteur, rétropulsion). Les chefs médial et latéral partent de l&#x27;humérus et n&#x27;agissent que sur l&#x27;avant-bras.</p><span class="src">slide 261</span></article><table class="muscles"><caption>Table musculaire</caption><thead><tr><th scope="col">Muscle</th><th scope="col">Origine</th><th scope="col">Terminaison</th><th scope="col">Action</th></tr></thead><tbody><tr data-id="6#muscle#Petit rhomboïde"><th>Petit rhomboïde <span class="src">slide 229</span></th><td><span class="muscle__valeur">processus épineux C7 et T1</span></td><td><span class="muscle__valeur">bord médial de la scapula (au niveau de l&#x27;épine)</span></td><td><span class="muscle__valeur">adducteur de la scapula ; élévateur de la scapula ; fixateur de la scapula</span></td></tr><tr data-id="6#muscle#Grand rhomboïde"><th>Grand rhomboïde <span class="src">slide 229</span></th><td><span class="muscle__valeur">processus épineux T2 à T5</span></td><td><span class="muscle__valeur">bord médial de la scapula (sous l&#x27;épine)</span></td><td><span class="muscle__valeur">adducteur de la scapula ; élévateur de la scapula ; fixateur de la scapula</span></td></tr><tr data-id="6#muscle#Trapèze"><th>Trapèze <span class="src">slide 231</span></th><td><span class="muscle__valeur">occiput ; processus épineux C1 à T12</span></td><td><span class="muscle__valeur">clavicule (faisceau supérieur) ; acromion (faisceau intermédiaire) ; épine de la scapula (faisceau inférieur)</span></td><td><span class="muscle__valeur">élévateur de la ceinture scapulaire ; adducteur de la scapula ; fixateur de la scapula ; extenseur de la tête (contraction bilatérale) ; inclinateur latéral de la tête ; rotateur de la tête</span></td></tr><tr data-id="6#muscle#Grand dorsal"><th>Grand dorsal <span class="src">slide 234</span></th><td><span class="muscle__valeur">processus épineux T7 à L5 ; crête sacrale ; crête iliaque ; côtes 9 à 12</span></td><td><span class="muscle__valeur">crête du tubercule mineur de l&#x27;humérus</span></td><td><span class="muscle__valeur">adducteur du bras ; rotateur médial du bras ; rétropulsion du bras ; adducteur de la scapula ; abaisseur de la scapula</span></td></tr><tr data-id="6#muscle#Grand pectoral"><th>Grand pectoral <span class="src">slide 240</span></th><td><span class="muscle__valeur">clavicule ; sternum ; côtes 2 à 6 ; aponévrose du grand droit de l&#x27;abdomen</span></td><td><span class="muscle__valeur">crête du tubercule majeur de l&#x27;humérus</span></td><td><span class="muscle__valeur">adducteur du bras ; rotateur médial du bras ; antépulsion du bras</span></td></tr><tr data-id="6#muscle#Dentelé antérieur"><th>Dentelé antérieur <span class="src">slide 242</span></th><td><span class="muscle__valeur">côtes 1 à 9 (ou 10)</span></td><td><span class="muscle__valeur">bord médial de la scapula</span></td><td><span class="muscle__valeur">abducteur de la scapula ; abaisseur de la scapula ; rotateur médial de la scapula ; fixateur de la scapula</span></td></tr><tr data-id="6#muscle#Deltoïde"><th>Deltoïde <span class="src">slide 247</span></th><td><span class="muscle__valeur">clavicule (faisceau claviculaire ou antérieur) ; acromion (faisceau acromial ou intermédiaire) ; épine de la scapula (faisceau épineux ou postérieur)</span></td><td><span class="muscle__valeur">tubérosité deltoïdienne de l&#x27;humérus</span></td><td><span class="muscle__valeur">faisceau claviculaire : fléchisseur (antépulsion) et rotateur médial du bras ; faisceau acromial : abducteur du bras ; faisceau épineux : extenseur (rétropulsion) et rotateur latéral du bras</span></td></tr><tr data-id="6#muscle#Biceps brachial"><th>Biceps brachial <span class="src">slide 255</span></th><td><span class="muscle__valeur">chef long : tubercule supra-glénoïdal ; chef court : processus coracoïde</span></td><td><span class="muscle__valeur">tubérosité radiale</span></td><td><span class="muscle__valeur">fléchisseur de l&#x27;avant-bras (les 2 chefs) ; supinateur de l&#x27;avant-bras (les 2 chefs) ; chef court : adducteur du bras ; chef long : antépulsion du bras</span></td></tr><tr data-id="6#muscle#Coraco-brachial"><th>Coraco-brachial <span class="src">slide 258</span></th><td><span class="muscle__valeur">processus coracoïde</span></td><td><span class="muscle__valeur">diaphyse de l&#x27;humérus</span></td><td><span class="muscle__valeur">adducteur du bras ; antépulsion du bras</span></td></tr><tr data-id="6#muscle#Brachial"><th>Brachial <span class="src">slide 258</span></th><td><span class="muscle__valeur">face antérieure de l&#x27;humérus</span></td><td><span class="muscle__valeur">épiphyse proximale de l&#x27;ulna</span></td><td><span class="muscle__valeur">fléchisseur de l&#x27;avant-bras</span></td></tr><tr data-id="6#muscle#Triceps brachial"><th>Triceps brachial <span class="src">slide 261</span></th><td><span class="muscle__valeur">chef long : tubercule infra-glénoïdal ; chef médial : face postérieure de l&#x27;humérus (moitié inférieure) ; chef latéral : face postérieure de l&#x27;humérus (moitié supérieure)</span></td><td><span class="muscle__valeur">olécrane</span></td><td><span class="muscle__valeur">extenseur de l&#x27;avant-bras (les 3 chefs) ; chef long : adducteur du bras ; chef long : rétropulsion du bras</span></td></tr></tbody></table></section>
+</body>
+</html>

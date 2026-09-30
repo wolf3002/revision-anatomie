@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<title>Fiche 02 — Le système squelettique</title>
+<style>
+/* Feuille de style de la fiche PDF imprimable -- entierement autonome
+ * (aucune police distante, aucun script) : contrairement a gabarits/base.html,
+ * cette page est convertie hors-ligne par Chrome headless (outils/pdf.py) et ne
+ * doit dependre d'aucune requete reseau pour rester fidele d'une machine a
+ * l'autre.
+ *
+ * Regle d'impression du projet (site/assets/style.css, section 8) : les trois
+ * plans anatomiques ne sont JAMAIS distingues par la seule teinte. Ici la
+ * regle est appliquee au plus simple : aucune couleur nulle part, seulement du
+ * noir, du gris de texte et des traits -- le plan s'ecrit toujours en toutes
+ * lettres (".fiche-plan", "::after" des pastilles de plan).
+ */
+* { box-sizing: border-box; }
+
+@page {
+  size: A4;
+  margin: 15mm 14mm 18mm;
+}
+
+body {
+  margin: 0;
+  color: #000;
+  background: #fff;
+  font-family: "Noto Sans", "Liberation Sans", Arial, sans-serif;
+  font-size: 10.3pt;
+  line-height: 1.35;
+}
+
+h1, h2, h3 {
+  font-family: "Noto Sans", "Liberation Sans", Arial, sans-serif;
+  margin: 0 0 3mm 0;
+  break-after: avoid;
+}
+
+h1 { font-size: 15pt; }
+h2 { font-size: 12.5pt; border-bottom: 1pt solid #000; padding-bottom: 1mm; margin-top: 6mm; }
+h3 { font-size: 10.8pt; margin-top: 4mm; }
+
+p { margin: 0 0 1.5mm 0; }
+
+/* --- En-tete de fiche ---------------------------------------------- */
+
+.fiche-entete {
+  display: flex;
+  align-items: baseline;
+  gap: 4mm;
+  border-bottom: 1.5pt solid #000;
+  padding-bottom: 2mm;
+  margin-bottom: 4mm;
+}
+
+.fiche-entete__num {
+  font-family: "Liberation Mono", monospace;
+  font-weight: bold;
+  font-size: 13pt;
+}
+
+.fiche-entete h1 { flex: 1; }
+
+.fiche-entete__slides {
+  font-family: "Liberation Mono", monospace;
+  font-size: 9pt;
+  color: #333;
+}
+
+/* --- Renvoi de slide (reutilise le contenu de outils.construire._src) --- */
+
+.src {
+  display: inline-block;
+  font-family: "Liberation Mono", monospace;
+  font-size: 8pt;
+  color: #333;
+  border: 0.75pt solid #666;
+  border-radius: 2pt;
+  padding: 0.3mm 1.3mm;
+  margin-top: 1mm;
+}
+
+.src--hors { border-style: dashed; }
+
+/* --- Plan anatomique, toujours ecrit --------------------------------- */
+
+.fiche-plan {
+  display: inline-block;
+  font-family: "Liberation Mono", monospace;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 0.75pt solid #000;
+  border-radius: 2pt;
+  padding: 0.3mm 1.3mm;
+  margin: 0 2mm 1.5mm 0;
+}
+
+/* --- 1. Planches en mode muet ---------------------------------------- */
+
+.fiche-planche {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 5mm;
+  border: 0.75pt solid #999;
+  border-radius: 2pt;
+  padding: 3mm;
+  margin-bottom: 4mm;
+  break-inside: avoid;
+}
+
+.fiche-planche__figure { flex: 0 0 auto; }
+
+.fiche-planche figcaption {
+  font-weight: bold;
+  font-size: 9.5pt;
+  margin-bottom: 1.5mm;
+}
+
+.fiche-planche svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pastille circle {
+  fill: #fff;
+  stroke: #000;
+  stroke-width: 1.5;
+}
+
+.pastille__n {
+  fill: #000;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Les libelles n'existent plus dans le DOM du mode muet (voir
+ * outils/fiches.py, _rendre_planche_muette) : rien a masquer ici. Dans le
+ * corrige, la meme classe redevient un texte normal, noir, sans mise en
+ * forme particuliere -- la reponse s'y affiche en clair, comme il se doit. */
+.pastille__t {
+  fill: #000;
+  font-size: 14px;
+}
+
+.fiche-legende {
+  flex: 1 1 60mm;
+  min-width: 55mm;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: none;
+}
+
+.fiche-legende li {
+  display: flex;
+  align-items: baseline;
+  gap: 2mm;
+  padding: 1.2mm 0;
+  border-bottom: 0.5pt dotted #999;
+}
+
+.fiche-legende__n {
+  font-family: "Liberation Mono", monospace;
+  font-weight: bold;
+  min-width: 4mm;
+}
+
+.fiche-legende__indice {
+  color: #444;
+  font-size: 8.6pt;
+  white-space: nowrap;
+}
+
+.fiche-legende__trait {
+  flex: 1 1 auto;
+  min-width: 20mm;
+}
+
+/* --- 2. Questions : cartes et QCM ------------------------------------- */
+
+.fiche-carte,
+.fiche-quiz {
+  border: 0.75pt solid #999;
+  border-radius: 2pt;
+  padding: 3mm;
+  margin-bottom: 3mm;
+  break-inside: avoid;
+}
+
+.fiche-carte__q,
+.fiche-quiz__q {
+  font-weight: bold;
+  font-size: 10.6pt;
+  margin-bottom: 1.5mm;
+}
+
+.fiche-carte__reponse-trait {
+  border-bottom: 0.5pt dotted #999;
+  height: 7mm;
+  margin-top: 2mm;
+}
+
+.fiche-quiz__choix {
+  margin: 0 0 1.5mm 0;
+  padding-left: 6mm;
+}
+
+.fiche-quiz__choix li { padding: 0.6mm 0; }
+
+/* --- 3. Table musculaire a completer ---------------------------------- */
+
+table.fiche-muscles,
+table.muscles {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 4mm;
+  font-size: 9.6pt;
+}
+
+table.fiche-muscles caption,
+table.muscles caption {
+  text-align: left;
+  font-weight: bold;
+  font-size: 10.5pt;
+  margin-bottom: 1.5mm;
+}
+
+table.fiche-muscles th,
+table.fiche-muscles td,
+table.muscles th,
+table.muscles td {
+  border: 0.75pt solid #666;
+  padding: 1.3mm 1.8mm;
+  vertical-align: top;
+  text-align: left;
+}
+
+table.fiche-muscles thead th,
+table.muscles thead th {
+  background: #eee;
+  font-size: 9pt;
+}
+
+table.fiche-muscles tbody th,
+table.muscles tbody th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+table.fiche-muscles tr,
+table.muscles tr { break-inside: avoid; }
+
+.fiche-muscle__case {
+  height: 15mm;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 4.6mm,
+    #ccc 4.6mm,
+    #ccc 4.8mm
+  );
+}
+
+.muscle__valeur { font-size: 9.6pt; }
+
+/* --- 4. Pieges : affiches en clair -------------------------------------- */
+
+.fiche-piege {
+  border: 1pt solid #000;
+  border-radius: 2pt;
+  padding: 3mm;
+  margin-bottom: 3mm;
+  break-inside: avoid;
+}
+
+.fiche-piege__etiquette {
+  display: inline-block;
+  font-family: "Liberation Mono", monospace;
+  font-weight: bold;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border: 1pt solid #000;
+  border-radius: 2pt;
+  padding: 0.3mm 1.6mm;
+  margin-bottom: 1.5mm;
+}
+
+.fiche-piege__titre {
+  font-weight: bold;
+  font-size: 10.4pt;
+}
+
+/* --- 5. Corrige : en fin de document, jamais en regard ------------------ */
+
+.fiche-corrige {
+  break-before: page;
+}
+
+.fiche-corrige__titre {
+  font-size: 16pt;
+  border-bottom: 2pt solid #000;
+  padding-bottom: 2mm;
+}
+
+.fiche-corrige__bloc { margin-bottom: 5mm; }
+
+.fiche-corrige__carte,
+.fiche-corrige__quiz {
+  border-bottom: 0.5pt solid #ccc;
+  padding: 2mm 0;
+  break-inside: avoid;
+}
+
+.fiche-corrige__q {
+  font-weight: bold;
+  margin-bottom: 1mm;
+}
+
+.fiche-corrige__r { margin-bottom: 1mm; }
+
+.fiche-corrige__quiz ol { margin: 1mm 0 1.5mm 0; padding-left: 6mm; }
+
+.fiche-corrige__bonne {
+  font-weight: bold;
+}
+
+.fiche-corrige__bonne::after {
+  content: " — bonne réponse";
+  font-weight: normal;
+  font-style: italic;
+}
+
+.fiche-corrige__expl {
+  color: #222;
+  font-size: 9.6pt;
+}
+
+.fiche-corrige__planches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5mm;
+  margin-bottom: 4mm;
+}
+
+.fiche-corrige__planche {
+  display: inline-block;
+  vertical-align: top;
+  border: 0.75pt dashed #999;
+  border-radius: 2pt;
+  padding: 2mm;
+  break-inside: avoid;
+}
+
+.fiche-corrige__planche figcaption {
+  font-weight: bold;
+  font-size: 9.5pt;
+  margin-bottom: 1.5mm;
+}
+
+.fiche-corrige__planche svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+</style>
+</head>
+<body>
+<header class="fiche-entete"><span class="fiche-entete__num">Ch. 2</span><h1>Le système squelettique</h1><span class="fiche-entete__slides">slides 45–70</span></header><section class="fiche-section" data-section="planches"><h2>Planches (mode muet)</h2><div class="fiche-planche"><div class="fiche-planche__figure" style="width:64mm"><figure class="planche" id="os-long-coupe" data-mode="muet"><figcaption>L&#x27;os long en coupe <span class="src">slide 66</span></figcaption><svg viewBox="0 0 430 460" role="img"><defs><marker id='fleche' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0 0 L10 5 L0 10 Z' fill='currentColor'/></marker></defs><g transform='translate(10 0)'><g class='os-long' fill='none' stroke='currentColor' stroke-width='2'><ellipse cx='170' cy='65' rx='42' ry='32'/><path d='M143 42 Q170 24 197 42' stroke-width='4'/><path d='M138 92 L202 92 L188 122 L152 122 Z'/><path d='M144 124 L144 330' stroke-dasharray='4 3'/><path d='M196 124 L196 330' stroke-dasharray='4 3'/><rect x='150' y='122' width='40' height='210'/><path d='M160 132 L160 322'/><path d='M180 132 L180 322'/><path d='M152 332 L188 332 L202 362 L138 362 Z'/><ellipse cx='170' cy='395' rx='42' ry='32'/><path d='M143 418 Q170 436 197 418' stroke-width='4'/></g><g class='os-spongieux' fill='currentColor' stroke='none'><circle cx='145' cy='55' r='2.2'/><circle cx='155' cy='45' r='2.2'/><circle cx='170' cy='40' r='2.2'/><circle cx='185' cy='45' r='2.2'/><circle cx='195' cy='55' r='2.2'/><circle cx='150' cy='75' r='2.2'/><circle cx='165' cy='80' r='2.2'/><circle cx='175' cy='80' r='2.2'/><circle cx='190' cy='75' r='2.2'/><circle cx='145' cy='385' r='2.2'/><circle cx='155' cy='375' r='2.2'/><circle cx='170' cy='370' r='2.2'/><circle cx='185' cy='375' r='2.2'/><circle cx='195' cy='385' r='2.2'/><circle cx='150' cy='405' r='2.2'/><circle cx='165' cy='410' r='2.2'/><circle cx='175' cy='410' r='2.2'/><circle cx='190' cy='405' r='2.2'/></g><g class='reperes' fill='none' stroke='currentColor' stroke-width='1.5'><path d='M197 42 L222 24' marker-end='url(#fleche)'/><path d='M212 65 L222 73' marker-end='url(#fleche)'/><path d='M144 150 L118 115' marker-end='url(#fleche)'/><path d='M197 107 L222 124' marker-end='url(#fleche)'/><path d='M155 205 L118 205' marker-end='url(#fleche)'/><path d='M170 200 L222 200' marker-end='url(#fleche)'/><path d='M148 390 L118 392' marker-end='url(#fleche)'/><path d='M212 395 L222 393' marker-end='url(#fleche)'/></g></g><g class="pastille" data-n="1" data-plan="" data-indice="au bout de chaque épiphyse"><circle cx="245" cy="20" r="9"/><text class="pastille__n" x="245" y="24" text-anchor="middle">1</text></g><g class="pastille" data-n="2" data-plan="" data-indice="extrémité proche du tronc"><circle cx="245" cy="75" r="9"/><text class="pastille__n" x="245" y="79" text-anchor="middle">2</text></g><g class="pastille" data-n="3" data-plan="" data-indice="membrane qui enveloppe l&#x27;os"><circle cx="120" cy="110" r="9"/><text class="pastille__n" x="120" y="114" text-anchor="middle">3</text></g><g class="pastille" data-n="4" data-plan="" data-indice="jonction diaphyse / épiphyse"><circle cx="245" cy="130" r="9"/><text class="pastille__n" x="245" y="134" text-anchor="middle">4</text></g><g class="pastille" data-n="5" data-plan="" data-indice="juste sous le périoste"><circle cx="120" cy="200" r="9"/><text class="pastille__n" x="120" y="204" text-anchor="middle">5</text></g><g class="pastille" data-n="6" data-plan="" data-indice="cavité centrale de la diaphyse"><circle cx="245" cy="200" r="9"/><text class="pastille__n" x="245" y="204" text-anchor="middle">6</text></g><g class="pastille" data-n="7" data-plan="" data-indice="sous l&#x27;os compact, aux épiphyses"><circle cx="120" cy="390" r="9"/><text class="pastille__n" x="120" y="394" text-anchor="middle">7</text></g><g class="pastille" data-n="8" data-plan="" data-indice="extrémité distale, loin du tronc"><circle cx="245" cy="395" r="9"/><text class="pastille__n" x="245" y="399" text-anchor="middle">8</text></g></svg></figure></div><ol class="fiche-legende"><li><span class="fiche-legende__n">1.</span><span class="fiche-legende__indice">(au bout de chaque épiphyse)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">2.</span><span class="fiche-legende__indice">(extrémité proche du tronc)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">3.</span><span class="fiche-legende__indice">(membrane qui enveloppe l&#x27;os)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">4.</span><span class="fiche-legende__indice">(jonction diaphyse / épiphyse)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">5.</span><span class="fiche-legende__indice">(juste sous le périoste)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">6.</span><span class="fiche-legende__indice">(cavité centrale de la diaphyse)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">7.</span><span class="fiche-legende__indice">(sous l&#x27;os compact, aux épiphyses)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">8.</span><span class="fiche-legende__indice">(extrémité distale, loin du tronc)</span><span class="fiche-legende__trait"></span></li></ol></div><div class="fiche-planche"><div class="fiche-planche__figure" style="width:97mm"><figure class="planche" id="squelette-axial-appendiculaire" data-mode="muet"><figcaption>Squelette axial et squelette appendiculaire <span class="src">slide 56</span></figcaption><svg viewBox="0 0 600 420" role="img"><defs><marker id='fleche' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0 0 L10 5 L0 10 Z' fill='currentColor'/></marker></defs><g class='axial' fill='none' stroke='currentColor' stroke-width='2'><circle cx='300' cy='45' r='22'/><path d='M300 67 L300 90'/><ellipse cx='300' cy='140' rx='40' ry='50'/><path d='M300 95 L300 175' stroke-width='6'/><path d='M300 190 L300 265'/></g><g class='appendiculaire' fill='none' stroke='currentColor' stroke-width='2' stroke-dasharray='5 4'><path d='M265 265 L335 265 L348 298 L252 298 Z'/><path d='M340 95 L385 175'/><path d='M260 95 L215 175'/><path d='M335 298 L375 383'/><path d='M265 298 L225 383'/></g><g class='reperes' fill='none' stroke='currentColor' stroke-width='1.5'><path d='M322 40 L385 26' marker-end='url(#fleche)'/><path d='M340 140 L385 138' marker-end='url(#fleche)'/><path d='M237 135 L210 138' marker-end='url(#fleche)'/><path d='M300 238 L210 240' marker-end='url(#fleche)'/><path d='M245 340 L210 345' marker-end='url(#fleche)'/></g><g class="pastille" data-n="1" data-plan="" data-indice="crâne + face"><circle cx="405" cy="25" r="9"/><text class="pastille__n" x="405" y="29" text-anchor="middle">1</text></g><g class="pastille" data-n="2" data-plan="" data-indice="côtes + sternum"><circle cx="405" cy="138" r="9"/><text class="pastille__n" x="405" y="142" text-anchor="middle">2</text></g><g class="pastille" data-n="3" data-plan="" data-indice="ceinture scapulaire + partie libre"><circle cx="195" cy="138" r="9"/><text class="pastille__n" x="195" y="142" text-anchor="middle">3</text></g><g class="pastille" data-n="4" data-plan="" data-indice="vertèbres mobiles puis soudées"><circle cx="195" cy="240" r="9"/><text class="pastille__n" x="195" y="244" text-anchor="middle">4</text></g><g class="pastille" data-n="5" data-plan="" data-indice="ceinture pelvienne + partie libre"><circle cx="195" cy="345" r="9"/><text class="pastille__n" x="195" y="349" text-anchor="middle">5</text></g></svg></figure></div><ol class="fiche-legende"><li><span class="fiche-legende__n">1.</span><span class="fiche-legende__indice">(crâne + face)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">2.</span><span class="fiche-legende__indice">(côtes + sternum)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">3.</span><span class="fiche-legende__indice">(ceinture scapulaire + partie libre)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">4.</span><span class="fiche-legende__indice">(vertèbres mobiles puis soudées)</span><span class="fiche-legende__trait"></span></li><li><span class="fiche-legende__n">5.</span><span class="fiche-legende__indice">(ceinture pelvienne + partie libre)</span><span class="fiche-legende__trait"></span></li></ol></div></section><section class="fiche-section" data-section="questions"><h2>Questions</h2><article class="fiche-carte" id="c2-01"><p class="fiche-carte__q">Qu&#x27;est-ce que le système squelettique, et en quelles deux parties se divise-t-il ?</p><span class="src">slide 45</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-02"><p class="fiche-carte__q">De quoi le cartilage est-il constitué, et par quelle membrane est-il recouvert ?</p><span class="src">slide 50</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-03"><p class="fiche-carte__q">Décris le cartilage hyalin.</p><span class="src">slide 50</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-04"><p class="fiche-carte__q">En quoi le cartilage élastique diffère-t-il du cartilage hyalin ?</p><span class="src">slide 50</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-05"><p class="fiche-carte__q">Où trouve-t-on le cartilage fibreux (fibro-cartilage), et de quelle couleur est-il ?</p><span class="src">slide 50</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-06"><p class="fiche-carte__q">Le cartilage est-il vascularisé ?</p><span class="src">slide 50</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-07"><p class="fiche-carte__q">Quel est le rôle du cartilage, et par quels deux effets se manifeste-t-il ?</p><span class="src">slide 52</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-08"><p class="fiche-carte__q">À quoi l&#x27;os doit-il sa rigidité, et à quoi doit-il son élasticité ?</p><span class="src">slide 54</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-09"><p class="fiche-carte__q">Pourquoi ces deux propriétés, rigidité et élasticité, sont-elles indispensables à la solidité de l&#x27;os ?</p><span class="src">slide 54</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-10"><p class="fiche-carte__q">Sur quoi se fixe le squelette appendiculaire, et que comprend le squelette axial ?</p><span class="src">slide 56</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-11"><p class="fiche-carte__q">Combien d&#x27;os comptent la tête, et comment se répartissent-ils entre crâne et face ?</p><span class="src">slide 57</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-12"><p class="fiche-carte__q">Quel est le seul os mobile de la tête ?</p><span class="src">slide 57</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-13"><p class="fiche-carte__q">La colonne mobile compte combien de vertèbres, et comment se répartissent-elles ?</p><span class="src">slide 58</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-14"><p class="fiche-carte__q">De quoi la colonne fixe est-elle formée chez l&#x27;adulte ?</p><span class="src">slide 58</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-15"><p class="fiche-carte__q">De quoi le squelette thoracique est-il constitué ?</p><span class="src">slide 59</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-16"><p class="fiche-carte__q">Que comprennent la ceinture scapulaire, puis la partie libre du membre supérieur ?</p><span class="src">slide 60</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-17"><p class="fiche-carte__q">Que comprennent la ceinture pelvienne, puis la partie libre du membre inférieur ?</p><span class="src">slide 61</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-18"><p class="fiche-carte__q">Fibula et patella : quels sont leurs anciens noms ?</p><span class="src">slide 61</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-19"><p class="fiche-carte__q">Combien d&#x27;os compte le squelette de l&#x27;homme adulte, et quels sont les quatre types d&#x27;os ?</p><span class="src">slide 63</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-20"><p class="fiche-carte__q">Décris la constitution d&#x27;un os long : partie centrale, extrémités, jonction.</p><span class="src">slide 65</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-21"><p class="fiche-carte__q">Que sert aussi le périoste, et que trouve-t-on sous lui, puis sous l&#x27;os compact au niveau des épiphyses ?</p><span class="src">slide 65</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-22"><p class="fiche-carte__q">Que trouve-t-on au niveau des tissus spongieux, et que devient l&#x27;os spongieux du canal médullaire chez l&#x27;enfant, avec l&#x27;âge ?</p><span class="src">slide 66</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-23"><p class="fiche-carte__q">Caractérise les os courts, les os plats et les os irréguliers, et dis comment ces trois types sont constitués.</p><span class="src">slide 67</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-24"><p class="fiche-carte__q">Cite les quatre fonctions de l&#x27;os données par le cours.</p><span class="src">slide 69</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-25"><p class="fiche-carte__q">Sur la figure de la slide 48, que signifient le rouge, le bleu et le vert ?</p><span class="src">slide 48</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-26"><p class="fiche-carte__q">Où la slide 48 situe-t-elle le cartilage élastique (en rouge sur la figure) ?</p><span class="src">slide 48</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-27"><p class="fiche-carte__q">Où la slide 48 situe-t-elle le cartilage hyalin (en bleu sur la figure) ?</p><span class="src">slide 48</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-carte" id="c2-28"><p class="fiche-carte__q">Où la slide 48 situe-t-elle le cartilage fibreux (en vert sur la figure) ?</p><span class="src">slide 48</span><div class="fiche-carte__reponse-trait"></div></article><article class="fiche-quiz" id="q2-01"><p class="fiche-quiz__q">Quel type de cartilage est le cartilage articulaire, nacré et translucide ?</p><ol class="fiche-quiz__choix" type="A"><li>Le cartilage fibreux (fibro-cartilage)</li><li>Le cartilage hyalin</li><li>Le cartilage élastique</li></ol><span class="src">slide 50</span></article><article class="fiche-quiz" id="q2-02"><p class="fiche-quiz__q">Quel cartilage constitue les disques intervertébraux et les ménisques articulaires ?</p><ol class="fiche-quiz__choix" type="A"><li>Le cartilage fibreux (fibro-cartilage)</li><li>Le cartilage hyalin</li><li>Le cartilage élastique</li></ol><span class="src">slides 48 et 50</span></article><article class="fiche-quiz" id="q2-03"><p class="fiche-quiz__q">L&#x27;os doit sa rigidité à quels composants, et son élasticité à quels autres ?</p><ol class="fiche-quiz__choix" type="A"><li>Rigidité et élasticité proviennent toutes deux des composants minéraux</li><li>Rigidité aux composants minéraux, élasticité aux composants organiques</li><li>Rigidité aux composants organiques, élasticité aux composants minéraux</li></ol><span class="src">slide 54</span></article><article class="fiche-quiz" id="q2-04"><p class="fiche-quiz__q">Combien d&#x27;os composent le crâne (au sens strict, hors face), et que délimitent-ils ?</p><ol class="fiche-quiz__choix" type="A"><li>8 os, qui délimitent la boîte crânienne</li><li>13 os, qui délimitent la boîte crânienne</li><li>8 os, qui forment la mâchoire supérieure</li><li>21 os, qui délimitent la boîte crânienne</li></ol><span class="src">slide 57</span></article><article class="fiche-quiz" id="q2-05"><p class="fiche-quiz__q">Quel est le seul os mobile de la tête ?</p><ol class="fiche-quiz__choix" type="A"><li>Aucun : tous les os de la tête sont soudés</li><li>La mandibule (mâchoire inférieure)</li><li>Un os du crâne, au niveau d&#x27;une suture</li><li>La mâchoire supérieure</li></ol><span class="src">slide 57</span></article><article class="fiche-quiz" id="q2-06"><p class="fiche-quiz__q">Comment se répartissent les 24 vertèbres indépendantes (« vraies ») de la colonne mobile ?</p><ol class="fiche-quiz__choix" type="A"><li>5 cervicales, 12 thoraciques, 7 lombaires</li><li>7 cervicales, 5 thoraciques, 12 lombaires</li><li>7 cervicales, 12 thoraciques, 5 lombaires</li><li>12 cervicales, 7 thoraciques, 5 lombaires</li></ol><span class="src">slide 58</span></article><article class="fiche-quiz" id="q2-07"><p class="fiche-quiz__q">Un os du carpe appartient à quel type d&#x27;os ?</p><ol class="fiche-quiz__choix" type="A"><li>Os long</li><li>Os irrégulier</li><li>Os court</li><li>Os plat</li></ol><span class="src">slide 64</span></article><article class="fiche-quiz" id="q2-08"><p class="fiche-quiz__q">Dans un os long, quelle structure assure la jonction entre la diaphyse et l&#x27;épiphyse ?</p><ol class="fiche-quiz__choix" type="A"><li>Le périoste</li><li>Le canal médullaire</li><li>L&#x27;os spongieux</li><li>La métaphyse</li></ol><span class="src">slide 65</span></article><article class="fiche-quiz" id="q2-09"><p class="fiche-quiz__q">Sous l&#x27;os compact, au niveau des épiphyses d&#x27;un os long, quel tissu trouve-t-on ?</p><ol class="fiche-quiz__choix" type="A"><li>Le périoste</li><li>L&#x27;os spongieux</li><li>Le canal médullaire</li><li>La métaphyse</li></ol><span class="src">slide 65</span></article><article class="fiche-quiz" id="q2-10"><p class="fiche-quiz__q">Chez l&#x27;enfant, l&#x27;os spongieux du canal médullaire est progressivement remplacé, avec l&#x27;âge, par quoi ?</p><ol class="fiche-quiz__choix" type="A"><li>La moelle jaune, formée de cellules adipeuses</li><li>De l&#x27;os compact</li><li>Du cartilage hyalin</li><li>La moelle rouge, productrice de sang</li></ol><span class="src">slide 66</span></article><article class="fiche-quiz" id="q2-11"><p class="fiche-quiz__q">Fibula et patella sont les noms actuels de quels anciens termes ?</p><ol class="fiche-quiz__choix" type="A"><li>Fibula = radius ancien ; patella = rotule ancienne</li><li>Fibula = péroné ancien ; patella = ménisque ancien</li><li>Fibula = péroné ancien ; patella = rotule ancienne</li><li>Fibula = tibia ancien ; patella = ménisque ancien</li></ol><span class="src">slide 61</span></article></section><section class="fiche-section" data-section="pieges"><h2>Pièges</h2><article class="fiche-piege"><span class="fiche-piege__etiquette">Piège</span><p class="fiche-piege__titre">Le cartilage n&#x27;est pas vascularisé</p><p>Le cours l&#x27;affirme sans nuance, juste après avoir décrit les trois types de cartilage. Contrairement à l&#x27;os, qui est un organe vivant et dont le périoste renferme des vaisseaux sanguins, le cartilage n&#x27;est pas vascularisé.</p><span class="src">slides 50, 54 et 65</span></article><article class="fiche-piege"><span class="fiche-piege__etiquette">Piège</span><p class="fiche-piege__titre">La mandibule est le SEUL os mobile de la tête</p><p>Les os du crâne sont soudés entre eux ; les os de la face sont soudés entre eux et au crâne, au niveau de la mâchoire supérieure. Parmi les os de la tête, un seul échappe à cette règle : la mandibule (mâchoire inférieure), le seul os mobile de la tête. La mâchoire supérieure, elle, est le niveau où les os de la face sont soudés au crâne.</p><span class="src">slide 57</span></article><article class="fiche-piege"><span class="fiche-piege__etiquette">Piège</span><p class="fiche-piege__titre">La colonne « fixe » est quand même faite de vertèbres</p><p>« Fixe » ne veut pas dire « sans vertèbres » : la colonne fixe est formée de vertèbres, mais soudées (« fausses »), regroupées chez l&#x27;adulte en deux os, le sacrum et le coccyx. Seule la colonne mobile compte des vertèbres indépendantes (« vraies »), au nombre de 24.</p><span class="src">slide 58</span></article><article class="fiche-piege"><span class="fiche-piege__etiquette">Piège</span><p class="fiche-piege__titre">Rigidité vient du minéral, élasticité vient de l&#x27;organique</p><p>Le couple se retient dans ce sens précis et se confond facilement à l&#x27;envers : l&#x27;os doit sa rigidité à ses composants MINÉRAUX (environ 2/3), et son élasticité à ses composants ORGANIQUES (1/3). Les deux sont indispensables : un os trop rigide serait cassant, un os trop souple serait déformable.</p><span class="src">slide 54</span></article></section><section class="fiche-corrige" data-section="corrige"><h2 class="fiche-corrige__titre">Corrigé</h2><h3>Planches</h3><div class="fiche-corrige__planches"><div class="fiche-corrige__planche" style="width:89mm"><figure class="planche" id="os-long-coupe" data-mode="legende"><figcaption>L&#x27;os long en coupe <span class="src">slide 66</span></figcaption><svg viewBox="0 0 430 460" role="img"><defs><marker id='fleche' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0 0 L10 5 L0 10 Z' fill='currentColor'/></marker></defs><g transform='translate(10 0)'><g class='os-long' fill='none' stroke='currentColor' stroke-width='2'><ellipse cx='170' cy='65' rx='42' ry='32'/><path d='M143 42 Q170 24 197 42' stroke-width='4'/><path d='M138 92 L202 92 L188 122 L152 122 Z'/><path d='M144 124 L144 330' stroke-dasharray='4 3'/><path d='M196 124 L196 330' stroke-dasharray='4 3'/><rect x='150' y='122' width='40' height='210'/><path d='M160 132 L160 322'/><path d='M180 132 L180 322'/><path d='M152 332 L188 332 L202 362 L138 362 Z'/><ellipse cx='170' cy='395' rx='42' ry='32'/><path d='M143 418 Q170 436 197 418' stroke-width='4'/></g><g class='os-spongieux' fill='currentColor' stroke='none'><circle cx='145' cy='55' r='2.2'/><circle cx='155' cy='45' r='2.2'/><circle cx='170' cy='40' r='2.2'/><circle cx='185' cy='45' r='2.2'/><circle cx='195' cy='55' r='2.2'/><circle cx='150' cy='75' r='2.2'/><circle cx='165' cy='80' r='2.2'/><circle cx='175' cy='80' r='2.2'/><circle cx='190' cy='75' r='2.2'/><circle cx='145' cy='385' r='2.2'/><circle cx='155' cy='375' r='2.2'/><circle cx='170' cy='370' r='2.2'/><circle cx='185' cy='375' r='2.2'/><circle cx='195' cy='385' r='2.2'/><circle cx='150' cy='405' r='2.2'/><circle cx='165' cy='410' r='2.2'/><circle cx='175' cy='410' r='2.2'/><circle cx='190' cy='405' r='2.2'/></g><g class='reperes' fill='none' stroke='currentColor' stroke-width='1.5'><path d='M197 42 L222 24' marker-end='url(#fleche)'/><path d='M212 65 L222 73' marker-end='url(#fleche)'/><path d='M144 150 L118 115' marker-end='url(#fleche)'/><path d='M197 107 L222 124' marker-end='url(#fleche)'/><path d='M155 205 L118 205' marker-end='url(#fleche)'/><path d='M170 200 L222 200' marker-end='url(#fleche)'/><path d='M148 390 L118 392' marker-end='url(#fleche)'/><path d='M212 395 L222 393' marker-end='url(#fleche)'/></g></g><g class="pastille" data-n="1" data-plan="" data-indice="au bout de chaque épiphyse"><circle cx="245" cy="20" r="9"/><text class="pastille__n" x="245" y="24" text-anchor="middle">1</text><text class="pastille__t" x="259" y="24" text-anchor="start">Cartilage articulaire</text></g><g class="pastille" data-n="2" data-plan="" data-indice="extrémité proche du tronc"><circle cx="245" cy="75" r="9"/><text class="pastille__n" x="245" y="79" text-anchor="middle">2</text><text class="pastille__t" x="259" y="79" text-anchor="start">Épiphyse proximale</text></g><g class="pastille" data-n="3" data-plan="" data-indice="membrane qui enveloppe l&#x27;os"><circle cx="120" cy="110" r="9"/><text class="pastille__n" x="120" y="114" text-anchor="middle">3</text><text class="pastille__t" x="106" y="114" text-anchor="end">Périoste</text></g><g class="pastille" data-n="4" data-plan="" data-indice="jonction diaphyse / épiphyse"><circle cx="245" cy="130" r="9"/><text class="pastille__n" x="245" y="134" text-anchor="middle">4</text><text class="pastille__t" x="259" y="134" text-anchor="start">Métaphyse</text></g><g class="pastille" data-n="5" data-plan="" data-indice="juste sous le périoste"><circle cx="120" cy="200" r="9"/><text class="pastille__n" x="120" y="204" text-anchor="middle">5</text><text class="pastille__t" x="106" y="204" text-anchor="end">Os compact</text></g><g class="pastille" data-n="6" data-plan="" data-indice="cavité centrale de la diaphyse"><circle cx="245" cy="200" r="9"/><text class="pastille__n" x="245" y="204" text-anchor="middle">6</text><text class="pastille__t" x="259" y="204" text-anchor="start">Canal médullaire</text></g><g class="pastille" data-n="7" data-plan="" data-indice="sous l&#x27;os compact, aux épiphyses"><circle cx="120" cy="390" r="9"/><text class="pastille__n" x="120" y="394" text-anchor="middle">7</text><text class="pastille__t" x="106" y="394" text-anchor="end">Os spongieux</text></g><g class="pastille" data-n="8" data-plan="" data-indice="extrémité distale, loin du tronc"><circle cx="245" cy="395" r="9"/><text class="pastille__n" x="245" y="399" text-anchor="middle">8</text><text class="pastille__t" x="259" y="399" text-anchor="start">Épiphyse distale</text></g></svg></figure></div><div class="fiche-corrige__planche" style="width:136mm"><figure class="planche" id="squelette-axial-appendiculaire" data-mode="legende"><figcaption>Squelette axial et squelette appendiculaire <span class="src">slide 56</span></figcaption><svg viewBox="0 0 600 420" role="img"><defs><marker id='fleche' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0 0 L10 5 L0 10 Z' fill='currentColor'/></marker></defs><g class='axial' fill='none' stroke='currentColor' stroke-width='2'><circle cx='300' cy='45' r='22'/><path d='M300 67 L300 90'/><ellipse cx='300' cy='140' rx='40' ry='50'/><path d='M300 95 L300 175' stroke-width='6'/><path d='M300 190 L300 265'/></g><g class='appendiculaire' fill='none' stroke='currentColor' stroke-width='2' stroke-dasharray='5 4'><path d='M265 265 L335 265 L348 298 L252 298 Z'/><path d='M340 95 L385 175'/><path d='M260 95 L215 175'/><path d='M335 298 L375 383'/><path d='M265 298 L225 383'/></g><g class='reperes' fill='none' stroke='currentColor' stroke-width='1.5'><path d='M322 40 L385 26' marker-end='url(#fleche)'/><path d='M340 140 L385 138' marker-end='url(#fleche)'/><path d='M237 135 L210 138' marker-end='url(#fleche)'/><path d='M300 238 L210 240' marker-end='url(#fleche)'/><path d='M245 340 L210 345' marker-end='url(#fleche)'/></g><g class="pastille" data-n="1" data-plan="" data-indice="crâne + face"><circle cx="405" cy="25" r="9"/><text class="pastille__n" x="405" y="29" text-anchor="middle">1</text><text class="pastille__t" x="419" y="29" text-anchor="start">Os de la tête</text></g><g class="pastille" data-n="2" data-plan="" data-indice="côtes + sternum"><circle cx="405" cy="138" r="9"/><text class="pastille__n" x="405" y="142" text-anchor="middle">2</text><text class="pastille__t" x="419" y="142" text-anchor="start">Squelette thoracique</text></g><g class="pastille" data-n="3" data-plan="" data-indice="ceinture scapulaire + partie libre"><circle cx="195" cy="138" r="9"/><text class="pastille__n" x="195" y="142" text-anchor="middle">3</text><text class="pastille__t" x="181" y="142" text-anchor="end">Membre supérieur</text></g><g class="pastille" data-n="4" data-plan="" data-indice="vertèbres mobiles puis soudées"><circle cx="195" cy="240" r="9"/><text class="pastille__n" x="195" y="244" text-anchor="middle">4</text><text class="pastille__t" x="181" y="244" text-anchor="end">Colonne vertébrale</text></g><g class="pastille" data-n="5" data-plan="" data-indice="ceinture pelvienne + partie libre"><circle cx="195" cy="345" r="9"/><text class="pastille__n" x="195" y="349" text-anchor="middle">5</text><text class="pastille__t" x="181" y="349" text-anchor="end">Membre inférieur</text></g></svg></figure></div></div><h3>Cartes</h3><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Qu&#x27;est-ce que le système squelettique, et en quelles deux parties se divise-t-il ?</p><p class="fiche-corrige__r">L&#x27;ensemble des structures rigides du corps : une armature mobile dont les pièces (les os) servent de leviers pour les tractions des muscles. Il se compose de 2 parties : une partie cartilagineuse et une partie osseuse.</p><span class="src">slide 45</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">De quoi le cartilage est-il constitué, et par quelle membrane est-il recouvert ?</p><p class="fiche-corrige__r">Un tissu conjonctif fait de chondrocytes (cellules) et de fibres de collagène (qui donnent aux tissus leur forme et leur élasticité). Il est recouvert d&#x27;une membrane conjonctive, le périchondre.</p><span class="src">slide 50</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Décris le cartilage hyalin.</p><p class="fiche-corrige__r">C&#x27;est le cartilage articulaire : il est nacré, translucide et élastique.</p><span class="src">slide 50</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">En quoi le cartilage élastique diffère-t-il du cartilage hyalin ?</p><p class="fiche-corrige__r">Il lui est semblable, mais renferme plus de fibres élastiques.</p><span class="src">slide 50</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Où trouve-t-on le cartilage fibreux (fibro-cartilage), et de quelle couleur est-il ?</p><p class="fiche-corrige__r">Il constitue les disques intervertébraux et les ménisques articulaires. Il est de couleur blanchâtre.</p><span class="src">slide 50</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Le cartilage est-il vascularisé ?</p><p class="fiche-corrige__r">Non : le cartilage n&#x27;est pas vascularisé.</p><span class="src">slide 50</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quel est le rôle du cartilage, et par quels deux effets se manifeste-t-il ?</p><p class="fiche-corrige__r">Un rôle essentiellement mécanique : il permet le glissement entre 2 pièces osseuses et protège de l&#x27;usure les surfaces articulaires.</p><span class="src">slide 52</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">À quoi l&#x27;os doit-il sa rigidité, et à quoi doit-il son élasticité ?</p><p class="fiche-corrige__r">Sa rigidité à ses composants minéraux (environ 2/3) ; son élasticité à ses composants organiques (1/3).</p><span class="src">slide 54</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Pourquoi ces deux propriétés, rigidité et élasticité, sont-elles indispensables à la solidité de l&#x27;os ?</p><p class="fiche-corrige__r">Si l&#x27;os était trop rigide, il serait cassant ; s&#x27;il était trop souple, il serait déformable.</p><span class="src">slide 54</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Sur quoi se fixe le squelette appendiculaire, et que comprend le squelette axial ?</p><p class="fiche-corrige__r">Le squelette appendiculaire se fixe sur le squelette axial. Le squelette axial comprend les os de la tête (crâne et face), la colonne vertébrale (mobile et fixe), et le squelette thoracique (côtes et sternum).</p><span class="src">slide 56</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Combien d&#x27;os comptent la tête, et comment se répartissent-ils entre crâne et face ?</p><p class="fiche-corrige__r">21 os, regroupés en os du crâne (8, soudés entre eux, qui délimitent la boîte crânienne) et os de la face (13, soudés entre eux et au crâne, au niveau de la mâchoire supérieure).</p><span class="src">slide 57</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Quel est le seul os mobile de la tête ?</p><p class="fiche-corrige__r">La mâchoire inférieure, ou mandibule.</p><span class="src">slide 57</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">La colonne mobile compte combien de vertèbres, et comment se répartissent-elles ?</p><p class="fiche-corrige__r">24 vertèbres indépendantes (« vraies ») : 7 cervicales, 12 thoraciques (dorsales), 5 lombaires.</p><span class="src">slide 58</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">De quoi la colonne fixe est-elle formée chez l&#x27;adulte ?</p><p class="fiche-corrige__r">De vertèbres soudées (« fausses »), regroupées sous forme de deux os : le sacrum et le coccyx.</p><span class="src">slide 58</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">De quoi le squelette thoracique est-il constitué ?</p><p class="fiche-corrige__r">De 12 paires de côtes et du sternum.</p><span class="src">slide 59</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Que comprennent la ceinture scapulaire, puis la partie libre du membre supérieur ?</p><p class="fiche-corrige__r">Ceinture scapulaire (en y ajoutant le sternum) : clavicule, scapula (omoplate). Partie libre : humérus, radius, ulna (cubitus), les os du carpe, les métacarpes, les phalanges de la main.</p><span class="src">slide 60</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Que comprennent la ceinture pelvienne, puis la partie libre du membre inférieur ?</p><p class="fiche-corrige__r">Ceinture pelvienne, bassin ou pelvis (en y ajoutant le sacrum et le coccyx) : les deux os coxaux. Partie libre : fémur, tibia, fibula, patella, les os du tarse, les métatarses, les phalanges du pied.</p><span class="src">slide 61</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Fibula et patella : quels sont leurs anciens noms ?</p><p class="fiche-corrige__r">La fibula s&#x27;appelait anciennement le péroné ; la patella, la rotule.</p><span class="src">slide 61</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Combien d&#x27;os compte le squelette de l&#x27;homme adulte, et quels sont les quatre types d&#x27;os ?</p><p class="fiche-corrige__r">206 os, répartis en quatre types : longs, courts, plats et irréguliers.</p><span class="src">slide 63</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Décris la constitution d&#x27;un os long : partie centrale, extrémités, jonction.</p><p class="fiche-corrige__r">Une partie centrale, la diaphyse (le canal médullaire se situe à l&#x27;intérieur) ; deux extrémités, les épiphyses proximale et distale (recouvertes de cartilage hyalin sur les surfaces articulaires) ; la métaphyse (cartilage de conjugaison), jonction entre diaphyse et épiphyse.</p><span class="src">slide 65</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Que sert aussi le périoste, et que trouve-t-on sous lui, puis sous l&#x27;os compact au niveau des épiphyses ?</p><p class="fiche-corrige__r">Le périoste est la membrane (fibres de collagène, nerfs, vaisseaux sanguins) qui recouvre l&#x27;os ; il sert aussi à l&#x27;insertion des muscles. Sous le périoste : l&#x27;os compact (très résistant). Sous l&#x27;os compact, au niveau des épiphyses : l&#x27;os spongieux (moins résistant mais plus élastique).</p><span class="src">slide 65</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Que trouve-t-on au niveau des tissus spongieux, et que devient l&#x27;os spongieux du canal médullaire chez l&#x27;enfant, avec l&#x27;âge ?</p><p class="fiche-corrige__r">La moelle rouge, productrice de sang. Chez l&#x27;enfant, l&#x27;os spongieux du canal médullaire est progressivement remplacé, avec l&#x27;âge, par la moelle jaune, formée de cellules adipeuses (réserve adipeuse pour l&#x27;organisme).</p><span class="src">slide 66</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Caractérise les os courts, les os plats et les os irréguliers, et dis comment ces trois types sont constitués.</p><p class="fiche-corrige__r">Os courts : trois dimensions presque égales (os de la main et du pied). Os plats : épaisseur nettement inférieure aux autres dimensions (ceinture scapulaire et pelvienne, crâne). Os irréguliers : dimensions irrégulières (vertèbres). Ces trois types sont constitués d&#x27;une fine couche d&#x27;os compact recouverte de périoste, avec de l&#x27;os spongieux à l&#x27;intérieur.</p><span class="src">slide 67</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Cite les quatre fonctions de l&#x27;os données par le cours.</p><p class="fiche-corrige__r">Le maintien du corps (armature mobile) ; la protection d&#x27;organes vitaux (crâne, moelle épinière, poumons et cœur) ; le mouvement, en association avec le système musculaire (ensemble : l&#x27;appareil locomoteur) ; un réservoir minéral en calcium et phosphore, échangé avec le sang.</p><span class="src">slide 69</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Sur la figure de la slide 48, que signifient le rouge, le bleu et le vert ?</p><p class="fiche-corrige__r">Rouge : cartilage élastique. Bleu : cartilage hyalin. Vert : cartilage fibreux.</p><span class="src">slide 48</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Où la slide 48 situe-t-elle le cartilage élastique (en rouge sur la figure) ?</p><p class="fiche-corrige__r">Le cartilage auriculaire (1), la trompe auditive (2), les cartilages épiglottique et laryngé (3).</p><span class="src">slide 48</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Où la slide 48 situe-t-elle le cartilage hyalin (en bleu sur la figure) ?</p><p class="fiche-corrige__r">Les cartilages du nez (4), la trachée (5), les cartilages costaux (6).</p><span class="src">slide 48</span></article><article class="fiche-corrige__carte"><p class="fiche-corrige__q">Où la slide 48 situe-t-elle le cartilage fibreux (en vert sur la figure) ?</p><p class="fiche-corrige__r">Le disque intervertébral (7) et la symphyse pubienne (8).</p><span class="src">slide 48</span></article><h3>Quiz</h3><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Quel type de cartilage est le cartilage articulaire, nacré et translucide ?</p><ol type="A"><li>Le cartilage fibreux (fibro-cartilage)</li><li class="fiche-corrige__bonne">Le cartilage hyalin</li><li>Le cartilage élastique</li></ol><p class="fiche-corrige__expl">Le cartilage hyalin est explicitement défini comme le cartilage articulaire, nacré, translucide et élastique. Le cartilage élastique est tentant : son nom contient « élastique » et le cours le décrit comme « semblable au cartilage hyalin » — mais il s&#x27;en distingue justement en renfermant PLUS de fibres élastiques, sans être qualifié de nacré ni de translucide. Le cartilage fibreux est écarté par sa couleur (blanchâtre, pas nacrée) et sa localisation (disques intervertébraux, ménisques), qui n&#x27;a rien à voir avec les surfaces articulaires en général.</p><span class="src">slide 50</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Quel cartilage constitue les disques intervertébraux et les ménisques articulaires ?</p><ol type="A"><li class="fiche-corrige__bonne">Le cartilage fibreux (fibro-cartilage)</li><li>Le cartilage hyalin</li><li>Le cartilage élastique</li></ol><p class="fiche-corrige__expl">Le fibro-cartilage est défini par cette localisation précise et sa couleur blanchâtre (slide 50) ; la figure de la slide 48 le colore en vert et y place le disque intervertébral et la symphyse pubienne. Le cartilage hyalin est le distracteur le plus proche : lui aussi est dit « articulaire », mais ce mot désigne chez lui le revêtement des surfaces des épiphyses, pas les disques ou les ménisques ; la slide 48 le donne en bleu (nez, trachée, cartilages costaux). Le cartilage élastique se situe ailleurs : la légende de la slide 48 le donne en rouge, au niveau du cartilage auriculaire, de la trompe auditive et des cartilages épiglottique et laryngé — rien à voir avec les disques ni les ménisques.</p><span class="src">slides 48 et 50</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">L&#x27;os doit sa rigidité à quels composants, et son élasticité à quels autres ?</p><ol type="A"><li>Rigidité et élasticité proviennent toutes deux des composants minéraux</li><li class="fiche-corrige__bonne">Rigidité aux composants minéraux, élasticité aux composants organiques</li><li>Rigidité aux composants organiques, élasticité aux composants minéraux</li></ol><p class="fiche-corrige__expl">Le cours est explicite : rigidité par les composants minéraux (environ 2/3), élasticité par les composants organiques (1/3). Ce couple s&#x27;inverse facilement : rigidité aux composants organiques et élasticité aux composants minéraux est faux. Faire venir la rigidité et l&#x27;élasticité des seuls composants minéraux nie la dualité que le cours souligne lui-même en expliquant pourquoi les deux propriétés, venant de deux composants différents, sont nécessaires (sinon l&#x27;os serait cassant ou déformable).</p><span class="src">slide 54</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Combien d&#x27;os composent le crâne (au sens strict, hors face), et que délimitent-ils ?</p><ol type="A"><li class="fiche-corrige__bonne">8 os, qui délimitent la boîte crânienne</li><li>13 os, qui délimitent la boîte crânienne</li><li>8 os, qui forment la mâchoire supérieure</li><li>21 os, qui délimitent la boîte crânienne</li></ol><p class="fiche-corrige__expl">Les 8 os du crâne, soudés entre eux, délimitent la boîte crânienne. 13 est le nombre des os de la FACE, pas du crâne : c&#x27;est la confusion crâne/face que cette slide invite à faire. 21 est le total de la tête osseuse (crâne + face), pas le crâne seul. « Former la mâchoire supérieure » est une fonction des os de la face (soudés au crâne à ce niveau), pas des os du crâne.</p><span class="src">slide 57</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Quel est le seul os mobile de la tête ?</p><ol type="A"><li>Aucun : tous les os de la tête sont soudés</li><li class="fiche-corrige__bonne">La mandibule (mâchoire inférieure)</li><li>Un os du crâne, au niveau d&#x27;une suture</li><li>La mâchoire supérieure</li></ol><p class="fiche-corrige__expl">Le cours l&#x27;affirme sans détour : la mandibule est le seul os mobile de la tête. La mâchoire supérieure est le distracteur le plus tentant par confusion mâchoire haute / mâchoire basse — mais le cours la donne comme le niveau où les os de la face sont soudés au crâne : elle est fixe. « Aucun » généralise à l&#x27;excès la soudure des os du crâne et de la face à la tête entière, alors que la mandibule est l&#x27;exception nommée. Une suture crânienne est une vraie articulation du crâne, mais elle est fixe, pas mobile.</p><span class="src">slide 57</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Comment se répartissent les 24 vertèbres indépendantes (« vraies ») de la colonne mobile ?</p><ol type="A"><li>5 cervicales, 12 thoraciques, 7 lombaires</li><li>7 cervicales, 5 thoraciques, 12 lombaires</li><li class="fiche-corrige__bonne">7 cervicales, 12 thoraciques, 5 lombaires</li><li>12 cervicales, 7 thoraciques, 5 lombaires</li></ol><p class="fiche-corrige__expl">Le cours donne la répartition : 7 cervicales, 12 thoraciques (dorsales), 5 lombaires, soit 24 vertèbres indépendantes (« vraies »). Les trois autres choix redistribuent les mêmes trois nombres entre les régions : ils ne testent que la mémorisation exacte, région par région. Le sacrum et le coccyx n&#x27;entrent pas dans ce compte : ils appartiennent à la colonne fixe, formée de vertèbres soudées (« fausses »).</p><span class="src">slide 58</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Un os du carpe appartient à quel type d&#x27;os ?</p><ol type="A"><li>Os long</li><li>Os irrégulier</li><li class="fiche-corrige__bonne">Os court</li><li>Os plat</li></ol><p class="fiche-corrige__expl">Le cours donne explicitement les os courts en exemple : les os de la main (dont le carpe) et du pied, dont les trois dimensions sont presque égales. Os long est le distracteur le plus tentant, car c&#x27;est le type le plus connu — mais rien dans un os du carpe n&#x27;est longiligne. Os plat (exemple donné : le pariétal) et os irrégulier (exemple donné : la vertèbre) sont les deux autres types nommément illustrés par d&#x27;autres os du cours, pas par le carpe.</p><span class="src">slide 64</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Dans un os long, quelle structure assure la jonction entre la diaphyse et l&#x27;épiphyse ?</p><ol type="A"><li>Le périoste</li><li>Le canal médullaire</li><li>L&#x27;os spongieux</li><li class="fiche-corrige__bonne">La métaphyse</li></ol><p class="fiche-corrige__expl">La métaphyse (cartilage de conjugaison) est définie par le cours comme la jonction entre diaphyse et épiphyse. Le périoste est la membrane qui recouvre TOUT l&#x27;os, pas une jonction interne. Le canal médullaire est la cavité intérieure de la diaphyse, pas une zone de transition. L&#x27;os spongieux est le tissu situé sous l&#x27;os compact, au niveau des épiphyses. Les trois distracteurs sont les voisins immédiats de la métaphyse sur la même figure — choisis pour leur proximité anatomique réelle, pas inventés.</p><span class="src">slide 65</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Sous l&#x27;os compact, au niveau des épiphyses d&#x27;un os long, quel tissu trouve-t-on ?</p><ol type="A"><li>Le périoste</li><li class="fiche-corrige__bonne">L&#x27;os spongieux</li><li>Le canal médullaire</li><li>La métaphyse</li></ol><p class="fiche-corrige__expl">Le cours l&#x27;énonce directement : sous l&#x27;os compact, au niveau des épiphyses, on trouve l&#x27;os spongieux. Le périoste est au contraire la couche la plus externe, au-dessus de l&#x27;os compact, pas dessous. La métaphyse est une zone de jonction diaphyse/épiphyse, pas un tissu sous-jacent à l&#x27;os compact. Le canal médullaire est la cavité de la diaphyse, pas des épiphyses.</p><span class="src">slide 65</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Chez l&#x27;enfant, l&#x27;os spongieux du canal médullaire est progressivement remplacé, avec l&#x27;âge, par quoi ?</p><ol type="A"><li class="fiche-corrige__bonne">La moelle jaune, formée de cellules adipeuses</li><li>De l&#x27;os compact</li><li>Du cartilage hyalin</li><li>La moelle rouge, productrice de sang</li></ol><p class="fiche-corrige__expl">Le cours l&#x27;affirme directement : l&#x27;os spongieux du canal médullaire est progressivement remplacé, avec l&#x27;âge, par la moelle jaune, formée de cellules adipeuses. La moelle rouge est le distracteur le plus proche : le cours la nomme dans le même paragraphe, mais comme ce que l&#x27;on trouve « au niveau des tissus spongieux » (elle est productrice de sang) ; il ne dit pas qu&#x27;elle remplace l&#x27;os spongieux, ni qu&#x27;elle soit elle-même remplacée. Le cartilage hyalin et l&#x27;os compact sont des tissus réels du cours, mais situés ailleurs (surfaces articulaires ; paroi de la diaphyse), sans lien avec cette transformation liée à l&#x27;âge.</p><span class="src">slide 66</span></article><article class="fiche-corrige__quiz"><p class="fiche-corrige__q">Fibula et patella sont les noms actuels de quels anciens termes ?</p><ol type="A"><li>Fibula = radius ancien ; patella = rotule ancienne</li><li>Fibula = péroné ancien ; patella = ménisque ancien</li><li class="fiche-corrige__bonne">Fibula = péroné ancien ; patella = rotule ancienne</li><li>Fibula = tibia ancien ; patella = ménisque ancien</li></ol><p class="fiche-corrige__expl">Le cours l&#x27;énonce sans ambiguïté : fibula, anciennement péroné ; patella, anciennement rotule. Le tibia et le radius sont des os bien réels et voisins de la fibula ou de la main/avant-bras, mais ce ne sont pas d&#x27;anciens noms de la fibula. Le ménisque est une structure réelle du cours (le fibro-cartilage en forme les ménisques articulaires), mais ce n&#x27;est pas un ancien nom de la patella : c&#x27;est une pièce anatomiquement distincte, logée dans l&#x27;articulation du genou à côté d&#x27;elle.</p><span class="src">slide 61</span></article></section>
+</body>
+</html>

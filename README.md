@@ -108,6 +108,15 @@ son numéro de slide (`contenu/cours.json`), pour pouvoir vérifier sans avoir �
 croire le site sur parole. Les slides purement iconographiques, dont le texte n'est
 pas extractible, sont recensées ; leur contenu n'est jamais deviné.
 
+Le champ `slide` est **un entier, ou une liste d'entiers** quand l'entrée est à cheval sur
+plusieurs slides (`"slide": 319` ou `"slide": [319, 320]`). Chaque valeur doit tomber dans
+la plage du chapitre, une liste ne peut être ni vide ni répéter une slide
+(`contenu/schema.py`, `_valider_slide`). Le site écrit « slide 319 », « slides 319 et 320 »
+ou « slides 309, 316 et 320 », toujours dans l'ordre croissant (`outils/construire.py`,
+`_src`) ; la fiche range une entrée à cheval dans la section où elle commence. Les entrées
+à un entier n'ont pas à changer. Un code qui lit ce champ passe par
+`contenu.schema.slides_de`, qui rend toujours une liste, plutôt que de tester le type.
+
 ## Où vivent la spec et les plans
 
 - **Spec de conception** : `docs/superpowers/specs/2026-09-18-site-revision-anatomie-design.md`

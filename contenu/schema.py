@@ -3,6 +3,9 @@
 Le PDF du cours fait foi. Ce module refuse tout contenu qui ne renvoie pas a
 une slide verifiable, et toute planche dont le trace contient deja ses
 etiquettes -- ce qui rendrait le mode muet impossible.
+
+Le champ `slide` d'une entree est un entier (une slide) ou une liste d'entiers
+(une entree a cheval sur plusieurs slides) ; `slides_de` normalise les deux formes.
 """
 
 CHAMPS_CARTE = ("id", "q", "r")
@@ -119,15 +122,58 @@ def _valider_entree(entree, champs, bornes, vus, genre):
     return erreurs
 
 
+def slides_de(entree):
+    """Les numeros de slide d'une entree, toujours sous forme de liste.
+
+    Le champ `slide` est soit un entier (une entree qui tient sur une slide -- la
+    quasi-totalite des entrees), soit une liste d'entiers (une entree a cheval sur
+    plusieurs slides : la terminaison d'un muscle donnee sur une slide et ses
+    actions sur la suivante). Les deux formes coexistent ; ce point d'entree evite
+    a chaque consommateur de tester le type. Une entree sans slide ([hors cours])
+    renvoie une liste vide."""
+    slide = entree.get("slide")
+    if slide is None:
+        return []
+    if isinstance(slide, list):
+        return list(slide)
+    return [slide]
+
+
+def _est_numero_de_slide(valeur):
+    # bool est une sous-classe de int : True ne doit pas passer pour la slide 1.
+    return isinstance(valeur, int) and not isinstance(valeur, bool)
+
+
 def _valider_slide(entree, bornes, etiquette):
     if entree.get("hors_cours"):
         return []
     slide = entree.get("slide")
-    if not isinstance(slide, int):
+    if isinstance(slide, list):
+        return _valider_liste_de_slides(slide, bornes, etiquette)
+    if not _est_numero_de_slide(slide):
         return [f"{etiquette} : numero de slide absent"]
     if not bornes[0] <= slide <= bornes[1]:
         return [f"{etiquette} : slide {slide} hors de la plage {bornes[0]}-{bornes[1]}"]
     return []
+
+
+def _valider_liste_de_slides(slides, bornes, etiquette):
+    # Chaque valeur est controlee comme l'entier seul l'est : meme plage, meme
+    # message. Une liste vide n'est pas une slide citee ; un doublon est une
+    # faute de frappe qui s'afficherait « slides 319 et 319 ».
+    if not slides:
+        return [f"{etiquette} : liste de slides vide"]
+    erreurs = []
+    for slide in slides:
+        if not _est_numero_de_slide(slide):
+            erreurs.append(f"{etiquette} : numero de slide invalide ({slide!r})")
+        elif not bornes[0] <= slide <= bornes[1]:
+            erreurs.append(
+                f"{etiquette} : slide {slide} hors de la plage {bornes[0]}-{bornes[1]}"
+            )
+    if not erreurs and len(set(slides)) != len(slides):
+        erreurs.append(f"{etiquette} : slide en double dans la liste {slides}")
+    return erreurs
 
 
 def _valider_quiz(question):

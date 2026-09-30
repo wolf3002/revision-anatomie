@@ -1110,6 +1110,15 @@ html.js .sans-js {
   font-weight: 600;
 }
 
+/* Le renvoi de slide en tete de ligne. Il est en nowrap (§5.11), or « slides 309,
+ * 316 et 320 » (une entree a cheval sur trois slides) mesure une dizaine de pixels
+ * de plus que la colonne fixe d'un quart de table a 768 px : releve par
+ * outils/verifier_mobile.py sur un cours d'essai. Dans une cellule de table, il passe a
+ * la ligne (« slides 309, 316 / et 320 ») au lieu de deborder. */
+:is(.muscles, .table-ref) th .src {
+  white-space: normal;
+}
+
 /* Sous 720 px, une table a quatre colonnes deborde. Elle devient une liste de
  * fiches : une ligne = un muscle, chaque cellule reprenant son intitule de
  * colonne. L'ordre des colonnes est fixe par le generateur

@@ -3,7 +3,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from contenu.schema import valider_cours
+import pytest
+
+from contenu.schema import slides_de, valider_cours
 
 
 def cours_minimal(**remplacements):
@@ -416,3 +418,158 @@ def test_l_estimation_de_largeur_couvre_les_mesures_de_chrome():
         estimee = largeur_estimee_libelle(texte)
         assert estimee >= mesure * 0.95, (texte, estimee, mesure)
         assert estimee <= mesure * 1.25, (texte, estimee, mesure)
+
+
+# --- Le champ `slide` : un entier, ou une liste d'entiers ---------------------------
+#
+# Une entree a cheval sur plusieurs slides (la terminaison d'un muscle sur l'une, ses
+# actions sur la suivante) cite toutes les slides ; les entrees qui tiennent sur une
+# seule gardent leur entier.
+
+
+def test_un_entier_reste_accepte_comme_slide():
+    cours = cours_minimal(cartes=[{"id": "c1-01", "q": "Q ?", "r": "R", "slide": 9}])
+    assert valider_cours(cours) == []
+
+
+def test_une_liste_d_entiers_est_acceptee_comme_slide():
+    cours = cours_minimal(
+        cartes=[{"id": "c1-01", "q": "Q ?", "r": "R", "slide": [9, 10, 12]}]
+    )
+    assert valider_cours(cours) == []
+
+
+def test_une_liste_d_un_seul_element_est_acceptee():
+    cours = cours_minimal(cartes=[{"id": "c1-01", "q": "Q ?", "r": "R", "slide": [9]}])
+    assert valider_cours(cours) == []
+
+
+def test_une_liste_dont_un_element_sort_de_la_plage_est_refusee():
+    cours = cours_minimal(
+        cartes=[{"id": "c1-01", "q": "Q ?", "r": "R", "slide": [9, 300]}]
+    )
+    erreurs = valider_cours(cours)
+    assert any("c1-01" in e and "300" in e and "plage" in e for e in erreurs), erreurs
+    # La valeur valide de la liste n'est pas incriminee.
+    assert not any("slide 9 " in e for e in erreurs), erreurs
+
+
+def test_une_liste_dont_le_premier_element_sort_de_la_plage_est_refusee():
+    # Les bornes sont [7, 45] : 3 est en dessous, pas seulement « trop grand ».
+    cours = cours_minimal(cartes=[{"id": "c1-01", "q": "Q ?", "r": "R", "slide": [3, 9]}])
+    assert any("c1-01" in e and "3" in e for e in valider_cours(cours))
+
+
+def test_une_liste_vide_est_refusee():
+    cours = cours_minimal(cartes=[{"id": "c1-01", "q": "Q ?", "r": "R", "slide": []}])
+    assert any("c1-01" in e and "vide" in e for e in valider_cours(cours))
+
+
+def test_une_liste_qui_cite_deux_fois_la_meme_slide_est_refusee():
+    cours = cours_minimal(
+        cartes=[{"id": "c1-01", "q": "Q ?", "r": "R", "slide": [9, 9]}]
+    )
+    assert any("c1-01" in e and "double" in e for e in valider_cours(cours))
+
+
+@pytest.mark.parametrize("intrus", ["9", 9.5, None, True, [9]])
+def test_une_liste_dont_un_element_n_est_pas_un_entier_est_refusee(intrus):
+    cours = cours_minimal(
+        cartes=[{"id": "c1-01", "q": "Q ?", "r": "R", "slide": [10, intrus]}]
+    )
+    assert any("c1-01" in e and "invalide" in e for e in valider_cours(cours))
+
+
+@pytest.mark.parametrize("intrus", ["9", 9.5, True])
+def test_un_scalaire_qui_n_est_pas_un_entier_est_refuse(intrus):
+    cours = cours_minimal(cartes=[{"id": "c1-01", "q": "Q ?", "r": "R", "slide": intrus}])
+    assert any("c1-01" in e and "slide" in e for e in valider_cours(cours))
+
+
+def test_toutes_les_valeurs_hors_plage_d_une_liste_sont_signalees():
+    cours = cours_minimal(
+        cartes=[{"id": "c1-01", "q": "Q ?", "r": "R", "slide": [2, 9, 300]}]
+    )
+    erreurs = [e for e in valider_cours(cours) if "c1-01" in e]
+    assert len(erreurs) == 2, erreurs
+
+
+def test_toutes_les_sortes_d_entrees_acceptent_une_liste_de_slides():
+    # Cartes, questions, muscles, pieges et planches passent par le meme validateur.
+    quiz = {
+        "id": "q1-01",
+        "q": "Q ?",
+        "choix": ["A", "B", "C"],
+        "bonne": 0,
+        "expl": "E",
+        "slide": [9, 10],
+    }
+    muscle = {
+        "nom": "Biceps femoral",
+        "origine": ["o"],
+        "terminaison": ["t"],
+        "actions": ["a"],
+        "slide": [9, 10],
+    }
+    planche = {
+        "id": "p1",
+        "titre": "T",
+        "vb": "0 0 100 100",
+        "dessin": "<g/>",
+        "pastilles": [],
+        "slide": [9, 10],
+    }
+    cours = cours_minimal(
+        cartes=[{"id": "c1-01", "q": "Q ?", "r": "R", "slide": [9, 10]}],
+        quiz=[quiz],
+        muscles=[muscle],
+        pieges=[{"titre": "Piege", "texte": "Attention.", "slide": [9, 10]}],
+        planches=[planche],
+    )
+    assert valider_cours(cours) == []
+
+
+def test_une_liste_hors_plage_est_refusee_pour_chaque_sorte_d_entree():
+    hors = [9, 300]
+    cours = cours_minimal(
+        muscles=[
+            {
+                "nom": "Biceps femoral",
+                "origine": ["o"],
+                "terminaison": ["t"],
+                "actions": ["a"],
+                "slide": hors,
+            }
+        ],
+        pieges=[{"titre": "Piege", "texte": "Attention.", "slide": hors}],
+        planches=[
+            {
+                "id": "p1",
+                "titre": "T",
+                "vb": "0 0 100 100",
+                "dessin": "<g/>",
+                "pastilles": [],
+                "slide": hors,
+            }
+        ],
+    )
+    erreurs = valider_cours(cours)
+    for etiquette in ("Biceps femoral", "Piege", "p1"):
+        assert any(etiquette in e and "300" in e for e in erreurs), (etiquette, erreurs)
+
+
+def test_hors_cours_dispense_toujours_de_slide():
+    cours = cours_minimal(
+        cartes=[{"id": "c1-01", "q": "Q ?", "r": "R", "hors_cours": True}]
+    )
+    assert valider_cours(cours) == []
+
+
+def test_slides_de_normalise_les_deux_formes():
+    assert slides_de({"slide": 319}) == [319]
+    assert slides_de({"slide": [319, 320]}) == [319, 320]
+    assert slides_de({"hors_cours": True}) == []
+    # La liste rendue est une copie : la modifier ne touche pas le contenu.
+    source = {"slide": [1, 2]}
+    slides_de(source).append(3)
+    assert source["slide"] == [1, 2]

@@ -19,7 +19,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 # La table de decalage vit dans contenu/schema.py, pas ici : le validateur s'en sert
 # pour verifier qu'un libelle decale ne sort pas du viewBox. Une seule definition,
 # donc aucune derive possible entre ce qui est valide et ce qui est rendu.
-from contenu.schema import DECALAGE_LIBELLE  # noqa: E402
+from contenu.schema import DECALAGE_LIBELLE, slides_de  # noqa: E402
 
 # Deux onglets, dans l'ordre ou on les traverse : on ne peut pas retrouver en
 # memoire ce qu'on n'y a jamais mis, donc on LIT d'abord (Fiche), on s'EXERCE
@@ -229,10 +229,23 @@ def _rendre_chapitre(gabarit, gabarit_seance, chapitre):
     )
 
 
+def _libelle_slides(slides):
+    """« slide 319 », « slides 319 et 320 », « slides 309, 316 et 320 » : toujours dans
+    l'ordre croissant, quel que soit l'ordre de saisie."""
+    slides = sorted(slides)
+    if len(slides) == 1:
+        return f"slide {slides[0]}"
+    return f"slides {', '.join(map(str, slides[:-1]))} et {slides[-1]}"
+
+
 def _src(entree):
     if entree.get("hors_cours"):
         return '<span class="src src--hors">[hors cours]</span>'
-    return f'<span class="src">slide {entree["slide"]}</span>'
+    slides = slides_de(entree)
+    if not slides:
+        etiquette = entree.get("id") or entree.get("nom") or entree.get("titre")
+        raise ValueError(f"entree sans slide : {etiquette!r}")
+    return f'<span class="src">{_libelle_slides(slides)}</span>'
 
 
 def _rendre_volet(cle, chapitre):
@@ -404,13 +417,28 @@ def _rendre_planche(planche):
 # Ce qui s'y trouve est donc, par construction, en lecture seule.
 
 
+def _premiere_slide(slide):
+    """La slide qui ouvre une entree : `slide` est un entier ou une liste d'entiers
+    (entree a cheval sur plusieurs slides), et c'est la plus petite qui donne son
+    rang dans la fiche. None si l'entree n'en a pas."""
+    if isinstance(slide, list):
+        return min(slide) if slide else None
+    return slide
+
+
 def _section_pour(sections, slide):
     """Indice de la section qui traite `slide` : la derniere dont le slide est
     inferieur ou egal ; a defaut (entree anterieure a la premiere section), la
-    premiere. Une entree sans slide ([hors cours]) va a la derniere."""
+    premiere. Une entree sans slide ([hors cours]) va a la derniere. Pour une entree
+    a cheval sur plusieurs slides, c'est celle ou elle commence qui compte."""
+    slide = _premiere_slide(slide)
     if not isinstance(slide, int):
         return len(sections) - 1
-    candidats = [(s["slide"], i) for i, s in enumerate(sections) if s["slide"] <= slide]
+    candidats = [
+        (_premiere_slide(s["slide"]), i)
+        for i, s in enumerate(sections)
+        if _premiere_slide(s["slide"]) <= slide
+    ]
     return max(candidats)[1] if candidats else 0
 
 

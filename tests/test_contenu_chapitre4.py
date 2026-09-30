@@ -5,7 +5,7 @@ from pathlib import Path
 RACINE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RACINE))
 
-from contenu.schema import valider_cours
+from contenu.schema import slides_de, valider_cours
 
 COURS = json.loads((RACINE / "contenu" / "cours.json").read_text(encoding="utf-8"))
 CHAPITRE_4 = next(c for c in COURS["chapitres"] if c["num"] == 4)
@@ -68,7 +68,7 @@ def test_toutes_les_slides_sont_dans_la_plage_du_chapitre():
         + CHAPITRE_4["planches"]
     )
     for entree in entrees:
-        assert debut <= entree["slide"] <= fin, entree.get("id", entree.get("titre"))
+        assert all(debut <= s <= fin for s in slides_de(entree)), entree.get("id", entree.get("titre"))
 
 
 def test_aucune_planche_ne_contient_une_etiquette_dans_son_trace():

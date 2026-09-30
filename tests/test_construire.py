@@ -161,12 +161,15 @@ def test_les_six_pieges_du_chapitre_1_sont_rendus_avec_leur_slide():
     import html
     import json
 
+    from contenu.schema import slides_de
+    from outils.construire import _libelle_slides
+
     cours = json.loads((RACINE / "contenu" / "cours.json").read_text(encoding="utf-8"))
     pieges = cours["chapitres"][0]["pieges"]
     assert len(pieges) == 6
     for piege in pieges:
         assert html.escape(piege["titre"]) in PAGE, piege["titre"]
-        assert f"slide {piege['slide']}" in PAGE
+        assert _libelle_slides(slides_de(piege)) in PAGE
 
 
 def test_une_page_de_chapitre_n_a_que_deux_onglets_fiche_puis_s_exercer():
@@ -240,3 +243,96 @@ def test_chaque_chapitre_de_l_accueil_a_deux_actions_explicites():
 def test_l_accueil_demande_la_date_d_examen():
     accueil = (RACINE / "site" / "index.html").read_text(encoding="utf-8")
     assert 'type="date"' in accueil
+
+
+# --- Le renvoi de slide : un entier ou une liste --------------------------------
+
+
+def test_une_slide_seule_s_affiche_au_singulier():
+    from outils.construire import _src
+
+    assert _src({"slide": 319}) == '<span class="src">slide 319</span>'
+
+
+def test_deux_slides_s_affichent_avec_et():
+    from outils.construire import _src
+
+    assert _src({"slide": [319, 320]}) == '<span class="src">slides 319 et 320</span>'
+
+
+def test_trois_slides_s_affichent_avec_virgules_puis_et():
+    from outils.construire import _src
+
+    assert (
+        _src({"slide": [309, 316, 320]})
+        == '<span class="src">slides 309, 316 et 320</span>'
+    )
+
+
+def test_une_liste_d_un_seul_element_s_affiche_comme_un_entier():
+    from outils.construire import _src
+
+    assert _src({"slide": [319]}) == _src({"slide": 319})
+
+
+def test_les_slides_s_affichent_dans_l_ordre_croissant():
+    from outils.construire import _src
+
+    assert "slides 309, 316 et 320" in _src({"slide": [320, 309, 316]})
+
+
+def test_hors_cours_l_emporte_sur_la_slide():
+    from outils.construire import _src
+
+    assert "[hors cours]" in _src({"hors_cours": True, "slide": [1, 2]})
+
+
+def test_une_entree_sans_slide_ni_hors_cours_fait_echouer_le_rendu():
+    import pytest
+
+    from outils.construire import _src
+
+    with pytest.raises(ValueError):
+        _src({"id": "c1-01"})
+    with pytest.raises(ValueError):
+        _src({"id": "c1-01", "slide": []})
+
+
+def test_le_renvoi_de_slide_est_rendu_dans_chaque_volet_pour_les_deux_formes():
+    from outils.construire import _rendre_piege, _rendre_planche, _rendre_volet
+
+    muscle = {
+        "nom": "Biceps femoral",
+        "origine": ["o"],
+        "terminaison": ["t"],
+        "actions": ["a"],
+    }
+    for slide, attendu in ((319, "slide 319"), ([319, 320], "slides 319 et 320")):
+        chapitre = {
+            "num": 7,
+            "cartes": [{"id": "c7-01", "q": "Q", "r": "R", "slide": slide}],
+            "quiz": [
+                {
+                    "id": "q7-01",
+                    "q": "Q",
+                    "choix": ["a", "b", "c"],
+                    "bonne": 0,
+                    "expl": "E",
+                    "slide": slide,
+                }
+            ],
+            "muscles": [{**muscle, "slide": slide}],
+        }
+        for cle in ("cartes", "quiz", "muscles"):
+            assert f">{attendu}<" in _rendre_volet(cle, chapitre), (cle, slide)
+        piege = {"titre": "T", "texte": "X", "slide": slide}
+        assert f">{attendu}<" in _rendre_piege(piege), slide
+        planche = {
+            "id": "p1",
+            "titre": "T",
+            "vb": "0 0 100 100",
+            "dessin": "<g/>",
+            "pastilles": [],
+            "slide": slide,
+        }
+        assert f">{attendu}<" in _rendre_planche(planche), slide

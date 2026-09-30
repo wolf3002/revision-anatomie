@@ -18,9 +18,12 @@ from pathlib import Path
 RACINE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RACINE))
 
+from contenu.schema import slides_de  # noqa: E402
 from outils.construire import (  # noqa: E402
     EXERCICES,
     ONGLETS,
+    _libelle_slides,
+    _premiere_slide,
     _rendre_planche,
     _rendre_volet,
     _section_pour,
@@ -220,7 +223,7 @@ def test_la_fiche_reprend_chaque_section_et_chaque_point():
         fiche = _fiche(_page(chapitre["num"]))
         for section in chapitre["sections"]:
             assert html.escape(section["titre"]) in fiche, section["titre"]
-            assert f"slide {section['slide']}" in fiche
+            assert _libelle_slides(slides_de(section)) in fiche
             for point in section["points"]:
                 assert f"<li>{html.escape(point)}</li>" in fiche, point
 
@@ -269,9 +272,12 @@ def test_une_planche_est_rattachee_a_la_section_qui_la_traite():
     for chapitre in CHAPITRES:
         sections = chapitre["sections"]
         for planche in chapitre["planches"]:
+            premiere = _premiere_slide(planche["slide"])
             assert (
-                sections[_section_pour(sections, planche["slide"])]["slide"]
-                == planche["slide"]
+                _premiere_slide(
+                    sections[_section_pour(sections, planche["slide"])]["slide"]
+                )
+                == premiere
             )
 
 
@@ -285,7 +291,7 @@ def test_les_pieges_sont_lus_dans_la_fiche_et_nulle_part_ailleurs():
         assert page.count('<article class="piege">') == len(chapitre["pieges"])
         for piege in chapitre["pieges"]:
             assert html.escape(piege["titre"]) in fiche
-            assert f"slide {piege['slide']}" in fiche
+            assert _libelle_slides(slides_de(piege)) in fiche
 
 
 def test_la_table_musculaire_est_en_reference_pour_les_chapitres_5_a_7():
@@ -414,3 +420,23 @@ def test_sans_javascript_la_page_dit_que_les_exercices_en_ont_besoin():
         # La barre d'onglets et les liens qui menent aux exercices se retirent
         # sans script (style.css §5.2a).
         assert '<div class="onglets js-seulement" role="tablist"' in page
+
+
+def test_une_entree_a_cheval_sur_plusieurs_slides_est_rangee_ou_elle_commence():
+    sections = [
+        {"titre": "A", "slide": 10, "points": ["a"]},
+        {"titre": "B", "slide": 20, "points": ["b"]},
+        {"titre": "C", "slide": 30, "points": ["c"]},
+    ]
+    assert _section_pour(sections, [25, 31]) == 1  # commence en 25 : section B
+    assert _section_pour(sections, [31, 25]) == 1  # l'ordre de saisie ne compte pas
+    assert _section_pour(sections, [20]) == 1
+    assert _section_pour(sections, [3, 40]) == 0
+    assert _section_pour(sections, []) == 2  # comme « sans slide »
+    # Une section elle-meme a cheval sur deux slides se compare par sa premiere.
+    a_cheval = [
+        {"titre": "A", "slide": [10, 11], "points": ["a"]},
+        {"titre": "B", "slide": [20, 22], "points": ["b"]},
+    ]
+    assert _section_pour(a_cheval, 21) == 1
+    assert _section_pour(a_cheval, [12, 21]) == 0

@@ -1047,9 +1047,8 @@ PLANCHES["articulation-synoviale-coupe"] = {
 # 36, un ecart de 8 seulement) : le texte du cours les presente lui-meme
 # comme "colles" (l'endomysium "elle-meme recouverte par une deuxieme
 # membrane, le sarcolemme") -- cet ecart resserre visuellement traduit le
-# piege le plus attendu (enveloppe conjonctive de la fibre contre membrane
-# propre de la fibre), sans les rendre indiscernables (trait continu contre
-# tirets fins).
+# piege le plus attendu (enveloppe de la fibre contre deuxieme membrane de la
+# fibre), sans les rendre indiscernables (trait continu contre tirets fins).
 #
 # Semis de points au centre (r<32, sous le cercle du sarcolemme) : matiere
 # de la fibre elle-meme (sarcoplasme/myofibrilles), pour que le coeur de la
@@ -1115,7 +1114,7 @@ _PASTILLES_ENVELOPPES_MUSCLE = [
         "y": 115,
         "t": "Sarcolemme",
         "ancre": "end",
-        "indice": "deuxième membrane, propre à la fibre",
+        "indice": "deuxième membrane qui recouvre la fibre",
     },
 ]
 
@@ -1238,7 +1237,7 @@ PLANCHES["rachis-courbures-regions"] = {
             "y": 90,
             "t": "Lordose cervicale",
             "ancre": "middle",
-            "indice": "1re bosse, convexité antérieure",
+            "indice": "1re courbure, en haut",
         },
         {
             "n": 2,
@@ -1246,7 +1245,7 @@ PLANCHES["rachis-courbures-regions"] = {
             "y": 215,
             "t": "Cyphose dorsale",
             "ancre": "middle",
-            "indice": "2e bosse, convexité postérieure",
+            "indice": "2e courbure",
         },
         {
             "n": 3,
@@ -1254,7 +1253,7 @@ PLANCHES["rachis-courbures-regions"] = {
             "y": 340,
             "t": "Lordose lombaire",
             "ancre": "middle",
-            "indice": "3e bosse, convexité antérieure",
+            "indice": "3e courbure",
         },
         {
             "n": 4,
@@ -1262,7 +1261,7 @@ PLANCHES["rachis-courbures-regions"] = {
             "y": 465,
             "t": "Courbure sacro-coccygienne",
             "ancre": "middle",
-            "indice": "4e bosse ; sacrum et coccyx soudés",
+            "indice": "4e courbure ; sacrum et coccyx soudés",
         },
     ],
 }
@@ -1334,7 +1333,7 @@ PLANCHES["fibres-abdominales-orientation"] = {
             "y": 308,
             "t": "Oblique interne",
             "ancre": "middle",
-            "indice": "sous l'oblique externe ; fibres en éventail vers le haut",
+            "indice": "fibres en éventail vers le haut",
         },
         {
             "n": 3,
@@ -1342,7 +1341,7 @@ PLANCHES["fibres-abdominales-orientation"] = {
             "y": 478,
             "t": "Oblique externe",
             "ancre": "middle",
-            "indice": "le plus superficiel ; fibres obliques vers le bas",
+            "indice": "fibres obliques vers le bas",
         },
         {
             "n": 4,

@@ -2137,8 +2137,8 @@
           "slide": 115,
           "points": [
             "Le cours illustre huit formes de muscles : fusiforme, biceps, triceps, quadriceps, puis unipenné, bipenné, segmenté et dentelé.",
-            "Fusiforme, biceps, triceps, quadriceps se distinguent par le nombre de chefs charnus (1, 2, 3, 4) qui convergent vers un tendon commun.",
-            "Unipenné et bipenné : les fibres rejoignent un tendon central en oblique, d'un seul côté ou des deux côtés. Segmenté : plusieurs ventres en série. Dentelé : plusieurs languettes en éventail."
+            "La slide 115 ne comporte que le dessin et le nom des huit formes, sans aucun texte : le cours n'en définit aucune par écrit.",
+            "Lecture du dessin (pas du texte) : fusiforme, biceps, triceps et quadriceps sont dessinés avec 1, 2, 3 et 4 corps charnus."
           ]
         },
         {
@@ -2147,14 +2147,17 @@
           "points": [
             "Épimysium : enveloppe qui recouvre l'ensemble du muscle.",
             "Périmysium : enveloppe qui recouvre un faisceau musculaire.",
-            "Endomysium : enveloppe qui recouvre une fibre musculaire, elle-même recouverte par une deuxième membrane, le sarcolemme."
+            "Endomysium : enveloppe qui recouvre une fibre musculaire, elle-même recouverte par une deuxième membrane, le sarcolemme.",
+            "Légendes du schéma de la slide 117 : tendon, muscle squelettique, artères, veines et nerfs, faisceau de fibres, fibre musculaire, noyau, sarcolemme, sarcoplasme, myofibrille."
           ]
         },
         {
           "titre": "Structure microscopique : myofibrille, sarcomère, stries Z",
           "slide": 119,
           "points": [
-            "La cellule musculaire, ou fibre musculaire, contient des myofibrilles. Une myofibrille est composée de sarcomères, délimités par des stries Z.",
+            "La slide 119 écrit : « La cellule musculaire s'appelle myofibrille. Elle est composée de sarcomères qui sont délimités par des stries Z. »",
+            "Le cours se contredit sur ce point : cette phrase est fausse en anatomie, et les slides 117 et 120 disent autre chose. Slide 117 : le schéma de la « fibre musculaire » légende un noyau, un sarcolemme, un sarcoplasme et une myofibrille. Slide 120 : le schéma est titré « Myocyte (fibre musculaire) » et décrit la myofibrille comme un « organite complexe ».",
+            "Version anatomiquement juste : la cellule musculaire est la fibre musculaire (le myocyte) ; elle contient des myofibrilles, composées de sarcomères délimités par des stries Z. À retenir avec sa provenance : « myofibrille » pour la cellule vient de la slide 119 ; « fibre » ou « myocyte » vient des slides 117 et 120.",
             "La contraction musculaire se déroule entre chaque strie Z par l'intermédiaire de 2 protéines contractiles (myofilaments) : la myosine (filament épais) et l'actine (filament fin)."
           ]
         },
@@ -2162,25 +2165,32 @@
           "titre": "Le sarcomère en détail",
           "slide": 120,
           "points": [
-            "Le schéma du cours nomme la fibre musculaire « myocyte » : c'est elle la cellule, elle contient plusieurs myofibrilles.",
-            "Dans un sarcomère, les filaments d'actine (fins) partent de chaque strie Z vers le centre ; les filaments de myosine (épais) occupent la portion centrale, où ils chevauchent les filaments d'actine."
+            "Le schéma de la slide 120 est titré « Myocyte (fibre musculaire) » ; il légende un sarcolemme, un noyau et une myofibrille.",
+            "La myofibrille y est décrite comme un « organite complexe constitué de faisceaux de myofilaments » ; le sarcomère est un « segment d'une myofibrille ».",
+            "Légendes de la myofibrille : strie I, strie A, ligne Z, zone claire (strie H), sarcomère. Légendes du sarcomère : strie A, ligne Z, myofilament mince (d'actine), myofilament épais (de myosine). Légendes des myofilaments : molécules d'actine, tête de myosine.",
+            "Sur le schéma du sarcomère, les filaments d'actine (fins) partent de chaque strie Z vers le centre ; les filaments de myosine (épais) occupent la portion centrale, où ils chevauchent les filaments d'actine."
           ]
         },
         {
           "titre": "Le mécanisme du glissement des filaments",
           "slide": 121,
           "points": [
-            "Sur l'actine, un complexe troponine-tropomyosine masque le site actif ; le calcium (Ca2+) permet sa libération, rendant possible la fixation de la tête de myosine.",
-            "L'ATP fournit l'énergie qui permet à la tête de myosine de se détacher puis de se replacer, faisant avancer le filament d'actine à chaque cycle : c'est le moteur du glissement des filaments."
+            "La slide 121 est un schéma en quatre étapes (a à d), sans texte : ses légendes sont le regroupement des queues de myosine (filament épais), l'actine (filament fin), le complexe troponine-tropomyosine, le site actif, le calcium (Ca2+), l'ATP et une flèche « mouvement du filament ».",
+            "Le Ca2+ est dessiné aux étapes b et c, l'ATP à l'étape d, où figure la flèche « mouvement du filament ».",
+            "Lecture usuelle, absente du texte du cours : le calcium libère le site actif de l'actine, que le complexe troponine-tropomyosine masque, ce qui permet à la tête de myosine de s'y fixer ; l'ATP fournit l'énergie du glissement."
           ]
         },
         {
           "titre": "L'excitabilité et l'unité motrice",
-          "slide": 123,
+          "slide": [
+            123,
+            124
+          ],
           "points": [
             "L'excitabilité est la propriété que possède le muscle de réagir par sa réponse naturelle, la contraction, à toute excitation portée sur lui.",
             "Suivant le message nerveux, les fibres d'un même muscle ne sont pas toutes sollicitées en même temps.",
-            "Unité motrice (UM) : fibres musculaires + motoneurone alpha. Les fibres musculaires d'une même UM ont les mêmes caractéristiques physiologiques et mécaniques."
+            "Unité motrice (UM) : fibres musculaires + motoneurone alpha. Les fibres musculaires d'une même UM ont les mêmes caractéristiques physiologiques et mécaniques.",
+            "Légendes du schéma de la slide 124 : motoneurone α, fibres musculaires, unité motrice, population de motoneurones, muscle."
           ]
         },
         {
@@ -2192,10 +2202,14 @@
         },
         {
           "titre": "La secousse musculaire et la période réfractaire",
-          "slide": 127,
+          "slide": [
+            127,
+            128
+          ],
           "points": [
             "La secousse musculaire (3 temps) : le temps de latence (le muscle ne se contracte pas immédiatement après le stimulus), le temps de contraction (raccourcissement du muscle), et le temps de relâchement ou décontraction (plus longue que la précédente, le muscle reprend sa longueur initiale).",
-            "La période réfractaire : temps pendant lequel la fibre musculaire est inexcitable."
+            "La période réfractaire : temps pendant lequel la fibre musculaire est inexcitable.",
+            "Le graphique de la slide 128 (tension en fonction du temps) montre, après le stimulus, la latence, puis le temps de contraction, où la courbe monte, puis le temps de relâchement, où elle redescend ; c'est le temps de relâchement qui y est le plus étendu des trois."
           ]
         },
         {
@@ -2266,20 +2280,20 @@
         },
         {
           "id": "c4-08",
-          "q": "Qu'est-ce qui distingue les formes biceps, triceps et quadriceps entre elles ?",
-          "r": "Le nombre de chefs charnus qui convergent vers un tendon commun : 2, 3 et 4 chefs respectivement.",
+          "q": "Sur le dessin de la slide 115, qu'est-ce qui distingue le biceps, le triceps et le quadriceps ?",
+          "r": "Le nombre de corps charnus dessinés : 2 pour le biceps, 3 pour le triceps, 4 pour le quadriceps (1 pour le fusiforme). C'est une lecture du dessin : la slide ne porte que les noms.",
           "slide": 115
         },
         {
           "id": "c4-09",
-          "q": "Quelles sont, de l'extérieur vers l'intérieur, les trois enveloppes conjonctives du muscle, et que recouvre chacune ?",
+          "q": "Quelles sont, de l'extérieur vers l'intérieur, les trois enveloppes du muscle, et que recouvre chacune ?",
           "r": "L'épimysium recouvre l'ensemble du muscle ; le périmysium recouvre un faisceau musculaire ; l'endomysium recouvre une fibre musculaire.",
           "slide": 117
         },
         {
           "id": "c4-10",
           "q": "Qu'est-ce que le sarcolemme, et en quoi se distingue-t-il de l'endomysium ?",
-          "r": "C'est la deuxième membrane qui recouvre la fibre musculaire, en plus de l'endomysium : l'endomysium est le tissu conjonctif qui l'entoure, le sarcolemme est la membrane propre de la fibre elle-même.",
+          "r": "Le sarcolemme est la deuxième membrane qui recouvre la fibre musculaire ; l'endomysium est l'enveloppe qui recouvre cette même fibre. Le cours les présente comme deux choses distinctes.",
           "slide": 117
         },
         {
@@ -2308,15 +2322,16 @@
         },
         {
           "id": "c4-15",
-          "q": "D'après le schéma du glissement des filaments, quel est le rôle du calcium (Ca2+) dans la contraction ?",
-          "r": "Le calcium permet la libération du site actif de l'actine, normalement masqué par le complexe troponine-tropomyosine, rendant possible la fixation de la tête de myosine.",
+          "q": "Que légende le schéma du glissement des filaments (slide 121), et à quelles étapes voit-on le calcium et l'ATP ?",
+          "r": "Légendes : regroupement des queues de myosine (filament épais), actine (filament fin), complexe troponine-tropomyosine, site actif, Ca2+, ATP, « mouvement du filament ». Le Ca2+ est dessiné aux étapes b et c, l'ATP à l'étape d.",
           "slide": 121
         },
         {
           "id": "c4-16",
-          "q": "Quel est le rôle de l'ATP dans le glissement des filaments d'actine et de myosine ?",
-          "r": "L'ATP fournit l'énergie qui permet à la tête de myosine de se détacher et de se replacer, faisant avancer le filament d'actine à chaque cycle : c'est le moteur du mouvement du filament.",
-          "slide": 121
+          "q": "Quel rôle attribue-t-on d'habitude au calcium et à l'ATP dans ce schéma ?",
+          "r": "Lecture usuelle, absente du texte du cours (la slide 121 n'a que des légendes) : le calcium libère le site actif de l'actine, que le complexe troponine-tropomyosine masque, ce qui permet à la tête de myosine de s'y fixer ; l'ATP fournit l'énergie du glissement du filament.",
+          "slide": 121,
+          "hors_cours": true
         },
         {
           "id": "c4-17",
@@ -2332,8 +2347,8 @@
         },
         {
           "id": "c4-19",
-          "q": "Pourquoi les fibres d'un même muscle ne sont-elles pas toutes sollicitées en même temps ?",
-          "r": "Parce que le recrutement dépend du message nerveux : suivant ce message, seules certaines unités motrices (fibres + motoneurone alpha) sont activées.",
+          "q": "Le cours dit-il que les fibres d'un même muscle sont toutes sollicitées en même temps ?",
+          "r": "Non : suivant le message nerveux, elles ne sont pas toutes sollicitées en même temps. Le cours définit ensuite l'unité motrice (fibres musculaires + motoneurone alpha).",
           "slide": 124
         },
         {
@@ -2371,12 +2386,43 @@
           "q": "Qu'est-ce que la plasticité musculaire, et quelles sont ses deux types d'adaptations ?",
           "r": "La capacité du muscle à se modifier ou à s'adapter à certaines situations ou contraintes (entraînement ou désentraînement) : les adaptations nerveuses (coordination) et les adaptations périphériques (hypertrophie).",
           "slide": 134
+        },
+        {
+          "id": "c4-26",
+          "q": "Que dit la slide 119 de la cellule musculaire, et que montrent les slides 117 et 120 ?",
+          "r": "Slide 119 : « La cellule musculaire s'appelle myofibrille. » Slides 117 et 120 : la cellule est la « fibre musculaire » (« myocyte » sur la 120) et la myofibrille est à l'intérieur (un « organite » sur la 120). Le cours se contredit ; en anatomie, la cellule est la fibre (le myocyte).",
+          "slide": [
+            117,
+            119,
+            120
+          ]
+        },
+        {
+          "id": "c4-27",
+          "q": "Quelles légendes portent les schémas de la myofibrille et du sarcomère (slide 120) ?",
+          "r": "Myofibrille (« organite complexe constitué de faisceaux de myofilaments ») : strie I, strie A, ligne Z, zone claire (strie H), sarcomère. Sarcomère (« segment d'une myofibrille ») : strie A, ligne Z, myofilament mince (d'actine), myofilament épais (de myosine).",
+          "slide": 120
+        },
+        {
+          "id": "c4-28",
+          "q": "Quels éléments le schéma de la fibre musculaire (slide 117) légende-t-il, en plus du sarcolemme ?",
+          "r": "Le noyau, le sarcoplasme et la myofibrille. Ce sont des légendes du schéma : le cours ne les définit pas par écrit. Le schéma de la slide 120 légende aussi le noyau.",
+          "slide": [
+            117,
+            120
+          ]
+        },
+        {
+          "id": "c4-29",
+          "q": "Que montre le graphique de la secousse musculaire (slide 128) ?",
+          "r": "La tension en fonction du temps, après un stimulus : la latence, puis le temps de contraction (la courbe monte), puis le temps de relâchement (la courbe redescend), plus long que le temps de contraction.",
+          "slide": 128
         }
       ],
       "quiz": [
         {
           "id": "q4-01",
-          "q": "Quelle enveloppe conjonctive recouvre précisément un FAISCEAU musculaire (un groupe de fibres) — ni le muscle entier, ni une fibre seule ?",
+          "q": "Quelle enveloppe recouvre précisément un FAISCEAU musculaire (un groupe de fibres) — ni le muscle entier, ni une fibre seule ?",
           "choix": [
             "Épimysium",
             "Périmysium",
@@ -2384,7 +2430,7 @@
             "Sarcolemme"
           ],
           "bonne": 1,
-          "expl": "Le périmysium recouvre un faisceau musculaire : c'est le niveau intermédiaire de l'emboîtement. L'épimysium est un niveau au-dessus (le muscle entier) ; l'endomysium est un niveau au-dessous (une fibre) ; le sarcolemme n'est même pas une enveloppe conjonctive, mais la membrane propre de la fibre.",
+          "expl": "Le périmysium recouvre un faisceau musculaire : c'est le niveau intermédiaire de l'emboîtement. L'épimysium est un niveau au-dessus (le muscle entier) ; l'endomysium est un niveau au-dessous (une fibre) ; le sarcolemme n'est pas l'enveloppe d'un faisceau : le cours le présente comme la deuxième membrane de la fibre.",
           "slide": 117
         },
         {
@@ -2411,7 +2457,10 @@
           ],
           "bonne": 0,
           "expl": "L'ordre correct est muscle, puis faisceau (groupe de fibres), puis fibre, puis myofibrille (organite à l'intérieur de la fibre), puis sarcomère (segment de myofibrille). Chaque distracteur inverse deux niveaux adjacents : fibre et faisceau échangés, myofibrille et fibre échangées, ou muscle et faisceau échangés.",
-          "slide": 120
+          "slide": [
+            117,
+            120
+          ]
         },
         {
           "id": "q4-04",
@@ -2423,7 +2472,7 @@
             "Le périmysium"
           ],
           "bonne": 0,
-          "expl": "Un sarcomère est délimité par des stries Z (lignes Z), à l'échelle de la myofibrille. Les trois distracteurs sont tous vrais à un autre niveau de l'emboîtement, mais aucun ne délimite un sarcomère : le sarcolemme est la membrane de la fibre entière, l'endomysium l'enveloppe conjonctive de la fibre, le périmysium celle du faisceau.",
+          "expl": "Un sarcomère est délimité par des stries Z (lignes Z), à l'échelle de la myofibrille. Les trois distracteurs sont tous vrais à un autre niveau de l'emboîtement, mais aucun ne délimite un sarcomère : le sarcolemme est la deuxième membrane de la fibre, l'endomysium l'enveloppe de la fibre, le périmysium celle du faisceau.",
           "slide": 119
         },
         {
@@ -2514,8 +2563,11 @@
             "La période réfractaire"
           ],
           "bonne": 2,
-          "expl": "Le cours le précise : le temps de relâchement (décontraction) est plus long que le temps de contraction qui le précède. La période réfractaire n'est pas un des trois temps de la secousse, c'est une notion distincte (l'inexcitabilité temporaire de la fibre).",
-          "slide": 127
+          "expl": "Le texte (slide 127) dit que le temps de relâchement (décontraction) est plus long que le précédent, le temps de contraction. Le graphique (slide 128) permet de le comparer aussi à la latence : c'est bien le plus long des trois. La période réfractaire n'est pas un des trois temps de la secousse, c'est une notion distincte (le temps pendant lequel la fibre musculaire est inexcitable).",
+          "slide": [
+            127,
+            128
+          ]
         },
         {
           "id": "q4-12",
@@ -2533,19 +2585,26 @@
       ],
       "pieges": [
         {
-          "titre": "La fibre musculaire (le « myocyte ») n'est pas la myofibrille",
-          "texte": "Le schéma du cours (slide 120) nomme la fibre musculaire « myocyte » : c'est elle, la cellule, qui contient PLUSIEURS myofibrilles, elles-mêmes faites de sarcomères. Une myofibrille n'est qu'un des organites contractiles à l'intérieur de cette cellule, pas la cellule elle-même : ne pas confondre le contenant (la fibre) et son contenu (la myofibrille).",
-          "slide": 120
+          "titre": "Le cours se contredit : la cellule musculaire est-elle la « myofibrille » ou la « fibre » ?",
+          "texte": "Trois slides, deux versions. Slide 119 : « La cellule musculaire s'appelle myofibrille. » Slide 117 : le schéma de la « fibre musculaire » légende un noyau, un sarcolemme, un sarcoplasme et une myofibrille. Slide 120 : le schéma est titré « Myocyte (fibre musculaire) » et la myofibrille y est un « organite complexe », à l'intérieur. La phrase de la slide 119 est fausse en anatomie : la cellule est la fibre (le myocyte), et la myofibrille est son contenu, pas la cellule. Le support se contredit lui-même : connaître les deux formulations et la slide dont vient chacune. Selon la slide que l'examinateur reprend, la réponse attendue peut être « myofibrille » (119) ou « fibre » / « myocyte » (117, 120) : ne pas supposer laquelle.",
+          "slide": [
+            117,
+            119,
+            120
+          ]
         },
         {
           "titre": "L'endomysium et le sarcolemme entourent tous deux la fibre, mais ne sont pas la même chose",
-          "texte": "L'endomysium est le tissu CONJONCTIF qui enveloppe une fibre musculaire, comme l'épimysium enveloppe le muscle entier et le périmysium un faisceau. Le sarcolemme est une membrane DIFFÉRENTE, propre à la fibre elle-même : le cours le présente comme une DEUXIÈME membrane, en plus de l'endomysium.",
+          "texte": "L'endomysium est l'enveloppe qui recouvre une fibre musculaire, comme l'épimysium recouvre le muscle entier et le périmysium un faisceau. Le sarcolemme est une autre chose : le cours le présente comme une DEUXIÈME membrane, qui recouvre la fibre en plus de l'endomysium.",
           "slide": 117
         },
         {
           "titre": "Excitabilité et contractilité ne définissent pas la même chose",
           "texte": "L'excitabilité, c'est la capacité du muscle à RÉAGIR (par la contraction) à une excitation portée sur lui. La contractilité, c'est la capacité du muscle à SE RACCOURCIR, donc à générer le mouvement. La première décrit une réponse à un stimulus, la seconde le mécanisme mécanique de cette réponse : deux propriétés distinctes, faciles à confondre.",
-          "slide": 123
+          "slide": [
+            123,
+            126
+          ]
         },
         {
           "titre": "Le temps de relâchement est plus LONG que le temps de contraction, pas l'inverse",
@@ -2590,7 +2649,7 @@
               "y": 115,
               "t": "Sarcolemme",
               "ancre": "end",
-              "indice": "deuxième membrane, propre à la fibre"
+              "indice": "deuxième membrane qui recouvre la fibre"
             }
           ],
           "slide": 117
@@ -2652,7 +2711,7 @@
           "slide": 139,
           "points": [
             "Le rachis est le support de la boîte crânienne et s'étend jusqu'au coccyx.",
-            "Colonne vertébrale MOBILE (24 vertèbres) : 7 cervicales (C1 à C7 ; C1 = Atlas, C2 = Axis), 12 thoraciques (T1 à T12), 5 lombaires (L1 à L5).",
+            "Colonne vertébrale MOBILE : 7 cervicales (C1 à C7 ; C1 = Atlas, C2 = Axis), 12 thoraciques (T1 à T12), 5 lombaires (L1 à L5), soit 24 vertèbres (7 + 12 + 5). Ce total est écrit à la slide 58 (chapitre 2) ; la slide 139 ne donne que les trois nombres.",
             "Colonne vertébrale FIXE : le sacrum (5 vertèbres sacrées soudées) et le coccyx (4 vertèbres coccygiennes soudées)."
           ]
         },
@@ -2678,7 +2737,7 @@
           "slide": 143,
           "points": [
             "Dans le plan frontal : la scoliose est une déformation latérale du rachis, en C ou en S.",
-            "Dans le plan sagittal : la cypho-lordose associe une augmentation de la cyphose dorsale et de la lordose lombaire ; on parle aussi d'hypercyphose ou d'hyperlordose isolées."
+            "Dans le plan sagittal : la cypho-lordose associe une augmentation de la cyphose dorsale et de la lordose lombaire ; le cours cite aussi l'hypercyphose et l'hyperlordose."
           ]
         },
         {
@@ -2823,13 +2882,16 @@
           "slide": 180,
           "points": [
             "Composé de 2 faisceaux : le grand psoas (muscle latéral du tronc) et l'iliaque (muscle de la hanche).",
-            "Origine (grand psoas) : processus transverses de L1 à L5, corps vertébraux de T12 à L5. Terminaison : le petit trochanter du fémur.",
+            "Origine : processus transverses de L1 à L5, corps vertébraux de T12 à L5. Terminaison : le petit trochanter du fémur.",
             "Il est fléchisseur de la cuisse."
           ]
         },
         {
           "titre": "Repères de la paroi abdominale",
-          "slide": 184,
+          "slide": [
+            184,
+            185
+          ],
           "points": [
             "La ligne blanche relie le processus xiphoïde du sternum au pubis ; les intersections tendineuses segmentent le droit de l'abdomen.",
             "Le ligament inguinal est formé par le bord inférieur libre de l'aponévrose de l'oblique externe."
@@ -2876,7 +2938,7 @@
         {
           "id": "c5-01",
           "q": "Combien de vertèbres composent la colonne vertébrale MOBILE, comment se répartissent-elles, et quels noms particuliers portent C1 et C2 ?",
-          "r": "24 vertèbres : 7 cervicales (C1 à C7), 12 thoraciques (T1 à T12), 5 lombaires (L1 à L5) ; C1 est l'Atlas, C2 est l'Axis.",
+          "r": "24 vertèbres : 7 cervicales (C1 à C7), 12 thoraciques (T1 à T12), 5 lombaires (L1 à L5) ; C1 est l'Atlas, C2 est l'Axis. Le total 24 est écrit à la slide 58 (chapitre 2) ; la slide 139 donne les trois nombres.",
           "slide": 139
         },
         {
@@ -3003,9 +3065,12 @@
         },
         {
           "id": "c5-22",
-          "q": "Pourquoi une contraction unilatérale de l'oblique interne tourne le tronc du côté contracté, alors que l'oblique externe le tourne du côté opposé ?",
-          "r": "Leurs fibres ont des orientations opposées : en éventail vers le haut pour l'oblique interne, oblique vers le bas pour l'oblique externe — cette différence d'orientation inverse le sens de rotation produit par chaque muscle.",
-          "slide": 187
+          "q": "Vers quel côté l'oblique interne et l'oblique externe font-ils tourner le tronc (contraction unilatérale), et quelle orientation de fibres le cours donne-t-il à chacun ?",
+          "r": "Oblique interne : fibres en éventail vers le haut, rotation du côté contracté. Oblique externe : fibres obliques vers le bas, rotation du côté opposé à la contraction. Le cours donne ces deux informations côte à côte, sans écrire que l'une explique l'autre.",
+          "slide": [
+            186,
+            187
+          ]
         },
         {
           "id": "c5-23",
@@ -3025,7 +3090,7 @@
             "29"
           ],
           "bonne": 2,
-          "expl": "24 vertèbres mobiles : 7 cervicales + 12 thoraciques + 5 lombaires. Le sacrum (5) et le coccyx (4) sont soudés : ils forment la colonne FIXE, pas la colonne mobile.",
+          "expl": "24 vertèbres mobiles : 7 cervicales + 12 thoraciques + 5 lombaires (la slide 139 donne les trois nombres ; le total 24 est écrit à la slide 58, chapitre 2). Le sacrum (5) et le coccyx (4) sont soudés : ils forment la colonne FIXE, pas la colonne mobile.",
           "slide": 139
         },
         {
@@ -3051,7 +3116,7 @@
             "Courbure sacro-coccygienne"
           ],
           "bonne": 0,
-          "expl": "La région dorsale porte une cyphose (convexité postérieure). Les lordoses sont cervicale et lombaire ; la scoliose est une déformation pathologique, pas une courbure normale ; la courbure sacro-coccygienne est plus bas.",
+          "expl": "La région dorsale porte une cyphose. Les lordoses sont cervicale et lombaire ; la scoliose est une déformation pathologique, pas une courbure normale ; la courbure sacro-coccygienne est plus bas.",
           "slide": 142,
           "plan": "sagittal"
         },
@@ -3079,7 +3144,7 @@
             "1"
           ],
           "bonne": 1,
-          "expl": "4 processus articulaires (2 supérieurs, 2 inférieurs), qui s'articulent avec les vertèbres sus- et sous-jacentes. Il y a 2 pédicules et 1 seul processus épineux : ne pas confondre les comptes.",
+          "expl": "4 processus articulaires, qui s'articulent avec ceux des vertèbres sus- et sous-jacentes. Il y a 2 pédicules et 1 seul processus épineux : ne pas confondre les comptes.",
           "slide": 147
         },
         {
@@ -3113,12 +3178,12 @@
           "q": "Entre quels deux niveaux ne trouve-t-on PAS de disque intervertébral ?",
           "choix": [
             "l'occiput et l'atlas",
-            "l'atlas et l'axis",
+            "C7 et T1",
             "L5 et le sacrum",
             "T12 et L1"
           ],
           "bonne": 0,
-          "expl": "Sur les 24 interlignes du rachis mobile, seul celui entre l'occiput et l'atlas (C1) n'a pas de DIV — d'où les 23 DIV comptés par le cours.",
+          "expl": "Le cours compte 23 disques intervertébraux et écrit : « sauf entre l'occiput et l'atlas ». C'est la seule exception qu'il donne ; il n'en signale aucune entre C7 et T1, entre T12 et L1, ni entre L5 et le sacrum.",
           "slide": 152
         },
         {
@@ -3266,22 +3331,31 @@
       "pieges": [
         {
           "titre": "L'oblique interne tourne du côté contracté, l'oblique externe du côté opposé",
-          "texte": "Les deux muscles obliques ont des actions de rotation OPPOSÉES en contraction unilatérale, à cause de l'orientation opposée de leurs fibres. L'oblique INTERNE (fibres en éventail vers le haut) fait tourner le tronc du côté CONTRACTÉ. L'oblique EXTERNE (fibres obliques vers le bas) le fait tourner du côté OPPOSÉ à la contraction. C'est la confusion la plus fréquente sur ce chapitre : vérifier systématiquement lequel des deux muscles est en jeu avant de répondre.",
-          "slide": 187
+          "texte": "Les deux muscles obliques ont des rotations OPPOSÉES en contraction unilatérale, et des orientations de fibres différentes. L'oblique INTERNE (fibres en éventail vers le haut) fait tourner le tronc du côté CONTRACTÉ. L'oblique EXTERNE (fibres obliques vers le bas) le fait tourner du côté OPPOSÉ à la contraction. Ne pas les intervertir : vérifier lequel des deux muscles est en jeu avant de répondre.",
+          "slide": [
+            186,
+            187
+          ]
         },
         {
           "titre": "L'ilio-psoas n'est pas un muscle unique",
-          "texte": "Le cours présente l'ilio-psoas comme composé de 2 faisceaux aux origines différentes : le grand psoas (muscle latéral du TRONC, origine vertébrale : processus transverses L1-L5 et corps vertébraux T12-L5) et l'iliaque (muscle de la HANCHE, dont l'origine iliaque n'est pas détaillée sur cette diapositive). L'origine, la terminaison et l'action données par le cours (petit trochanter du fémur, fléchisseur de la cuisse) concernent spécifiquement le grand psoas, pas le faisceau iliaque.",
+          "texte": "Le cours présente l'ilio-psoas comme composé de 2 faisceaux : le grand psoas (muscle latéral du TRONC) et l'iliaque (muscle de la HANCHE). L'origine qu'il donne (processus transverses de L1 à L5, corps vertébraux de T12 à L5) est vertébrale : c'est celle du grand psoas seul ; le cours ne la rattache pas à un faisceau par écrit et ne donne pas d'origine pour l'iliaque. La terminaison (petit trochanter du fémur) et l'action (fléchisseur de la cuisse) sont données pour l'ilio-psoas dans son ensemble, pas pour un seul faisceau.",
           "slide": 180
         },
         {
-          "titre": "Ce cours ne distingue que 2 catégories de côtes, pas 3",
-          "texte": "Contrairement à une classification plus détaillée (vraies / fausses / flottantes) parfois enseignée ailleurs, ce cours ne retient que 2 catégories : les vraies côtes (côtes 1 à 10, unies au sternum par l'intermédiaire des cartilages costaux) et les côtes flottantes (côtes 11 et 12, qui ne rejoignent pas le sternum). Ne pas ajouter de catégorie intermédiaire absente de ce cours.",
+          "titre": "Le cours ne distingue que 2 catégories de côtes",
+          "texte": "Le cours retient deux catégories : les vraies côtes (côtes 1 à 10, unies au sternum par l'intermédiaire des cartilages costaux) et les côtes flottantes (côtes 11 et 12, qui se terminent avant d'arriver au sternum). Il ne nomme aucune catégorie intermédiaire.",
           "slide": 161
         },
         {
-          "titre": "Il n'y a pas de disque intervertébral à chaque interligne",
-          "texte": "La colonne vertébrale compte 23 disques intervertébraux, pas un à chaque interligne du rachis mobile : il n'y en a PAS entre l'occiput et l'atlas (C1), le seul niveau qui en soit dépourvu.",
+          "titre": "La nomenclature usuelle des côtes n'est pas celle du cours",
+          "texte": "Hors cours : en anatomie usuelle, les vraies côtes sont les côtes 1 à 7, les fausses côtes les côtes 8 à 10, et les côtes flottantes les côtes 11 et 12. Le cours écrit « vraies côtes 1 à 10 » (slides 161 et 162) : pour lui, les côtes 8 à 10 sont des vraies côtes. Le site reproduit la formulation du cours.",
+          "slide": 161,
+          "hors_cours": true
+        },
+        {
+          "titre": "Il n'y a pas de disque intervertébral à chaque niveau",
+          "texte": "La colonne vertébrale compte 23 disques intervertébraux, et le cours précise « sauf entre l'occiput et l'atlas » (C1). C'est la seule exception qu'il signale : ne pas en déduire un disque à ce niveau-là.",
           "slide": 152
         }
       ],
@@ -3298,7 +3372,7 @@
               "y": 90,
               "t": "Lordose cervicale",
               "ancre": "middle",
-              "indice": "1re bosse, convexité antérieure"
+              "indice": "1re courbure, en haut"
             },
             {
               "n": 2,
@@ -3306,7 +3380,7 @@
               "y": 215,
               "t": "Cyphose dorsale",
               "ancre": "middle",
-              "indice": "2e bosse, convexité postérieure"
+              "indice": "2e courbure"
             },
             {
               "n": 3,
@@ -3314,7 +3388,7 @@
               "y": 340,
               "t": "Lordose lombaire",
               "ancre": "middle",
-              "indice": "3e bosse, convexité antérieure"
+              "indice": "3e courbure"
             },
             {
               "n": 4,
@@ -3322,7 +3396,7 @@
               "y": 465,
               "t": "Courbure sacro-coccygienne",
               "ancre": "middle",
-              "indice": "4e bosse ; sacrum et coccyx soudés"
+              "indice": "4e courbure ; sacrum et coccyx soudés"
             }
           ],
           "slide": 142
@@ -3374,7 +3448,10 @@
               "indice": "×1, médian postérieur"
             }
           ],
-          "slide": 147
+          "slide": [
+            145,
+            147
+          ]
         },
         {
           "id": "fibres-abdominales-orientation",
@@ -3396,7 +3473,7 @@
               "y": 308,
               "t": "Oblique interne",
               "ancre": "middle",
-              "indice": "sous l'oblique externe ; fibres en éventail vers le haut"
+              "indice": "fibres en éventail vers le haut"
             },
             {
               "n": 3,
@@ -3404,7 +3481,7 @@
               "y": 478,
               "t": "Oblique externe",
               "ancre": "middle",
-              "indice": "le plus superficiel ; fibres obliques vers le bas"
+              "indice": "fibres obliques vers le bas"
             },
             {
               "n": 4,
@@ -3415,7 +3492,12 @@
               "indice": "de part et d'autre de la ligne blanche ; fibres verticales"
             }
           ],
-          "slide": 185
+          "slide": [
+            185,
+            186,
+            187,
+            188
+          ]
         }
       ]
     },

@@ -18,7 +18,7 @@ import pytest
 RACINE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RACINE))
 
-from contenu.schema import valider_cours  # noqa: E402
+from contenu.schema import slides_de, valider_cours  # noqa: E402
 from outils.construire import construire  # noqa: E402
 from outils.empaqueter import empaqueter  # noqa: E402
 from outils.fiches import construire_fiches  # noqa: E402
@@ -199,11 +199,13 @@ def test_trois_slides_partout_ne_font_deborder_aucune_page(tmp_path):
         _, fin = chapitre["slides"]
         for genre in ("cartes", "quiz", "muscles", "pieges", "planches"):
             for entree in chapitre[genre]:
-                s = entree["slide"]
+                # Une entree deja a cheval sur plusieurs slides (liste) part de sa premiere.
+                s = min(slides_de(entree))
                 entree["slide"] = [s, s + 1, s + 2] if s + 2 <= fin else [s - 2, s - 1, s]
         for section in chapitre["sections"]:
-            if section["slide"] + 2 <= fin:
-                section["slide"] = [section["slide"], section["slide"] + 1, section["slide"] + 2]
+            s = min(slides_de(section))
+            if s + 2 <= fin:
+                section["slide"] = [s, s + 1, s + 2]
     assert valider_cours(cours) == []
     _ecrire_cours(racine, cours)
     construire(racine)

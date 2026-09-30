@@ -21,9 +21,9 @@ Les **sept chapitres** du cours sont construits :
 | 6 | Le membre supérieur | 191–266 |
 | 7 | Le membre inférieur | 268–328 |
 
-Volumes réels (`contenu/cours.json`) : **416 items planifiables** — 183 cartes,
+Volumes réels (`contenu/cours.json`) : **420 items planifiables** — 187 cartes,
 82 questions de QCM, 117 pastilles de planche réparties sur 28 planches, et
-**34 muscles** (origine/terminaison/action) sur les chapitres 5 à 7 — plus 31 pièges
+**34 muscles** (origine/terminaison/action) sur les chapitres 5 à 7 — plus 32 pièges
 (mises en garde, hors séance). Le détail par chapitre est dans
 `docs/superpowers/plans/2026-09-26-chapitres-2-a-7.md` et les rapports de tâche
 correspondants.
@@ -100,8 +100,19 @@ en a une à l'écran).
 Le PDF du cours (`ANATOMIE _230831_213333.pdf`, 328 slides — non versionné dans ce
 dépôt) fait foi. Aucune notion extérieure n'est ajoutée : l'évaluation porte sur ce
 support, pas sur l'anatomie générale. Un complément jugé indispensable à la
-compréhension serait marqué `[hors cours]` de façon visible — à ce jour, aucun n'a
-été nécessaire sur les sept chapitres.
+compréhension est marqué `[hors cours]` de façon visible (`"hors_cours": true`, qui
+remplace le renvoi de slide). À ce jour, deux entrées le sont : la carte `c4-16` (rôle du
+calcium et de l'ATP : la slide 121 n'a que des légendes) et un piège du chapitre 5 (la
+nomenclature usuelle des côtes, qui diffère de celle du cours). Le marquage vaut pour
+l'entrée entière, pas pour une phrase : une mise en garde qui mêle cours et hors-cours se
+scinde en deux entrées.
+
+Les erreurs et les contradictions du support sont **reproduites et signalées, jamais
+lissées** : le site ne réécrit pas en silence une phrase du cours qu'il croit fausse, car
+c'est elle que l'examinateur peut reprendre (chapitre 4 : la slide 119 appelle la cellule
+musculaire « myofibrille », les slides 117 et 120 disent « fibre » ou « myocyte » ; le site
+cite la phrase, dit que le cours se contredit, et donne les deux formulations avec leur
+provenance).
 
 Chaque carte, question de QCM, pastille de planche, ligne de muscle et piège porte
 son numéro de slide (`contenu/cours.json`), pour pouvoir vérifier sans avoir à

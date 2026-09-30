@@ -16,7 +16,7 @@ def test_le_contenu_est_conforme_au_schema():
 
 
 def test_le_chapitre_4_couvre_le_volume_cible():
-    assert 18 <= len(CHAPITRE_4["cartes"]) <= 25
+    assert 18 <= len(CHAPITRE_4["cartes"]) <= 30
     assert 8 <= len(CHAPITRE_4["quiz"]) <= 12
     assert 2 <= len(CHAPITRE_4["pieges"]) <= 4
     assert 1 <= len(CHAPITRE_4["planches"]) <= 3
@@ -149,3 +149,121 @@ def test_les_pieges_couvrent_les_confusions_signalees_par_le_plan():
         "relâchement",
     ):
         assert notion in texte, f"piege attendu absent : {notion}"
+
+
+# --- Corrections de l'audit de verification exhaustive (2026-09-30) ---------------------
+def _prose(chapitre):
+    """Texte lisible du chapitre, hors trace SVG."""
+    donnees = {cle: chapitre[cle] for cle in ("sections", "cartes", "quiz", "pieges")}
+    donnees["pastilles"] = [p["pastilles"] for p in chapitre["planches"]]
+    return json.dumps(donnees, ensure_ascii=False)
+
+
+def _section(slide):
+    return next(s for s in CHAPITRE_4["sections"] if slides_de(s)[0] == slide)
+
+
+def _carte(identifiant):
+    return next(c for c in CHAPITRE_4["cartes"] if c["id"] == identifiant)
+
+
+def _question(identifiant):
+    return next(q for q in CHAPITRE_4["quiz"] if q["id"] == identifiant)
+
+
+def _piege(debut):
+    return next(p for p in CHAPITRE_4["pieges"] if p["titre"].startswith(debut))
+
+
+def test_la_section_de_la_slide_119_cite_la_phrase_du_cours_mot_pour_mot():
+    # Slide 119 : « La cellule musculaire s'appelle myofibrille. » Fausse en anatomie, et
+    # contredite par les slides 117 et 120. Le site ne la reecrit plus en silence : il la
+    # cite, dit que le cours se contredit, et donne la version juste.
+    section = _section(119)
+    texte = " ".join(section["points"])
+    assert "La cellule musculaire s'appelle myofibrille." in texte
+    assert "se contredit" in texte
+    assert "117" in texte and "120" in texte
+    assert "la cellule musculaire est la fibre musculaire (le myocyte)" in texte
+    assert "fausse en anatomie" in texte
+
+
+def test_le_piege_de_la_myofibrille_expose_les_trois_slides():
+    piege = _piege("Le cours se contredit")
+    assert slides_de(piege) == [117, 119, 120]
+    texte = piege["texte"]
+    assert "Slide 119" in texte and "Slide 117" in texte and "Slide 120" in texte
+    assert "La cellule musculaire s'appelle myofibrille." in texte
+    assert "Myocyte (fibre musculaire)" in texte
+    assert "fausse en anatomie" in texte
+    assert "sarcoplasme" in texte and "noyau" in texte
+    # Ne tranche pas a la place du cours : les deux formulations, chacune avec sa slide.
+    assert "ne pas supposer laquelle" in texte
+
+
+def test_une_carte_pose_la_contradiction_des_slides_117_119_120():
+    carte = _carte("c4-26")
+    assert slides_de(carte) == [117, 119, 120]
+    assert "La cellule musculaire s'appelle myofibrille." in carte["r"]
+    assert "se contredit" in carte["r"]
+
+
+def test_les_renvois_incomplets_du_chapitre_4_citent_toutes_leurs_slides():
+    assert slides_de(_section(123)) == [123, 124]
+    assert slides_de(_question("q4-03")) == [117, 120]
+    assert slides_de(_question("q4-11")) == [127, 128]
+    assert slides_de(_piege("Excitabilité et contractilité")) == [123, 126]
+
+
+def test_la_secousse_musculaire_cite_son_graphique_slide_128():
+    # « le plus long des trois » n'est lisible que sur le graphique : la latence n'est
+    # comparee au relachement nulle part dans le texte de la slide 127.
+    assert slides_de(_section(127)) == [127, 128]
+    assert 128 in slides_de(_carte("c4-29"))
+    assert "plus long des trois" in _question("q4-11")["expl"]
+    assert "slide 128" in _question("q4-11")["expl"]
+
+
+def test_les_legendes_des_slides_117_et_120_sont_couvertes():
+    # Strie A, strie I, zone claire, sarcoplasme et noyau sont ecrits dans les schemas.
+    texte = _prose(CHAPITRE_4).lower()
+    for legende in ("strie a", "strie i", "zone claire", "sarcoplasme", "noyau", "ligne z"):
+        assert legende in texte, legende
+    assert 120 in slides_de(_carte("c4-27"))
+    assert 117 in slides_de(_carte("c4-28"))
+
+
+def test_aucun_ajout_non_source_dans_le_chapitre_4():
+    texte = _prose(CHAPITRE_4).lower()
+    for expression in (
+        "conjonctif",
+        "conjonctive",
+        "recrutement",
+        "chefs charnus",
+        "chef charnu",
+        "tendon commun",
+        "tendon central",
+        "plusieurs ventres en série",
+        "languettes",
+        "propre à la fibre",
+        "propre de la fibre",
+        "se détacher",
+        "à chaque cycle",
+    ):
+        assert expression not in texte, expression
+
+
+def test_les_formes_musculaires_sont_donnees_comme_lecture_du_dessin():
+    # La slide 115 n'a que des noms : ni definition, ni nombre de chefs.
+    section = _section(115)
+    texte = " ".join(section["points"])
+    assert "sans aucun texte" in texte
+    assert "Lecture du dessin" in texte
+    assert "dessin" in _carte("c4-08")["r"]
+
+
+def test_le_role_du_calcium_et_de_l_atp_est_marque_hors_cours():
+    # La slide 121 n'a que des legendes ; le role est une lecture usuelle du schema.
+    assert _carte("c4-16").get("hors_cours") is True
+    assert "hors_cours" not in _carte("c4-15")
+    assert "Lecture usuelle" in " ".join(_section(121)["points"])

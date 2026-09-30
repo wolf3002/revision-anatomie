@@ -188,3 +188,15 @@ def test_c2_10_ne_designe_pas_le_mauvais_squelette():
     carte = next(c for c in CHAPITRE_2["cartes"] if c["id"] == "c2-10")
     assert "ce dernier" not in carte["q"]
     assert "squelette axial" in carte["q"]
+
+
+# Ni le cours ni aucune source ne dit quelle confusion est la plus courante chez les eleves :
+# une affirmation de frequence donne au site une autorite qu'il n'a pas. « On inverse
+# facilement » ou « confusion classique » decrivent un risque sans pretendre le mesurer.
+FORMULES_DE_FREQUENCE = ("fréquen", "le plus souvent", "la plupart", "généralement")
+
+
+def test_aucune_affirmation_de_frequence_n_est_laissee_au_chapitre_2():
+    prose = _prose(CHAPITRE_2).lower()
+    for formule in FORMULES_DE_FREQUENCE:
+        assert formule not in prose, formule

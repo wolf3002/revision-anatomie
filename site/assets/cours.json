@@ -1104,7 +1104,7 @@
             "Rigidité aux composants organiques, élasticité aux composants minéraux"
           ],
           "bonne": 1,
-          "expl": "Le cours est explicite : rigidité par les composants minéraux (environ 2/3), élasticité par les composants organiques (1/3). Inverser ce couple (rigidité aux composants organiques, élasticité aux composants minéraux) est l'erreur la plus fréquente sur cette slide. Faire venir la rigidité et l'élasticité des seuls composants minéraux nie la dualité que le cours souligne lui-même en expliquant pourquoi les deux propriétés, venant de deux composants différents, sont nécessaires (sinon l'os serait cassant ou déformable).",
+          "expl": "Le cours est explicite : rigidité par les composants minéraux (environ 2/3), élasticité par les composants organiques (1/3). Ce couple s'inverse facilement : rigidité aux composants organiques et élasticité aux composants minéraux est faux. Faire venir la rigidité et l'élasticité des seuls composants minéraux nie la dualité que le cours souligne lui-même en expliquant pourquoi les deux propriétés, venant de deux composants différents, sont nécessaires (sinon l'os serait cassant ou déformable).",
           "slide": 54
         },
         {
@@ -1981,7 +1981,7 @@
             "Les croisés sont intracapsulaires, les latéraux sont extracapsulaires"
           ],
           "bonne": 3,
-          "expl": "Le cours donne exactement ces deux exemples : les ligaments croisés du genou pour les ligaments intracapsulaires (à l'intérieur de la capsule), les ligaments latéraux du genou pour les extracapsulaires (à l'extérieur). Les trois autres options confondent ou inversent ce couple ; retenir que « croisé » et « intracapsulaire » vont ensemble évite l'inversion la plus fréquente.",
+          "expl": "Le cours donne exactement ces deux exemples : les ligaments croisés du genou pour les ligaments intracapsulaires (à l'intérieur de la capsule), les ligaments latéraux du genou pour les extracapsulaires (à l'extérieur). Les trois autres options confondent ou inversent ce couple ; retenir que « croisé » et « intracapsulaire » vont ensemble évite d'inverser le couple.",
           "slide": 104
         },
         {

@@ -245,3 +245,15 @@ def test_les_cinq_categories_et_les_trois_familles_ont_leur_carte():
     doubles = " ".join(c["r"].lower() for c in CHAPITRE_3["cartes"] if "deux catégories" in c["q"])
     assert "cartilage articulaire" in doubles and "synovie" in doubles and "membrane fibreuse" in doubles
     assert set(cartes) >= {"c3-28", "c3-29", "c3-30", "c3-31", "c3-32"}
+
+
+# Ni le cours ni aucune source ne dit quelle confusion est la plus courante chez les eleves :
+# une affirmation de frequence donne au site une autorite qu'il n'a pas. « On inverse
+# facilement » ou « confusion classique » decrivent un risque sans pretendre le mesurer.
+FORMULES_DE_FREQUENCE = ("fréquen", "le plus souvent", "la plupart", "généralement")
+
+
+def test_aucune_affirmation_de_frequence_n_est_laissee_au_chapitre_3():
+    prose = _prose(CHAPITRE_3).lower()
+    for formule in FORMULES_DE_FREQUENCE:
+        assert formule not in prose, formule

@@ -163,3 +163,22 @@ def test_q1_09_ne_corrige_pas_comme_faux_ce_que_le_cours_autorise():
     question = next(q for q in CHAPITRE_1["quiz"] if q["id"] == "q1-09")
     assert "associe aux membres" in question["q"]
     assert slides_de(question) == [38, 39]
+
+
+def _prose(chapitre):
+    """Texte lisible du chapitre, hors trace SVG."""
+    donnees = {cle: chapitre[cle] for cle in ("sections", "cartes", "quiz", "pieges")}
+    donnees["pastilles"] = [p["pastilles"] for p in chapitre["planches"]]
+    return json.dumps(donnees, ensure_ascii=False).lower()
+
+
+# Ni le cours ni aucune source ne dit quelle confusion est la plus courante chez les eleves :
+# une affirmation de frequence donne au site une autorite qu'il n'a pas. « On inverse
+# facilement » ou « confusion classique » decrivent un risque sans pretendre le mesurer.
+FORMULES_DE_FREQUENCE = ("fréquen", "le plus souvent", "la plupart", "généralement")
+
+
+def test_aucune_affirmation_de_frequence_n_est_laissee_au_chapitre_1():
+    prose = _prose(CHAPITRE_1)
+    for formule in FORMULES_DE_FREQUENCE:
+        assert formule not in prose, formule

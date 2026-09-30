@@ -4,10 +4,10 @@ Le generateur ne connait ni la geometrie des planches ni le contenu du cours :
 il assemble des gabarits. Toute assertion publiee porte son numero de slide.
 """
 
+import hashlib
 import html
 import json
 import re
-import shutil
 import sys
 from pathlib import Path
 
@@ -57,9 +57,113 @@ EXERCICES = (
 PLAN_OUVERT_JUSQU_A = 12
 
 
+# --- Le melange des choix des QCM ----------------------------------------------
+#
+# Defaut releve a l'audit (docs/audits/SYNTHESE-verification-exhaustive.md, defaut 1) :
+# la bonne reponse etait en position A dans 50 des 82 questions -- cocher A sans rien
+# lire donnait 61 % de bonnes reponses (25 % attendus au hasard), 100 % sur les
+# chapitres 6 et 7. Le cerveau repere ce genre de regularite sans le vouloir, et la
+# question est alors reussie par reconnaissance de position, sans rappel en memoire :
+# tout le benefice d'un QCM disparait, en laissant l'illusion de savoir.
+#
+# Le melange se fait ICI, a la construction, pas dans contenu/cours.json : editer les
+# 82 entrees a la main aurait ete long, et le biais serait revenu avec le premier
+# contenu ajoute. Le JSON garde l'ordre d'ecriture de l'auteur (bonne reponse d'abord,
+# distracteurs ensuite) ; c'est le site, les fiches PDF et la variante autonome qui
+# montrent un ordre melange.
+#
+# Trois proprietes qui comptent :
+#   - DETERMINISTE : la permutation ne depend que de l'identifiant de la question
+#     (q3-07) et de GRAINE_MELANGE, par un hachage stable (SHA-256). Ni `random`, ni
+#     `hash()` (sale a chaque processus), ni horodatage : deux constructions du meme
+#     contenu donnent des pages identiques, et les tests restent stables.
+#   - PAR QUESTION : retoucher un choix, ou ajouter une question, ne deplace aucune
+#     autre question -- la permutation de q3-07 est la meme quel que soit le reste.
+#   - `bonne` SUIT LA PERMUTATION : choix et index de la bonne reponse sont recalcules
+#     ensemble, dans la meme fonction. Melanger l'un sans l'autre fausserait la
+#     correction de toute la banque (site/assets/cours.json donne `bonne`, le DOM
+#     donne data-index : ils doivent parler du meme ordre).
+#
+# Le melange est applique UNE fois, a la lecture (charger_cours). Tout ce qui est produit
+# ensuite -- pages du site, cours.json publie, fiches PDF, variante autonome -- part de
+# ces donnees melangees : le corrige papier pose les memes questions dans le meme ordre
+# que le site. Ne pas le rappeler sur des donnees deja melangees : il n'est pas
+# idempotent (un second melange donnerait un autre ordre).
+#
+# GRAINE_MELANGE : sel du hachage. Une graine quelconque est statistiquement correcte ;
+# celle-ci a ete retenue parmi 300 candidates (v1 a v300) parce que, sur le
+# contenu ACTUEL, elle donne la repartition la plus plate : 20, 22, 19 et 21 bonnes
+# reponses sur 82 en positions A a D, et jamais plus de 4 sur 12 dans une meme position
+# d'un chapitre (v1, la premiere essayee, allait jusqu'a 6 sur 12). C'est un choix
+# fait une fois sur le contenu present, pas une garantie pour le contenu a venir : ajouter
+# des questions redonne un tirage aleatoire, et tests/test_melange_choix.py verifie que
+# la repartition reste sous 40 % par position. Changer la graine change TOUS les ordres
+# (donc aussi ceux des fiches PDF a regenerer) : ne pas y toucher sans raison.
+GRAINE_MELANGE = "uc1-anatomie/choix-des-qcm/v30"
+
+
+def permutation_choix(identifiant, nombre):
+    """Ordre d'affichage des `nombre` choix de la question `identifiant`.
+
+    Renvoie `ordre` : le choix montre en position i est celui que le JSON range a
+    l'index ordre[i]. Melange de Fisher-Yates, dont les tirages viennent d'un entier
+    de 256 bits derive de l'identifiant (le biais de modulo est de l'ordre de 2^-250).
+    """
+    reste = int.from_bytes(
+        hashlib.sha256(f"{GRAINE_MELANGE}/{identifiant}".encode("utf-8")).digest(), "big"
+    )
+    ordre = list(range(nombre))
+    for i in range(nombre - 1, 0, -1):
+        reste, j = divmod(reste, i + 1)
+        ordre[i], ordre[j] = ordre[j], ordre[i]
+    return ordre
+
+
+def melanger_question(question):
+    """Une copie de la question, choix permutes et `bonne` recalcule."""
+    identifiant = question["id"]
+    choix = question["choix"]
+    bonne = question["bonne"]
+    if not isinstance(bonne, int) or not 0 <= bonne < len(choix):
+        raise ValueError(f"quiz {identifiant} : index 'bonne' hors bornes ({bonne!r})")
+    ordre = permutation_choix(identifiant, len(choix))
+    return {
+        **question,
+        "choix": [choix[i] for i in ordre],
+        "bonne": ordre.index(bonne),
+    }
+
+
+def melanger_cours(cours):
+    """Une copie du cours dont les QCM ont leurs choix melanges (l'argument n'est
+    pas modifie). Tout le reste est repris tel quel."""
+    return {
+        **cours,
+        "chapitres": [
+            {**chapitre, "quiz": [melanger_question(q) for q in chapitre["quiz"]]}
+            if "quiz" in chapitre
+            else chapitre
+            for chapitre in cours["chapitres"]
+        ],
+    }
+
+
+def charger_cours(racine):
+    """contenu/cours.json, QCM melanges : la seule porte d'entree du contenu pour tout
+    ce que le site publie (construire, fiches, empaqueter)."""
+    brut = (Path(racine) / "contenu" / "cours.json").read_text(encoding="utf-8")
+    return melanger_cours(json.loads(brut))
+
+
+def serialiser_cours(cours):
+    """Meme mise en forme que contenu/cours.json (indentation 2, UTF-8 lisible) : la
+    copie publiee ne differe de la source que par ce que le melange a change."""
+    return json.dumps(cours, ensure_ascii=False, indent=2) + "\n"
+
+
 def construire(racine: Path) -> list[Path]:
     racine = Path(racine)
-    cours = json.loads((racine / "contenu" / "cours.json").read_text(encoding="utf-8"))
+    cours = charger_cours(racine)
     base = (racine / "gabarits" / "base.html").read_text(encoding="utf-8")
     gabarit = (racine / "gabarits" / "chapitre.html").read_text(encoding="utf-8")
     gabarit_accueil = (racine / "gabarits" / "accueil.html").read_text(encoding="utf-8")
@@ -67,7 +171,11 @@ def construire(racine: Path) -> list[Path]:
 
     sortie = racine / "site"
     (sortie / "assets").mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(racine / "contenu" / "cours.json", sortie / "assets" / "cours.json")
+    # Copie publiee pour le client (interface.js y lit `bonne`) : les donnees melangees,
+    # pas la source -- le DOM et ce fichier doivent parler du meme ordre des choix.
+    (sortie / "assets" / "cours.json").write_text(
+        serialiser_cours(cours), encoding="utf-8"
+    )
 
     ecrits = []
 

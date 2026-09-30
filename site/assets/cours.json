@@ -418,10 +418,10 @@
           "choix": [
             "Allongés le long du corps, la paume tournée vers la cuisse",
             "En abduction d'épaule à 90°, la paume tournée en avant",
-            "Allongés le long du corps, la paume tournée en avant",
-            "Allongés le long du corps, la paume tournée en arrière"
+            "Allongés le long du corps, la paume tournée en arrière",
+            "Allongés le long du corps, la paume tournée en avant"
           ],
-          "bonne": 2,
+          "bonne": 3,
           "expl": "La convention impose la paume tournée en avant. « Paume vers la cuisse » est la posture debout spontanée, celle qu'on se représente dès qu'on cesse de réciter la définition ; « paume en arrière » en est la version poussée d'un cran. Les bras écartés relèvent de l'homme de Vitruve, pas de la position anatomique. L'erreur n'est pas cosmétique : le cours précise que toutes les descriptions se réfèrent à cette position, donc une main mal orientée fausse ensuite tout ce qui est dit d'antérieur, de postérieur, de médial et de latéral.",
           "slide": 9
         },
@@ -429,13 +429,13 @@
           "id": "q1-03",
           "q": "À quelle condition un plan sagittal est-il un plan médian ?",
           "choix": [
-            "Dès qu'il sépare une partie droite d'une partie gauche",
-            "Quand il sépare une partie supérieure d'une partie inférieure",
             "Quand il sépare une face antérieure d'une face postérieure",
-            "Quand il est situé sur la ligne médiane et que les deux parties sont symétriques et égales"
+            "Dès qu'il sépare une partie droite d'une partie gauche",
+            "Quand il est situé sur la ligne médiane et que les deux parties sont symétriques et égales",
+            "Quand il sépare une partie supérieure d'une partie inférieure"
           ],
-          "bonne": 3,
-          "expl": "Le cours réserve « médian » à un cas particulier : sur la ligne médiane, avec deux parties symétriques et égales. La première option décrit n'importe quel plan sagittal — et c'est exactement la confusion visée : tout plan sagittal sépare une droite d'une gauche, sans que les deux moitiés soient égales. Les deux autres options ne sont pas des inventions : ce sont les divisions des plans voisins, supérieure / inférieure pour le transversal, antérieure / postérieure pour le frontal.",
+          "bonne": 2,
+          "expl": "Le cours réserve « médian » à un cas particulier : sur la ligne médiane, avec deux parties symétriques et égales. « Dès qu'il sépare une partie droite d'une partie gauche » décrit n'importe quel plan sagittal — et c'est exactement la confusion visée : tout plan sagittal sépare une droite d'une gauche, sans que les deux moitiés soient égales. Les deux autres options ne sont pas des inventions : ce sont les divisions des plans voisins, supérieure / inférieure pour le transversal, antérieure / postérieure pour le frontal.",
           "slide": 22,
           "plan": "sagittal"
         },
@@ -443,12 +443,12 @@
           "id": "q1-04",
           "q": "Par rapport à quel repère le cours définit-il l'abduction et l'adduction ?",
           "choix": [
-            "Par rapport à l'axe du corps",
-            "Par rapport au plan médian",
+            "Par rapport à l'axe de la main ou du pied",
             "Par rapport au tronc",
-            "Par rapport à l'axe de la main ou du pied"
+            "Par rapport à l'axe du corps",
+            "Par rapport au plan médian"
           ],
-          "bonne": 0,
+          "bonne": 2,
           "expl": "Le cours écrit : mouvement qui écarte (abduction) ou rapproche (adduction) un membre de l'axe du corps. Les trois autres repères figurent bien dans ce chapitre, mais servent à autre chose : le plan médian définit médial et latéral (slide 40), le tronc définit proximal et distal (slide 39), et l'axe de la main (3e doigt) ou du pied (2e orteil) est un repère longitudinal défini pour lui-même (slide 13). Savoir lequel s'applique est ce qui sépare une définition récitée d'une définition comprise.",
           "slide": 19,
           "plan": "frontal"
@@ -457,10 +457,10 @@
           "id": "q1-05",
           "q": "Le bassin part vers l'avant, le dos se creuse. De quel mouvement s'agit-il, et à quelle articulation ?",
           "choix": [
-            "Une antépulsion, à l'articulation scapulo-humérale",
-            "Une antéversion, à l'articulation coxo-fémorale",
             "Une rétroversion, à l'articulation coxo-fémorale",
-            "Une antéversion, à l'articulation talo-crurale"
+            "Une antéversion, à l'articulation coxo-fémorale",
+            "Une antéversion, à l'articulation talo-crurale",
+            "Une antépulsion, à l'articulation scapulo-humérale"
           ],
           "bonne": 1,
           "expl": "C'est l'antéversion, à la coxo-fémorale : le cours associe explicitement « dos creux » à ce mouvement. L'antépulsion n'en est pas un synonyme malgré la ressemblance des mots : elle se situe à la scapulo-humérale et ouvre l'angle bras-tronc — la proposition est vraie en elle-même, elle ne parle simplement pas du bassin. La rétroversion est le mouvement antagoniste à la bonne articulation : elle amène le bassin vers l'arrière, « dos plat ». La talo-crurale est la cheville, et elle ne porte que la flexion dorsale et la flexion plantaire.",
@@ -471,10 +471,10 @@
           "id": "q1-06",
           "q": "Des deux mouvements de la talo-crurale décrits par le cours, lequel correspond à une extension du pied ?",
           "choix": [
+            "Les deux : au pied, « flexion » désigne un sens de mouvement et non une fermeture d'angle",
             "La flexion dorsale",
-            "Aucun des deux : ce sont deux flexions, l'une vers le dos du pied, l'autre vers la plante",
             "La flexion plantaire",
-            "Les deux : au pied, « flexion » désigne un sens de mouvement et non une fermeture d'angle"
+            "Aucun des deux : ce sont deux flexions, l'une vers le dos du pied, l'autre vers la plante"
           ],
           "bonne": 2,
           "expl": "Le cours est littéral : la flexion plantaire est l'action d'effectuer une extension du pied, la flexion dorsale l'action d'effectuer une flexion. Le piège tient au nom, qui contient le mot flexion alors que le mouvement ouvre l'angle. « Aucun des deux » est la lecture naïve des deux intitulés, précisément celle que la slide contredit ; « les deux » est la tentative de sauver cette lecture en redéfinissant le mot flexion, ce que le cours ne fait pas ; « la flexion dorsale » est la simple inversion du couple.",
@@ -485,12 +485,12 @@
           "id": "q1-07",
           "q": "Un patient tourne la tête vers la droite. Quel terme le cours impose-t-il ?",
           "choix": [
-            "Rotation latérale",
             "Inclinaison latérale droite",
+            "Rotation droite",
             "Rotation médiale",
-            "Rotation droite"
+            "Rotation latérale"
           ],
-          "bonne": 3,
+          "bonne": 1,
           "expl": "Le cours réserve rotation droite et rotation gauche à la tête et au tronc, rotation latérale (externe) et médiale (interne) aux membres. « Rotation latérale » et « rotation médiale » sont donc du vocabulaire juste appliqué à la mauvaise région du corps — et non des termes faux. « Inclinaison latérale droite » est l'autre façon de porter la tête vers la droite, mais elle la penche sur le côté dans le plan frontal, alors que la rotation la fait pivoter sur son axe dans le plan transversal.",
           "slide": 32,
           "plan": "transversal"
@@ -500,11 +500,11 @@
           "q": "Pendant une supination, quelle est la position du radius ?",
           "choix": [
             "Parallèle à l'ulna",
-            "Croisé sur l'ulna",
-            "Immobile : c'est l'ulna qui tourne autour de lui"
+            "Immobile : c'est l'ulna qui tourne autour de lui",
+            "Croisé sur l'ulna"
           ],
           "bonne": 0,
-          "expl": "En supination — rotation latérale de l'avant-bras — le radius est parallèle à l'ulna. Le radius croisé sur l'ulna décrit la pronation : l'erreur consiste à inverser le couple, ce qui est la faute la plus fréquente sur cette slide. La troisième option est plus retorse, car elle garde la bonne image du croisement mais attribue le mouvement au mauvais os ; le cours consacre une slide entière à l'écarter (slide 34) : pronation et supination ne désignent que des mouvements du radius autour de l'ulna.",
+          "expl": "En supination — rotation latérale de l'avant-bras — le radius est parallèle à l'ulna. Le radius croisé sur l'ulna décrit la pronation : l'erreur consiste à inverser le couple, ce qui est la faute la plus fréquente sur cette slide. L'option « Immobile : c'est l'ulna qui tourne autour de lui » est plus retorse, car elle garde la bonne image du croisement mais attribue le mouvement au mauvais os ; le cours consacre une slide entière à l'écarter (slide 34) : pronation et supination ne désignent que des mouvements du radius autour de l'ulna.",
           "slide": 33,
           "plan": "transversal"
         },
@@ -512,10 +512,10 @@
           "id": "q1-09",
           "q": "L'épiphyse de l'humérus la plus proche de l'épaule est dite…",
           "choix": [
-            "Crâniale",
+            "Distale",
             "Proximale",
             "Supérieure",
-            "Distale"
+            "Crâniale"
           ],
           "bonne": 1,
           "expl": "Proximale : sur un membre, le repère est le tronc, et proximal désigne ce qui en est le plus proche. « Crâniale » et « supérieure » disent bien l'idée « vers le haut » — le cours les donne d'ailleurs comme équivalents l'un de l'autre — mais ce couple concerne essentiellement le tronc, pas les membres. « Distale » est l'antonyme exact : c'est l'épiphyse du côté du coude. Le partage à retenir : crânial et caudal pour le tronc, proximal et distal pour les membres.",
@@ -525,12 +525,12 @@
           "id": "q1-10",
           "q": "Dans la jambe, le tibia est l'os médial et la fibula l'os latéral. Sur quel critère ?",
           "choix": [
-            "Le tibia est plus près du tronc que la fibula",
             "Le tibia est plus près de la surface du corps que la fibula",
-            "Le tibia est plus près du plan médian que la fibula",
-            "Le tibia est plus près de l'axe du pied que la fibula"
+            "Le tibia est plus près de l'axe du pied que la fibula",
+            "Le tibia est plus près du tronc que la fibula",
+            "Le tibia est plus près du plan médian que la fibula"
           ],
-          "bonne": 2,
+          "bonne": 3,
           "expl": "Médial et latéral se mesurent par rapport au plan médian, et par rapport à rien d'autre. Les trois autres critères sont ceux des autres couples du chapitre, appliqués au mauvais endroit : la distance au tronc définit proximal et distal, la distance à la surface définit superficiel et profond, et l'axe du pied (2e orteil) est un repère longitudinal du pied. Tibia et fibula étant côte à côte sur la même portion de membre, seule leur position par rapport au plan médian peut les départager.",
           "slide": 40
         },
@@ -538,12 +538,12 @@
           "id": "q1-11",
           "q": "Pour qualifier la face avant du sternum, quel terme le cours privilégie-t-il ?",
           "choix": [
-            "Ventral",
             "Antérieur",
+            "Crânial",
             "Palmaire",
-            "Crânial"
+            "Ventral"
           ],
-          "bonne": 0,
+          "bonne": 3,
           "expl": "Le sternum appartient au tronc, et le cours précise que ventral et dorsal sont plus spécifiques pour le tronc, antérieur et postérieur pour la tête et les membres. « Antérieur » n'est donc pas faux sur le fond — le cours donne antérieur et ventral comme équivalents — mais c'est le terme moins spécifique ici, et la slide suivante tranche en légendant « sternum : os ventral du thorax ». « Palmaire » est bien un synonyme d'antérieur, mais réservé à la main. « Crânial » concerne lui aussi le tronc, mais sur l'autre axe : haut et bas, pas avant et arrière.",
           "slide": 42
         },
@@ -551,12 +551,12 @@
           "id": "q1-12",
           "q": "Comment le cours situe-t-il la circumduction par rapport aux trois plans ?",
           "choix": [
-            "Dans le plan transversal, avec la rotation",
             "Dans le plan frontal, avec l'abduction et l'adduction",
-            "Il ne la range dans aucun des trois : il la présente à part, comme mouvement particulier",
-            "Dans le plan sagittal, avec la flexion et l'extension"
+            "Dans le plan transversal, avec la rotation",
+            "Dans le plan sagittal, avec la flexion et l'extension",
+            "Il ne la range dans aucun des trois : il la présente à part, comme mouvement particulier"
           ],
-          "bonne": 2,
+          "bonne": 3,
           "expl": "Le cours ouvre une rubrique distincte, « mouvement particulier », pour la circumduction : le membre y décrit un cône dans l'espace. Le plan transversal est le distracteur le plus tentant, parce qu'un cône se trace en tournant et qu'on pense aussitôt à la rotation — mais la rotation est définie comme le mouvement d'un segment sur un axe, pas comme la description d'un cône. Les deux autres plans tentent pour la raison inverse : chacun porte une paire de mouvements du membre, et on cherche spontanément à y caser celui-ci ; le cours, lui, le laisse hors des trois plans.",
           "slide": 35
         }
@@ -1026,11 +1026,11 @@
           "id": "q2-01",
           "q": "Quel type de cartilage est le cartilage articulaire, nacré et translucide ?",
           "choix": [
+            "Le cartilage fibreux (fibro-cartilage)",
             "Le cartilage hyalin",
-            "Le cartilage élastique",
-            "Le cartilage fibreux (fibro-cartilage)"
+            "Le cartilage élastique"
           ],
-          "bonne": 0,
+          "bonne": 1,
           "expl": "Le cartilage hyalin est explicitement défini comme le cartilage articulaire, nacré, translucide et élastique. Le cartilage élastique est tentant : son nom contient « élastique » et le cours le décrit comme « semblable au cartilage hyalin » — mais il s'en distingue justement en renfermant PLUS de fibres élastiques, sans être qualifié de nacré ni de translucide. Le cartilage fibreux est écarté par sa couleur (blanchâtre, pas nacrée) et sa localisation (disques intervertébraux, ménisques), qui n'a rien à voir avec les surfaces articulaires en général.",
           "slide": 50
         },
@@ -1038,11 +1038,11 @@
           "id": "q2-02",
           "q": "Quel cartilage constitue les disques intervertébraux et les ménisques articulaires ?",
           "choix": [
+            "Le cartilage fibreux (fibro-cartilage)",
             "Le cartilage hyalin",
-            "Le cartilage élastique",
-            "Le cartilage fibreux (fibro-cartilage)"
+            "Le cartilage élastique"
           ],
-          "bonne": 2,
+          "bonne": 0,
           "expl": "Le fibro-cartilage est défini par cette localisation précise et sa couleur blanchâtre. Le cartilage hyalin est le distracteur le plus proche : lui aussi est dit « articulaire », mais ce mot désigne chez lui le revêtement des surfaces des épiphyses, pas les disques ou les ménisques. Le cartilage élastique est écarté car le cours ne lui attribue aucune localisation précise : il est seulement décrit comme « semblable au hyalin, avec plus de fibres élastiques ».",
           "slide": 50
         },
@@ -1050,12 +1050,12 @@
           "id": "q2-03",
           "q": "L'os doit sa rigidité à quels composants, et son élasticité à quels autres ?",
           "choix": [
-            "Rigidité aux composants organiques, élasticité aux composants minéraux",
+            "Rigidité et élasticité proviennent toutes deux des composants minéraux",
             "Rigidité aux composants minéraux, élasticité aux composants organiques",
-            "Rigidité et élasticité proviennent toutes deux des composants minéraux"
+            "Rigidité aux composants organiques, élasticité aux composants minéraux"
           ],
           "bonne": 1,
-          "expl": "Le cours est explicite : rigidité par les composants minéraux (environ 2/3), élasticité par les composants organiques (1/3). La première option inverse exactement ce couple — l'erreur la plus fréquente sur cette slide. La troisième option nie la dualité que le cours souligne lui-même en expliquant pourquoi les deux propriétés, venant de deux composants différents, sont nécessaires (sinon l'os serait cassant ou déformable).",
+          "expl": "Le cours est explicite : rigidité par les composants minéraux (environ 2/3), élasticité par les composants organiques (1/3). Inverser ce couple (rigidité aux composants organiques, élasticité aux composants minéraux) est l'erreur la plus fréquente sur cette slide. Faire venir la rigidité et l'élasticité des seuls composants minéraux nie la dualité que le cours souligne lui-même en expliquant pourquoi les deux propriétés, venant de deux composants différents, sont nécessaires (sinon l'os serait cassant ou déformable).",
           "slide": 54
         },
         {
@@ -1064,8 +1064,8 @@
           "choix": [
             "8 os, qui délimitent la boîte crânienne",
             "13 os, qui délimitent la boîte crânienne",
-            "21 os, qui délimitent la boîte crânienne",
-            "8 os, qui forment la mâchoire supérieure"
+            "8 os, qui forment la mâchoire supérieure",
+            "21 os, qui délimitent la boîte crânienne"
           ],
           "bonne": 0,
           "expl": "Les 8 os du crâne, soudés entre eux, délimitent la boîte crânienne. 13 est le nombre des os de la FACE, pas du crâne : c'est la confusion crâne/face que cette slide invite à faire. 21 est le total de la tête osseuse (crâne + face), pas le crâne seul. « Former la mâchoire supérieure » est une fonction des os de la face (soudés au crâne à ce niveau), pas des os du crâne.",
@@ -1075,10 +1075,10 @@
           "id": "q2-05",
           "q": "Quel est le seul os mobile de la tête ?",
           "choix": [
-            "Un os du crâne, au niveau d'une suture",
+            "Aucun : tous les os de la tête sont soudés",
             "La mandibule (mâchoire inférieure)",
-            "Le maxillaire (mâchoire supérieure)",
-            "Aucun : tous les os de la tête sont soudés"
+            "Un os du crâne, au niveau d'une suture",
+            "Le maxillaire (mâchoire supérieure)"
           ],
           "bonne": 1,
           "expl": "Le cours l'affirme sans détour : la mandibule est le seul os mobile de la tête. Le maxillaire (mâchoire supérieure) est le distracteur le plus tentant par confusion mâchoire haute / mâchoire basse — mais c'est un os de la face, soudé aux autres et au crâne. « Aucun » généralise à l'excès la soudure des os du crâne et de la face à la tête entière, alors que la mandibule est l'exception nommée. Une suture crânienne est une vraie articulation du crâne, mais elle est fixe, pas mobile.",
@@ -1088,12 +1088,12 @@
           "id": "q2-06",
           "q": "Combien de vertèbres compte la colonne mobile, et comment se répartissent-elles ?",
           "choix": [
-            "24 : 7 cervicales, 12 thoraciques, 5 lombaires",
-            "26 : 7 cervicales, 12 thoraciques, 5 lombaires, sacrum et coccyx comptés séparément",
+            "24 : 12 cervicales, 7 thoraciques, 5 lombaires",
             "33 : l'ensemble des vertèbres de la colonne, mobiles et fixes confondues",
-            "24 : 12 cervicales, 7 thoraciques, 5 lombaires"
+            "24 : 7 cervicales, 12 thoraciques, 5 lombaires",
+            "26 : 7 cervicales, 12 thoraciques, 5 lombaires, sacrum et coccyx comptés séparément"
           ],
-          "bonne": 0,
+          "bonne": 2,
           "expl": "24 vertèbres « vraies », indépendantes : 7 cervicales, 12 thoraciques, 5 lombaires. 33 est le piège classique : il recompte la colonne fixe comme si elle ajoutait des vertèbres indépendantes, alors qu'elle est faite de vertèbres SOUDÉES en 2 os (sacrum, coccyx), plus des vertèbres à part entière. 26 fait la même erreur à plus petite échelle. L'inversion cervicales/thoraciques (12 contre 7) teste seulement la mémorisation exacte des chiffres.",
           "slide": 58
         },
@@ -1102,11 +1102,11 @@
           "q": "Un os du carpe appartient à quel type d'os ?",
           "choix": [
             "Os long",
+            "Os irrégulier",
             "Os court",
-            "Os plat",
-            "Os irrégulier"
+            "Os plat"
           ],
-          "bonne": 1,
+          "bonne": 2,
           "expl": "Le cours donne explicitement les os courts en exemple : les os de la main (dont le carpe) et du pied, dont les trois dimensions sont presque égales. Os long est le distracteur le plus tentant, car c'est le type le plus connu — mais rien dans un os du carpe n'est longiligne. Os plat (exemple donné : le pariétal) et os irrégulier (exemple donné : la vertèbre) sont les deux autres types nommément illustrés par d'autres os du cours, pas par le carpe.",
           "slide": 64
         },
@@ -1115,11 +1115,11 @@
           "q": "Dans un os long, quelle structure assure la jonction entre la diaphyse et l'épiphyse ?",
           "choix": [
             "Le périoste",
-            "La métaphyse",
             "Le canal médullaire",
-            "L'os spongieux"
+            "L'os spongieux",
+            "La métaphyse"
           ],
-          "bonne": 1,
+          "bonne": 3,
           "expl": "La métaphyse (cartilage de conjugaison) est définie par le cours comme la jonction entre diaphyse et épiphyse. Le périoste est la membrane qui recouvre TOUT l'os, pas une jonction interne. Le canal médullaire est la cavité intérieure de la diaphyse, pas une zone de transition. L'os spongieux est le tissu situé sous l'os compact, au niveau des épiphyses. Les trois distracteurs sont les voisins immédiats de la métaphyse sur la même figure — choisis pour leur proximité anatomique réelle, pas inventés.",
           "slide": 65
         },
@@ -1128,11 +1128,11 @@
           "q": "Sous l'os compact, au niveau des épiphyses d'un os long, quel tissu trouve-t-on ?",
           "choix": [
             "Le périoste",
-            "La métaphyse",
             "L'os spongieux",
-            "Le canal médullaire"
+            "Le canal médullaire",
+            "La métaphyse"
           ],
-          "bonne": 2,
+          "bonne": 1,
           "expl": "Le cours l'énonce directement : sous l'os compact, au niveau des épiphyses, on trouve l'os spongieux. Le périoste est au contraire la couche la plus externe, au-dessus de l'os compact, pas dessous. La métaphyse est une zone de jonction diaphyse/épiphyse, pas un tissu sous-jacent à l'os compact. Le canal médullaire est la cavité de la diaphyse, pas des épiphyses.",
           "slide": 65
         },
@@ -1140,12 +1140,12 @@
           "id": "q2-10",
           "q": "Chez l'enfant, l'os spongieux du canal médullaire est progressivement remplacé, avec l'âge, par quoi ?",
           "choix": [
-            "La moelle rouge, productrice de sang",
             "La moelle jaune, formée de cellules adipeuses",
+            "De l'os compact",
             "Du cartilage hyalin",
-            "De l'os compact"
+            "La moelle rouge, productrice de sang"
           ],
-          "bonne": 1,
+          "bonne": 0,
           "expl": "Le cours l'affirme directement : remplacement progressif par la moelle jaune, formée de cellules adipeuses. La moelle rouge est le distracteur le plus proche : elle est bien nommée dans le même paragraphe, mais elle est déjà présente DANS le tissu spongieux, ce n'est pas ce qui le remplace — c'est l'inverse qui se produit avec l'âge. Le cartilage hyalin et l'os compact sont des tissus réels du cours, mais situés ailleurs (surfaces articulaires ; paroi de la diaphyse), sans lien avec cette transformation liée à l'âge.",
           "slide": 66
         },
@@ -1154,11 +1154,11 @@
           "q": "Fibula et patella sont les noms actuels de quels anciens termes ?",
           "choix": [
             "Fibula = radius ancien ; patella = rotule ancienne",
+            "Fibula = péroné ancien ; patella = ménisque ancien",
             "Fibula = péroné ancien ; patella = rotule ancienne",
-            "Fibula = tibia ancien ; patella = ménisque ancien",
-            "Fibula = péroné ancien ; patella = ménisque ancien"
+            "Fibula = tibia ancien ; patella = ménisque ancien"
           ],
-          "bonne": 1,
+          "bonne": 2,
           "expl": "Le cours l'énonce sans ambiguïté : fibula, anciennement péroné ; patella, anciennement rotule. Le tibia et le radius sont des os bien réels et voisins de la fibula ou de la main/avant-bras, mais ce ne sont pas d'anciens noms de la fibula. Le ménisque est une structure réelle du cours (le fibro-cartilage en forme les ménisques articulaires), mais ce n'est pas un ancien nom de la patella : c'est une pièce anatomiquement distincte, logée dans l'articulation du genou à côté d'elle.",
           "slide": 61
         }
@@ -1801,12 +1801,12 @@
           "id": "q3-01",
           "q": "Une sphère pleine s'emboîte dans une sphère creuse, permettant des mouvements dans toutes les directions (3 axes). De quel type de diarthrose s'agit-il ?",
           "choix": [
-            "La sphéroïde (énarthrose)",
             "L'ellipsoïde (condylienne)",
             "L'articulation en selle",
-            "La bicondylienne"
+            "La bicondylienne",
+            "La sphéroïde (énarthrose)"
           ],
-          "bonne": 0,
+          "bonne": 3,
           "expl": "La sphéroïde est la seule diarthrose à 3 axes, définie par une sphère pleine dans une sphère creuse (ex : la hanche). L'ellipsoïde est le distracteur le plus proche : elle aussi emboîte une forme convexe dans une forme concave, mais c'est une ELLIPSE (pas une sphère) et elle n'a que 2 axes, pas 3. L'articulation en selle et la bicondylienne ont elles aussi 2 axes ou moins, et des surfaces de formes différentes (en selle, ou en paire de condyles).",
           "slide": 81
         },
@@ -1814,12 +1814,12 @@
           "id": "q3-02",
           "q": "Quelle diarthrose permet la pronation-supination, par la rotation d'un cylindre convexe dans un cylindre concave ?",
           "choix": [
-            "La ginglyme (trochléenne)",
-            "La trochoïde",
+            "L'articulation plane (arthrodie)",
             "La bicondylienne",
-            "L'articulation plane (arthrodie)"
+            "La trochoïde",
+            "La ginglyme (trochléenne)"
           ],
-          "bonne": 1,
+          "bonne": 2,
           "expl": "La trochoïde (ex : l'articulation radio-ulnaire proximale) est définie par un cylindre convexe qui s'emboîte dans un cylindre concave, avec 1 axe de rotation (pronation-supination). La ginglyme est le distracteur le plus proche : elle a aussi 1 seul axe, mais c'est une charnière (trochlée dans cochlée) qui ne fait que de la flexion-extension, pas de rotation. La bicondylienne (flexion/extension) et l'articulation plane (glissement seul) n'ont ni cylindre ni rotation.",
           "slide": 90,
           "plan": "transversal"
@@ -1828,11 +1828,11 @@
           "id": "q3-03",
           "q": "Quelle famille d'articulations possède un cartilage articulaire mais est dépourvue de cavité articulaire ?",
           "choix": [
-            "Les synarthroses (fibreuses)",
             "Les amphiarthroses (cartilagineuses)",
-            "Les diarthroses (synoviales)"
+            "Les diarthroses (synoviales)",
+            "Les synarthroses (fibreuses)"
           ],
-          "bonne": 1,
+          "bonne": 0,
           "expl": "Les amphiarthroses possèdent un cartilage articulaire (l'interzone est du fibrocartilage) mais aucune cavité articulaire — c'est leur définition exacte (ex : la symphyse pubienne). Les synarthroses sont écartées par excès : elles n'ont NI cartilage NI mobilité (interzone fibreuse, ex : les sutures du crâne). Les diarthroses sont écartées par manque : elles ont justement une cavité articulaire, en plus du cartilage — c'est ce qui les rend particulièrement mobiles, contrairement aux amphiarthroses.",
           "slide": 75
         },
@@ -1840,12 +1840,12 @@
           "id": "q3-04",
           "q": "Au genou, les ligaments croisés et les ligaments latéraux sont-ils intracapsulaires ou extracapsulaires ?",
           "choix": [
-            "Les croisés sont intracapsulaires, les latéraux sont extracapsulaires",
             "Les croisés sont extracapsulaires, les latéraux sont intracapsulaires",
             "Les croisés et les latéraux sont tous deux intracapsulaires",
-            "Les croisés et les latéraux sont tous deux extracapsulaires"
+            "Les croisés et les latéraux sont tous deux extracapsulaires",
+            "Les croisés sont intracapsulaires, les latéraux sont extracapsulaires"
           ],
-          "bonne": 0,
+          "bonne": 3,
           "expl": "Le cours donne exactement ces deux exemples : les ligaments croisés du genou pour les ligaments intracapsulaires (à l'intérieur de la capsule), les ligaments latéraux du genou pour les extracapsulaires (à l'extérieur). Les trois autres options confondent ou inversent ce couple ; retenir que « croisé » et « intracapsulaire » vont ensemble évite l'inversion la plus fréquente.",
           "slide": 104
         },
@@ -1853,10 +1853,10 @@
           "id": "q3-05",
           "q": "Quelle membrane de la capsule articulaire sécrète le liquide synovial ?",
           "choix": [
-            "La membrane fibreuse",
+            "Le périchondre",
             "La membrane synoviale",
             "Le périoste",
-            "Le périchondre"
+            "La membrane fibreuse"
           ],
           "bonne": 1,
           "expl": "La membrane synoviale, mince et transparente, adhère à la face profonde de la membrane fibreuse et sécrète le liquide synovial. La membrane fibreuse est le distracteur le plus proche : c'est l'autre moitié de la même capsule, mais son rôle est mécanique (manchon résistant, peu élastique, prolongement du périoste), pas sécrétoire. Le périoste et le périchondre sont des membranes réelles du cours (chapitre 2), mais elles enveloppent respectivement l'os et le cartilage en général — ni l'une ni l'autre n'appartient à la capsule articulaire.",
@@ -1866,12 +1866,12 @@
           "id": "q3-06",
           "q": "Une fois détruit, le cartilage articulaire peut-il se régénérer ?",
           "choix": [
-            "Non, il n'a ni nerf ni vaisseau",
-            "Oui, lentement, grâce à sa vascularisation",
             "Oui, rapidement, grâce à la synovie qui le régénère",
-            "Oui, mais seulement chez l'enfant"
+            "Oui, mais seulement chez l'enfant",
+            "Oui, lentement, grâce à sa vascularisation",
+            "Non, il n'a ni nerf ni vaisseau"
           ],
-          "bonne": 0,
+          "bonne": 3,
           "expl": "Le cours l'affirme sans nuance : une fois détruit, le cartilage articulaire ne se régénère pas, faute de nerf et de vaisseau. La synovie le NOURRIT par imbibition (elle favorise son entretien pendant qu'il est intact), mais rien dans le cours ne dit qu'elle le régénère une fois détruit — c'est la confusion entre « se nourrir » et « se régénérer » que ce distracteur exploite. Aucune vascularisation, à aucun âge, n'est mentionnée pour ce cartilage.",
           "slide": 99
         },
@@ -1880,9 +1880,9 @@
           "q": "Que devient la synovie à froid ou à l'immobilité, et qu'est-ce qui stimule sa sécrétion ?",
           "choix": [
             "Elle reste très visqueuse ; sa sécrétion est stimulée par le mouvement",
-            "Elle devient fluide ; sa sécrétion est stimulée par le repos",
+            "Elle s'évapore ; sa sécrétion est stimulée par la chaleur",
             "Elle se solidifie ; sa sécrétion est constante, indépendante du mouvement",
-            "Elle s'évapore ; sa sécrétion est stimulée par la chaleur"
+            "Elle devient fluide ; sa sécrétion est stimulée par le repos"
           ],
           "bonne": 0,
           "expl": "Le cours l'énonce dans cet ordre précis : à froid ou à l'immobilité, la synovie reste très visqueuse, et c'est le MOUVEMENT qui stimule sa sécrétion — d'où l'intérêt de l'échauffement. Les trois autres options inversent soit l'effet du froid (fluide au lieu de visqueuse), soit le déclencheur de la sécrétion (repos ou chaleur au lieu du mouvement).",
@@ -1892,12 +1892,12 @@
           "id": "q3-08",
           "q": "Que provoque l'absence d'activité musculaire sur une articulation ?",
           "choix": [
-            "Le blocage progressif de l'articulation",
-            "Une hyperlaxité articulaire",
+            "Aucun effet mesurable",
             "Une luxation immédiate",
-            "Aucun effet mesurable"
+            "Le blocage progressif de l'articulation",
+            "Une hyperlaxité articulaire"
           ],
-          "bonne": 0,
+          "bonne": 2,
           "expl": "Le cours l'affirme directement : l'absence d'activité musculaire entraîne le blocage progressif de l'articulation. L'hyperlaxité et la luxation sont le distracteur le plus piégeur : elles sont réelles, mais causées par le mécanisme INVERSE — une mobilisation poussée jusqu'aux limites physiologiques, pas son absence. « Aucun effet » contredit l'idée même d'adaptation fonctionnelle que ce paragraphe développe.",
           "slide": 108
         },
@@ -1906,9 +1906,9 @@
           "q": "L'atteinte des structures de maintien (ligaments, tendons, membrane fibreuse) est responsable de quel type de traumatisme ?",
           "choix": [
             "Des entorses",
-            "De l'arthrose",
             "D'une luxation congénitale",
-            "De l'arthrite"
+            "De l'arthrite",
+            "De l'arthrose"
           ],
           "bonne": 0,
           "expl": "Le cours le dit explicitement : les élongations et ruptures des structures de maintien sont responsables des entorses. L'arthrose et l'arthrite sont des pathologies réelles nommées dans le chapitre (slide 73), mais liées à l'usure ou à l'inflammation de l'articulation, pas à l'atteinte des ligaments et tendons. La luxation, elle, est plutôt associée par le cours à l'excès de mobilisation (hyperlaxité), pas à l'atteinte des structures de maintien.",
@@ -1918,12 +1918,12 @@
           "id": "q3-10",
           "q": "Selon quel critère les 7 types de diarthroses sont-ils classés ?",
           "choix": [
-            "La forme de leurs surfaces articulaires",
-            "Le nombre d'axes de mouvement qu'elles autorisent",
             "Leur localisation anatomique (membre supérieur ou inférieur)",
-            "La taille de leur cavité articulaire"
+            "Le nombre d'axes de mouvement qu'elles autorisent",
+            "La taille de leur cavité articulaire",
+            "La forme de leurs surfaces articulaires"
           ],
-          "bonne": 0,
+          "bonne": 3,
           "expl": "Le cours l'énonce explicitement : les 7 types de diarthroses sont classés en fonction de la forme de leurs surfaces articulaires. Le nombre d'axes est une CONSÉQUENCE de cette forme (une sphère a 3 axes, une charnière 1 axe), pas le critère de classement lui-même. La localisation anatomique et la taille de la cavité ne sont jamais utilisées comme critère de classification dans le cours.",
           "slide": 79
         },
@@ -1931,12 +1931,12 @@
           "id": "q3-11",
           "q": "Quelle structure agit « comme des roulements à billes » pour réduire le frottement au voisinage de l'articulation ?",
           "choix": [
+            "La membrane synoviale",
             "La bourse séreuse",
             "Le coussinet adipeux",
-            "Le cartilage articulaire",
-            "La membrane synoviale"
+            "Le cartilage articulaire"
           ],
-          "bonne": 0,
+          "bonne": 1,
           "expl": "Le cours emploie littéralement l'image des « roulements à billes » pour la bourse séreuse : ce petit sac fibreux contient une mince pellicule de liquide synovial et empêche l'articulation de frotter contre les structures qui l'entourent. Le coussinet adipeux est le distracteur le plus proche : sur le même schéma, il amortit les CHOCS (compression), pas le frottement (glissement). Le cartilage articulaire réduit lui aussi la friction, mais par sa propre lisseté, pas par un sac de liquide séparé ; la membrane synoviale SÉCRÈTE le liquide synovial, elle ne joue pas ce rôle de coussin roulant.",
           "slide": 109
         }
@@ -2239,8 +2239,8 @@
           "choix": [
             "Épimysium",
             "Périmysium",
-            "Endomysium",
-            "Sarcolemme"
+            "Sarcolemme",
+            "Endomysium"
           ],
           "bonne": 1,
           "expl": "Le périmysium recouvre un faisceau musculaire : c'est le niveau intermédiaire de l'emboîtement. L'épimysium est un niveau au-dessus (le muscle entier) ; l'endomysium est un niveau au-dessous (une fibre) ; le sarcolemme n'est même pas une enveloppe conjonctive, mais la membrane propre de la fibre.",
@@ -2250,25 +2250,25 @@
           "id": "q4-02",
           "q": "La fibre musculaire est recouverte de deux enveloppes distinctes. Lesquelles, et dans quel ordre (de l'extérieur vers l'intérieur) ?",
           "choix": [
+            "Le sarcolemme puis l'épimysium",
             "L'épimysium puis le périmysium",
             "Le périmysium puis l'endomysium",
-            "L'endomysium puis le sarcolemme",
-            "Le sarcolemme puis l'épimysium"
+            "L'endomysium puis le sarcolemme"
           ],
-          "bonne": 2,
-          "expl": "Le cours le dit explicitement : l'endomysium recouvre la fibre musculaire, elle-même recouverte par une deuxième membrane, le sarcolemme. Les deux autres distracteurs mélangent des niveaux : épimysium et périmysium appartiennent au muscle entier et au faisceau, pas à la fibre ; le troisième associe deux extrêmes de l'emboîtement (fibre et muscle entier).",
+          "bonne": 3,
+          "expl": "Le cours le dit explicitement : l'endomysium recouvre la fibre musculaire, elle-même recouverte par une deuxième membrane, le sarcolemme. Les autres distracteurs mélangent des niveaux : épimysium et périmysium appartiennent au muscle entier et au faisceau, pas à la fibre ; « Le sarcolemme puis l'épimysium » associe deux extrêmes de l'emboîtement (fibre et muscle entier).",
           "slide": 117
         },
         {
           "id": "q4-03",
           "q": "Dans l'emboîtement du muscle, quel est l'ordre correct, du plus grand au plus petit ?",
           "choix": [
-            "Muscle → faisceau → fibre → myofibrille → sarcomère",
-            "Muscle → fibre → faisceau → myofibrille → sarcomère",
+            "Faisceau → muscle → fibre → myofibrille → sarcomère",
             "Muscle → faisceau → myofibrille → fibre → sarcomère",
-            "Faisceau → muscle → fibre → myofibrille → sarcomère"
+            "Muscle → fibre → faisceau → myofibrille → sarcomère",
+            "Muscle → faisceau → fibre → myofibrille → sarcomère"
           ],
-          "bonne": 0,
+          "bonne": 3,
           "expl": "L'ordre correct est muscle, puis faisceau (groupe de fibres), puis fibre, puis myofibrille (organite à l'intérieur de la fibre), puis sarcomère (segment de myofibrille). Chaque distracteur inverse deux niveaux adjacents : fibre et faisceau échangés, myofibrille et fibre échangées, ou muscle et faisceau échangés.",
           "slide": 120
         },
@@ -2276,12 +2276,12 @@
           "id": "q4-04",
           "q": "Qu'est-ce qui délimite un sarcomère ?",
           "choix": [
-            "Les stries Z",
             "Le sarcolemme",
             "L'endomysium",
-            "Le périmysium"
+            "Le périmysium",
+            "Les stries Z"
           ],
-          "bonne": 0,
+          "bonne": 3,
           "expl": "Un sarcomère est délimité par des stries Z (lignes Z), à l'échelle de la myofibrille. Les trois distracteurs sont tous vrais à un autre niveau de l'emboîtement, mais aucun ne délimite un sarcomère : le sarcolemme est la membrane de la fibre entière, l'endomysium l'enveloppe conjonctive de la fibre, le périmysium celle du faisceau.",
           "slide": 119
         },
@@ -2289,25 +2289,25 @@
           "id": "q4-05",
           "q": "Quelles sont les deux protéines contractiles (myofilaments) de la contraction musculaire, et laquelle est le filament épais ?",
           "choix": [
-            "Actine (épais) et myosine (fin)",
             "Myosine (épais) et actine (fin)",
-            "Actine et tropomyosine, toutes deux épaisses",
-            "Myosine et troponine, toutes deux fines"
+            "Actine (épais) et myosine (fin)",
+            "Myosine et troponine, toutes deux fines",
+            "Actine et tropomyosine, toutes deux épaisses"
           ],
-          "bonne": 1,
-          "expl": "La myosine est le filament épais, l'actine le filament fin : le cours le précise explicitement entre parenthèses. Le premier distracteur inverse les deux ; les deux derniers introduisent la tropomyosine et la troponine (vues sur le schéma du glissement des filaments), qui ne sont pas les deux myofilaments contractiles nommés par le cours.",
+          "bonne": 0,
+          "expl": "La myosine est le filament épais, l'actine le filament fin : le cours le précise explicitement entre parenthèses. Le distracteur « Actine (épais) et myosine (fin) » inverse les deux ; les deux autres introduisent la tropomyosine et la troponine (vues sur le schéma du glissement des filaments), qui ne sont pas les deux myofilaments contractiles nommés par le cours.",
           "slide": 119
         },
         {
           "id": "q4-06",
           "q": "Quelle propriété permet au muscle de réagir, PAR LA CONTRACTION, à toute excitation qu'il reçoit ?",
           "choix": [
-            "La contractilité",
             "L'excitabilité",
+            "La tonicité",
             "L'élasticité",
-            "La tonicité"
+            "La contractilité"
           ],
-          "bonne": 1,
+          "bonne": 0,
           "expl": "C'est la définition même de l'excitabilité donnée par le cours. La contractilité décrit ensuite le mécanisme de cette réponse (se raccourcir) plutôt que la capacité à réagir ; l'élasticité concerne l'allongement par traction, la tonicité l'état permanent involontaire du muscle au repos.",
           "slide": 123
         },
@@ -2315,12 +2315,12 @@
           "id": "q4-07",
           "q": "Quelle propriété correspond à la capacité du muscle à se raccourcir, donc à générer le mouvement ?",
           "choix": [
-            "L'excitabilité",
             "La contractilité",
             "L'élasticité",
-            "La plasticité"
+            "La plasticité",
+            "L'excitabilité"
           ],
-          "bonne": 1,
+          "bonne": 0,
           "expl": "La contractilité est la faculté du muscle à se raccourcir, rapprochant ses extrémités et générant le mouvement. L'excitabilité est la capacité à réagir à une excitation (pas le raccourcissement lui-même) ; l'élasticité concerne le retour après allongement ; la plasticité l'adaptation à l'entraînement.",
           "slide": 126
         },
@@ -2341,12 +2341,12 @@
           "id": "q4-09",
           "q": "Quelle propriété désigne l'état permanent de légère tension involontaire du muscle vivant, en dehors de tout mouvement actif ?",
           "choix": [
-            "L'excitabilité",
             "La contractilité",
-            "La tonicité",
-            "La plasticité"
+            "L'excitabilité",
+            "La plasticité",
+            "La tonicité"
           ],
-          "bonne": 2,
+          "bonne": 3,
           "expl": "C'est la tonicité, à l'origine du tonus musculaire. L'excitabilité et la contractilité décrivent une réponse à une excitation, pas un état permanent au repos ; la plasticité décrit une adaptation à l'entraînement, pas une tension de fond.",
           "slide": 132
         },
@@ -2354,12 +2354,12 @@
           "id": "q4-10",
           "q": "Quelle propriété désigne la capacité du muscle à s'adapter à l'entraînement ou au désentraînement (par exemple l'hypertrophie) ?",
           "choix": [
-            "L'élasticité",
-            "La tonicité",
+            "La contractilité",
             "La plasticité",
-            "La contractilité"
+            "L'élasticité",
+            "La tonicité"
           ],
-          "bonne": 2,
+          "bonne": 1,
           "expl": "C'est la plasticité, avec ses deux types d'adaptations (nerveuses et périphériques). L'élasticité et la tonicité sont des propriétés stables du muscle, pas des capacités d'adaptation ; la contractilité décrit le raccourcissement, pas l'adaptation à l'entraînement.",
           "slide": 134
         },
@@ -2368,9 +2368,9 @@
           "q": "Parmi les trois temps de la secousse musculaire, lequel est le PLUS LONG ?",
           "choix": [
             "Le temps de latence",
-            "Le temps de contraction",
+            "La période réfractaire",
             "Le temps de relâchement",
-            "La période réfractaire"
+            "Le temps de contraction"
           ],
           "bonne": 2,
           "expl": "Le cours le précise : le temps de relâchement (décontraction) est plus long que le temps de contraction qui le précède. La période réfractaire n'est pas un des trois temps de la secousse, c'est une notion distincte (l'inexcitabilité temporaire de la fibre).",
@@ -2381,11 +2381,11 @@
           "q": "Qu'est-ce qu'une unité motrice ?",
           "choix": [
             "Un muscle entier et son tendon",
-            "Un motoneurone alpha et les fibres musculaires qu'il innerve",
             "Un sarcomère et ses deux stries Z",
+            "Un motoneurone alpha et les fibres musculaires qu'il innerve",
             "Un faisceau musculaire et son périmysium"
           ],
-          "bonne": 1,
+          "bonne": 2,
           "expl": "L'unité motrice, c'est fibres musculaires + motoneurone alpha. Les autres distracteurs recyclent des paires structure/enveloppe correctes à d'autres niveaux (muscle/tendon, sarcomère/strie Z, faisceau/périmysium), mais aucune n'est la définition de l'unité motrice.",
           "slide": 124
         }
@@ -2878,12 +2878,12 @@
           "id": "q5-01",
           "q": "Combien de vertèbres composent la colonne vertébrale MOBILE ?",
           "choix": [
+            "24",
             "19",
             "22",
-            "24",
             "29"
           ],
-          "bonne": 2,
+          "bonne": 0,
           "expl": "24 vertèbres mobiles : 7 cervicales + 12 thoraciques + 5 lombaires. Le sacrum (5) et le coccyx (4) sont soudés : ils forment la colonne FIXE, pas la colonne mobile.",
           "slide": 139
         },
@@ -2892,8 +2892,8 @@
           "q": "C1 et C2 portent des noms particuliers. Dans quel ordre ?",
           "choix": [
             "Atlas puis Axis",
-            "Axis puis Atlas",
             "Atlas puis Odontoïde",
+            "Axis puis Atlas",
             "Axis puis Sacrum"
           ],
           "bonne": 0,
@@ -2904,12 +2904,12 @@
           "id": "q5-03",
           "q": "Quelle courbure occupe la région thoracique (dorsale) du rachis ?",
           "choix": [
-            "Cyphose dorsale",
-            "Lordose dorsale",
             "Scoliose dorsale",
-            "Courbure sacro-coccygienne"
+            "Cyphose dorsale",
+            "Courbure sacro-coccygienne",
+            "Lordose dorsale"
           ],
-          "bonne": 0,
+          "bonne": 1,
           "expl": "La région dorsale porte une cyphose (convexité postérieure). Les lordoses sont cervicale et lombaire ; la scoliose est une déformation pathologique, pas une courbure normale ; la courbure sacro-coccygienne est plus bas.",
           "slide": 142,
           "plan": "sagittal"
@@ -2919,9 +2919,9 @@
           "q": "Dans le plan frontal, une déviation latérale du rachis en C ou en S s'appelle...",
           "choix": [
             "une scoliose",
+            "une hypercyphose",
             "une cypho-lordose",
-            "une hyperlordose",
-            "une hypercyphose"
+            "une hyperlordose"
           ],
           "bonne": 0,
           "expl": "La scoliose est la déformation du plan frontal. La cypho-lordose, l'hyperlordose et l'hypercyphose sont des déformations du plan SAGITTAL.",
@@ -2932,12 +2932,12 @@
           "id": "q5-05",
           "q": "Combien de processus (apophyses) articulaires compte l'arc postérieur d'une vertèbre ?",
           "choix": [
-            "2",
             "4",
-            "6",
-            "1"
+            "1",
+            "2",
+            "6"
           ],
-          "bonne": 1,
+          "bonne": 0,
           "expl": "4 processus articulaires (2 supérieurs, 2 inférieurs), qui s'articulent avec les vertèbres sus- et sous-jacentes. Il y a 2 pédicules et 1 seul processus épineux : ne pas confondre les comptes.",
           "slide": 147
         },
@@ -2945,12 +2945,12 @@
           "id": "q5-06",
           "q": "Quel ligament relie deux lames vertébrales consécutives ?",
           "choix": [
+            "le ligament inter-transverse",
             "le ligament jaune",
             "le ligament inter-épineux",
-            "le ligament supra-épineux",
-            "le ligament inter-transverse"
+            "le ligament supra-épineux"
           ],
-          "bonne": 0,
+          "bonne": 1,
           "expl": "Le ligament jaune relie 2 lames. L'inter-épineux relie 2 processus épineux, le supra-épineux rejoint le sommet de tous les processus épineux, l'inter-transverse relie 2 processus transverses.",
           "slide": 149
         },
@@ -2958,12 +2958,12 @@
           "id": "q5-07",
           "q": "Quelle est la partie centrale et molle du disque intervertébral ?",
           "choix": [
-            "le nucleus pulposus (noyau pulpeux)",
-            "l'anneau fibreux",
             "le plateau vertébral",
-            "le ligament capsulaire"
+            "le nucleus pulposus (noyau pulpeux)",
+            "le ligament capsulaire",
+            "l'anneau fibreux"
           ],
-          "bonne": 0,
+          "bonne": 1,
           "expl": "Le nucleus pulposus est la zone hydratée centrale. L'anneau fibreux est la partie périphérique et DURE ; le plateau vertébral appartient au corps vertébral ; le ligament capsulaire relie des processus articulaires.",
           "slide": 151
         },
@@ -2971,12 +2971,12 @@
           "id": "q5-08",
           "q": "Entre quels deux niveaux ne trouve-t-on PAS de disque intervertébral ?",
           "choix": [
-            "l'occiput et l'atlas",
-            "l'atlas et l'axis",
             "L5 et le sacrum",
+            "l'atlas et l'axis",
+            "l'occiput et l'atlas",
             "T12 et L1"
           ],
-          "bonne": 0,
+          "bonne": 2,
           "expl": "Sur les 24 interlignes du rachis mobile, seul celui entre l'occiput et l'atlas (C1) n'a pas de DIV — d'où les 23 DIV comptés par le cours.",
           "slide": 152
         },
@@ -2984,12 +2984,12 @@
           "id": "q5-09",
           "q": "Quelles côtes sont dites 'flottantes' ?",
           "choix": [
-            "les côtes 11 et 12",
             "les côtes 1 et 2",
+            "les côtes 6 et 7",
             "les côtes 8 à 10",
-            "les côtes 6 et 7"
+            "les côtes 11 et 12"
           ],
-          "bonne": 0,
+          "bonne": 3,
           "expl": "Les côtes 11 et 12 se terminent avant d'atteindre le sternum : ce sont les côtes flottantes. Les côtes 1 à 10 sont les vraies côtes, unies au sternum par un cartilage costal.",
           "slide": 161
         },
@@ -2997,12 +2997,12 @@
           "id": "q5-10",
           "q": "Quelle est l'orientation des fibres du transverse de l'abdomen ?",
           "choix": [
-            "transversale (horizontale)",
-            "verticale",
             "oblique vers le bas",
-            "en éventail vers le haut"
+            "verticale",
+            "en éventail vers le haut",
+            "transversale (horizontale)"
           ],
-          "bonne": 0,
+          "bonne": 3,
           "expl": "Le transverse doit son nom à ses fibres transversales (horizontales). Verticale = droit de l'abdomen ; oblique vers le bas = oblique externe ; éventail vers le haut = oblique interne.",
           "slide": 185
         },
@@ -3010,12 +3010,12 @@
           "id": "q5-11",
           "q": "Une contraction UNILATÉRALE de l'oblique INTERNE fait tourner le tronc...",
           "choix": [
-            "du côté contracté",
             "du côté opposé à la contraction",
+            "dans les deux sens à la fois",
             "il n'y a pas de rotation, seulement une inclinaison",
-            "dans les deux sens à la fois"
+            "du côté contracté"
           ],
-          "bonne": 0,
+          "bonne": 3,
           "expl": "L'oblique interne (fibres en éventail vers le haut) tourne le tronc du côté CONTRACTÉ. C'est l'oblique externe qui tourne du côté opposé : les deux muscles ont des effets de rotation opposés.",
           "slide": 186
         },
@@ -3023,12 +3023,12 @@
           "id": "q5-12",
           "q": "Une contraction UNILATÉRALE de l'oblique EXTERNE fait tourner le tronc...",
           "choix": [
-            "du côté opposé à la contraction",
             "du côté contracté",
-            "il n'y a pas de rotation possible",
-            "uniquement en extension"
+            "uniquement en extension",
+            "du côté opposé à la contraction",
+            "il n'y a pas de rotation possible"
           ],
-          "bonne": 0,
+          "bonne": 2,
           "expl": "L'oblique externe (fibres obliques vers le bas) tourne le tronc du côté OPPOSÉ à la contraction — l'inverse de l'oblique interne. En bilatéral, il fléchit le tronc.",
           "slide": 187
         }
@@ -3790,12 +3790,12 @@
           "id": "q6-01",
           "q": "L'articulation du coude comprend 3 articulations dans une seule capsule. Laquelle est de type trochoïde et permet la prono-supination ?",
           "choix": [
-            "l'articulation radio-ulnaire proximale",
-            "l'articulation huméro-ulnaire",
             "l'articulation huméro-radiale",
+            "l'articulation huméro-ulnaire",
+            "l'articulation radio-ulnaire proximale",
             "l'articulation radio-ulnaire distale"
           ],
-          "bonne": 0,
+          "bonne": 2,
           "expl": "La radio-ulnaire proximale (trochoïde) permet la prono-supination. L'huméro-ulnaire (ginglyme) et l'huméro-radiale (sphéroïde) permettent la flexion-extension. La radio-ulnaire distale n'appartient pas à la capsule du coude.",
           "slide": 218
         },
@@ -3803,12 +3803,12 @@
           "id": "q6-02",
           "q": "Sur la clavicule, l'extrémité latérale (celle qui forme l'articulation acromio-claviculaire) se nomme extrémité...",
           "choix": [
-            "acromiale",
-            "sternale",
+            "glénoïdale",
             "coracoïde",
-            "glénoïdale"
+            "sternale",
+            "acromiale"
           ],
-          "bonne": 0,
+          "bonne": 3,
           "expl": "Extrémité latérale = acromiale (vers l'acromion de la scapula). Extrémité médiale = sternale (vers le sternum). Coracoïde et glénoïdale ne sont pas des extrémités de la clavicule.",
           "slide": 199
         },
@@ -3816,12 +3816,12 @@
           "id": "q6-03",
           "q": "Le radius est l'os ... de l'avant-bras.",
           "choix": [
-            "latéral",
-            "médial",
             "postérieur",
-            "antérieur"
+            "latéral",
+            "antérieur",
+            "médial"
           ],
-          "bonne": 0,
+          "bonne": 1,
           "expl": "Le radius est latéral, l'ulna est médial. C'est la confusion la plus fréquente sur l'avant-bras.",
           "slide": 210
         },
@@ -3829,12 +3829,12 @@
           "id": "q6-04",
           "q": "L'articulation radio-carpienne (le poignet) est formée par le radius et 2 os du carpe. Lesquels ?",
           "choix": [
-            "le scaphoïde et le lunatum",
             "le scaphoïde et l'ulna",
-            "l'ulna et le lunatum",
-            "le scaphoïde, le lunatum et l'ulna"
+            "le scaphoïde, le lunatum et l'ulna",
+            "le scaphoïde et le lunatum",
+            "l'ulna et le lunatum"
           ],
-          "bonne": 0,
+          "bonne": 2,
           "expl": "Radius + scaphoïde + lunatum. L'ulna ne participe PAS directement à l'articulation radio-carpienne — piège fréquent.",
           "slide": 222
         },
@@ -3842,12 +3842,12 @@
           "id": "q6-05",
           "q": "Le mouvement de prono-supination de l'avant-bras se fait grâce à quelle articulation, de quel type ?",
           "choix": [
-            "la radio-ulnaire proximale, trochoïde",
-            "la huméro-ulnaire, ginglyme",
             "la huméro-radiale, sphéroïde",
-            "la scapulo-humérale, sphéroïde"
+            "la scapulo-humérale, sphéroïde",
+            "la huméro-ulnaire, ginglyme",
+            "la radio-ulnaire proximale, trochoïde"
           ],
-          "bonne": 0,
+          "bonne": 3,
           "expl": "Seule l'articulation radio-ulnaire proximale (trochoïde) permet la prono-supination. Les articulations huméro-ulnaire et huméro-radiale ne permettent que la flexion-extension.",
           "slide": 218,
           "plan": "transversal"
@@ -3856,12 +3856,12 @@
           "id": "q6-06",
           "q": "La main compte 27 os. Comment se répartissent-ils ?",
           "choix": [
-            "8 carpiens, 5 métacarpiens, 14 phalanges",
             "7 carpiens, 5 métacarpiens, 15 phalanges",
+            "8 carpiens, 5 métacarpiens, 14 phalanges",
             "8 carpiens, 6 métacarpiens, 13 phalanges",
             "8 carpiens, 5 métacarpiens, 15 phalanges"
           ],
-          "bonne": 0,
+          "bonne": 1,
           "expl": "8 (carpe) + 5 (métacarpe) + 14 (phalanges : 3 par doigt sauf le pouce qui n'en a que 2, soit 3×4+2=14) = 27.",
           "slide": 221
         },
@@ -3871,8 +3871,8 @@
           "choix": [
             "l'acromion",
             "la clavicule",
-            "l'épine de la scapula",
-            "le processus coracoïde"
+            "le processus coracoïde",
+            "l'épine de la scapula"
           ],
           "bonne": 0,
           "expl": "Faisceau supérieur → clavicule ; faisceau intermédiaire → acromion ; faisceau inférieur → épine de la scapula.",
@@ -3882,12 +3882,12 @@
           "id": "q6-08",
           "q": "Le faisceau acromial (intermédiaire) du deltoïde est...",
           "choix": [
-            "abducteur du bras",
-            "fléchisseur et rotateur médial du bras",
+            "adducteur du bras",
             "extenseur et rotateur latéral du bras",
-            "adducteur du bras"
+            "fléchisseur et rotateur médial du bras",
+            "abducteur du bras"
           ],
-          "bonne": 0,
+          "bonne": 3,
           "expl": "Le faisceau acromial est abducteur du bras — c'est ce mouvement, dans le plan frontal, qui donne au deltoïde son rôle le plus connu. Le faisceau claviculaire est fléchisseur/rotateur médial, le faisceau épineux est extenseur/rotateur latéral.",
           "slide": 247,
           "plan": "frontal"
@@ -3909,12 +3909,12 @@
           "id": "q6-10",
           "q": "Quels sont les 4 muscles de la coiffe des rotateurs ?",
           "choix": [
-            "supra-épineux, infra-épineux, petit rond, subscapulaire",
-            "supra-épineux, infra-épineux, deltoïde, subscapulaire",
             "supra-épineux, infra-épineux, grand rond, subscapulaire",
-            "deltoïde, infra-épineux, petit rond, grand rond"
+            "deltoïde, infra-épineux, petit rond, grand rond",
+            "supra-épineux, infra-épineux, deltoïde, subscapulaire",
+            "supra-épineux, infra-épineux, petit rond, subscapulaire"
           ],
-          "bonne": 0,
+          "bonne": 3,
           "expl": "La coiffe des rotateurs, ce sont le supra-épineux, l'infra-épineux, le petit rond et le subscapulaire. Le deltoïde et le grand rond n'en font PAS partie : c'est le piège le plus fréquent sur cette notion.",
           "slide": 251
         },
@@ -3922,12 +3922,12 @@
           "id": "q6-11",
           "q": "Le biceps brachial a 2 chefs. Où est l'origine de chacun ?",
           "choix": [
-            "chef long : tubercule supra-glénoïdal ; chef court : processus coracoïde",
-            "chef long : processus coracoïde ; chef court : tubercule supra-glénoïdal",
             "chef long : tubercule infra-glénoïdal ; chef court : processus coracoïde",
-            "chef long et chef court : tubercule supra-glénoïdal"
+            "chef long et chef court : tubercule supra-glénoïdal",
+            "chef long : tubercule supra-glénoïdal ; chef court : processus coracoïde",
+            "chef long : processus coracoïde ; chef court : tubercule supra-glénoïdal"
           ],
-          "bonne": 0,
+          "bonne": 2,
           "expl": "Chef long → tubercule supra-glénoïdal ; chef court → processus coracoïde. Les deux se terminent sur la tubérosité radiale.",
           "slide": 255
         },
@@ -3935,12 +3935,12 @@
           "id": "q6-12",
           "q": "Parmi les 3 chefs du triceps brachial, lequel est aussi adducteur et agent de la rétropulsion du bras (en plus d'être extenseur de l'avant-bras) ?",
           "choix": [
-            "le chef long",
+            "les 3 chefs à égalité",
             "le chef médial",
-            "le chef latéral",
-            "les 3 chefs à égalité"
+            "le chef long",
+            "le chef latéral"
           ],
-          "bonne": 0,
+          "bonne": 2,
           "expl": "Le chef long, seul, part du tubercule infra-glénoïdal (donc de la scapula) : il agit aussi sur le bras (adducteur, rétropulsion). Les chefs médial et latéral partent de l'humérus et n'agissent que sur l'avant-bras.",
           "slide": 261
         }
@@ -4847,12 +4847,12 @@
           "id": "q7-01",
           "q": "Parmi les 4 chefs du quadriceps, lequel est aussi fléchisseur de la cuisse, en plus d'être extenseur du genou ?",
           "choix": [
-            "le droit fémoral",
-            "le vaste latéral",
             "le vaste médial",
-            "le vaste intermédiaire"
+            "le droit fémoral",
+            "le vaste intermédiaire",
+            "le vaste latéral"
           ],
-          "bonne": 0,
+          "bonne": 1,
           "expl": "Seul le droit fémoral s'origine sur l'os coxal (épine iliaque antéro-inférieure) : il franchit la hanche, donc il la fléchit aussi. Les 3 vastes s'originent directement sur le fémur et n'agissent que sur le genou.",
           "slide": 311,
           "plan": "sagittal"
@@ -4861,12 +4861,12 @@
           "id": "q7-02",
           "q": "Quelle est la terminaison du biceps fémoral, différente de celle du semi-tendineux et du semi-membraneux ?",
           "choix": [
+            "le calcanéus",
             "la tête de la fibula",
-            "la patte d'oie",
             "le plateau tibial",
-            "le calcanéus"
+            "la patte d'oie"
           ],
-          "bonne": 0,
+          "bonne": 1,
           "expl": "Le biceps fémoral se termine sur la tête de la fibula (côté latéral) ; le semi-tendineux à la patte d'oie, le semi-membraneux sur le plateau tibial (tous deux médiaux).",
           "slide": 320
         },
@@ -4874,12 +4874,12 @@
           "id": "q7-03",
           "q": "Parmi les ischio-jambiers, quel est le seul qui se termine à la patte d'oie ?",
           "choix": [
-            "le semi-tendineux",
-            "le semi-membraneux",
+            "aucun : ils se terminent tous à la tête de la fibula",
             "le biceps fémoral",
-            "aucun : ils se terminent tous à la tête de la fibula"
+            "le semi-tendineux",
+            "le semi-membraneux"
           ],
-          "bonne": 0,
+          "bonne": 2,
           "expl": "Semi-tendineux → patte d'oie. Semi-membraneux → plateau tibial. Biceps fémoral → tête de la fibula. Trois terminaisons différentes pour une même origine et les mêmes actions.",
           "slide": 320
         },
@@ -4888,8 +4888,8 @@
           "q": "La patte d'oie est le point de terminaison commun de 3 muscles. Lesquels ?",
           "choix": [
             "sartorius, gracile, semi-tendineux",
-            "sartorius, gracile, semi-membraneux",
             "sartorius, long adducteur, semi-tendineux",
+            "sartorius, gracile, semi-membraneux",
             "gracile, semi-tendineux, biceps fémoral"
           ],
           "bonne": 0,
@@ -4901,9 +4901,9 @@
           "q": "Pourquoi le gastrocnémien est-il fléchisseur de la jambe, alors que le soléaire ne l'est pas ?",
           "choix": [
             "il s'origine sur le fémur et franchit donc le genou",
-            "il s'origine sur le tibia et la fibula",
             "il se termine plus haut que le soléaire",
-            "il a 2 chefs alors que le soléaire n'en a qu'un"
+            "il a 2 chefs alors que le soléaire n'en a qu'un",
+            "il s'origine sur le tibia et la fibula"
           ],
           "bonne": 0,
           "expl": "Le gastrocnémien s'origine sur les condyles médial et latéral du fémur : il franchit le genou, donc il le fléchit. Le soléaire s'origine sur le tibia et la fibula, sous le genou : il ne peut agir que sur la cheville.",
@@ -4914,8 +4914,8 @@
           "q": "La ceinture pelvienne compte 4 articulations. Lesquelles ?",
           "choix": [
             "symphyse pubienne + 2 sacro-iliaques + sacro-coccygienne",
-            "symphyse pubienne + 2 sacro-iliaques + coxo-fémorale",
             "2 sacro-iliaques + 2 coxo-fémorales",
+            "symphyse pubienne + 2 sacro-iliaques + coxo-fémorale",
             "symphyse pubienne + sacro-coccygienne + coxo-fémorale"
           ],
           "bonne": 0,
@@ -4926,12 +4926,12 @@
           "id": "q7-07",
           "q": "Quelles sont les 3 parties de l'os coxal, dans la nomenclature actuelle ?",
           "choix": [
+            "ilium, ischium, sacrum",
             "ilium, ischium, pubis",
             "ilion, ischion, pubis",
-            "ilium, ischion, pubis",
-            "ilium, ischium, sacrum"
+            "ilium, ischion, pubis"
           ],
-          "bonne": 0,
+          "bonne": 1,
           "expl": "Ilium, ischium et pubis (nomenclature actuelle). Ilion et ischion sont les anciens noms d'ilium et ischium — seul pubis n'a pas changé. Le sacrum n'est pas une partie de l'os coxal.",
           "slide": 278
         },
@@ -4939,12 +4939,12 @@
           "id": "q7-08",
           "q": "Le pied compte 26 os. Comment se répartissent-ils ?",
           "choix": [
-            "7 tarsiens, 5 métatarsiens, 14 phalanges",
             "8 tarsiens, 5 métatarsiens, 13 phalanges",
             "7 tarsiens, 6 métatarsiens, 13 phalanges",
+            "7 tarsiens, 5 métatarsiens, 14 phalanges",
             "7 tarsiens, 5 métatarsiens, 15 phalanges"
           ],
-          "bonne": 0,
+          "bonne": 2,
           "expl": "7 (tarse) + 5 (métatarse) + 14 (phalanges : 3 par orteil sauf le gros orteil qui n'en a que 2, soit 3×4+2=14) = 26.",
           "slide": 294
         },
@@ -4952,12 +4952,12 @@
           "id": "q7-09",
           "q": "Quelle articulation du membre inférieur est la plus sujette aux entorses ?",
           "choix": [
-            "l'articulation talo-crurale (la cheville)",
-            "l'articulation tibio-fémorale (le genou)",
+            "l'articulation sacro-iliaque",
             "l'articulation coxo-fémorale (la hanche)",
-            "l'articulation sacro-iliaque"
+            "l'articulation tibio-fémorale (le genou)",
+            "l'articulation talo-crurale (la cheville)"
           ],
-          "bonne": 0,
+          "bonne": 3,
           "expl": "L'articulation de la cheville (talo-crurale), qui unit le tibia et la fibula au talus, est la plus sujette aux entorses du membre inférieur.",
           "slide": 295
         },
@@ -4965,12 +4965,12 @@
           "id": "q7-10",
           "q": "Sur quelle structure se termine le tenseur du fascia lata ?",
           "choix": [
-            "le tractus ilio-tibial (jusqu'au plateau tibial latéral)",
-            "la patte d'oie",
             "la tête de la fibula",
-            "le grand trochanter du fémur"
+            "le tractus ilio-tibial (jusqu'au plateau tibial latéral)",
+            "le grand trochanter du fémur",
+            "la patte d'oie"
           ],
-          "bonne": 0,
+          "bonne": 1,
           "expl": "Le tenseur du fascia lata se termine sur le tractus ilio-tibial, qui rejoint le plateau tibial latéral — à ne pas confondre avec la patte d'oie (sartorius, gracile, semi-tendineux), un point de terminaison différent et médial.",
           "slide": 303
         },
@@ -4979,9 +4979,9 @@
           "q": "Parmi les adducteurs de la cuisse, lequel est aussi fléchisseur et rotateur médial de la cuisse, en plus d'être adducteur ?",
           "choix": [
             "le long adducteur",
-            "le court adducteur",
+            "le pectiné",
             "le grand adducteur",
-            "le pectiné"
+            "le court adducteur"
           ],
           "bonne": 0,
           "expl": "Le long adducteur est adducteur, fléchisseur ET rotateur médial de la cuisse. Le court et le grand adducteur ne sont qu'adducteurs. Le pectiné est cité dans ce groupe mais le cours ne détaille pas ses actions.",
@@ -4992,12 +4992,12 @@
           "id": "q7-12",
           "q": "L'articulation coxo-fémorale (la hanche) est formée par quels 2 éléments ?",
           "choix": [
-            "l'acétabulum de l'os coxal et la tête fémorale",
+            "le foramen obturé et la tête fémorale",
             "l'acétabulum de l'os coxal et le grand trochanter",
-            "la fosse iliaque et la tête fémorale",
-            "le foramen obturé et la tête fémorale"
+            "l'acétabulum de l'os coxal et la tête fémorale",
+            "la fosse iliaque et la tête fémorale"
           ],
-          "bonne": 0,
+          "bonne": 2,
           "expl": "L'os coxal s'articule latéralement avec le fémur au niveau de l'acétabulum, qui reçoit la tête fémorale.",
           "slide": 277
         }

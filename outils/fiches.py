@@ -15,7 +15,6 @@ sections d'exercice, uniquement dans la section corrige en fin de document.
 """
 
 import html
-import json
 import re
 import sys
 from pathlib import Path
@@ -28,8 +27,18 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 #   lui retire seulement la couche de texte (voir _rendre_planche_muette).
 # - _rendre_volet("muscles", ...) produit la table de reference complete,
 #   valeurs visibles : exactement ce qu'il faut pour le corrige.
-# - _src produit le renvoi "slide N" / "[hors cours]", identique partout.
-from outils.construire import _rendre_planche, _rendre_volet, _src  # noqa: E402
+# - _src produit le renvoi "slide N" / "slides N et M" / "[hors cours]", identique
+#   partout.
+# - charger_cours lit cours.json ET melange les choix des QCM (meme permutation que
+#   le site, derivee de l'identifiant de la question) : la fiche imprimee pose les
+#   memes questions dans le meme ordre que le site, et son corrige designe la bonne
+#   reponse dans cet ordre-la.
+from outils.construire import (  # noqa: E402
+    _rendre_planche,
+    _rendre_volet,
+    _src,
+    charger_cours,
+)
 
 # Un <text class="pastille__t" ...>Libelle</text> genere par _rendre_planche.
 # html.escape() empeche tout "<" litteral dans Libelle : le "." non-greedy ne
@@ -39,7 +48,7 @@ _RE_LIBELLE_PASTILLE = re.compile(r'<text class="pastille__t"[^>]*>.*?</text>')
 
 def construire_fiches(racine: Path) -> list[Path]:
     racine = Path(racine)
-    cours = json.loads((racine / "contenu" / "cours.json").read_text(encoding="utf-8"))
+    cours = charger_cours(racine)
     gabarit = (racine / "gabarits" / "fiche.html").read_text(encoding="utf-8")
 
     sortie = racine / "site" / "pdf"

@@ -19,7 +19,8 @@ Ce module ne reecrit ni le contenu ni la logique : il POST-TRAITE la sortie
 de outils/construire.py (site/) en trois transformations, chacune documentee
 sur sa fonction :
   a) _fondre_modules   -- fond les cinq modules ES en un seul script classique
-  b) _donnees_cours    -- embarque contenu/cours.json en variable globale
+  b) _donnees_cours    -- embarque contenu/cours.json (QCM melanges, comme dans
+                          site/) en variable globale
   c) _rendre_reservoir -- remplace le fetch de chapitre-N.html par un clone
                           local depuis un reservoir cache injecte dans
                           index.html
@@ -49,7 +50,12 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 # carte/question/planche/table musculaire -- l'identite de rendu est garantie
 # par l'appel a la meme fonction, jamais par une resynchronisation a la main
 # entre deux gabarits.
-from outils.construire import EXERCICES, construire, _rendre_volet  # noqa: E402
+from outils.construire import (  # noqa: E402
+    EXERCICES,
+    _rendre_volet,
+    charger_cours,
+    construire,
+)
 
 # Ordre de dependance des modules ES de site/assets/ (verifie par lecture des
 # `import` de chaque fichier) : planificateur, stockage et exercices n'ont
@@ -139,7 +145,9 @@ def empaqueter(racine: Path) -> list[Path]:
     construire(racine)
 
     site = racine / "site"
-    cours = json.loads((racine / "contenu" / "cours.json").read_text(encoding="utf-8"))
+    # Les QCM melanges, comme dans site/ : cours-data.js (qui donne `bonne`) et le
+    # reservoir (qui donne l'ordre des boutons) doivent parler du meme ordre.
+    cours = charger_cours(racine)
 
     sortie = racine / "site-autonome"
     if sortie.exists():
@@ -324,7 +332,8 @@ def _adapter_interface(corps: str) -> str:
 
 
 def _donnees_cours(cours: dict) -> str:
-    """(b) contenu/cours.json, embarque en variable globale.
+    """(b) contenu/cours.json (choix des QCM deja melanges par
+    construire.charger_cours), embarque en variable globale.
 
     ensure_ascii=True : ce fichier est charge comme script CLASSIQUE, sans
     metadonnee d'encodage propre (a la difference d'un document HTML, qui

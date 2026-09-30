@@ -117,6 +117,34 @@ ou « slides 309, 316 et 320 », toujours dans l'ordre croissant (`outils/constr
 à un entier n'ont pas à changer. Un code qui lit ce champ passe par
 `contenu.schema.slides_de`, qui rend toujours une liste, plutôt que de tester le type.
 
+## Ordre des choix des QCM
+
+`contenu/cours.json` écrit chaque question dans l'ordre de l'auteur ; **l'ordre affiché est
+mélangé à la construction**, pas dans le JSON. Sans cela, la bonne réponse était en position
+A dans 50 des 82 questions : cocher A sans lire rapportait 61 % (25 % au hasard), et la
+personne finit par répondre juste par reconnaissance de position, sans rappel en mémoire.
+
+- **Déterministe** : la permutation ne dépend que de l'identifiant de la question (`q3-07`)
+  et de `GRAINE_MELANGE`, par SHA-256 (`permutation_choix`). Pas de `random`, pas de `hash()`,
+  pas d'horloge : même contenu, mêmes pages. Retoucher un choix ou ajouter une question ne
+  déplace aucune autre question.
+- **`bonne` suit la permutation** : `melanger_question` permute `choix` et recalcule `bonne`
+  ensemble. Le DOM (`data-index`) et `assets/cours.json` (`bonne`, lu par `interface.js`)
+  parlent ainsi du même ordre.
+- **Une seule porte d'entrée** : `charger_cours(racine)` lit `cours.json` et mélange une fois.
+  `construire.py`, `fiches.py` et `empaqueter.py` en partent : la fiche PDF pose les mêmes
+  questions dans le même ordre que le site, son corrigé marque la bonne réponse dans cet
+  ordre. Ne pas rappeler `melanger_cours` sur des données déjà mélangées (non idempotent).
+  Changer `GRAINE_MELANGE` change **tous** les ordres : regénérer alors les PDF.
+- **Une explication ne désigne jamais un choix par son rang** (« la première option ») : après
+  mélange, il n'y a plus de première option. Le nommer par son contenu ;
+  `tests/test_melange_choix.py` refuse la formule.
+
+Vérifications : `tests/test_melange_choix.py` (index, DOM, `cours.json`, fiches, PDF,
+répartition sous 40 % par position) et `tests/test_qcm_navigateur.py` (chaque question
+répondue juste et fausse dans Chrome, sur les trois chemins : page de chapitre, séance du
+jour, variante autonome).
+
 ## Où vivent la spec et les plans
 
 - **Spec de conception** : `docs/superpowers/specs/2026-09-18-site-revision-anatomie-design.md`

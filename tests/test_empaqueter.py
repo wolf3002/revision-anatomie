@@ -21,6 +21,7 @@ from pathlib import Path
 RACINE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RACINE))
 
+from outils.construire import charger_cours  # noqa: E402
 from outils.empaqueter import empaqueter  # noqa: E402
 
 COURS = json.loads((RACINE / "contenu" / "cours.json").read_text(encoding="utf-8"))
@@ -145,7 +146,10 @@ def test_les_donnees_du_cours_sont_completes_et_fideles():
     m = re.search(r"window\.COURS_JSON = (.*);\s*$", COURS_DATA_JS, re.DOTALL)
     assert m, "assets/cours-data.js ne pose pas window.COURS_JSON"
     cours_embarque = json.loads(m.group(1))
-    assert cours_embarque == COURS
+    # Le contenu, choix des QCM melanges (construire.charger_cours) : c'est ce que
+    # donne `bonne`, et il doit parler du meme ordre que les boutons du reservoir. Le
+    # melange lui-meme est verifie dans tests/test_melange_choix.py.
+    assert cours_embarque == charger_cours(RACINE)
     assert len(cours_embarque["chapitres"]) == 7
 
 

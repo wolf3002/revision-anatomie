@@ -435,7 +435,7 @@
             "Quand il est situé sur la ligne médiane et que les deux parties sont symétriques et égales"
           ],
           "bonne": 3,
-          "expl": "Le cours réserve « médian » à un cas particulier : sur la ligne médiane, avec deux parties symétriques et égales. La première option décrit n'importe quel plan sagittal — et c'est exactement la confusion visée : tout plan sagittal sépare une droite d'une gauche, sans que les deux moitiés soient égales. Les deux autres options ne sont pas des inventions : ce sont les divisions des plans voisins, supérieure / inférieure pour le transversal, antérieure / postérieure pour le frontal.",
+          "expl": "Le cours réserve « médian » à un cas particulier : sur la ligne médiane, avec deux parties symétriques et égales. « Dès qu'il sépare une partie droite d'une partie gauche » décrit n'importe quel plan sagittal — et c'est exactement la confusion visée : tout plan sagittal sépare une droite d'une gauche, sans que les deux moitiés soient égales. Les deux autres options ne sont pas des inventions : ce sont les divisions des plans voisins, supérieure / inférieure pour le transversal, antérieure / postérieure pour le frontal.",
           "slide": 22,
           "plan": "sagittal"
         },
@@ -504,7 +504,7 @@
             "Immobile : c'est l'ulna qui tourne autour de lui"
           ],
           "bonne": 0,
-          "expl": "En supination — rotation latérale de l'avant-bras — le radius est parallèle à l'ulna. Le radius croisé sur l'ulna décrit la pronation : l'erreur consiste à inverser le couple, ce qui est la faute la plus fréquente sur cette slide. La troisième option est plus retorse, car elle garde la bonne image du croisement mais attribue le mouvement au mauvais os ; le cours consacre une slide entière à l'écarter (slide 34) : pronation et supination ne désignent que des mouvements du radius autour de l'ulna.",
+          "expl": "En supination — rotation latérale de l'avant-bras — le radius est parallèle à l'ulna. Le radius croisé sur l'ulna décrit la pronation : l'erreur consiste à inverser le couple, ce qui est la faute la plus fréquente sur cette slide. L'option « Immobile : c'est l'ulna qui tourne autour de lui » est plus retorse, car elle garde la bonne image du croisement mais attribue le mouvement au mauvais os ; le cours consacre une slide entière à l'écarter (slide 34) : pronation et supination ne désignent que des mouvements du radius autour de l'ulna.",
           "slide": 33,
           "plan": "transversal"
         },
@@ -1055,7 +1055,7 @@
             "Rigidité et élasticité proviennent toutes deux des composants minéraux"
           ],
           "bonne": 1,
-          "expl": "Le cours est explicite : rigidité par les composants minéraux (environ 2/3), élasticité par les composants organiques (1/3). La première option inverse exactement ce couple — l'erreur la plus fréquente sur cette slide. La troisième option nie la dualité que le cours souligne lui-même en expliquant pourquoi les deux propriétés, venant de deux composants différents, sont nécessaires (sinon l'os serait cassant ou déformable).",
+          "expl": "Le cours est explicite : rigidité par les composants minéraux (environ 2/3), élasticité par les composants organiques (1/3). Inverser ce couple (rigidité aux composants organiques, élasticité aux composants minéraux) est l'erreur la plus fréquente sur cette slide. Faire venir la rigidité et l'élasticité des seuls composants minéraux nie la dualité que le cours souligne lui-même en expliquant pourquoi les deux propriétés, venant de deux composants différents, sont nécessaires (sinon l'os serait cassant ou déformable).",
           "slide": 54
         },
         {
@@ -2256,7 +2256,7 @@
             "Le sarcolemme puis l'épimysium"
           ],
           "bonne": 2,
-          "expl": "Le cours le dit explicitement : l'endomysium recouvre la fibre musculaire, elle-même recouverte par une deuxième membrane, le sarcolemme. Les deux autres distracteurs mélangent des niveaux : épimysium et périmysium appartiennent au muscle entier et au faisceau, pas à la fibre ; le troisième associe deux extrêmes de l'emboîtement (fibre et muscle entier).",
+          "expl": "Le cours le dit explicitement : l'endomysium recouvre la fibre musculaire, elle-même recouverte par une deuxième membrane, le sarcolemme. Les autres distracteurs mélangent des niveaux : épimysium et périmysium appartiennent au muscle entier et au faisceau, pas à la fibre ; « Le sarcolemme puis l'épimysium » associe deux extrêmes de l'emboîtement (fibre et muscle entier).",
           "slide": 117
         },
         {
@@ -2295,7 +2295,7 @@
             "Myosine et troponine, toutes deux fines"
           ],
           "bonne": 1,
-          "expl": "La myosine est le filament épais, l'actine le filament fin : le cours le précise explicitement entre parenthèses. Le premier distracteur inverse les deux ; les deux derniers introduisent la tropomyosine et la troponine (vues sur le schéma du glissement des filaments), qui ne sont pas les deux myofilaments contractiles nommés par le cours.",
+          "expl": "La myosine est le filament épais, l'actine le filament fin : le cours le précise explicitement entre parenthèses. Le distracteur « Actine (épais) et myosine (fin) » inverse les deux ; les deux autres introduisent la tropomyosine et la troponine (vues sur le schéma du glissement des filaments), qui ne sont pas les deux myofilaments contractiles nommés par le cours.",
           "slide": 119
         },
         {
